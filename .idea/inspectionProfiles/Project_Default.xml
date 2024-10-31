@@ -1,0 +1,106 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="57" name="Python" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="56">
+            <item index="0" class="java.lang.String" itemvalue="static" />
+            <item index="1" class="java.lang.String" itemvalue="uk-grid" />
+            <item index="2" class="java.lang.String" itemvalue="uk-navbar" />
+            <item index="3" class="java.lang.String" itemvalue="hx-get" />
+            <item index="4" class="java.lang.String" itemvalue="hx-target" />
+            <item index="5" class="java.lang.String" itemvalue="hx-push-url" />
+            <item index="6" class="java.lang.String" itemvalue="hx-swap" />
+            <item index="7" class="java.lang.String" itemvalue="hx-post" />
+            <item index="8" class="java.lang.String" itemvalue="hx-swap-oob" />
+            <item index="9" class="java.lang.String" itemvalue="hx-trigger" />
+            <item index="10" class="java.lang.String" itemvalue="hx-vars" />
+            <item index="11" class="java.lang.String" itemvalue="hx-indicator" />
+            <item index="12" class="java.lang.String" itemvalue="hx-headers" />
+            <item index="13" class="java.lang.String" itemvalue="hx-delete" />
+            <item index="14" class="java.lang.String" itemvalue="hx-vals" />
+            <item index="15" class="java.lang.String" itemvalue="uk-icon" />
+            <item index="16" class="java.lang.String" itemvalue="x-data" />
+            <item index="17" class="java.lang.String" itemvalue="@add-service.window" />
+            <item index="18" class="java.lang.String" itemvalue="uk-height-viewport" />
+            <item index="19" class="java.lang.String" itemvalue="uk-margin" />
+            <item index="20" class="java.lang.String" itemvalue="uk-form-custom" />
+            <item index="21" class="java.lang.String" itemvalue="hx-select" />
+            <item index="22" class="java.lang.String" itemvalue="uk-lightbox" />
+            <item index="23" class="java.lang.String" itemvalue="uk-totop" />
+            <item index="24" class="java.lang.String" itemvalue="uk-scroll" />
+            <item index="25" class="java.lang.String" itemvalue="uk-tooltip" />
+            <item index="26" class="java.lang.String" itemvalue="tm-header-transparent" />
+            <item index="27" class="java.lang.String" itemvalue="uk-close" />
+            <item index="28" class="java.lang.String" itemvalue="uk-alert" />
+            <item index="29" class="java.lang.String" itemvalue="hx-boosted" />
+            <item index="30" class="java.lang.String" itemvalue="uk-search-icon" />
+            <item index="31" class="java.lang.String" itemvalue="uk-sticky" />
+            <item index="32" class="java.lang.String" itemvalue="uk-switcher" />
+            <item index="33" class="java.lang.String" itemvalue="uk-accordion" />
+            <item index="34" class="java.lang.String" itemvalue="uk-modal" />
+            <item index="35" class="java.lang.String" itemvalue="uk-toggle" />
+            <item index="36" class="java.lang.String" itemvalue="hx-post-swap" />
+            <item index="37" class="java.lang.String" itemvalue="_" />
+            <item index="38" class="java.lang.String" itemvalue="hx-confirm" />
+            <item index="39" class="java.lang.String" itemvalue="hx-on" />
+            <item index="40" class="java.lang.String" itemvalue="uk-spinner" />
+            <item index="41" class="java.lang.String" itemvalue="uk-scrollspy" />
+            <item index="42" class="java.lang.String" itemvalue="hx-boost" />
+            <item index="43" class="java.lang.String" itemvalue="uk-header" />
+            <item index="44" class="java.lang.String" itemvalue="uk-svg" />
+            <item index="45" class="java.lang.String" itemvalue="uk-offcanvas" />
+            <item index="46" class="java.lang.String" itemvalue="hx-params" />
+            <item index="47" class="java.lang.String" itemvalue="animation" />
+            <item index="48" class="java.lang.String" itemvalue="show-on-up" />
+            <item index="49" class="java.lang.String" itemvalue="sel-target" />
+            <item index="50" class="java.lang.String" itemvalue="cls-active" />
+            <item index="51" class="java.lang.String" itemvalue="uk-navbar-toggle-icon" />
+            <item index="52" class="java.lang.String" itemvalue="uk-height-match" />
+            <item index="53" class="java.lang.String" itemvalue="uk-drop" />
+            <item index="54" class="java.lang.String" itemvalue="hx-on::after-request" />
+            <item index="55" class="java.lang.String" itemvalue="uk-slider" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="7">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="hr" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="JSUnusedAssignment" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnusedGlobalSymbols" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnusedLocalSymbols" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N802" />
+          <option value="N801" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="TypeScriptUnresolvedReference" enabled="true" level="ERROR" enabled_by_default="false">
+      <scope name="Project Files" level="ERROR" enabled="true" />
+    </inspection_tool>
+  </profile>
+</component>
