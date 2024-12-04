@@ -1,11 +1,16 @@
+'use client'
 import {ReactNode} from "react";
-import {ThemeProvider} from "@/providers/theme-provider";
+import {AuthProvider} from "@/providers/AuthProvider";
+import {QueryProvider} from "@/providers/QueryProvider";
 
-export default function RootProvider({ children }: { children: ReactNode }) {
+
+export default function RootProvider({children}: { children: ReactNode }) {
 
     return (
-        <ThemeProvider>
-            {children}
-        </ThemeProvider>
+        <QueryProvider>
+            <AuthProvider>
+                {children}
+            </AuthProvider>
+        </QueryProvider>
     );
 }

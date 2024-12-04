@@ -1,0 +1,34 @@
+import { User } from '@/types/user';
+import apiClient from "@/lib/auth/client";
+
+export const authApi = {
+  retrieveUser: () => apiClient.get<User>('/users/me/'),
+
+  login: (email: string, password: string) =>
+    apiClient.post('/jwt/create/', { email, password }),
+
+  register: (userData: {
+    email: string;
+    password: string;
+    re_password: string;
+  }) => apiClient.post('/users/', userData),
+
+  verify: () => apiClient.post('/jwt/verify/'),
+
+  refreshToken: () => apiClient.post('/jwt/refresh/'),
+
+  logout: () => apiClient.post('/logout/'),
+
+  activation: (uid: string, token: string) =>
+    apiClient.post('/users/activation/', { uid, token }),
+
+  resetPassword: (email: string) =>
+    apiClient.post('/users/reset_password/', { email }),
+
+  resetPasswordConfirm: (data: {
+    uid: string;
+    token: string;
+    new_password: string;
+    re_new_password: string;
+  }) => apiClient.post('/users/reset_password_confirm/', data),
+};
