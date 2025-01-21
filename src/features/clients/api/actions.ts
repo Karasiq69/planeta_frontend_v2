@@ -9,6 +9,6 @@ export const getAllClientsListFn = async (params: ClientListParams): Promise<Cli
         });
         return res.data;
     } catch (e) {
-        throw new Error('Failed to fetch clients');
+        throw new Error('Failed to fetch clients', e);
     }
 }
