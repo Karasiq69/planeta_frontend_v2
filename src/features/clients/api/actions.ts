@@ -1,11 +1,10 @@
 "use server"
-import axios from "axios";
 import {ClientListParams, ClientListResponse} from "@/features/clients/types/params";
+import apiClient from "@/lib/auth/client";
 
 export const getAllClientsListFn = async (params: ClientListParams): Promise<ClientListResponse> => {
     try {
-        const res = await axios.get<ClientListResponse>(`http://localhost:8000/api/clients/`, {
-            withCredentials: true,
+        const res = await apiClient.get<ClientListResponse>(`/clients`, {
             params
         });
         return res.data;
