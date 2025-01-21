@@ -1,12 +1,7 @@
-import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient,} from '@tanstack/react-query';
 import {useRouter} from 'next/navigation';
 import {toast} from 'sonner';
 import {authApi} from "@/lib/auth/auth";
-import apiClient from "@/lib/auth/client";
 
 export function useUser() {
     return useQuery({
@@ -25,11 +20,11 @@ export function useLogin() {
             authApi.login(credentials.email, credentials.password),
         onSuccess: (data) => {
             queryClient.invalidateQueries({queryKey: ['user']});
-            router.push('/todo')
-            toast.success('Log in successfully!')
+            router.push('/dashboard')
+            toast.success('Вход совершен успешно.')
         },
         onError: (error) => {
-            toast.error('Login failed');
+            toast.error('Ошибка авторизации');
         },
     });
 }
@@ -59,7 +54,6 @@ export function useSignUp() {
             re_password: string;
         }) => authApi.register(userData),
         onSuccess: (data, variables, context) => {
-            console.log('DATAAA', variables)
             authApi.login(variables.email, variables.password)
             queryClient.invalidateQueries({queryKey: ['user']});
             queryClient.invalidateQueries({queryKey: ['todos']});

@@ -1,28 +1,22 @@
-import {Metadata} from 'next';
-import {LoginForm} from '@/components/login-form';
+import {LoginForm} from "@/components/login-form";
+import Logo from "@/components/common/Logo";
 
-export const metadata: Metadata = {
-  title: 'TodoApp',
-  description: 'App with NextJS.',
-};
+export default function LoginPage() {
+    return (
+        <>
+            <main className={`bg-[url('/img/MB-Pattern-612efe57.webp')] w-full bg-cover bg-center bg-no-repeat`}>
+                <div className="flex h-svh flex-col items-center justify-center">
+                    <div className="mx-auto flex w-full flex-col justify-center space-y-6  ">
+                        <div className="flex flex-col space-y-2 text-center items-center">
+                            <Logo/>
+                        </div>
+                        <div className={'sm:w-[350px] mx-auto'}>
+                            <LoginForm/>
+                        </div>
 
-export default function AuthenticationPage() {
-  return (
-      <>
-        <div className="flex h-svh   flex-col items-center justify-center">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6  ">
-            <div className="flex flex-col space-y-2 text-center">
-
-              <h1 className="text-2xl font-semibold tracking-tight">
-                Добро пожаловать
-              </h1>
-            </div>
-            <div className={'sm:w-[350px] mx-auto'}>
-              <LoginForm/>
-            </div>
-
-          </div>
-        </div>
-      </>
-  );
+                    </div>
+                </div>
+            </main>
+        </>
+    );
 }

@@ -28,6 +28,9 @@ const formSchema = z.object({
     email: z.string().email({
         message: 'Пожалуйста, введите корректный email адрес.',
     }),
+    username: z.string({
+        message: 'Пожалуйста, введите корректный username.',
+    }),
     password: z.string().min(6, {
         message: 'Пароль должен содержать минимум 6 символов.',
     }),
@@ -46,6 +49,7 @@ export function SignUpForm() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: '',
+            username: '',
             password: '',
             re_password: '',
         },
@@ -81,6 +85,20 @@ export function SignUpForm() {
                                     <FormLabel className="text-base">Email</FormLabel>
                                     <FormControl>
                                         <Input placeholder="m@example.com" {...field} className="h-11"/>
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+
+                            name="username"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel className="text-base">Username</FormLabel>
+                                    <FormControl>
+                                        <Input type={'text'} placeholder="bob2012" {...field} className="h-11"/>
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>

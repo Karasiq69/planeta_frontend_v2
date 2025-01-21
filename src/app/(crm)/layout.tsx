@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
-import RootProvider from "@/providers/RootProvider";
-
+import Navbar from "@/components/common/navbar/Navbar";
+import {SidebarInset, SidebarProvider,} from "@/components/ui/sidebar"
+import {AppSidebar} from "@/components/common/sidebar/AppSidebar";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -13,14 +14,17 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-        <body
-            className={`antialiased`}
-        >
-        <RootProvider>
-            {children}
-        </RootProvider>
-        </body>
-        </html>
+
+
+        <SidebarProvider>
+            <AppSidebar/>
+            <SidebarInset>
+                <Navbar/>
+                <main className={'flex flex-1 flex-col gap-4 p-4'}>
+                    {children}
+                </main>
+            </SidebarInset>
+        </SidebarProvider>
+
     );
 }

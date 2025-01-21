@@ -1,16 +1,17 @@
 'use client'
-import {ReactNode} from "react";
-import {AuthProvider} from "@/providers/AuthProvider";
-import {QueryProvider} from "@/providers/QueryProvider";
 
+import {QueryProvider} from './QueryProvider';
+import {AuthProvider} from './AuthProvider';
+import {SidebarProvider} from "@/components/ui/sidebar";
 
-export default function RootProvider({children}: { children: ReactNode }) {
-
+export function RootProvider({children}: { children: React.ReactNode }) {
     return (
-        <QueryProvider>
-            <AuthProvider>
-                {children}
-            </AuthProvider>
-        </QueryProvider>
+        <SidebarProvider>
+            <QueryProvider>
+                <AuthProvider>
+                    {children}
+                </AuthProvider>
+            </QueryProvider>
+        </SidebarProvider>
     );
 }

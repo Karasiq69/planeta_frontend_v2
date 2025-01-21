@@ -1,7 +1,7 @@
 type Props = {};
 const Page = (props: Props) => {
     return (
-        <div>Page</div>
+        <div>Page no access</div>
     );
 };
 export default Page;

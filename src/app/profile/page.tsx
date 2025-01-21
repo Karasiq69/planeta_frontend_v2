@@ -7,7 +7,8 @@ const Page = (props: Props) => {
     return (
         <div>
             <h1>Profile</h1>
-            <div>Welcome back, {!isLoading && user?.email}</div>
+            {JSON.stringify(user)}
+            <div>Welcome back, {!isLoading && user?.role}</div>
         </div>
     );
 };

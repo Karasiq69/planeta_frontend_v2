@@ -1,11 +1,5 @@
-import axios, {AxiosError} from 'axios';
+import axios from 'axios';
 import {Mutex} from 'async-mutex';
-
-declare module '@tanstack/react-query' {
-  interface Register {
-    defaultError: AxiosError;
-  }
-}
 
 const mutex = new Mutex();
 const baseURL = process.env.NEXT_PUBLIC_HOST || 'http://localhost:8000';
@@ -26,28 +20,27 @@ apiClient.interceptors.response.use(
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
 
-            if (!mutex.isLocked()) {
-                const release = await mutex.acquire();
-
-                try {
-                    // Send refresh request, refresh token automatically included via cookies
-                    await apiClient.post(
-                        `${baseURL}/api/jwt/refresh/`
-                    );
-
-                    // Retry the original request
-                    return apiClient(originalRequest);
-                } catch (refreshError) {
-                    return Promise.reject(refreshError);
-                } finally {
-                    release();
+            await mutex.waitForUnlock();
+            
+            try {
+                const response = await apiClient(originalRequest);
+                return response;
+            } catch (retryError) {
+                if (!mutex.isLocked()) {
+                    const release = await mutex.acquire();
+                    try {
+                        await apiClient.post(`/auth/jwt/refresh/`);
+                        return apiClient(originalRequest);
+                    } catch (refreshError) {
+                        // document.cookie = 'access=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                        // window.location.href = '/';
+                        return Promise.reject(refreshError);
+                    } finally {
+                        release();
+                    }
                 }
-            } else {
-                await mutex.waitForUnlock();
-                return apiClient(originalRequest);
             }
         }
-
         return Promise.reject(error);
     }
 );

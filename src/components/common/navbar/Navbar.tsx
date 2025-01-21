@@ -1,51 +1,26 @@
 'use client'
-import {CircleCheck} from "lucide-react";
-import MenuList from "@/components/common/navbar/MenuList";
-import {useAuth} from "@/providers/AuthProvider";
-import {Button} from "@/components/ui/button";
-import Link from "next/link";
-import {useLogin, useLogout} from "@/hooks/use-auth";
-import {toast} from "sonner";
-
+import {Separator} from "@/components/ui/separator"
+import {SidebarTrigger,} from "@/components/ui/sidebar"
+import {Input} from "@/components/ui/input";
 
 const Navbar = () => {
-    const {user, isLoading} = useAuth()
-    const logout = useLogout()
-
-    console.log(user)
     return (
-        <nav className={'bg-secondary drop-shadow-md'}>
-            <div className={'container mx-auto flex justify-between items-center h-20'}>
-                <div id={'logo'}>
-                    <p className={'font-black flex gap-2 items-center'}>
-                        <CircleCheck/> TodoApp</p>
-                </div>
 
-                {/*<div id={'menu'}>*/}
-                {/*    <MenuList/>*/}
-                {/*</div>*/}
+        <header
+            className="flex border-b h-16 justify-between shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+            <div className="flex items-center justify-evenly gap-2 px-4">
+                <SidebarTrigger className="-ml-1"/>
 
-
-                {user ? <>
-                    <div id={'user-profile'}>
-                        <span className={'text-xs'}>
-                            Привет, {user.email}
-                        </span>
-
-                        <Button variant={'link'} onClick={() => logout.mutate()}>
-                            Выйти
-                        </Button>
-
-                    </div>
-
-                </> : <>
-                    <Button asChild variant={'link'}>
-                        Войти
-                    </Button>
-                </>}
+                <Separator orientation="vertical" className="mr-2 h-4"/>
+                <Input className={'w-full md:w-96'} placeholder={'Поиск....'}/>
+            </div>
+            <div>
 
             </div>
-        </nav>
-    );
+            <div className={'mr-5'}>
+                bobbik
+             </div>
+        </header>
+    )
 };
 export default Navbar;
