@@ -13,8 +13,8 @@ interface DataTableProps<TData> {
 
 function DataTable<TData>({table, columns, totalCount}: DataTableProps<TData>) {
     return (
-        <div className="w-full  p-4  ">
-            <div className=" border  rounded-md bg-white">
+        <div className="w-full p-4">
+            <div className=" border  rounded-md  ">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -42,7 +42,9 @@ function DataTable<TData>({table, columns, totalCount}: DataTableProps<TData>) {
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell key={cell.id}
+                                        className={'py-2'}
+                                        >
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
