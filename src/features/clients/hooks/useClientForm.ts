@@ -13,7 +13,7 @@ export type ClientFormProps = {
 
 export const useClientForm = ({clientData}: ClientFormProps) => {
     const {mutate: createClient, isPending: isCreating} = useCreateClient()
-    const {mutate: updateClient, isPending: isUpdating} = useEditClient(+clientData?.id!);
+    const {mutate: updateClient, isPending: isUpdating} = useEditClient(clientData?.id as number);
 
 
     const defaultValues = useMemo(() => {

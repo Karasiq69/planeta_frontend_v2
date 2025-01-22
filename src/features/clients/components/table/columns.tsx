@@ -49,7 +49,6 @@ export const clientColumns: ColumnDef<IClient>[] = [
         id: "actions",
         cell: ({row}) => {
             const clientId = row?.original?.id
-            const router = useRouter()
             return (
                 // <ClientsTableRowActions row={row} clientId={clientId}/>
                 <div className={'flex gap-2 py-0'}>
