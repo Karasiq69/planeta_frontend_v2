@@ -5,7 +5,7 @@ import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useDebouncedCallback} from "use-debounce";
 
 
-const ClientsSearchBox = ({searchParams}: { searchParams: any }) => {
+const VehiclesSearchBox = ({searchParams}: { searchParams: any }) => {
     const pathname = usePathname();
     const {replace} = useRouter();
     const currentSearchParams = useSearchParams();
@@ -26,7 +26,7 @@ const ClientsSearchBox = ({searchParams}: { searchParams: any }) => {
         <div className={'p-4'}>
             <Input
                 className="w-96"
-                placeholder={'Искать клиентов...'}
+                placeholder={'Искать автомобили...'}
                 onChange={(e) => {
                     handleSearch(e.target.value);
                 }}
@@ -36,4 +36,4 @@ const ClientsSearchBox = ({searchParams}: { searchParams: any }) => {
     );
 };
 
-export default ClientsSearchBox;
+export default VehiclesSearchBox;

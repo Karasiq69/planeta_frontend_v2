@@ -9,7 +9,7 @@ export function RootProvider({children}: { children: React.ReactNode }) {
         <SidebarProvider>
             <QueryProvider>
                 <AuthProvider>
-                    {children}
+                        {children}
                 </AuthProvider>
             </QueryProvider>
         </SidebarProvider>

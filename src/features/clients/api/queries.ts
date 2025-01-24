@@ -1,7 +1,7 @@
 import {keepPreviousData, useQuery} from "@tanstack/react-query";
-import {clientQueryKeys} from "@/features/clients/api/query-keys";
-import {getAllClientsListFn, getClientById} from "@/features/clients/api/actions";
+ import {getAllClientsListFn, getClientById} from "@/features/clients/api/actions";
 import {ClientListParams} from "@/features/clients/types/params";
+import {clientQueryKeys} from "@/features/clients/api/query-keys";
 
 
 

@@ -1,7 +1,8 @@
 import {Card} from "@/components/ui/card";
-import ClientsDataTable from "@/features/clients/components/table/ClientsDataTable";
 import React, {Suspense} from "react";
 import CreateVehicleButton from "@/features/vehicles/components/CreateVehicleButton";
+import VehiclesDataTable from "@/features/vehicles/components/table/VehiclesDataTable";
+import CarForm from "@/features/vehicles/components/forms/CarForm";
 
 const VehiclesPage = async ({
                         searchParams,
@@ -11,12 +12,17 @@ const VehiclesPage = async ({
 
     return (
         <section>
+
             <div className={'space-y-5'}>
                 <h3>Автомобили</h3>
                 <CreateVehicleButton/>
+                <div className={'max-w-lg p-10 bg-muted'}>
+                    <CarForm/>
+                </div>
+
                 <Card>
                     <Suspense>
-                        <ClientsDataTable/>
+                        <VehiclesDataTable/>
                     </Suspense>
                 </Card>
 

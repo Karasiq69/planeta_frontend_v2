@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import Navbar from "@/components/common/navbar/Navbar";
 import {SidebarInset, SidebarProvider,} from "@/components/ui/sidebar"
 import {AppSidebar} from "@/components/common/sidebar/AppSidebar";
+import Hydration from "@/providers/Hydration";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -15,16 +16,17 @@ export default function RootLayout({
 }>) {
     return (
 
-
-        <SidebarProvider>
-            <AppSidebar/>
-            <SidebarInset>
-                <Navbar/>
-                <main className={'flex flex-1 flex-col gap-4 p-4'}>
-                    {children}
-                </main>
-            </SidebarInset>
-        </SidebarProvider>
+        <Hydration>
+            <SidebarProvider>
+                <AppSidebar/>
+                <SidebarInset>
+                    <Navbar/>
+                    <main className={'flex flex-1 flex-col gap-4 p-4'}>
+                        {children}
+                    </main>
+                </SidebarInset>
+            </SidebarProvider>
+        </Hydration>
 
     );
 }

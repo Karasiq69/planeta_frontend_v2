@@ -12,7 +12,7 @@ import Link from "next/link";
 export const clientColumns: ColumnDef<IClient>[] = [
 
     {
-        accessorFn: row => ` ${row.firstName} ${row.lastName}`,
+        accessorFn: row => ` ${row?.firstName} ${row?.lastName}`,
         accessorKey: "name",
         meta: "Имя",
         header: ({column}) => (
@@ -35,12 +35,12 @@ export const clientColumns: ColumnDef<IClient>[] = [
     },
     {
         accessorKey: "phone",
-        accessorFn: row => ` ${row.phone}`,
+        accessorFn: row => ` ${row?.phone}`,
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Телефон"/>
         ),
         cell: ({row}) => <div className={''}>
-            <span>{row.original.phone}</span>
+            <span>{row.original?.phone}</span>
         </div>,
         enableSorting: false,
         enableHiding: true,
