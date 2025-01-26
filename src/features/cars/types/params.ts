@@ -1,4 +1,4 @@
- import {ICar} from "@/features/vehicles/types/index";
+ import {ICar} from "@/features/cars/types/index";
 
 export type CarListParams = {
     page: number;

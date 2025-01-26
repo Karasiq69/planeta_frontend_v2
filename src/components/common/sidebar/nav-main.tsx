@@ -26,7 +26,7 @@ export function NavMain({ isOpen }: NavMainProps) {
     },
     {
       title: "Автомобили",
-      url: "/vehicles",
+      url: "/cars",
       icon: Car
     },
     {

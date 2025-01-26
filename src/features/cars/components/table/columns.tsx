@@ -7,11 +7,11 @@ import {Button} from "@/components/ui/button";
 import {ArrowRight, ArrowRightCircle, Trash2, X} from "lucide-react";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
-import {ICar} from "@/features/vehicles/types";
+import {ICar} from "@/features/cars/types";
 import {BRAND_LOGOS, CARS_URL} from "@/lib/constants";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {getBrandLogo, getFullModelName, getFullSubModelName} from "@/features/vehicles/utils";
-import LicencePlateBadge from "@/features/vehicles/components/LicencePlateBadge";
+import {getBrandLogo, getFullModelName, getFullSubModelName} from "@/features/cars/utils";
+import LicencePlateBadge from "@/features/cars/components/LicencePlateBadge";
 
 
 export const vehiclesColumns: ColumnDef<ICar>[] = [

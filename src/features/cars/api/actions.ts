@@ -1,7 +1,7 @@
 "use server"
 import apiClient from "@/lib/auth/client";
 import {BRANDS_URL, CAR_MODELS_URL, CARS_URL} from "@/lib/constants";
-import {CarListParams, CarListResponse, ICar, ICarBrand, ICarModel} from "@/features/vehicles/types";
+import {CarListParams, CarListResponse, ICar, ICarBrand, ICarModel} from "@/features/cars/types";
 
 export const getAllVehiclesListFn = async (params: CarListParams): Promise<CarListResponse> => {
     try {

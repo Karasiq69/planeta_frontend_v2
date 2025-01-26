@@ -1,4 +1,4 @@
-import {ICarBrand, ICarModel, ICarModelWithRelations} from "@/features/vehicles/types";
+import {ICarBrand, ICarModel, ICarModelWithRelations} from "@/features/cars/types";
 import {BRAND_LOGOS} from "@/lib/constants";
 
 export const getFullModelName = (model: ICarModel | undefined) => {

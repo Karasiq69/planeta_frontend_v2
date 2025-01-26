@@ -7,9 +7,9 @@ import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandL
 import {Check, ChevronsUpDown} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {UseFormReturn} from "react-hook-form";
-import {useVehiclesModels} from "@/features/vehicles/api/queries";
-import {getModelFullName} from "@/features/vehicles/utils";
-import {ICarModel} from "@/features/vehicles/types";
+import {useVehiclesModels} from "@/features/cars/api/queries";
+import {getModelFullName} from "@/features/cars/utils";
+import {ICarModel} from "@/features/cars/types";
 
 interface ModelSelectProps {
     form: UseFormReturn<any>;

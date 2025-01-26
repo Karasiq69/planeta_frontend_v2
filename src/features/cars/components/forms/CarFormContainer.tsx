@@ -1,12 +1,12 @@
 'use client'
 import {useParams} from "next/navigation";
 import {ClientFormSkeleton} from "@/features/clients/components/forms/ClientFormSkeleton";
-import CarForm from "@/features/vehicles/components/forms/CarForm";
-import {useVehiclesById} from "@/features/vehicles/api/queries";
+import CarForm from "@/features/cars/components/forms/CarForm";
+import {useVehicleById} from "@/features/cars/api/queries";
 
 const CarFormContainer = () => {
     const {id} = useParams()
-    const {data: carData, isLoading} = useVehiclesById(+id)
+    const {data: carData, isLoading} = useVehicleById(+id)
 
     if (isLoading) {
         return <ClientFormSkeleton />

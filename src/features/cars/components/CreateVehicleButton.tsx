@@ -13,7 +13,7 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 
 import ClientForm from "@/features/clients/components/forms/ClientForm";
 import BusinessClientForm from "@/features/clients/components/forms/BusinessClientForm";
-import CarForm from "@/features/vehicles/components/forms/CarForm";
+import CarForm from "@/features/cars/components/forms/CarForm";
 
 type Props = {};
 const CreateVehicleButton = (props: Props) => {

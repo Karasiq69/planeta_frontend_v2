@@ -2,10 +2,10 @@ import React from 'react';
 import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {UseFormReturn} from "react-hook-form";
-import {ICarBrand} from "@/features/vehicles/types";
+import {ICarBrand} from "@/features/cars/types";
 import Image from "next/image";
-import {useVehiclesBrands} from "@/features/vehicles/api/queries";
-import {getBrandLogo} from "@/features/vehicles/utils";
+import {useVehiclesBrands} from "@/features/cars/api/queries";
+import {getBrandLogo} from "@/features/cars/utils";
 
 
 interface BrandSelectProps {
@@ -34,7 +34,7 @@ export const CarFormFieldBrandSelect: React.FC<BrandSelectProps> = ({form}) => {
         return <div>Loading...</div>;
     }
 
-    if (!brands) return 'no brands'
+    if (!brands.length) return 'no brands'
 
     return (
         <FormField

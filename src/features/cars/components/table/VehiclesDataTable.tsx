@@ -7,9 +7,9 @@ import LoaderSectionAnimated from "@/components/ui/LoaderSectionAnimated";
 import {useSearchParams} from "next/navigation";
 import ClientsSearchBox from "@/features/clients/components/table/ClientsSearchBox";
 import LoaderAnimated from "@/components/ui/LoaderAnimated";
-import {vehiclesColumns} from "@/features/vehicles/components/table/columns";
-import {useVehiclesList} from "@/features/vehicles/api/queries";
-import VehiclesSearchBox from "@/features/vehicles/components/table/VehiclesSearchBox";
+import {vehiclesColumns} from "@/features/cars/components/table/columns";
+import {useVehiclesList} from "@/features/cars/api/queries";
+import VehiclesSearchBox from "@/features/cars/components/table/VehiclesSearchBox";
 
 
 const VehiclesDataTable = () => {

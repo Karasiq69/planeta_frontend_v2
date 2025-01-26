@@ -1,8 +1,8 @@
 import {keepPreviousData, useQuery} from "@tanstack/react-query";
-import {CarListParams} from "@/features/vehicles/types/params";
-import {getAllVehiclesListFn, getCarBrandsFn, getCarModelsFn, getVehicleById} from "@/features/vehicles/api/actions";
-import {carQueryKeys} from "@/features/vehicles/api/query-keys";
-import {ICarModel} from "@/features/vehicles/types";
+import {CarListParams} from "@/features/cars/types/params";
+import {getAllVehiclesListFn, getCarBrandsFn, getCarModelsFn, getVehicleById} from "@/features/cars/api/actions";
+import {carQueryKeys} from "@/features/cars/api/query-keys";
+import {ICarModel} from "@/features/cars/types";
 
 
 export const useVehiclesList = (params: CarListParams) => {
@@ -15,7 +15,7 @@ export const useVehiclesList = (params: CarListParams) => {
     })
 }
 
-export const useVehiclesById = (id?: number) => {
+export const useVehicleById = (id?: number) => {
     return useQuery({
         queryKey: carQueryKeys.detail(id as number),
         queryFn: () => getVehicleById(id as number),

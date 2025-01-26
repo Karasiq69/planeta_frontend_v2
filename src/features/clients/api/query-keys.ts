@@ -1,4 +1,4 @@
-import {CarListParams} from "@/features/vehicles/types/params";
+import {CarListParams} from "@/features/cars/types/params";
 
 export const clientQueryKeys = {
     all: ['vehicle'] as const,

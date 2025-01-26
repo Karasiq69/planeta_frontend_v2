@@ -1,7 +1,7 @@
 import {dehydrate, HydrationBoundary, QueryClient,} from "@tanstack/react-query";
 import React from "react";
-import {carQueryKeys} from "@/features/vehicles/api/query-keys";
-import {getCarBrandsFn} from "@/features/vehicles/api/actions";
+import {carQueryKeys} from "@/features/cars/api/query-keys";
+import {getCarBrandsFn} from "@/features/cars/api/actions";
 
 export default async function Hydration({
                                             children,

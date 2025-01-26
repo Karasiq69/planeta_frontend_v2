@@ -1,13 +1,11 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
-import {IClient} from "@/features/clients/types";
-import {clientQueryKeys} from "@/features/clients/api/query-keys";
 import apiClient from "@/lib/auth/client";
-import {CARS_URL, CLIENTS_URL} from "@/lib/constants";
+import {CARS_URL} from "@/lib/constants";
 import {ApiError} from "@/types/api-error";
-import {ICar} from "@/features/vehicles/types";
-import {carQueryKeys} from "@/features/vehicles/api/query-keys";
+import {ICar} from "@/features/cars/types";
+import {carQueryKeys} from "@/features/cars/api/query-keys";
 
 export function useCreateCar() {
     const queryClient = useQueryClient();
@@ -21,9 +19,9 @@ export function useCreateCar() {
         useMutation({
             mutationFn: createCarFn,
             onSuccess: (createdCar, variables) => {
-                toast.success('Автомобиль создан')
+                toast.success(`Автомобиль создан`)
 
-                router.push(`${CLIENTS_URL}/${createdCar.id}`);
+                router.push(`${CARS_URL}/${createdCar.id}`);
 
                 queryClient.invalidateQueries({
                     queryKey: carQueryKeys.all

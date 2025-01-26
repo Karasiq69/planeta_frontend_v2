@@ -1,10 +1,10 @@
 import {UseFormReturn} from "react-hook-form";
-import {CarFormData} from "@/features/vehicles/components/forms/schema";
+import {CarFormData} from "@/features/cars/components/forms/schema";
 import React from 'react';
 import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
-import {CarFormFieldBrandSelect} from "@/features/vehicles/components/forms/car-form-field-brand";
-import CarFormFieldModelSelect from "@/features/vehicles/components/forms/car-form-field-model-select";
+import {CarFormFieldBrandSelect} from "@/features/cars/components/forms/car-form-field-brand";
+import CarFormFieldModelSelect from "@/features/cars/components/forms/car-form-field-model-select";
 
 type Props = {
     form: UseFormReturn<CarFormData>
@@ -47,7 +47,7 @@ const CarFormFields = ({form}: Props) => {
                 </div>
                 <FormField
                     control={form.control}
-                    name="licencePlate"
+                    name="licensePlate"
                     render={({field}) => (
                         <FormItem>
                             <FormLabel>Госномер</FormLabel>
