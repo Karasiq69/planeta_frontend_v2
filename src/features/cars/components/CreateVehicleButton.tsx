@@ -29,7 +29,7 @@ const CreateVehicleButton = (props: Props) => {
                         <DialogDescription></DialogDescription>
                     </DialogHeader>
 
-                    {/*<CarForm/>*/}
+                    <CarForm/>
 
 
                 </DialogContent>

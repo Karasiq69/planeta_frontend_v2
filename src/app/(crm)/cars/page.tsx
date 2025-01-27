@@ -16,9 +16,6 @@ const VehiclesPage = async ({
             <div className={'space-y-5'}>
                 <h3>Автомобили</h3>
                 <CreateVehicleButton/>
-                <div className={'max-w-lg p-10 bg-muted'}>
-                    <CarForm/>
-                </div>
 
                 <Card>
                     <Suspense>
