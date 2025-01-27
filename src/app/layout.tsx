@@ -2,7 +2,12 @@ import type {Metadata} from "next";
 import "./globals.css";
 import {RootProvider} from "@/providers/RootProvider";
 import {Toaster} from "@/components/ui/sonner";
+import {Inter} from 'next/font/google'
 
+const font = Inter({
+    weight: ['300', '400', '700', '900'],
+    subsets: ['latin', "cyrillic-ext"]
+})
 
 export const metadata: Metadata = {
     title: "Вход | CRM Планета Мерседес",
@@ -16,7 +21,7 @@ export default function AppLayout({
 }>) {
     return (
 
-        <html lang="en">
+        <html lang="en" className={font.className}>
         <body>
         <RootProvider>
             {children}

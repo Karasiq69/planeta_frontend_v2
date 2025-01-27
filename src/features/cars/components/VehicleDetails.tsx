@@ -3,28 +3,51 @@
 import React from 'react';
 import Image from "next/image";
 import {getBrandLogo, getFullModelDisplayName} from "@/features/cars/utils";
-import {useVehicleById} from "@/features/cars/api/queries";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {ICar} from "@/features/cars/types";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import {Button} from "@/components/ui/button";
+import {MoreVertical, Pencil, RefreshCw, Trash2, XCircle} from "lucide-react";
 
 type Props = {
-    carId: string
+    car: ICar
 };
 
-const VehicleDetails = ({carId}: Props) => {
-    const {data, isLoading} = useVehicleById(+carId)
-
-    if (isLoading)
-        return 'loading..'
-
-    if (!data) return null
-
-    const {brand, model, owner, mileages, year, vin, licensePlate} = data
+const VehicleDetails = ({car}: Props) => {
+    const {brand, model, mileages, year, vin, licensePlate} = car
 
     return (
-        <section className={'bg-muted border rounded-md'}>
-            <div className={'flex justify-between items-center px-3 py-6'}>
-                <ul className={'flex flex-wrap gap-10  items-center  '}>
-                    <li className={''}>
-                        <Image width={30} height={30} src={getBrandLogo(brand)} className={'size-32'} alt={brand.name}/>
+
+        <Card className={' '}>
+            <CardHeader>
+                <div className={'flex  gap-3 items-center'}>
+                    <CardTitle>
+                        Данные автомобиля
+                    </CardTitle>
+                    <Button variant={'ghost'}>
+                        Ред.
+                    </Button>
+                    <Button variant={'link'}>
+                        Добавить пробег
+                    </Button>
+                    <Button variant={'link'}>
+                        + Комментарий
+                    </Button>
+                </div>
+
+
+            </CardHeader>
+            <CardContent className={'flex justify-between items-center'}>
+                <ul className={'flex flex-wrap gap-10  items-center justify-start  '}>
+                    <li className={'flex items-center align-middle'}>
+                        <Image width={20} height={20} src={getBrandLogo(brand)} className={'size-10'}
+                               alt={brand.name}/>
                     </li>
                     <VehicleDetailsItem title={'Модель'} field={getFullModelDisplayName(model)}/>
                     <VehicleDetailsItem title={'Год'} field={year}/>
@@ -47,10 +70,9 @@ const VehicleDetails = ({carId}: Props) => {
                     </div>
 
                 </div>
+            </CardContent>
+        </Card>
 
-                {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
-            </div>
-        </section>
     )
 }
 
@@ -60,6 +82,6 @@ export default VehicleDetails
 export const VehicleDetailsItem = ({field, title}: { title?: string, field: any }) => {
     return <li>
         <span className={'text-muted-foreground text-sm'}>{title}</span>
-        <p className={'font-bold'}>{field}</p>
+        <p className={'font-medium'}>{field}</p>
     </li>
 }
