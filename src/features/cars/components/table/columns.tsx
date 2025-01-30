@@ -26,10 +26,10 @@ export const vehiclesColumns: ColumnDef<ICar>[] = [
             const carFullName = getFullModelName(car?.model);
             const logoSrc = getBrandLogo(car?.brand);
             return (
-                <div className="flex gap-2 items-center min-w-full text-nowrap">
-                    <Avatar className={'rounded-none'}>
+                <div className="flex  items-center   text-nowrap">
+                    <Avatar className={'rounded-none items-center'}>
                         <AvatarImage
-                            className={'size-5'}
+                            className={'size-7'}
                             src={logoSrc}
                             alt={car.brand?.name || 'Car brand'}
                         />

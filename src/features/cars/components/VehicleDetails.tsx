@@ -68,7 +68,6 @@ const VehicleDetails = ({car}: Props) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </CardContent>
         </Card>

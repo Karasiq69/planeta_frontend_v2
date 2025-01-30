@@ -10,14 +10,13 @@ interface BaseData {
 }
 
 interface DataTableProps<TData extends BaseData> {
-    table: TableType<TData>;
-    totalItems: number;
+    table: TableType<TData>
     totalCols: number;
+
 }
 
 export function DataTableBasic<TData extends BaseData>({
                                                            table,
-                                                           totalItems,
                                                            totalCols
                                                        }: DataTableProps<TData>) {
     return (
@@ -71,11 +70,6 @@ export function DataTableBasic<TData extends BaseData>({
                     </TableBody>
                 </Table>
             </div>
-            {totalItems > 0 && (
-                <div className="p-2 border-t-2 bg-primary-foreground">
-                    <DataTablePagination totalResults={totalItems} table={table}/>
-                </div>
-            )}
         </div>
     );
 }
