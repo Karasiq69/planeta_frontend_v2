@@ -32,6 +32,8 @@ export interface Order {
     car: ICar;
     status: OrderStatus;
     totalCost: number;
+    recommendation: string;
+    reasonToApply: string;
     createdAt: string;
     updatedAt: string;
     services: OrderService[];

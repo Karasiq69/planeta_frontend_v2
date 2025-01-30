@@ -3,7 +3,8 @@ import {Card, CardContent} from "@/components/ui/card";
 import React from "react";
 import {Bolt, NotepadText, UserRoundCog} from "lucide-react";
 import {TableDemo} from "@/app/(crm)/clients/[id]/testTableDelete";
-import {Badge} from "@/components/ui/badge";
+import {useParams} from "next/navigation";
+import {useOrderById} from "@/features/orders/api/queries";
 
 const tabsConfig = [
     {
@@ -101,28 +102,32 @@ const tabsConfig = [
 ];
 type Props = {};
 const OrdersTabsWrapper = (props: Props) => {
+    const params = useParams()
+    const {data: order, isLoading} = useOrderById(+params.id)
+
+    if (isLoading) return 'loading..'
+    if (!order) return 'no order or error'
     return (
-        <Tabs defaultValue={tabsConfig[0].value} className="w-full">
-            <TabsList className=" flex items-start justify-start h-auto  ">
+        <Tabs defaultValue={tabsConfig[0].value} className="w-full bg-muted rounded-md p-2 border">
+            <TabsList className=" flex items-start justify-start h-auto p-0 gap-1">
                 {tabsConfig.map((tab) => {
                     const Icon = tab.icon;
                     return (
                         <TabsTrigger
                             key={tab.id}
                             value={tab.value}
-                            className="flex gap-2 items-center h-10  data-state=[active]:shadow-md      "
+                            className="flex gap-2 rounded-lg hover:bg-background/70 items-center h-10 border border-transparent data-[state=active]:border-border "
                         >
                             <Icon size={16}/>
                             {tab.label}
-                            <Badge variant={'outline'}>10</Badge>
-                        </TabsTrigger>
+                         </TabsTrigger>
                     );
                 })}
             </TabsList>
 
             {tabsConfig.map((tab) => (
                 <TabsContent key={tab.id} value={tab.value}>
-                    <Card className={'  '}>
+                    <Card className={' '}>
 
                         <CardContent className={'p-0'}>
                             {tab.content.children}

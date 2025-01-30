@@ -12,14 +12,14 @@ export interface ICarBrand {
 
 export interface IEngine {
     id: number;
-    brandId?: number;
-    engineType?: EngineType;
-    name?: string;
-    series?: string;
-    displacement?: number;
-    power?: number;
-    createdAt: Date;
-    updatedAt: Date;
+    brandId: number;            // Сделано обязательным
+    engineType: EngineType;     // Сделано обязательным
+    name: string;               // Сделано обязательным
+    series: string;             // Сделано обязательным
+    displacement: number;        // Сделано обязательным
+    power: number;              // Сделано обязательным
+    createdAt: string | Date;
+    updatedAt: string | Date;
 }
 
 export interface ICarModel {
@@ -29,10 +29,10 @@ export interface ICarModel {
     series?: string;
     code?: string;
     engineId?: number;
-    // createdAt: Date;
-    // updatedAt: Date;
+    createdAt: string | Date;    // Раскомментировано
+    updatedAt: string | Date;    // Раскомментировано
+    engine?: IEngine;            // Добавлено для вложенной связи
 }
-
 export interface IMileage {
     id: number;
     carId: number;
@@ -46,27 +46,23 @@ export interface ICarModelWithRelations extends ICarModel {
     engine?: IEngine;
 }
 
-export interface ICarWithRelations extends Omit<ICar, 'modelId' | 'brandId' | 'ownerId'> {
-    brand: ICarBrand;
-    model: ICarModelWithRelations;
-    owner?: IClient;
-    mileages: IMileage[];
-}
 
 // Базовый интерфейс для автомобиля
 export interface ICar {
     id: number;
+    ownerId: number;
+    owner: IClient
+    brandId: number;          // Добавлено
+    modelId: number;          // Добавлено
+    year: number;
+    vin: string;
+    licensePlate: string;
+    createdAt: string | Date;
+    updatedAt: string | Date;
     brand: ICarBrand;
-    model: ICarModelWithRelations;
-    owner?: IClient;
-    mileages: IMileage[];
-    year?: number;
-    vin?: string;
-    licensePlate?: string;
-    createdAt: Date;
-    updatedAt: Date;
+    model: ICarModel;
+    mileages: IMileage[]
 }
-
 // Типы для создания новых записей (без id и дат)
 export type CreateCarBrand = Omit<ICarBrand, 'id' | 'createdAt' | 'updatedAt'>;
 export type CreateEngine = Omit<IEngine, 'id' | 'createdAt' | 'updatedAt'>;

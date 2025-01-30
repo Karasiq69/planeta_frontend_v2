@@ -25,7 +25,8 @@ const CarContentWrapper = ({carId}: Props) => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {/* Column 1 - 2/3 width */}
             <div className="space-y-4 lg:col-span-2">
-                {data.owner && <CarOwnerCard owner={data.owner} onEdit={onEdit}/>}
+                {/*// @ts-ignore*/}
+                {data?.owner && <CarOwnerCard owner={data.owner} onEdit={onEdit}/>}
 
                 {/* История обслуживания */}
                 <CarServiceHistory/>

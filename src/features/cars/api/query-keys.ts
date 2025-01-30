@@ -14,5 +14,4 @@ export const carQueryKeys = {
     models: () => [...carQueryKeys.all, 'model'] as const,
     model: (brandId: number) => [...carQueryKeys.models(), brandId] as const,
 
-
 }
