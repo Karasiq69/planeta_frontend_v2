@@ -1,11 +1,13 @@
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
-import {Copy, CreditCard, ListTodo, Pencil} from "lucide-react";
+import {Copy, CreditCard, Pencil} from "lucide-react";
 import {Separator} from "@/components/ui/separator";
 import {Textarea} from "@/components/ui/textarea";
 import {OrderStatusSelector} from "@/features/orders/components/OrderStatusSelector";
 import {useParams} from "next/navigation";
 import {useOrderById} from "@/features/orders/api/queries";
+import ReasonToApply from "@/features/orders/components/order-summary/reason-to-apply";
+import Recommendation from "@/features/orders/components/order-summary/recommendation";
 
 
 type Props = {};
@@ -48,35 +50,9 @@ const OrderSummary = (props: Props) => {
                 </CardHeader>
                 <CardContent className={'p-6'}>
                     <div className="grid gap-5">
-                        <div className={'grid gap-3'}>
-                            <div className="font-semibold flex gap-2 items-center">
-                                <ListTodo size={16} className={'text-muted-foreground'}/>
-                                Причина обращения
-                            </div>
-
-                            {order.reasonToApply ?
-                                <>
-                                    <p className={'text-sm'}>{order.reasonToApply}</p>
-                                </> : <>
-                                    <Textarea placeholder={'Добавить причину обращения'}/>
-                                </>
-                            }
-                        </div>
+                        <ReasonToApply order={order}/>
                         <Separator/>
-                        <div className={'grid gap-3'}>
-                            <div className="font-semibold flex gap-2 items-center">
-                                <Pencil size={16} className={'text-muted-foreground'}/>
-                                Рекомендация клиенту
-                            </div>
-
-                            {order.reasonToApply ?
-                                <>
-                                    <p className={'text-sm'}>{order.reasonToApply}</p>
-                                </> : <>
-                                    <Textarea placeholder={'Добавить причину обращения'}/>
-                                </>
-                            }
-                        </div>
+                        <Recommendation order={order}/>
                     </div>
                 </CardContent>
             </Card>
@@ -91,7 +67,7 @@ const OrderSummary = (props: Props) => {
                             </li>
                             <li className="flex items-center justify-between">
                                 <span className="text-muted-foreground">Подытог</span>
-                                <span>{order.totalCost-10 * 100} ₽</span>
+                                <span>{order.totalCost - 10 * 100} ₽</span>
                             </li>
                             <li className="flex items-center justify-between">
                                 <span className="text-muted-foreground">Налог</span>

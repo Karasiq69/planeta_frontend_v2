@@ -55,7 +55,7 @@ const ClientsDataTable = () => {
             <DataTable
                 columns={columns}
                 table={table}
-                totalCount={data.meta.total} // Используем общее количество из метаданных
+                totalCount={columns.length} // Используем общее количество из метаданных
             />
         </div>
     );

@@ -23,3 +23,4 @@ export const BRAND_LOGOS: Record<string, string> = {
   'BMW': 'bmw-logo.svg',
   'Audi': 'audi-logo.svg',
  } as const;
+

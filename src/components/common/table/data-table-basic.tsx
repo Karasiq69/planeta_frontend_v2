@@ -1,75 +1,67 @@
-"use client";
-import {flexRender, Table as TableType} from "@tanstack/react-table";
+"use client"
+
+import * as React from "react"
+import {ColumnDef, flexRender, Table as TableType} from "@tanstack/react-table";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
-import React from "react";
-import {DataTablePagination} from "@/components/common/table/data-table-pagination";
 
-interface BaseData {
-    id: string;
-    [key: string]: any;
+interface DataTableBasicProps<TData> {
+    table: TableType<TData>,
+    columns: ColumnDef<TData>[]
 }
 
-interface DataTableProps<TData extends BaseData> {
-    table: TableType<TData>
-    totalCols: number;
-
-}
-
-export function DataTableBasic<TData extends BaseData>({
-                                                           table,
-                                                           totalCols
-                                                       }: DataTableProps<TData>) {
+function DataTableBasic<TData>({table, columns}: DataTableBasicProps<TData>) {
     return (
-        <div className="rounded-md border bg-secondary/30">
-            <div className="rounded-md bg-background">
-                <Table className="table-auto">
+                <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow
-                                key={headerGroup.id}
-                                className="hover:bg-none"
-                            >
-                                {headerGroup.headers.map((header) => (
-                                    <TableHead
-                                        key={header.id}
-                                        style={{width: `${header.getSize()}px`}}
-                                    >
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )}
-                                    </TableHead>
-                                ))}
+                            <TableRow key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => {
+                                    return (
+                                        <TableHead key={header.id}>
+                                            {header.isPlaceholder
+                                                ? null
+                                                : flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                )}
+                                        </TableHead>
+                                    )
+                                })}
                             </TableRow>
                         ))}
                     </TableHeader>
-                    <TableBody className="bg-secondary/30">
+                    <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
-                                    className="hover:bg-transparent"
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id} className="p-0">
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        <TableCell key={cell.id}
+                                                   className={'py-2'}
+                                        >
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext()
+                                            )}
                                         </TableCell>
                                     ))}
                                 </TableRow>
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={totalCols} className="h-24 text-center">
+                                <TableCell
+                                    colSpan={columns.length}
+                                    className="h-24 text-center"
+                                >
                                     No results.
                                 </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
                 </Table>
-            </div>
-        </div>
     );
 }
+
+export default DataTableBasic;

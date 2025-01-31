@@ -1,27 +1,36 @@
 import {ICar} from "@/features/cars/types";
 import {IClient} from "@/features/clients/types";
 import {Product} from "@/features/products/types";
-import {Mechanic} from "@/features/mechanics/types";
 import {IService} from "@/features/services";
 
-export type OrderStatus = 'created' | 'in_progress' | 'completed' | 'cancelled';
-
+export type OrderStatus =
+    | 'application'     // Заявка
+    | 'order'           // Заказ-наряд
+    | 'in_progress'     // В работе
+    | 'waiting_warehouse'  // Ждет склад
+    | 'awaiting_payment'   // Ждет оплаты
+    | 'completed'       // Завершен
+    | 'closed'          // Закрыт/Архив
+    | 'cancelled';      // Отменен
 
 export interface OrderService {
-    serviceId: number;
-    service: IService;
-    assignedMechanicId: number;
-    mechanic: Mechanic;
-    actualCost: number;
-    startTime: string;
-    endTime: string | null;
+    id: number
+    serviceId: number
+    service: IService
+    defaultDuration: number
+    appliedRate: number
+    appliedPrice: number
+    discountPercent?: number
+    startTime?: Date
+    endTime?: Date
 }
 
 export interface OrderProduct {
-    productId: number;
-    product: Product;
-    quantity: number;
-    unitPrice: number;
+    id: number
+    productId: number
+    product: Product
+    quantity: number
+    appliedPrice: number
 }
 
 export interface Order {

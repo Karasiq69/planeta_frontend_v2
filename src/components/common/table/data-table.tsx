@@ -8,7 +8,7 @@ import {DataTablePagination} from "@/components/common/table/data-table-paginati
 interface DataTableProps<TData> {
     table: TableType<TData>,
     columns: ColumnDef<TData>[]
-    totalCount: number | undefined
+    totalCount?: number | undefined
 }
 
 function DataTable<TData>({table, columns, totalCount}: DataTableProps<TData>) {
