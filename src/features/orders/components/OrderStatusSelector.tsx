@@ -9,12 +9,14 @@ import {OrderStatus} from "@/features/orders/types"; // Импортируем �
 
 export function OrderStatusSelector() {
     const params = useParams()
-    const { data: order, isLoading } = useOrderById(+params.id)
-    const { mutate: changeStatus, isPending } = useEditOrder()
+    const orderId = Number(params.id)
+
+    const {data: order, isLoading} = useOrderById(orderId)
+    const {mutate: changeStatus, isPending} = useEditOrder(orderId)
 
     const handleChange = (newStatus: OrderStatus) => {
         if (order?.status !== newStatus) {
-            changeStatus({ status:  newStatus })
+            changeStatus({status: newStatus})
         }
     }
 
@@ -27,7 +29,7 @@ export function OrderStatusSelector() {
             disabled={isPending}
         >
             <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Статус заказа" />
+                <SelectValue placeholder="Статус заказа"/>
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
@@ -39,9 +41,6 @@ export function OrderStatusSelector() {
                             {status.label}
                         </SelectItem>
                     ))}
-                    {/*/!* Добавляем недостающие статусы если нужно *!/*/}
-                    {/*<SelectItem value="completed">Завершен</SelectItem>*/}
-                    {/*<SelectItem value="archive">Архив</SelectItem>*/}
                 </SelectGroup>
             </SelectContent>
         </Select>

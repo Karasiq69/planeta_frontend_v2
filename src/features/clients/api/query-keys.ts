@@ -1,9 +1,9 @@
-import {CarListParams} from "@/features/cars/types/params";
+import {ClientListParams} from "@/features/clients/types/params";
 
 export const clientQueryKeys = {
-    all: ['vehicle'] as const,
+    all: ['clients'] as const,
     details: () => [...clientQueryKeys.all, 'detail'] as const,
     detail: (id: number) => [...clientQueryKeys.details(), id] as const,
     lists: () => [...clientQueryKeys.all, 'list'] as const,
-    list: (params: CarListParams) => [...clientQueryKeys.lists(), {params}] as const,
+    list: (params: ClientListParams) => [...clientQueryKeys.lists(), {params}] as const,
 }

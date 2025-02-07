@@ -1,8 +1,8 @@
  import {ICar} from "@/features/cars/types/index";
 
 export type CarListParams = {
-    page: number;
-    pageSize: number;
+    page?: number;
+    pageSize?: number;
     searchTerm?: string;
 }
 

@@ -5,8 +5,8 @@ import {Bolt, NotepadText, UserRoundCog} from "lucide-react";
 import {TableDemo} from "@/app/(crm)/clients/[id]/testTableDelete";
 import {useParams} from "next/navigation";
 import {useOrderById} from "@/features/orders/api/queries";
-import ServicesTabContent from "@/features/orders/components/order-tabs/servicesTabContent";
-import ProductsTabContent from "@/features/orders/components/order-tabs/productsTabContent";
+import ServicesTabContent from "@/features/orders/components/order-tabs/order-services/servicesTabContent";
+import ProductsTabContent from "@/features/orders/components/order-tabs/order-products/productsTabContent";
 
 const tabsConfig = [
     {
@@ -73,13 +73,7 @@ const OrdersTabsWrapper = (props: Props) => {
 
             {tabsConfig.map((tab) => (
                 <TabsContent key={tab.id} value={tab.value}>
-                    <Card className={' '}>
-
-                        <CardContent className={'p-0'}>
-                            {tab.children}
-                        </CardContent>
-
-                    </Card>
+                    {tab.children}
                 </TabsContent>
             ))}
         </Tabs>

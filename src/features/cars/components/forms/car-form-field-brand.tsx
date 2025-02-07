@@ -20,13 +20,13 @@ export const CarFormFieldBrandSelect: React.FC<BrandSelectProps> = ({form}) => {
             <div className="relative">
                 <Image
                     src={getBrandLogo(brand)}
-                    alt={brand.name}
+                    alt={brand?.name}
                     width={16}
                     height={16}
                     className={'size-6'}
                 />
             </div>
-            <span>{brand.name}</span>
+            <span>{brand?.name}</span>
         </div>
     );
 

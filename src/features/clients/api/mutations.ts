@@ -9,19 +9,17 @@ import {ApiError} from "@/types/api-error";
 
 export function useCreateClient() {
     const queryClient = useQueryClient();
-    const router = useRouter()
 
     const createClientFn = async (data: Partial<IClient>) => {
         const response = await apiClient.post<IClient>(`${CLIENTS_URL}/`, data);
         return response.data;
     }
+
     return (
         useMutation({
             mutationFn: createClientFn,
             onSuccess: (createdClient, variables) => {
                 toast.success('Клиент создан')
-
-                router.push(`${CLIENTS_URL}/${createdClient.id}`);
 
                 queryClient.invalidateQueries({
                     queryKey: clientQueryKeys.all

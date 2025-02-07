@@ -16,7 +16,7 @@ export const getFullSubModelName = (model: ICarModelWithRelations | undefined) =
     return `${engineName}.${engineSeries} ${modelCode}`.trim();
 };
 
-export const getFullModelDisplayName = (model: ICarModel) => {
+export const getFullModelDisplayName = (model?: ICarModel) => {
     if (!model) return '';
     const fullModelName = getFullModelName(model);
     const code = model.code || '';

@@ -117,7 +117,3 @@ body {
     }
 
 }
-
-:root {
-    --font-sans: var(--font-involve), system-ui, sans-serif;
-}

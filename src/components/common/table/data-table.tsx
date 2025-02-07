@@ -38,6 +38,7 @@ function DataTable<TData>({table, columns, totalCount}: DataTableProps<TData>) {
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
+                                    className={'group'}
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
                                 >

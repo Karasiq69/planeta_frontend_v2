@@ -1,8 +1,8 @@
 import {IClient} from "@/features/clients/types/index";
 
 export type ClientListParams = {
-    page: number;
-    pageSize: number;
+    page?: number;
+    pageSize?: number;
     searchTerm?: string;
 }
 

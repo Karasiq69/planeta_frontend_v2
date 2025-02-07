@@ -9,9 +9,11 @@ import {ClientFormData, clientSchema} from "@/features/clients/components/forms/
 
 export type ClientFormProps = {
     clientData?: IClient
+    onCreate?: (data: IClient) => void; // дополнительная функция при создании клиента
+    onUpdate?: (cliendId: number) => IClient; // доп функция при обновлении
 }
 
-export const useClientForm = ({clientData}: ClientFormProps) => {
+export const useClientForm = ({clientData, onCreate, onUpdate}: ClientFormProps) => {
     const {mutate: createClient, isPending: isCreating} = useCreateClient()
     const {mutate: updateClient, isPending: isUpdating} = useEditClient(clientData?.id as number);
 
@@ -39,7 +41,10 @@ export const useClientForm = ({clientData}: ClientFormProps) => {
                 lastName: data?.lastName,
                 email: data?.email,
                 phone: data?.phone,
+            }, {
+                onSuccess: (data) => onUpdate && onUpdate(data.id)
             });
+
         } else {
             createClient({
                 firstName: data?.firstName,
@@ -47,8 +52,7 @@ export const useClientForm = ({clientData}: ClientFormProps) => {
                 email: data?.email,
                 phone: data?.phone,
             }, {
-                onSuccess: () => toast.success("Клиент успешно создан"),
-                onError: () => toast.error("Ошибка при создании клиента")
+                onSuccess: (data) =>  onCreate && onCreate(data)
             });
         }
     };

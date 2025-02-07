@@ -31,7 +31,7 @@ const ClientFormFields = ({form}: Props) => {
                     <FormItem>
                         <FormLabel>Фамилия</FormLabel>
                         <FormControl>
-                            <Input placeholder="Иван Иванов" {...field} />
+                            <Input placeholder="Иванов" {...field} />
                         </FormControl>
                         <FormMessage/>
                     </FormItem>

@@ -3,21 +3,24 @@ import React from "react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
 import {getBrandLogo} from "@/features/cars/utils";
 import LicensePlate from "@/components/cars/LicensePlate";
-import {EllipsisVertical, Gauge} from "lucide-react";
-import {Button} from "@/components/ui/button";
+import {Gauge} from "lucide-react";
 import {useParams} from "next/navigation";
 import {useOrderById} from "@/features/orders/api/queries";
+import OrderSkeletonCard from "@/components/skeletons/order-card-skeleton";
+import AddOrderCarButton from "@/features/orders/components/car-card/AddOrderCarButton";
+import CarCardDropdownMenu from "@/features/orders/components/car-card/CarCardDropdownMenu";
 
 type Props = {};
 const CarCard = (props: Props) => {
     const params = useParams()
     const {data, isLoading} = useOrderById(+params.id)
 
-    if (isLoading) return 'loading..'
+    if (isLoading) return <OrderSkeletonCard/>
     if (!data) return 'no order or error'
 
     const car = data.car
-
+    if (!car) return <EmptyCarCard/>
+    //todo add button for create car inside order
     return (
         <>
             <Card>
@@ -31,17 +34,15 @@ const CarCard = (props: Props) => {
                         </div>
                         <div>
                             <CardTitle className={'flex items-center gap-2'}>
-                                {car.brand.name}
-                                <span className={'font-normal text-sm'}> {car.year}</span>
+                                {car?.brand?.name}
+                                <span className={'font-normal text-sm'}> {car?.year}</span>
                             </CardTitle>
                             <CardDescription>
-                                {car.vin}
+                                {car?.vin}
                             </CardDescription>
                         </div>
                     </div>
-                    <Button variant={'outline'} size={'icon'}>
-                        <EllipsisVertical/>
-                    </Button>
+                    <CarCardDropdownMenu/>
                 </CardHeader>
                 <CardContent className={'flex gap-3  justify-between items-center'}>
                     <LicensePlate licensePlate={car.licensePlate}/>
@@ -55,3 +56,12 @@ const CarCard = (props: Props) => {
     );
 };
 export default CarCard;
+
+
+const EmptyCarCard = () => {
+    return (
+        <Card className="h-[150px] border  border-dashed border-gray-200  flex items-center justify-center">
+            <AddOrderCarButton/>
+        </Card>
+    );
+};

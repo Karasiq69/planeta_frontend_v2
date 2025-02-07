@@ -9,19 +9,21 @@ import {toast} from "sonner";
 
 export type CarFormProps = {
     carData?: ICar
+    onCreate?: (data: ICar) => void; // дополнительная функция при создании
+    onUpdate?: (carId: number) => ICar; // доп функция при обновлении
 }
 
-export const useCarForm = ({carData}: CarFormProps) => {
+export const useCarForm = ({carData, onCreate, onUpdate}: CarFormProps) => {
     const {mutate: createCar, isPending: isCreating} = useCreateCar();
     const {mutate: updateCar, isPending: isUpdating} = useEditCar(carData?.id as number);
 
 
     const defaultValues = useMemo(() => ({
-        brandId: carData?.brand.id || 16,
-        modelId: carData?.model.id as unknown as number,
+        brandId: carData?.brand?.id as unknown as number,
+        modelId: carData?.model?.id as unknown as number,
         year: carData?.year,
         vin: carData?.vin || '',
-        licencePlate: carData?.licensePlate || '',
+        licensePlate: carData?.licensePlate || 'sex',
         // current_mileage: carData?.mileages[0]?.value.toString() || '',
         // custom_brand: '',
     }), [carData]);
@@ -33,15 +35,13 @@ export const useCarForm = ({carData}: CarFormProps) => {
     });
 
     const onSubmit = (data: z.infer<typeof carFormSchema>) => {
-
-
         if (carData) {
             const updateData = {
                 ...data,
                 carId: carData.id,
             };
             updateCar(updateData, {
-                onSuccess: () => toast.success("Автомобиль успешно обновлен"),
+                onSuccess: (data) => onUpdate && onUpdate(data.id),
                 onError: (error) => {
                     console.error("Ошибка при обновлении автомобиля:", error);
                     toast.error("Ошибка при обновлении автомобиля");
@@ -51,7 +51,7 @@ export const useCarForm = ({carData}: CarFormProps) => {
 
         } else {
             createCar(data, {
-                onSuccess: () => toast.success("Автомобиль успешно создан"),
+                onSuccess: (data) => onCreate && onCreate(data),
                 onError: (error) => {
                     console.error("Ошибка при создании автомобиля:", error);
                     toast.error("Ошибка при создании автомобиля");

@@ -4,7 +4,7 @@ import {z} from 'zod';
 
 const searchSchema = z.string().min(2, {message: 'Минимум 2 символа'});
 
-const useDebounceSearch = () => {
+const useDebouncedSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchError, setSearchError] = useState('');
 
@@ -30,4 +30,4 @@ const useDebounceSearch = () => {
     };
 };
 
-export default useDebounceSearch;
+export default useDebouncedSearch;

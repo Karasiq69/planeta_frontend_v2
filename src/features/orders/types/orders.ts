@@ -35,14 +35,14 @@ export interface OrderProduct {
 
 export interface Order {
     id: number;
-    clientId: number;
-    client: IClient;
-    carId: number;
-    car: ICar;
+    clientId?: number;
+    client?: IClient;
+    carId?: number;
+    car?: ICar;
     status: OrderStatus;
     totalCost: number;
-    recommendation: string;
-    reasonToApply: string;
+    recommendation?: string;
+    reasonToApply?: string;
     createdAt: string;
     updatedAt: string;
     services: OrderService[];
@@ -56,6 +56,7 @@ export interface OrdersQueryParams {
     pageSize?: number;
     clientId?: number;
     status?: OrderStatus;
+    searchTerm?: string | undefined
 }
 
 // Response типы

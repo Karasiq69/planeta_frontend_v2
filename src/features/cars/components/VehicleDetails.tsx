@@ -5,15 +5,19 @@ import Image from "next/image";
 import {getBrandLogo, getFullModelDisplayName} from "@/features/cars/utils";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {ICar} from "@/features/cars/types";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
-import {MoreVertical, Pencil, RefreshCw, Trash2, XCircle} from "lucide-react";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import ClientForm from "@/features/clients/components/forms/ClientForm";
+import BusinessClientForm from "@/features/clients/components/forms/BusinessClientForm";
+import CarForm from "@/features/cars/components/forms/CarForm";
 
 type Props = {
     car: ICar
@@ -26,19 +30,37 @@ const VehicleDetails = ({car}: Props) => {
 
         <Card className={' '}>
             <CardHeader>
-                <div className={'flex  gap-3 items-center'}>
+                <div className={'flex  gap-3 items-center justify-between'}>
                     <CardTitle>
                         Данные автомобиля
                     </CardTitle>
-                    <Button variant={'ghost'}>
-                        Ред.
-                    </Button>
-                    <Button variant={'link'}>
+
+
+                    <div>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant={'default'} size={'sm'}>
+                                    Редактировать
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Редактировать авто</DialogTitle>
+                                    <DialogDescription></DialogDescription>
+                                </DialogHeader>
+
+                                <CarForm carId={car.id} carData={car}/>
+                            </DialogContent>
+                        </Dialog>
+
+
+                    <Button variant={'link'} size={'sm'}>
                         Добавить пробег
                     </Button>
-                    <Button variant={'link'}>
+                    <Button variant={'link'} size={'sm'}>
                         + Комментарий
                     </Button>
+                </div>
                 </div>
 
 
@@ -47,13 +69,13 @@ const VehicleDetails = ({car}: Props) => {
                 <ul className={'flex flex-wrap gap-10  items-center justify-start  '}>
                     <li className={'flex items-center align-middle'}>
                         <Image width={20} height={20} src={getBrandLogo(brand)} className={'size-10'}
-                               alt={brand.name}/>
+                               alt={brand?.name || 'brand name'}/>
                     </li>
                     <VehicleDetailsItem title={'Модель'} field={getFullModelDisplayName(model)}/>
                     <VehicleDetailsItem title={'Год'} field={year}/>
                     <VehicleDetailsItem title={'VIN'} field={vin}/>
                     <VehicleDetailsItem title={'Двигатель'}
-                                        field={`${model.engine?.name} ${model.engine?.series}  ${model.engine?.displacement}л.`}/>
+                                        field={`${model?.engine?.name} ${model?.engine?.series}  ${model?.engine?.displacement}л.`}/>
                     <VehicleDetailsItem title={'Пробег'} field={`${mileages[0]?.value ?? '-'} км`}/>
 
                 </ul>

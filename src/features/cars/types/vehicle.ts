@@ -51,7 +51,7 @@ export interface ICarModelWithRelations extends ICarModel {
 export interface ICar {
     id: number;
     ownerId: number;
-    owner: IClient
+    owner?: IClient
     brandId: number;          // Добавлено
     modelId: number;          // Добавлено
     year: number;
@@ -59,8 +59,8 @@ export interface ICar {
     licensePlate: string;
     createdAt: string | Date;
     updatedAt: string | Date;
-    brand: ICarBrand;
-    model: ICarModel;
+    brand?: ICarBrand;
+    model?: ICarModel;
     mileages: IMileage[]
 }
 // Типы для создания новых записей (без id и дат)

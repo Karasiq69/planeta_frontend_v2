@@ -8,6 +8,7 @@ import {useParams} from "next/navigation";
 import {useOrderById} from "@/features/orders/api/queries";
 import ReasonToApply from "@/features/orders/components/order-summary/reason-to-apply";
 import Recommendation from "@/features/orders/components/order-summary/recommendation";
+import OrderSummarySkeleton from "@/components/skeletons/order-summary-skeleton";
 
 
 type Props = {};
@@ -15,7 +16,7 @@ const OrderSummary = (props: Props) => {
     const params = useParams()
     const {data: order, isLoading} = useOrderById(+params.id)
 
-    if (isLoading) return 'loading..'
+    if (isLoading) return <OrderSummarySkeleton/>
     if (!order) return 'no order or error'
     return (
         <>

@@ -37,7 +37,7 @@ const CarFormFieldModelSelect = ({form}: ModelSelectProps) => {
             render={({field}) => (
                 <FormItem className="flex flex-col">
                     <FormLabel>Модель</FormLabel>
-                    <Popover open={open} onOpenChange={setOpen} modal={false}>
+                    <Popover open={open} onOpenChange={setOpen} modal={true}>
                         <PopoverTrigger asChild>
                             <FormControl>
                                 <Button
@@ -49,7 +49,7 @@ const CarFormFieldModelSelect = ({form}: ModelSelectProps) => {
                                     )}
                                 >
                                     {field.value
-                                        ? getModelFullName(models?.find((model) => String(model.id) === field.value) as ICarModel)
+                                        ? getModelFullName(models?.find((model) => model.id === field.value) as ICarModel)
                                         : "Выберите модель"}
                                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
                                 </Button>

@@ -3,8 +3,8 @@ import GoBackButton from "@/components/common/GoBackButton";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
 import {Printer, Trash2} from "lucide-react";
-import ClientCard from "@/features/orders/components/ClientCard";
-import CarCard from "@/features/orders/components/CarCard";
+import ClientCard from "@/features/orders/components/client-card/ClientCard";
+import CarCard from "@/features/orders/components/car-card/CarCard";
 import OrdersTabsWrapper from "@/features/orders/components/OrdersTabsWrapper";
 import OrderSummary from "@/features/orders/components/OrderSummary";
 import React from "react";
@@ -15,10 +15,7 @@ import StatusBadge from "@/features/orders/components/StatusBadge";
 type Props = {};
 const OrderPageWrapper = (props: Props) => {
     const params = useParams()
-    const {data: order, isLoading} = useOrderById(+params.id)
-
-    if (isLoading) return 'loading..'
-    if (!order) return 'no order or error'
+    const {data: order} = useOrderById(+params.id)
     return (
         <div className={'space-y-5'}>
             <section>
@@ -28,7 +25,7 @@ const OrderPageWrapper = (props: Props) => {
                         <div>
                             <h3>Заказ №{params.id}</h3>
                         </div>
-                        <StatusBadge status={order.status} />
+                        <StatusBadge status={order?.status} />
                         <Badge variant={'destructive'}>Не заполнено</Badge>
                     </div>
 
@@ -47,6 +44,7 @@ const OrderPageWrapper = (props: Props) => {
                         <ClientCard/>
                         <CarCard/>
                     </div>
+
                     <div>
                         <OrdersTabsWrapper/>
                     </div>
@@ -56,6 +54,7 @@ const OrderPageWrapper = (props: Props) => {
                 {/* right section*/}
                 <div className="md:col-span-1 space-y-5">
                     <OrderSummary/>
+
                 </div>
             </section>
         </div>

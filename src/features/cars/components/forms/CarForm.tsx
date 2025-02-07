@@ -5,16 +5,15 @@ import LoaderAnimated from "@/components/ui/LoaderAnimated";
 import {ICar} from "@/features/cars/types";
 import {useCarForm} from "@/features/cars/hooks/useCarForm";
 import CarFormFields from "@/features/cars/components/forms/car-form-fields";
-import {Label} from "@/components/ui/label";
-import {Input} from "@/components/ui/input";
-import {Textarea} from "@/components/ui/textarea";
 
 type Props = {
     carId?: number
     carData?: ICar | undefined
+    onCreate?: (data: ICar) => void; // дополнительная функция при создании
+    onUpdate?: (carId: number) => ICar; // доп функция при обновлении
 };
-const CarForm = ({carId, carData}: Props) => {
-    const {form, onSubmit, isLoading} = useCarForm({carData})
+const CarForm = ({carId, carData, onUpdate, onCreate}: Props) => {
+    const {form, onSubmit, isLoading} = useCarForm({carData, onUpdate, onCreate})
 
     return (
         <div>

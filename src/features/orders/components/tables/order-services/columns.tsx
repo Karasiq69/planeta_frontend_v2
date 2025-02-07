@@ -1,6 +1,18 @@
 import {ColumnDef} from "@tanstack/react-table";
 import * as React from "react";
 import {OrderService} from "@/features/orders/types";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog";
+import {Button} from "@/components/ui/button";
+import {Copy, FoldVertical, Pencil, Trash2, UnfoldVertical} from "lucide-react";
+import EmployeesCell from "@/features/orders/components/tables/order-services/EmployeeCell";
 
 
 export const ServicesColumnDefs: ColumnDef<OrderService>[] = [
@@ -50,12 +62,111 @@ export const ServicesColumnDefs: ColumnDef<OrderService>[] = [
     },
     {
         accessorKey: "defaultDuration",
-        header: () => <div>Длительность</div>,
+        header: () => <div>Н/ч</div>,
         cell: ({row}) => (
             <div className="space-x-1">
                 <span>{Math.round(row.original.defaultDuration / 60)}</span>
                 <span className="text-xs text-muted-foreground">ч.</span>
             </div>
         ),
+    },
+    {
+        accessorKey: "employees",
+        header: ({table}) => <div>
+            <Button
+                variant={'ghost'}
+                {...{
+                    onClick: table.getToggleAllRowsExpandedHandler(),
+                }}
+            >
+                Исполнители
+                {table.getIsAllRowsExpanded()
+                    ? <FoldVertical className="ml-2 h-4 w-4"/>
+                    : <UnfoldVertical className="ml-2 h-4 w-4"/>}
+            </Button>
+
+        </div>,
+        cell: ({row, table}) => <EmployeesCell table={table} row={row}/>
+    },
+    {
+        id: "actions",
+        header: () => <div className={'text-right'}>Действия</div>,
+        cell: ({row}) => {
+            return (
+                <div className={'text-right'}>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button size="icon" variant="ghost" className="p-0">
+                                <Pencil/>
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Редактирование</DialogTitle>
+                                <DialogDescription>
+                                    Вы уверены, что хотите удалить заказ? Это действие невозможно отменить
+                                </DialogDescription>
+                            </DialogHeader>
+                            <DialogFooter>
+                                <Button variant="outline">
+                                    Отмена
+                                </Button>
+                                <Button variant="destructive">
+                                    {/*{isPending ? <LoaderAnimated/> : "Удалить"}*/}
+                                    Удалить
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog><Dialog>
+                    <DialogTrigger asChild>
+                        <Button size="icon" variant="ghost" className="p-0">
+                            <Copy/>
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Редактирование</DialogTitle>
+                            <DialogDescription>
+                                Вы уверены, что хотите удалить заказ? Это действие невозможно отменить
+                            </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter>
+                            <Button variant="outline">
+                                Отмена
+                            </Button>
+                            <Button variant="destructive">
+                                {/*{isPending ? <LoaderAnimated/> : "Удалить"}*/}
+                                Удалить
+                            </Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button size="icon" variant="ghost" className="p-0">
+                                <Trash2/>
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Подтвердить удаление</DialogTitle>
+                                <DialogDescription>
+                                    Вы уверены, что хотите удалить заказ? Это действие невозможно отменить
+                                </DialogDescription>
+                            </DialogHeader>
+                            <DialogFooter>
+                                <Button variant="outline">
+                                    Отмена
+                                </Button>
+                                <Button variant="destructive">
+                                    {/*{isPending ? <LoaderAnimated/> : "Удалить"}*/}
+                                    Удалить
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                </div>
+            )
+        },
     },
 ]

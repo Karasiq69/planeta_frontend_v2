@@ -3,12 +3,14 @@ import {ListTodo} from "lucide-react";
 import {Order} from "@/features/orders/types";
 import EditableTextArea from "@/components/ui/editable-textarea";
 import LoaderAnimated from "@/components/ui/LoaderAnimated";
+import {useParams} from "next/navigation";
 
 type Props = {
     order: Order
 };
 const ReasonToApply = ({order}: Props) => {
-    const {mutate, isPending} = useEditOrder()
+    const {id} = useParams()
+    const {mutate, isPending} = useEditOrder(Number(id))
 
     const onSubmit = (text: string) => {
         if (text !== order.reasonToApply) {
@@ -31,7 +33,7 @@ const ReasonToApply = ({order}: Props) => {
             </div>
 
             <EditableTextArea
-                initialText={order.reasonToApply}
+                initialText={order?.reasonToApply || ''}
                 onSubmit={onSubmit}/>
         </div>
 

@@ -4,7 +4,7 @@ import {useClientById} from "@/features/clients/api/queries";
 import ClientForm from "@/features/clients/components/forms/ClientForm";
 import {ClientFormSkeleton} from "@/features/clients/components/forms/ClientFormSkeleton";
 
-const ClientFormContainer = () => {
+const ClientFormContainer = ({}) => {
     const {id} = useParams()
     const {data: clientData, isLoading} = useClientById(+id)
 

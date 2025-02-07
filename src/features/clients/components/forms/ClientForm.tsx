@@ -9,9 +9,11 @@ import {useClientForm} from "@/features/clients/hooks/useClientForm";
 type Props = {
     clientId?: number
     clientData?: IClient | undefined
+    onCreate?: (data: IClient) => void; // дополнительная функция при создании клиента
+    onUpdate?: (cliendId: number) => IClient; // доп функция при обновлении
 };
-const ClientForm = ({clientId, clientData}: Props) => {
-    const {form, onSubmit, isLoading} = useClientForm({clientData})
+const ClientForm = ({clientId, clientData, onCreate, onUpdate}: Props) => {
+    const {form, onSubmit, isLoading} = useClientForm({clientData, onUpdate, onCreate})
 
     return (
         <div>
