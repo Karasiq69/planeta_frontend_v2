@@ -7,4 +7,8 @@ export const ordersQueryKeys = {
 
     lists: () => [...ordersQueryKeys.all, 'list'] as const,
     list: (params: OrdersQueryParams) => [...ordersQueryKeys.lists(), {params}] as const,
+
+    services: (orderId: number) => [...ordersQueryKeys.detail(orderId), 'services'] as const,
+    // service: (id: number) => [...ordersQueryKeys.services(), id] as const,
+
 }

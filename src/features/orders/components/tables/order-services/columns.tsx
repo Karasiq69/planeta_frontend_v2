@@ -13,6 +13,8 @@ import {
 import {Button} from "@/components/ui/button";
 import {Copy, FoldVertical, Pencil, Trash2, UnfoldVertical} from "lucide-react";
 import EmployeesCell from "@/features/orders/components/tables/order-services/EmployeeCell";
+import OrderServicesTableActions
+    from "@/features/orders/components/order-tabs/order-services/order-services-table-actions";
 
 
 export const ServicesColumnDefs: ColumnDef<OrderService>[] = [
@@ -31,12 +33,12 @@ export const ServicesColumnDefs: ColumnDef<OrderService>[] = [
         accessorKey: "service.name",
         header: () => <div>Наименование</div>,
         cell: ({row}) => (
-            <div>
-                <p className="font-medium m-0 text-nowrap">
-                    {row.original.service.name}
+            <div className={''}>
+                <p className="font-medium m-0     line-clamp-2 truncate">
+                    {row.original.service?.name}
                 </p>
-                <span className="text-xs text-muted-foreground">
-                    {row.original.service.description}
+                <span className="text-xs text-muted-foreground text-wrap truncate line-clamp-1">
+                    {row.original.service?.description}
                 </span>
             </div>
         ),
@@ -60,6 +62,7 @@ export const ServicesColumnDefs: ColumnDef<OrderService>[] = [
             );
         },
     },
+
     {
         accessorKey: "defaultDuration",
         header: () => <div>Н/ч</div>,
@@ -71,7 +74,7 @@ export const ServicesColumnDefs: ColumnDef<OrderService>[] = [
         ),
     },
     {
-        accessorKey: "employees",
+        accessorKey: "mechanics",
         header: ({table}) => <div>
             <Button
                 variant={'ghost'}
@@ -93,79 +96,7 @@ export const ServicesColumnDefs: ColumnDef<OrderService>[] = [
         header: () => <div className={'text-right'}>Действия</div>,
         cell: ({row}) => {
             return (
-                <div className={'text-right'}>
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button size="icon" variant="ghost" className="p-0">
-                                <Pencil/>
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                            <DialogHeader>
-                                <DialogTitle>Редактирование</DialogTitle>
-                                <DialogDescription>
-                                    Вы уверены, что хотите удалить заказ? Это действие невозможно отменить
-                                </DialogDescription>
-                            </DialogHeader>
-                            <DialogFooter>
-                                <Button variant="outline">
-                                    Отмена
-                                </Button>
-                                <Button variant="destructive">
-                                    {/*{isPending ? <LoaderAnimated/> : "Удалить"}*/}
-                                    Удалить
-                                </Button>
-                            </DialogFooter>
-                        </DialogContent>
-                    </Dialog><Dialog>
-                    <DialogTrigger asChild>
-                        <Button size="icon" variant="ghost" className="p-0">
-                            <Copy/>
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle>Редактирование</DialogTitle>
-                            <DialogDescription>
-                                Вы уверены, что хотите удалить заказ? Это действие невозможно отменить
-                            </DialogDescription>
-                        </DialogHeader>
-                        <DialogFooter>
-                            <Button variant="outline">
-                                Отмена
-                            </Button>
-                            <Button variant="destructive">
-                                {/*{isPending ? <LoaderAnimated/> : "Удалить"}*/}
-                                Удалить
-                            </Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button size="icon" variant="ghost" className="p-0">
-                                <Trash2/>
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                            <DialogHeader>
-                                <DialogTitle>Подтвердить удаление</DialogTitle>
-                                <DialogDescription>
-                                    Вы уверены, что хотите удалить заказ? Это действие невозможно отменить
-                                </DialogDescription>
-                            </DialogHeader>
-                            <DialogFooter>
-                                <Button variant="outline">
-                                    Отмена
-                                </Button>
-                                <Button variant="destructive">
-                                    {/*{isPending ? <LoaderAnimated/> : "Удалить"}*/}
-                                    Удалить
-                                </Button>
-                            </DialogFooter>
-                        </DialogContent>
-                    </Dialog>
-                </div>
+                <OrderServicesTableActions rowInstance={row}/>
             )
         },
     },

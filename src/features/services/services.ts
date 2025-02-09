@@ -2,5 +2,8 @@ export interface IService {
     id: number;
     name: string;
     description: string;
-    price: number;
+    defaultDuration: number;
+    requiredQualifications: string;
+    createdAt: string;
+    updatedAt: string;
 }

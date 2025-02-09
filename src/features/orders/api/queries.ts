@@ -1,6 +1,6 @@
 import {keepPreviousData, useQuery} from "@tanstack/react-query";
 import {ordersQueryKeys} from "@/features/orders/api/query-keys";
-import {getAllOrdersListFn, getOrderById} from "@/features/orders/api/actions";
+import {getAllOrdersListFn, getOrderById, getOrderServicesById} from "@/features/orders/api/actions";
 import {OrderProduct, OrderService, OrdersQueryParams} from "@/features/orders/types";
 import apiClient from "@/lib/auth/client";
 import {ORDERS_URL, PRODUCTS_URL, SERVICES_URL} from "@/lib/constants";
@@ -13,12 +13,21 @@ export const useOrderById = (orderId?: number) => {
     })
 }
 
+export const useOrderServicesById = (orderId: number) => {
+    return useQuery({
+        queryKey: ordersQueryKeys.services(orderId),
+        queryFn: () => getOrderServicesById(orderId),
+        enabled: !!orderId,
+    })
+}
+
+
 export const useOrdersList = (params: OrdersQueryParams) => {
     return useQuery({
         queryKey: ordersQueryKeys.list(params),
         queryFn: () => getAllOrdersListFn(params),
         gcTime: 1000 * 60 * 20,
-        staleTime:1000 * 60 * 5,
+        staleTime: 1000 * 60 * 5,
         placeholderData: keepPreviousData
     })
 }

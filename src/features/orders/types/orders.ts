@@ -2,6 +2,7 @@ import {ICar} from "@/features/cars/types";
 import {IClient} from "@/features/clients/types";
 import {Product} from "@/features/products/types";
 import {IService} from "@/features/services";
+import {Mechanic} from "@/features/mechanics/types";
 
 export type OrderStatus =
     | 'application'     // Заявка
@@ -13,24 +14,14 @@ export type OrderStatus =
     | 'closed'          // Закрыт/Архив
     | 'cancelled';      // Отменен
 
-export interface OrderService {
-    id: number
-    serviceId: number
-    service: IService
-    defaultDuration: number
-    appliedRate: number
-    appliedPrice: number
-    discountPercent?: number
-    startTime?: Date
-    endTime?: Date
-}
 
 export interface OrderProduct {
-    id: number
-    productId: number
-    product: Product
-    quantity: number
-    appliedPrice: number
+    id: number;
+    orderId: number;
+    productId: number;
+    quantity: number;
+    appliedPrice: number;
+    product: Product;
 }
 
 export interface Order {
@@ -70,4 +61,30 @@ export interface PaginationMeta {
 export interface OrdersListResponse {
     data: Order[];
     meta: PaginationMeta;
+}
+
+
+export interface OrderService {
+    id: number;
+    orderId: number;
+    serviceId: number;
+    defaultDuration: number;
+    appliedRate: number;
+    appliedPrice: number;
+    discountPercent: number;
+    startTime: string | null;
+    endTime: string | null;
+    service: IService;
+    mechanics: OrderServiceMechanic[];
+}
+
+
+export interface OrderServiceMechanic {
+    id: number;
+    orderServiceId: number;
+    mechanicId: number;
+    participationPercentage: number;
+    paymentType: 'percent' | 'fixed';
+    paymentRate: number;
+    mechanic: Mechanic;
 }

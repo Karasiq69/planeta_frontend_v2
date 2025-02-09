@@ -2,56 +2,44 @@
 
 import Link from "next/link"
 import {usePathname} from "next/navigation"
-import {Car, LayoutDashboard, Package, Settings, ShoppingCart, Users, Wallet} from "lucide-react"
+import {Logs, Settings, UserRoundCog, Wrench} from "lucide-react"
 import {Button} from "@/components/ui/button"
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip"
 import {cn} from "@/lib/utils"
-import {useCallback} from "react";
 
 interface NavMainProps {
     isOpen?: boolean;
 }
 
-export const mainMenuItems = [
+export const settingsMenuItems = [
     {
-        title: "Дашборд",
-        url: "/dashboard",
-        icon: LayoutDashboard
+        title: "Настройки",
+        url: "/settings",
+        icon: Settings
     },
     {
-        title: "Заказы",
-        url: "/orders",
-        icon: ShoppingCart
+        title: "Услуги",
+        url: "/services",
+        icon: Logs
     },
     {
-        title: "Автомобили",
-        url: "/cars",
-        icon: Car
+        title: "Механики",
+        url: "/mechanics",
+        icon: UserRoundCog
     },
     {
-        title: "Клиенты",
-        url: "/clients",
-        icon: Users
+        title: "Запчасти и товары",
+        url: "/products",
+        icon: Wrench
     },
-    {
-        title: "Склад",
-        url: "/warehouse",
-        icon: Package
-    },
-    {
-        title: "Платежи",
-        url: "/payments",
-        icon: Wallet
-    },
-
 ]
 
-export function NavMain({isOpen}: NavMainProps) {
+export function NavSettings({isOpen}: NavMainProps) {
     const pathname = usePathname()
 
-    const getIsActive = useCallback((item: any) => {
+    const getIsActive = (item: any) => {
         return pathname.startsWith(item.url)
-    }, [])
+    }
 
     return (
 
@@ -60,11 +48,11 @@ export function NavMain({isOpen}: NavMainProps) {
                 <li className="w-full pt-5">
                     {isOpen || isOpen === undefined ? (
                         <p className="text-sm font-medium text-muted-foreground px-4 pb-2 max-w-[248px] truncate">
-                            Меню
+                            Настройки
                         </p>
                     ) : null}
 
-                    {mainMenuItems.map((item) => (
+                    {settingsMenuItems.map((item) => (
                         <div className="w-full" key={item.title}>
                             <TooltipProvider disableHoverableContent>
                                 <Tooltip delayDuration={100}>

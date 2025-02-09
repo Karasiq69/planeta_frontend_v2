@@ -1,13 +1,20 @@
 "use server"
 
 import apiClient from "@/lib/auth/client";
-import {ORDERS_URL} from "@/lib/constants";
-import {Order, OrdersListResponse, OrdersQueryParams} from "@/features/orders/types";
+import {MECHANICS_URL, ORDERS_URL, SERVICES_URL} from "@/lib/constants";
+import {
+    Order,
+    OrderService,
+    OrderServiceMechanic,
+    OrdersListResponse,
+    OrdersQueryParams
+} from "@/features/orders/types";
 
 export const getOrderById = async (orderId: number) => {
     const response = await apiClient.get<Order>(`${ORDERS_URL}/${orderId}`);
     return response.data
 }
+
 
 export const deleteOrderFn = async (orderId: number) => {
 
@@ -20,4 +27,19 @@ export const editOrderFn = async (orderId: number, data: Partial<Order>) => {
 export const getAllOrdersListFn = async (params: OrdersQueryParams): Promise<OrdersListResponse> => {
     const res = await apiClient.get(`${ORDERS_URL}`, {params});
     return res.data
+}
+
+export const getOrderServicesById = async (orderId: number) => {
+    const response = await apiClient.get<OrderService[]>(`${ORDERS_URL}/${orderId}${SERVICES_URL}`);
+    return response.data
+}
+
+export const deleteOrderServiceFn = async (id: number) => {
+    const response = await apiClient.delete(`${ORDERS_URL}${SERVICES_URL}/${id}`)
+    return response.data
+}
+
+export const addMechanicOrderServiceFn = async (orderServiceId: number, mechanicId: number) => {
+    const response = await apiClient.post(`${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}`, { mechanicId })
+    return response.data;
 }

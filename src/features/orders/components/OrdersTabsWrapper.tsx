@@ -1,8 +1,6 @@
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {Card, CardContent} from "@/components/ui/card";
 import React from "react";
 import {Bolt, NotepadText, UserRoundCog} from "lucide-react";
-import {TableDemo} from "@/app/(crm)/clients/[id]/testTableDelete";
 import {useParams} from "next/navigation";
 import {useOrderById} from "@/features/orders/api/queries";
 import ServicesTabContent from "@/features/orders/components/order-tabs/order-services/servicesTabContent";
@@ -51,8 +49,8 @@ const OrdersTabsWrapper = (props: Props) => {
     const params = useParams()
     const {data: order, isLoading} = useOrderById(+params.id)
 
-    if (isLoading) return 'loading..'
-    if (!order) return 'no order or error'
+    // if (isLoading) return 'loading..'
+    // if (!order) return 'no order or error'
     return (
         <Tabs defaultValue={tabsConfig[0].value} className="w-full bg-muted rounded-md p-2 border">
             <TabsList className=" flex items-start justify-start h-auto p-0 gap-1">
@@ -66,7 +64,7 @@ const OrdersTabsWrapper = (props: Props) => {
                         >
                             <Icon size={16}/>
                             {tab.label}
-                         </TabsTrigger>
+                        </TabsTrigger>
                     );
                 })}
             </TabsList>

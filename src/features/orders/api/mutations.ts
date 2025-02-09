@@ -4,7 +4,7 @@ import {ordersQueryKeys} from "@/features/orders/api/query-keys";
 import {Order} from "@/features/orders/types";
 import apiClient from "@/lib/auth/client";
 import {ORDERS_URL} from "@/lib/constants";
-import {ICar} from "@/features/cars/types";
+import {addMechanicOrderServiceFn, deleteOrderServiceFn} from "@/features/orders/api/actions";
 
 export function useEditOrder(orderId: number) {
     // const {id} = useParams();
@@ -199,7 +199,6 @@ export function useChangeOrderClient(orderId: number) {
 }
 
 
-
 // export function useDetach() {
 //     const queryClient = useQueryClient();
 //
@@ -335,6 +334,53 @@ export function useChangeOrderCar(orderId: number) {
             });
             queryClient.invalidateQueries({
                 queryKey: ordersQueryKeys.detail(Number(orderId))
+            });
+        },
+    });
+}
+
+
+export function useDeleteOrderService(orderId: number) {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (id: number) => deleteOrderServiceFn(id),
+        onSuccess: () => {
+            toast.success('Услуга удалена');
+        },
+        onError: () => {
+            toast.error('Произошла ошибка, повторите попытку');
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({
+                queryKey: ordersQueryKeys.services(orderId)
+            });
+            queryClient.invalidateQueries({
+                queryKey: ordersQueryKeys.detail(orderId)
+            });
+        },
+    });
+}
+
+export function useAddOrderServiceMechanic(orderId: number) {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: ({orderServiceId, mechanicId}: {
+            orderServiceId: number,
+            mechanicId: number
+        }) => addMechanicOrderServiceFn(orderServiceId, mechanicId),
+        onSuccess: () => {
+            toast.success('Механик добавлен');
+        },
+        onError: () => {
+            toast.error('Произошла ошибка, повторите попытку');
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({
+                queryKey: ordersQueryKeys.services(orderId)
+            });
+            queryClient.invalidateQueries({
+                queryKey: ordersQueryKeys.detail(orderId)
             });
         },
     });

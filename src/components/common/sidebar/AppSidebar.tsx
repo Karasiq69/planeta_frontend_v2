@@ -1,32 +1,15 @@
-
 "use client"
 
 import * as React from "react"
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot, Car, CarFront,
-  Command,
-  Frame,
-  GalleryVerticalEnd, LayoutDashboard,
-  Map, Package,
-  PieChart, Settings,
-  Settings2, ShoppingCart,
-  SquareTerminal, Users, Wallet,
-} from "lucide-react"
+import {AudioWaveform, BookOpen, Bot, CarFront, Frame, Map, PieChart, Settings2, SquareTerminal,} from "lucide-react"
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarRail,
-} from "@/components/ui/sidebar"
+import {Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail,} from "@/components/ui/sidebar"
 import {TeamSwitcher} from "@/components/common/sidebar/team-switcher";
 import {NavMain} from "@/components/common/sidebar/nav-main";
 import {NavUser} from "@/components/common/sidebar/nav-user";
+import {NavSettings} from "@/components/common/sidebar/nav-settings";
 
- const data = {
+const data = {
   user: {
     name: "shadcn",
     email: "m@example.com",
@@ -159,6 +142,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarContent>
         <NavMain/>
+        {/*<NavSettings/>*/}
       </SidebarContent>
 
       <SidebarFooter>
