@@ -1,10 +1,16 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {toast} from "sonner";
 import {ordersQueryKeys} from "@/features/orders/api/query-keys";
-import {Order} from "@/features/orders/types";
+import {Order, OrderServiceMechanic} from "@/features/orders/types";
 import apiClient from "@/lib/auth/client";
 import {ORDERS_URL} from "@/lib/constants";
-import {addMechanicOrderServiceFn, deleteOrderServiceFn} from "@/features/orders/api/actions";
+import {
+    addMechanicOrderServiceFn,
+    addOrderServiceFn,
+    deleteMechanicOrderServiceFn,
+    deleteOrderServiceFn,
+    updateMechanicOrderServiceFn
+} from "@/features/orders/api/actions";
 
 export function useEditOrder(orderId: number) {
     // const {id} = useParams();
@@ -384,4 +390,78 @@ export function useAddOrderServiceMechanic(orderId: number) {
             });
         },
     });
+}
+
+export function useUpdateMechanicOrderService(orderId?: number) {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: ({orderServiceId, mechanicId, data}: {
+            orderServiceId: number,
+            mechanicId: number,
+            data: Partial<OrderServiceMechanic>,
+        }) => updateMechanicOrderServiceFn(orderServiceId, mechanicId, data),
+        onSuccess: () => {
+            toast.success('Механик обновлен');
+        },
+        onError: () => {
+            toast.error('Произошла ошибка, повторите попытку');
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({
+                queryKey: ordersQueryKeys.all
+            });
+
+            // todo add orderId invalidation instead of invalidating all
+            // queryClient.invalidateQueries({
+            //     queryKey: ordersQueryKeys.detail(orderId)
+            // });
+        },
+    });
+}
+
+export function useDeleteMechanicOrderService(orderId: number) {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({orderServiceId, mechanicId}: {
+            orderServiceId: number,
+            mechanicId: number
+        }) => deleteMechanicOrderServiceFn(orderServiceId, mechanicId),
+        onSuccess: () => {
+            toast.success('Механик удален');
+        },
+        onError: () => {
+            toast.error('Произошла ошибка, повторите попытку');
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({
+                queryKey: ordersQueryKeys.services(orderId)
+            });
+            // queryClient.invalidateQueries({
+            //     queryKey: ordersQueryKeys.detail(orderId)
+            // });
+        },
+    });
+}
+
+export function useAddOrderService(orderId: number) {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (serviceId: number) => addOrderServiceFn(orderId, serviceId),
+        onSuccess: () => {
+            toast.success('Услуга добавлена')
+        },
+        onError: () => {
+            toast.error('Произошла ошибка, повторите попытку')
+        },
+        onSettled: () => {
+            // queryClient.invalidateQueries({
+            //     queryKey: ordersQueryKeys.all
+            // });
+            queryClient.invalidateQueries({
+                queryKey: ordersQueryKeys.services(Number(orderId))
+            });
+        },
+    })
 }

@@ -31,7 +31,7 @@ const EmployeesCell: React.FC<Props> = ({row, table}) => {
                 'cursor-pointer px-0 w-full',
                 row.getIsExpanded() && 'shadow-inner bg-gray-200', '')}>
             {/*<AvatarStack id="employees" variant="stack" avatars={avatars}/>*/}
-            Исполнители
+            Исполнители(emp cell)
         </Button>
             </>
     );

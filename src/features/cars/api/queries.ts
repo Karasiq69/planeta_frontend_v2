@@ -3,9 +3,10 @@ import {CarListParams} from "@/features/cars/types/params";
 import {getAllVehiclesListFn, getCarBrandsFn, getCarModelsFn, getVehicleById} from "@/features/cars/api/actions";
 import {carQueryKeys} from "@/features/cars/api/query-keys";
 import {ICarModel} from "@/features/cars/types";
+import {ListParams} from "@/types/params";
 
 
-export const useVehiclesList = (params: CarListParams) => {
+export const useVehiclesList = (params: ListParams) => {
     return useQuery({
         queryKey: carQueryKeys.list(params),
         queryFn: () => getAllVehiclesListFn(params),

@@ -5,10 +5,12 @@ import {ChevronsUpDown} from "lucide-react"
 import {Button} from "@/components/ui/button"
 import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,} from "@/components/ui/command"
 import {Popover, PopoverContent, PopoverTrigger,} from "@/components/ui/popover"
+import LoaderAnimated from "@/components/ui/LoaderAnimated";
 
 interface SearchComboboxProps<T> {
     data?: { data: T[] }
     isLoading: boolean
+    isPending: boolean
     onSearch: (value: string) => void
     onSelect: (item: T) => void
     getDisplayValue: (item: T) => string
@@ -21,6 +23,7 @@ interface SearchComboboxProps<T> {
 export function ComboboxSearch<T extends { id: number | string }>({
                                                                       data,
                                                                       isLoading,
+                                                                      isPending,
                                                                       onSearch,
                                                                       onSelect,
                                                                       getDisplayValue,
@@ -34,8 +37,9 @@ export function ComboboxSearch<T extends { id: number | string }>({
 
     const handleSelectItem = (item: T) => {
         onSelect(item)
-        setSelectedItem(item.id)
-        setOpen(false)
+
+        // setSelectedItem(item.id)
+        // setOpen(false)
     }
 
     return (
@@ -52,14 +56,14 @@ export function ComboboxSearch<T extends { id: number | string }>({
                             ? getDisplayValue(data.data.find(item => item.id === selectedItem)!)
                             : placeholder
                         : placeholder}
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
+                    {isPending || isLoading ? <LoaderAnimated/> :<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>}
                 </Button>
             </PopoverTrigger>
 
             <PopoverContent className={`${width} p-0`}>
                 <Command shouldFilter={false}>
                     <CommandInput
-                        placeholder={placeholder}
+                        placeholder={'Поиск..'}
                         onValueChange={onSearch}
                     />
 
@@ -76,6 +80,7 @@ export function ComboboxSearch<T extends { id: number | string }>({
                             <CommandGroup>
                                 {data?.data.map((item) => (
                                     <CommandItem
+                                        disabled={isPending}
                                         key={item.id}
                                         value={item.id.toString()}
                                         onSelect={() => handleSelectItem(item)}

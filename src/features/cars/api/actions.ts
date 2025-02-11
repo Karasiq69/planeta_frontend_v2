@@ -2,10 +2,11 @@
 import apiClient from "@/lib/auth/client";
 import {BRANDS_URL, CAR_MODELS_URL, CARS_URL} from "@/lib/constants";
 import {CarListParams, CarListResponse, ICar, ICarBrand, ICarModel} from "@/features/cars/types";
+import {ListResponse} from "@/types/params";
 
-export const getAllVehiclesListFn = async (params: CarListParams): Promise<CarListResponse> => {
+export const getAllVehiclesListFn = async (params: CarListParams): Promise<ListResponse<ICar>> => {
     try {
-        const res = await apiClient.get<CarListResponse>(CARS_URL, {
+        const res = await apiClient.get<ListResponse<ICar>>(CARS_URL, {
             params
         });
         return res.data;

@@ -40,6 +40,24 @@ export const deleteOrderServiceFn = async (id: number) => {
 }
 
 export const addMechanicOrderServiceFn = async (orderServiceId: number, mechanicId: number) => {
-    const response = await apiClient.post(`${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}`, { mechanicId })
+    const response = await apiClient.post(`${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}`, {mechanicId})
+    return response.data;
+}
+
+export const deleteMechanicOrderServiceFn = async (orderServiceId: number, mechanicId: number) => {
+    const response = await apiClient.delete(`${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}/${mechanicId}`)
+    return response.data
+}
+
+export const addOrderServiceFn = async (orderId: number, serviceId: number) => {
+    const response = await apiClient.post(`${ORDERS_URL}/${orderId}${SERVICES_URL}`, {serviceId: serviceId});
+    return response.data;
+}
+
+export const updateMechanicOrderServiceFn = async (orderServiceId: number, mechanicId: number, data: Partial<OrderServiceMechanic>) => {
+    console.log('RESPONSEE::::url', `${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}/${mechanicId}`)
+    console.log(data, 'DATAAAAA::::')
+    const response = await apiClient.patch(`${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}/${mechanicId}`,
+        data)
     return response.data;
 }

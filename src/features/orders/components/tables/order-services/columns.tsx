@@ -37,7 +37,7 @@ export const ServicesColumnDefs: ColumnDef<OrderService>[] = [
                 <p className="font-medium m-0     line-clamp-2 truncate">
                     {row.original.service?.name}
                 </p>
-                <span className="text-xs text-muted-foreground text-wrap truncate line-clamp-1">
+                <span className="text-xs text-muted-foreground text-wrap truncate line-clamp-1 max-w-40">
                     {row.original.service?.description}
                 </span>
             </div>

@@ -13,12 +13,17 @@ import {
 import {Button} from "@/components/ui/button";
 import {Check, Copy, Pencil, Trash2, UserPlus} from "lucide-react";
 import {Popover, PopoverContent, PopoverTrigger,} from "@/components/ui/popover"
-import {Command, CommandEmpty, CommandGroup, CommandItem, CommandList,} from "@/components/ui/command"
+import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,} from "@/components/ui/command"
 import {cn} from "@/lib/utils";
 import {Mechanic} from "@/features/mechanics/types";
 import {useAllMechanics} from "@/features/mechanics/api/queries";
 import {useParams} from "next/navigation";
-import {useAddOrderServiceMechanic, useDeleteOrder, useDeleteOrderService} from "@/features/orders/api/mutations";
+import {
+    useAddOrderServiceMechanic,
+    useDeleteMechanicOrderService,
+    useDeleteOrder,
+    useDeleteOrderService
+} from "@/features/orders/api/mutations";
 import {OrderService} from "@/features/orders/types";
 
 
@@ -38,14 +43,11 @@ const OrderServicesTableActions = ({rowInstance}: Props) => {
 
     const {data: mechanics, isLoading} = useAllMechanics()
 
-    // const {mutate: deleteService, isPending} = useDeleteServiceOrder()
-    // const {mutate: updateMutation, isPending: updatePending} = useEditServiceOrder()
-    // const {mutate: addEmployee, isPending:isAdding} = useAddOrderServiceEmployee()
-    // const {mutate: deleteEmployee, isPending:isDeleting} = useDeleteOrderServiceEmployee()
     const {mutate: deleteService, isPending} = useDeleteOrderService(orderId)
     const {mutate: updateMutation, isPending: updatePending} = useDeleteOrder(orderId)
     const {mutate: addMechanic, isPending: isAdding} = useAddOrderServiceMechanic(orderId)
-    const {mutate: deleteEmployee, isPending: isDeleting} = useDeleteOrder(orderId)
+
+    const {mutate: deleteMechanic, isPending: isDeleting} = useDeleteMechanicOrderService(orderId)
 
     function handleDeleteClick() {
         deleteService(serviceId, {
@@ -62,17 +64,20 @@ const OrderServicesTableActions = ({rowInstance}: Props) => {
                 mechanicId: mechanic.id
             })
         } else {
-            console.log('CHECKED ELSEEEE', mechanic.id)
-
-            // const orderServiceEmployee = rowInstance?.original?.mechanics.find((e: any) => e.mechanic_id === mechanic.id);
-            // if (orderServiceEmployee) {
-            //     deleteEmployee({employeeId: orderServiceEmployee.id, serviceId});
-            // }
+            const orderServiceEmployee = rowInstance?.original?.mechanics?.some(
+                (m) => m.mechanic.id === mechanic.id
+            )
+            if (orderServiceEmployee) {
+                deleteMechanic({
+                    orderServiceId: serviceId,
+                    mechanicId: mechanic.id
+                });
+            }
         }
     }
 
     return (
-        <div className={'text-right text-nowrap'}>
+        <div className={'text-right text-nowrap flex gap-1 justify-end'}>
             <div>
                 <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
@@ -84,7 +89,7 @@ const OrderServicesTableActions = ({rowInstance}: Props) => {
                     </PopoverTrigger>
                     <PopoverContent className="w-[200px] p-0" align={'start'} side={'right'}>
                         <Command>
-
+                            <CommandInput></CommandInput>
                             <CommandList>
                                 <CommandEmpty>Не найдено.</CommandEmpty>
                                 <CommandGroup>
@@ -95,14 +100,18 @@ const OrderServicesTableActions = ({rowInstance}: Props) => {
                                             value={mechanic.name}
                                             className={'cursor-pointer'}
                                             onSelect={() => {
-                                                const isCurrentlySelected = rowInstance?.original?.mechanics.some((e: any) => e.mechanic_id === mechanic.id)
+                                                const isCurrentlySelected = rowInstance?.original?.mechanics.some(
+                                                    (m) => m.mechanic.id === mechanic.id
+                                                )
                                                 handleCheckedChange(mechanic, !isCurrentlySelected)
                                             }}
                                         >
                                             <Check
                                                 className={cn(
                                                     "mr-2 h-4 w-4",
-                                                    rowInstance?.original?.mechanics?.some((e: any) => e.mechanic_id === mechanic.id) ? "opacity-100" : "opacity-0"
+                                                    rowInstance?.original?.mechanics?.some(
+                                                        (m) => m.mechanic.id === mechanic.id
+                                                    ) ? "opacity-100" : "opacity-0"
                                                 )}
                                             />
                                             {mechanic.name}
@@ -113,7 +122,6 @@ const OrderServicesTableActions = ({rowInstance}: Props) => {
                         </Command>
                     </PopoverContent>
                 </Popover>
-
             </div>
             <Dialog>
                 <DialogTrigger asChild>

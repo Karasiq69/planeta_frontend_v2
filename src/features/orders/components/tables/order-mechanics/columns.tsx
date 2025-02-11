@@ -1,13 +1,19 @@
 import {ColumnDef} from "@tanstack/react-table"
 import * as React from "react"
 import {ArrowRightCircle, LucideIcon, Trash2} from "lucide-react"
-import {OrderServiceMechanic} from "@/features/orders/types"
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
-import {CardDescription, CardTitle} from "@/components/ui/card"
-import OrderTableActions from "@/features/orders/components/tables/OrderTableActions"
-import ServiceMechanicActions from "@/features/mechanics/components/table/ServiceMechanicActions";
+import {Order, OrderServiceMechanic} from "@/features/orders/types";
+import {getStatusField} from "@/features/orders/lib/utils";
+import {Button} from "@/components/ui/button";
+import Link from "next/link";
+import LicensePlate from "@/components/cars/LicensePlate";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {getBrandLogo} from "@/features/cars/utils";
+import {CardDescription, CardTitle} from "@/components/ui/card";
+import OrderTableActions from "@/features/orders/components/tables/OrderTableActions";
+import {Mechanic} from "@/features/mechanics/types";
+import OrderMechanicTableActions from "@/features/orders/components/tables/order-mechanics/OrderMechanicTableActions";
 
-export const _serviceMechanicsColumnsDefs: ColumnDef<OrderServiceMechanic>[] = [
+export const orderMechanicsColumnsDefs: ColumnDef<OrderServiceMechanic>[] = [
     {
         accessorKey: "mechanic",
         header: () => <span>Механик</span>,
@@ -71,13 +77,17 @@ export const _serviceMechanicsColumnsDefs: ColumnDef<OrderServiceMechanic>[] = [
             </div>
         ),
     },
+
+
     {
         id: "actions",
-        header: () => <div className={'text-right'}>Действия</div>,
         cell: ({row}) => {
-            const mechanicId = row.original.id
-            return 'actionssssss'
-            // <ServiceMechanicActions rowInstance={row}/>
+            const mechanicId = row?.original?.id
+            return (
+                // <span>{mechanicId}</span>
+                // <ClientsTableRowActions row={row} clientId={clientId}/>
+                <OrderMechanicTableActions row={row}/>
+            )
         },
     },
 ]
