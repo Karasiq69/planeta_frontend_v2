@@ -11,6 +11,9 @@ import LoaderSectionAnimated from "@/components/ui/LoaderSectionAnimated";
 import DataTableSimpleMech from "@/features/mechanics/components/table/DataTableSimpleMech";
 import ServicesCombobox from "@/features/orders/components/order-tabs/order-services/ServicesCombobox";
 import {orderMechanicsColumnsDefs} from "@/features/orders/components/tables/order-mechanics/columns";
+import {ServiceForm} from "@/features/services/components/forms/ServiceForm";
+import CreateServiceButton from "@/features/services/components/CreateServiceButton";
+import CreateOrderServiceButton from "@/features/orders/components/order-tabs/order-services/CreateOrderServiceButton";
 
 type Props = {};
 const ServicesTabContent = (props: Props) => {
@@ -42,10 +45,7 @@ const ServicesTabContent = (props: Props) => {
                 <CardHeader
                     className={'flex flex-row items-center space-y-0 justify-between  bg-zinc-100  border-b rounded-lg rounded-b-none'}>
                     <ServicesCombobox orderId={orderId}/>
-                    <Button className={''} variant={'default'}>
-                        <CirclePlus/>
-                        Новая услуга
-                    </Button>
+                    <CreateOrderServiceButton/>
                 </CardHeader>
                 <CardContent className={' space-y-3 shadow-inner p-0'}>
                     <Table>

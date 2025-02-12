@@ -41,7 +41,6 @@ export function ComboboxSearch<T extends { id: number | string }>({
         // setSelectedItem(item.id)
         // setOpen(false)
     }
-
     return (
         <Popover open={open} onOpenChange={setOpen} modal={true}>
             <PopoverTrigger asChild disabled={isLoading}>
@@ -74,11 +73,11 @@ export function ComboboxSearch<T extends { id: number | string }>({
                     <CommandList>
                         {isLoading ? (
                             <CommandEmpty>Поиск...</CommandEmpty>
-                        ) : data?.data.length === 0 ? (
+                        ) : data?.data?.length === 0 ? (
                             <CommandEmpty>Ничего не найдено</CommandEmpty>
                         ) : (
                             <CommandGroup>
-                                {data?.data.map((item) => (
+                                {data?.data?.map((item) => (
                                     <CommandItem
                                         disabled={isPending}
                                         key={item.id}

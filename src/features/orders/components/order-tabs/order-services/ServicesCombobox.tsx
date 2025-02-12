@@ -1,10 +1,10 @@
 'use client'
 import * as React from "react";
 import useDebouncedSearch from "@/hooks/use-debounced-search";
-import {IService} from "@/features/services";
 import {useAllServices} from "@/features/services/api/queries";
 import {ComboboxSearch} from "@/components/ComboboxSearch";
 import {useAddOrderService} from "@/features/orders/api/mutations";
+import {IService} from "@/features/services/types";
 
 
 const ServicesCombobox = ({orderId}:{orderId: number}) => {

@@ -1,10 +1,11 @@
 'use client'
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
-import ServiceMechanicFormFields from "./service-mechanic-form-fields";
+import {OrderServiceMechanic} from "@/features/orders/types";
+import {useOrderServiceMechanicForm} from "@/features/orders/hooks/useOrderServiceMechanicForm";
+import ServiceMechanicFormFields
+    from "@/features/orders/components/forms/service-mechanic/service-mechanic-form-fields";
 import LoaderAnimated from "@/components/ui/LoaderAnimated";
-import { OrderServiceMechanic } from "../../../types";
-import { useOrderServiceMechanicForm } from "../../../hooks/useOrderServiceMechanicForm";
 
 type Props = {
     orderServiceId: number;
