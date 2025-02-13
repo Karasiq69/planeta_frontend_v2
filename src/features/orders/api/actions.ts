@@ -54,9 +54,12 @@ export const addOrderServiceFn = async (orderId: number, serviceId: number) => {
     return response.data;
 }
 
+
+export const editOrderServiceFn = async (orderServiceId: number, data: Partial<OrderService>) => {
+    const response = await apiClient.patch(`${ORDERS_URL}${SERVICES_URL}/${orderServiceId}`, data)
+    return response.data
+}
 export const updateMechanicOrderServiceFn = async (orderServiceId: number, mechanicId: number, data: Partial<OrderServiceMechanic>) => {
-    console.log('RESPONSEE::::url', `${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}/${mechanicId}`)
-    console.log(data, 'DATAAAAA::::')
     const response = await apiClient.patch(`${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}/${mechanicId}`,
         data)
     return response.data;

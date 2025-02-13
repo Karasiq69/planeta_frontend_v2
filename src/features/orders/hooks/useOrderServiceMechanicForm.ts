@@ -14,8 +14,7 @@ type Props = {
 };
 
 export const useOrderServiceMechanicForm = ({orderServiceId, mechanicData, onUpdate, onCreate}: Props) => {
-    const [isLoading, setIsLoading] = useState(false);
-    // const createServiceMechanic = useCreateOrderServiceMechanic();
+     // const createServiceMechanic = useCreateOrderServiceMechanic();
     const updateServiceMechanic = useUpdateMechanicOrderService();
 
     const form = useForm<OrderServiceMechanicFormData>({
@@ -41,6 +40,7 @@ export const useOrderServiceMechanicForm = ({orderServiceId, mechanicData, onUpd
         });
         onUpdate?.(mechanicData.id);
     };
+    const isLoading = updateServiceMechanic.isPending
 
     return {form, onSubmit, isLoading};
 }; 

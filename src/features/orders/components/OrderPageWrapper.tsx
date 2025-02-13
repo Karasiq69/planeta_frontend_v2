@@ -11,7 +11,6 @@ import React from "react";
 import {useParams} from "next/navigation";
 import {useOrderById} from "@/features/orders/api/queries";
 import StatusBadge from "@/features/orders/components/StatusBadge";
-import MechanicsDataTable from "@/features/mechanics/components/table/MechanicsDataTable";
 
 type Props = {};
 const OrderPageWrapper = (props: Props) => {
@@ -26,7 +25,7 @@ const OrderPageWrapper = (props: Props) => {
                         <div>
                             <h3>Заказ №{params.id}</h3>
                         </div>
-                        <StatusBadge status={order?.status} />
+                        <StatusBadge status={order?.status}/>
                         <Badge variant={'destructive'}>Не заполнено</Badge>
                     </div>
 

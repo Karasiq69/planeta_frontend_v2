@@ -20,7 +20,7 @@ const OrderSummary = (props: Props) => {
     if (!order) return 'no order or error'
     return (
         <>
-            <Card className={'bg-muted'}>
+            <Card className={''}>
                 <CardHeader className="flex flex-row items-start bg-background/80 rounded-t-lg border-b">
                     <div className="grid gap-0.5">
                         <CardTitle className="group flex items-center gap-2 text-lg">

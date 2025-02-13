@@ -15,7 +15,7 @@ export const orderServiceMechanicSchema = z.object({
     invalid_type_error: "Неверный тип оплаты",
   }),
   
-  paymentRate: z.number()
+  paymentRate: z.coerce.number()
     .min(0, "Ставка не может быть отрицательной"),
 });
 

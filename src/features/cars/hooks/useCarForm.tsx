@@ -21,9 +21,9 @@ export const useCarForm = ({carData, onCreate, onUpdate}: CarFormProps) => {
     const defaultValues = useMemo(() => ({
         brandId: carData?.brand?.id as unknown as number,
         modelId: carData?.model?.id as unknown as number,
-        year: carData?.year,
+        year: carData?.year || '' as unknown as number,
         vin: carData?.vin || '',
-        licensePlate: carData?.licensePlate || 'sex',
+        licensePlate: carData?.licensePlate || '',
         // current_mileage: carData?.mileages[0]?.value.toString() || '',
         // custom_brand: '',
     }), [carData]);
@@ -47,17 +47,20 @@ export const useCarForm = ({carData, onCreate, onUpdate}: CarFormProps) => {
                     toast.error("Ошибка при обновлении автомобиля");
                 }
             });
-            toast.info(<pre>{JSON.stringify(data, null, 2)}</pre>)
 
         } else {
             createCar(data, {
-                onSuccess: (data) => onCreate && onCreate(data),
+                onSuccess: (data) => {
+                    onCreate && onCreate(data)
+                    toast.info(JSON.stringify(data))
+                }
+                ,
                 onError: (error) => {
                     console.error("Ошибка при создании автомобиля:", error);
                     toast.error("Ошибка при создании автомобиля");
                 }
             });
-            toast.info(<pre>{JSON.stringify(data, null, 2)}</pre>)
+
 
         }
 

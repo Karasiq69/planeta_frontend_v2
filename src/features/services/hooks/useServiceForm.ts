@@ -22,7 +22,6 @@ export const useServiceForm = ({serviceData, onUpdate, onCreate}: Props) => {
             name: serviceData?.name || "",
             description: serviceData?.description || "",
             defaultDuration: serviceData?.defaultDuration || 60,
-            requiredQualifications: serviceData?.requiredQualifications || "",
         },
     });
 

@@ -1,8 +1,8 @@
 import {ICar} from "@/features/cars/types";
 import {IClient} from "@/features/clients/types";
 import {Product} from "@/features/products/types";
-import {IService} from "@/features/services";
 import {Mechanic} from "@/features/mechanics/types";
+import {IService} from "@/features/services/types";
 
 export type OrderStatus =
     | 'application'     // Заявка

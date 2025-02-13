@@ -48,7 +48,7 @@ const OrderMechanicTableActions = ({row}: Props) => {
                         <Pencil size={16}/>
                     </Button>
                 </DialogTrigger>
-                <DialogContent className={'space-y-3'}>
+                <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Редактировать исполнителя</DialogTitle>
                     </DialogHeader>

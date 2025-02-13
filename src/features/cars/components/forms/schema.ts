@@ -3,7 +3,7 @@ import {z} from "zod";
 export const carFormSchema = z.object({
     brandId: z.string().transform(val => Number(val)),
     modelId: z.string().transform(val => Number(val)),
-    year: z.string().transform(val=> Number(val)).optional().refine(val => !val || (val >= 1900 && val <= new Date().getFullYear()), {
+    year: z.coerce.number().transform(val=> Number(val)).optional().refine(val => !val || (val >= 1900 && val <= new Date().getFullYear()), {
         message: "Год должен быть между 1900 и текущим годом",
     }),
     vin: z.string().optional().refine(val => !val || val.length >= 12, {

@@ -53,7 +53,8 @@ const ServiceMechanicFormFields = ({form}: Props) => {
                 render={({field}) => (
                     <FormItem>
                         <FormLabel>Тип оплаты</FormLabel>
-                        <Select 
+                        <Select
+                            disabled
                             onValueChange={field.onChange}
                             value={field.value}
                         >
@@ -83,7 +84,7 @@ const ServiceMechanicFormFields = ({form}: Props) => {
                                 type="number" 
                                 placeholder="100" 
                                 {...field} 
-                                onChange={e => field.onChange(Number(e.target.value))}
+                                onChange={field.onChange}
                             />
                         </FormControl>
                         <FormMessage/>
@@ -91,24 +92,24 @@ const ServiceMechanicFormFields = ({form}: Props) => {
                 )}
             />
 
-            <FormField
-                control={form.control}
-                name="paymentRate"
-                render={({field}) => (
-                    <FormItem>
-                        <FormLabel>Ставка оплаты</FormLabel>
-                        <FormControl>
-                            <Input 
-                                type="number" 
-                                placeholder="1000" 
-                                {...field} 
-                                onChange={e => field.onChange(Number(e.target.value))}
-                            />
-                        </FormControl>
-                        <FormMessage/>
-                    </FormItem>
-                )}
-            />
+            {/*<FormField*/}
+            {/*    control={form.control}*/}
+            {/*    name="paymentRate"*/}
+            {/*    render={({field}) => (*/}
+            {/*        <FormItem>*/}
+            {/*            <FormLabel>Ставка оплаты</FormLabel>*/}
+            {/*            <FormControl>*/}
+            {/*                <Input */}
+            {/*                    type="number" */}
+            {/*                    placeholder="1000" */}
+            {/*                    {...field} */}
+            {/*                    onChange={e => field.onChange(Number(e.target.value))}*/}
+            {/*                />*/}
+            {/*            </FormControl>*/}
+            {/*            <FormMessage/>*/}
+            {/*        </FormItem>*/}
+            {/*    )}*/}
+            {/*/>*/}
         </div>
     );
 };

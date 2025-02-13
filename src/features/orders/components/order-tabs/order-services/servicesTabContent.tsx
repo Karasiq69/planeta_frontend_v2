@@ -4,15 +4,11 @@ import {useOrderServicesById} from "@/features/orders/api/queries";
 import {ExpandedState, flexRender, getCoreRowModel, getExpandedRowModel, useReactTable} from "@tanstack/react-table";
 import {ServicesColumnDefs} from "@/features/orders/components/tables/order-services/columns";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
-import {CirclePlus} from "lucide-react";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import LoaderSectionAnimated from "@/components/ui/LoaderSectionAnimated";
 import DataTableSimpleMech from "@/features/mechanics/components/table/DataTableSimpleMech";
 import ServicesCombobox from "@/features/orders/components/order-tabs/order-services/ServicesCombobox";
 import {orderMechanicsColumnsDefs} from "@/features/orders/components/tables/order-mechanics/columns";
-import {ServiceForm} from "@/features/services/components/forms/ServiceForm";
-import CreateServiceButton from "@/features/services/components/CreateServiceButton";
 import CreateOrderServiceButton from "@/features/orders/components/order-tabs/order-services/CreateOrderServiceButton";
 
 type Props = {};
@@ -41,17 +37,18 @@ const ServicesTabContent = (props: Props) => {
     if (isLoading) return <LoaderSectionAnimated className={'bg-background'} text={'Загружаем...'}/>
     return (
         <>
-            <Card className={'drop-shadow-none shadow-none '}>
+            <Card className={''}>
                 <CardHeader
-                    className={'flex flex-row items-center space-y-0 justify-between  bg-zinc-100  border-b rounded-lg rounded-b-none'}>
+                    className={'flex flex-row items-center space-y-0 justify-between     border-b rounded-lg rounded-b-none'}>
                     <ServicesCombobox orderId={orderId}/>
                     <CreateOrderServiceButton/>
                 </CardHeader>
                 <CardContent className={' space-y-3 shadow-inner p-0'}>
-                    <Table>
+                    <Table className={'table-auto'}>
                         <TableHeader>
                             {table.getHeaderGroups().map((headerGroup) => (
-                                <TableRow key={headerGroup.id}>
+                                <TableRow key={headerGroup.id}
+                                          className={'*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r bg-muted/50'}>
                                     {headerGroup.headers.map((header) => {
                                         return (
                                             <TableHead key={header.id}>
@@ -72,7 +69,7 @@ const ServicesTabContent = (props: Props) => {
                                 table.getRowModel().rows.map((row) => (
                                     <React.Fragment key={row.id}>
                                         <TableRow data-state={row.getIsSelected() && "selected"}
-                                                  className={'hover:bg-white'}>
+                                                  className={'hover:bg-white *:border-border hover:bg-transparent [&>:not(:last-child)]:border-r'}>
                                             {row.getVisibleCells().map((cell) => (
                                                 <TableCell key={cell.id} className="py-3">
                                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

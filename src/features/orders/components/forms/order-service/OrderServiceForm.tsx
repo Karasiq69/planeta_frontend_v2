@@ -25,9 +25,6 @@ export const OrderServiceForm = ({ orderServiceData, orderId, onUpdate, onCreate
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-        <pre className="text-xs text-muted-foreground">
-          {JSON.stringify(orderServiceData, null, 2)}
-        </pre>
         <OrderServiceFormFields form={form} />
         <Button disabled={isLoading} variant="default" className="w-full" type="submit">
           {orderServiceData ? 'Обновить' : 'Добавить услугу'}

@@ -26,7 +26,7 @@ const DataTableSimpleMech: React.FC<DataTableProps> = ({orderId, data, columns})
                             {headerGroup.headers.map((header) => {
                                 return (
                                     <TableHead key={header.id}
-                                    className={'p-0 px-3 h-8 text-xs text-muted-foreground'}
+                                               className={'p-0 px-3 h-8 text-xs text-muted-foreground'}
                                     >
                                         {header.isPlaceholder
                                             ? null

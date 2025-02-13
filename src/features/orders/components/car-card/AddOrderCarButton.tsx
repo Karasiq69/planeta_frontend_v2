@@ -26,7 +26,7 @@ const AddOrderCarButton = (props: Props) => {
     }
 
     const onCreate = (car: ICar) => {
-        mutate({id: car.id})
+        mutate({carId: car.id})
     }
 
     return (

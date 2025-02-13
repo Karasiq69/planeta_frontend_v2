@@ -48,7 +48,7 @@ const CarCard = (props: Props) => {
                     <LicensePlate licensePlate={car.licensePlate}/>
                     <div className={'text-sm text-muted-foreground flex items-center gap-2'}>
                         <Gauge className={'text-muted-foreground'} size={16}/>
-                        {car.mileages[0].value} км
+                        {car.mileages[0]?.value ?? '-'} км
                     </div>
                 </CardContent>
             </Card>

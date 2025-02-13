@@ -1,7 +1,7 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {toast} from "sonner";
 import {ordersQueryKeys} from "@/features/orders/api/query-keys";
-import {Order, OrderServiceMechanic} from "@/features/orders/types";
+import {Order, OrderService, OrderServiceMechanic} from "@/features/orders/types";
 import apiClient from "@/lib/auth/client";
 import {ORDERS_URL} from "@/lib/constants";
 import {
@@ -9,6 +9,7 @@ import {
     addOrderServiceFn,
     deleteMechanicOrderServiceFn,
     deleteOrderServiceFn,
+    editOrderServiceFn,
     updateMechanicOrderServiceFn
 } from "@/features/orders/api/actions";
 
@@ -387,6 +388,27 @@ export function useAddOrderServiceMechanic(orderId: number) {
             });
             queryClient.invalidateQueries({
                 queryKey: ordersQueryKeys.detail(orderId)
+            });
+        },
+    });
+}
+
+export function useUpdateOrderService(orderId: number) {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: ({orderServiceId, data}: {
+            orderServiceId: number,
+            data: Partial<OrderService>,
+        }) => editOrderServiceFn(orderServiceId, data),
+        onSuccess: () => {
+            toast.success('Услуга обновлена');
+        },
+        onError: () => {
+            toast.error('Произошла ошибка, повторите попытку');
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({
+                queryKey: ordersQueryKeys.services(orderId)
             });
         },
     });

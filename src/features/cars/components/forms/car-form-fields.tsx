@@ -16,6 +16,7 @@ const CarFormFields = ({form}: Props) => {
         <div className={'space-y-5'}>
             <CarFormFieldBrandSelect form={form}/>
             <CarFormFieldModelSelect form={form}/>
+
             <FormField
             control={form.control}
             name="vin"

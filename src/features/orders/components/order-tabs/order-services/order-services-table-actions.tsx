@@ -21,10 +21,12 @@ import {useParams} from "next/navigation";
 import {
     useAddOrderServiceMechanic,
     useDeleteMechanicOrderService,
-    useDeleteOrder,
-    useDeleteOrderService
+    useDeleteOrderService,
+    useUpdateOrderService
 } from "@/features/orders/api/mutations";
 import {OrderService} from "@/features/orders/types";
+import {DialogBody} from "next/dist/client/components/react-dev-overlay/internal/components/Dialog";
+import {OrderServiceForm} from "@/features/orders/components/forms/order-service/OrderServiceForm";
 
 
 type Props = {
@@ -44,7 +46,7 @@ const OrderServicesTableActions = ({rowInstance}: Props) => {
     const {data: mechanics, isLoading} = useAllMechanics()
 
     const {mutate: deleteService, isPending} = useDeleteOrderService(orderId)
-    const {mutate: updateMutation, isPending: updatePending} = useDeleteOrder(orderId)
+    const {mutate: updateMutation, isPending: updatePending} = useUpdateOrderService(orderId)
     const {mutate: addMechanic, isPending: isAdding} = useAddOrderServiceMechanic(orderId)
 
     const {mutate: deleteMechanic, isPending: isDeleting} = useDeleteMechanicOrderService(orderId)
@@ -76,11 +78,16 @@ const OrderServicesTableActions = ({rowInstance}: Props) => {
         }
     }
 
+    function handleUpdateService() {
+
+    }
+
     return (
-        <div className={'text-right text-nowrap flex gap-1 justify-end'}>
+        <div className={'  text-nowrap flex   '}>
             <div>
                 <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
+                        {/* -- привязать мастера к услуге --  */}
                         <Button
                             variant="ghost"
                             size="icon">
@@ -125,26 +132,30 @@ const OrderServicesTableActions = ({rowInstance}: Props) => {
             </div>
             <Dialog>
                 <DialogTrigger asChild>
+                    {/*-- Редактировать услугу --*/}
                     <Button size="icon" variant="ghost" className="p-0">
                         <Pencil/>
                     </Button>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Редактирование</DialogTitle>
+                        <DialogTitle>Редактирование услуги</DialogTitle>
                         <DialogDescription>
-                            Вы уверены, что хотите удалить заказ? Это действие невозможно отменить
+                            Отредактируйте услугу и нажмите сохранить
                         </DialogDescription>
                     </DialogHeader>
-                    <DialogFooter>
-                        <Button variant="outline">
-                            Отмена
-                        </Button>
-                        <Button variant="destructive">
-                            {/*{isPending ? <LoaderAnimated/> : "Удалить"}*/}
-                            Удалить
-                        </Button>
-                    </DialogFooter>
+                    <DialogBody>
+                        <OrderServiceForm orderServiceData={rowInstance.original} orderId={orderId}/>
+                    </DialogBody>
+                    {/*<DialogFooter>*/}
+                    {/*    <Button variant="outline">*/}
+                    {/*        Отмена*/}
+                    {/*    </Button>*/}
+                    {/*    <Button variant="destructive">*/}
+                    {/*        /!*{isPending ? <LoaderAnimated/> : "Удалить"}*!/*/}
+                    {/*        Удалить*/}
+                    {/*    </Button>*/}
+                    {/*</DialogFooter>*/}
                 </DialogContent>
             </Dialog><Dialog>
             <DialogTrigger asChild>

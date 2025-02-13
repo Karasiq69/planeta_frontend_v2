@@ -3,7 +3,7 @@ import {cn} from "@/lib/utils";
 import * as React from "react";
 import {Row} from "@tanstack/react-table";
 import {OrderService} from "@/features/orders/types";
-import {ArrowDownFromLine, ArrowUpFromLine} from "lucide-react";
+import {ArrowDownFromLine, ArrowUpFromLine, UsersRound} from "lucide-react";
 
 interface Props {
     row: Row<OrderService>;
@@ -25,13 +25,15 @@ const EmployeesCell: React.FC<Props> = ({row, table}) => {
         <>
             <Button
             variant="outline"
+            size={'sm'}
             // disabled={avatars.length < 1}
             onClick={() => row.toggleExpanded()}
             className={cn(
-                'cursor-pointer px-0 w-full',
-                row.getIsExpanded() && 'shadow-inner bg-gray-200', '')}>
+                'cursor-pointer ',
+                row.getIsExpanded() && ' bg-gray-200', '')}>
             {/*<AvatarStack id="employees" variant="stack" avatars={avatars}/>*/}
-            Исполнители(emp cell)
+                <UsersRound />
+                <span className={'text-xs text-muted-foreground'}>{row.original.mechanics.length}</span>
         </Button>
             </>
     );

@@ -30,9 +30,9 @@ export const ServiceFormFields = ({ form }: Props) => {
                 name="description"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Описание</FormLabel>
+                        <FormLabel>Описание <span className={'text-muted-foreground'}> (не обязательно)</span></FormLabel>
                         <FormControl>
-                            <Textarea {...field} />
+                            <Input {...field} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -51,21 +51,6 @@ export const ServiceFormFields = ({ form }: Props) => {
                                 {...field} 
                                 onChange={e => field.onChange(Number(e.target.value))} 
                             />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-
-            <FormField
-                disabled={true}
-                control={form.control}
-                name="requiredQualifications"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Требуемая квалификация</FormLabel>
-                        <FormControl>
-                            <Input {...field} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>

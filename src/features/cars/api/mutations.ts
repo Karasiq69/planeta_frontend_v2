@@ -21,11 +21,9 @@ export function useCreateCar() {
             onSuccess: (createdCar, variables) => {
                 toast.success(`Автомобиль создан`)
 
-                router.push(`${CARS_URL}/${createdCar.id}`);
+                // router.push(`${CARS_URL}/${createdCar.id}`);
 
-                queryClient.invalidateQueries({
-                    queryKey: carQueryKeys.all
-                });
+
             },
             onError: (error: ApiError) => {
                 const errorMessage = error.response?.data?.message || 'Произошла ошибка при создании автомобиля';
@@ -33,7 +31,9 @@ export function useCreateCar() {
                 console.error(error)
             },
             onSettled: () => {
-
+                queryClient.invalidateQueries({
+                    queryKey: carQueryKeys.all
+                });
             },
         })
     );
