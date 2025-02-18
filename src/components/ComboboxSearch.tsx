@@ -10,7 +10,7 @@ import LoaderAnimated from "@/components/ui/LoaderAnimated";
 interface SearchComboboxProps<T> {
     data?: { data: T[] }
     isLoading: boolean
-    isPending: boolean
+    isPending?: boolean
     onSearch: (value: string) => void
     onSelect: (item: T) => void
     getDisplayValue: (item: T) => string

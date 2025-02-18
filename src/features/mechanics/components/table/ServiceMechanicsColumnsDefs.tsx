@@ -1,11 +1,7 @@
 import {ColumnDef} from "@tanstack/react-table"
 import * as React from "react"
-import {ArrowRightCircle, LucideIcon, Trash2} from "lucide-react"
 import {OrderServiceMechanic} from "@/features/orders/types"
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
-import {CardDescription, CardTitle} from "@/components/ui/card"
-import OrderTableActions from "@/features/orders/components/tables/OrderTableActions"
-import ServiceMechanicActions from "@/features/mechanics/components/table/ServiceMechanicActions";
+import {Avatar, AvatarFallback} from "@/components/ui/avatar"
 
 export const _serviceMechanicsColumnsDefs: ColumnDef<OrderServiceMechanic>[] = [
     {

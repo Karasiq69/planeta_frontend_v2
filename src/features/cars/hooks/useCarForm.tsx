@@ -51,7 +51,7 @@ export const useCarForm = ({carData, onCreate, onUpdate}: CarFormProps) => {
         } else {
             createCar(data, {
                 onSuccess: (data) => {
-                    onCreate && onCreate(data)
+                    onCreate?.(data);
                     toast.info(JSON.stringify(data))
                 }
                 ,
