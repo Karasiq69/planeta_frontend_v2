@@ -2,11 +2,10 @@
 
 import Link from "next/link"
 import {usePathname} from "next/navigation"
-import {Car, LayoutDashboard, Package, Settings, ShoppingCart, Users, Wallet} from "lucide-react"
-import {Button} from "@/components/ui/button"
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip"
+import {Calendar, Car, LayoutDashboard, Package, ShoppingCart, Users, Wallet} from "lucide-react"
 import {cn} from "@/lib/utils"
-import {useCallback} from "react";
+import {useCallback} from "react"
+import {MenuItem} from "@/components/common/sidebar/MenuItem"
 
 interface NavMainProps {
     isOpen?: boolean;
@@ -43,20 +42,29 @@ export const mainMenuItems = [
         url: "/payments",
         icon: Wallet
     },
-
 ]
 
 export function NavMain({isOpen}: NavMainProps) {
     const pathname = usePathname()
 
-    const getIsActive = useCallback((item: any) => {
-        return pathname.startsWith(item.url)
-    }, [])
+    const getIsActive = useCallback((urlOrItem: string | { url: string }) => {
+        const url = typeof urlOrItem === 'string' ? urlOrItem : urlOrItem.url
+        return pathname.startsWith(url)
+    }, [pathname]) // добавили pathname в зависимости
 
     return (
-
         <nav className="mt-8 w-full">
-            <ul className="flex flex-col    items-start space-y-1 px-2">
+            <div className="mt-6 mb-2">
+                <MenuItem
+                    title="Календарь"
+                    url="/calendar"
+                    icon={Calendar}
+                    isActive={getIsActive('/calendar')}
+                    isOpen={isOpen}
+                />
+            </div>
+
+            <ul className="flex flex-col items-start space-y-1">
                 <li className="w-full pt-5">
                     {isOpen || isOpen === undefined ? (
                         <p className="text-sm font-medium text-muted-foreground px-4 pb-2 max-w-[248px] truncate">
@@ -65,41 +73,16 @@ export function NavMain({isOpen}: NavMainProps) {
                     ) : null}
 
                     {mainMenuItems.map((item) => (
-                        <div className="w-full" key={item.title}>
-                            <TooltipProvider disableHoverableContent>
-                                <Tooltip delayDuration={100}>
-                                    <TooltipTrigger asChild>
-                                        <Button
-                                            variant={getIsActive(item) ? "secondary" : "ghost"}
-                                            className={cn(getIsActive(item) &&
-                                                'flex gap-2 rounded-lg hover:bg-background/70 items-center h-10 border ',
-                                                'w-full justify-start h-10 mb-1')}
-                                            asChild
-                                        >
-                                            <Link href={item.url}>
-                                                  <span className={cn(isOpen === false ? "" : "mr-4")}>
-                                                    <item.icon size={18}/>
-                                                  </span>
-                                                <p className={cn(
-                                                    "max-w-[200px] truncate",
-                                                    isOpen === false ? "-translate-x-96 opacity-0" : "translate-x-0 opacity-100"
-                                                )}>
-                                                    {item.title}
-                                                </p>
-                                            </Link>
-                                        </Button>
-                                    </TooltipTrigger>
-                                    {isOpen === false && (
-                                        <TooltipContent side="right">
-                                            {item.title}
-                                        </TooltipContent>
-                                    )}
-                                </Tooltip>
-                            </TooltipProvider>
-                        </div>
+                        <MenuItem
+                            key={item.title}
+                            title={item.title}
+                            url={item.url}
+                            icon={item.icon}
+                            isActive={getIsActive(item)}
+                            isOpen={isOpen}
+                        />
                     ))}
                 </li>
-
             </ul>
         </nav>
     )

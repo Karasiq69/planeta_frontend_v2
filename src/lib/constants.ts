@@ -24,3 +24,42 @@ export const BRAND_LOGOS: Record<string, string> = {
   'Audi': 'audi-logo.svg',
  } as const;
 
+export const STATION_RESOURCES = [
+    {
+        id: 'A',
+        title: 'Подъемник 1',
+        eventColor: '#cfeea8',
+        eventTextColor: '#062000',
+        eventBorderColor: '#98af7a'
+    },
+    {
+        id: 'B',
+        title: 'Подъемник 2',
+        eventColor: '#d6d5ff',
+        eventTextColor: '#111030',
+        eventBorderColor: '#a4a4c6'
+    },
+    {
+        id: 'C',
+        title: 'Подъемник 3',
+        eventColor: '#feea8c',
+        eventTextColor: '#433602',
+        eventBorderColor: '#ccbc71'
+    },
+    {
+        id: 'D',
+        title: 'Диагност',
+        eventColor: '#b8e6ff',
+        eventTextColor: '#023350',
+        eventBorderColor: '#87a9bc'
+    },
+    {
+        id: 'E',
+        title: 'Проход',
+        eventColor: '#ffd6e5',
+        eventTextColor: '#570228',
+        eventBorderColor: '#c69dac'
+    }
+] as const;
+
+export type StationResource = typeof STATION_RESOURCES[number];

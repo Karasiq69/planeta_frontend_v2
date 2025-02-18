@@ -10,6 +10,10 @@
     }
 }
 
+.fc-license-message {
+    display: none !important;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -124,4 +128,119 @@ body {
         @apply scroll-m-20 text-lg font-semibold tracking-tight;
     }
 
+}
+
+
+
+:root {
+    --fc-border-color: lightgray;
+    --fc-page-bg-color: none;
+}
+.dark {
+    --fc-border-color: gray;
+}
+
+.fc-license-message {
+    display: none !important;
+}
+
+/* FullCalendar Custom Styles */
+
+
+.fc.fc-theme-standard {
+    /* Основные цвета */
+    --fc-page-bg-color: hsl(var(--background));
+    --fc-border-color: hsl(var(--border));
+    --fc-neutral-bg-color: hsl(var(--muted));
+    --fc-neutral-text-color: hsl(var(--muted-foreground));
+
+    /* Текст */
+    --fc-small-font-size: 0.875rem;
+
+    /* Кнопки */
+    --fc-button-text-color: hsl(var(--primary-foreground));
+    --fc-button-bg-color: hsl(var(--primary));
+    --fc-button-border-color: hsl(var(--primary));
+    --fc-button-hover-bg-color: hsl(var(--primary) / 0.9);
+    --fc-button-hover-border-color: hsl(var(--primary) / 0.9);
+    --fc-button-active-bg-color: hsl(var(--primary) / 0.8);
+    --fc-button-active-border-color: hsl(var(--primary) / 0.8);
+
+    /* События */
+    --fc-event-bg-color: hsl(var(--primary));
+    --fc-event-border-color: hsl(var(--primary));
+    --fc-event-text-color: hsl(var(--primary-foreground));
+    --fc-event-selected-overlay-color: hsl(var(--primary) / 0.2);
+
+    /* Ссылки "Еще" */
+    --fc-more-link-bg-color: hsl(var(--secondary));
+    --fc-more-link-text-color: hsl(var(--secondary-foreground));
+
+    /* Другие элементы */
+    --fc-non-business-color: hsl(var(--muted) / 0.2);
+    --fc-highlight-color: hsl(var(--accent) / 0.2);
+    --fc-today-bg-color: hsl(var(--accent) / 1);
+    --fc-now-indicator-color: hsl(var(--destructive));
+}
+
+/* Дополнительные стили для лучшей интеграции */
+.fc .fc-button {
+    @apply font-medium rounded-md transition-colors;
+    padding: 0.5rem 1rem;
+}
+
+.fc .fc-button:focus {
+    @apply outline-none     ring-0 shadow-none;
+}
+
+.fc .fc-button-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 ring-0 shadow-none;
+}
+
+.fc .fc-button-primary:not(:disabled):active,
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+    @apply bg-primary/80;
+}
+
+.fc .fc-col-header-cell-cushion {
+    @apply text-foreground font-semibold;
+}
+
+.fc .fc-daygrid-day-number {
+    @apply text-muted-foreground;
+}
+
+
+.fc .fc-event {
+    @apply rounded-md shadow-sm;
+}
+
+.fc .fc-toolbar-title {
+    @apply text-xl font-bold text-foreground;
+}
+
+.fc .fc-view-harness {
+    @apply bg-background border border-border rounded-md overflow-hidden;
+}
+
+.fc .fc-scrollgrid {
+    @apply border-border;
+}
+
+.fc .fc-cell-shaded,
+.fc .fc-day-disabled {
+    @apply bg-muted/20;
+}
+
+/* Темная тема */
+.dark .fc.fc-theme-standard {
+    --fc-page-bg-color: hsl(var(--background));
+    --fc-border-color: hsl(var(--border));
+    --fc-neutral-bg-color: hsl(var(--muted));
+    --fc-neutral-text-color: hsl(var(--muted-foreground));
+    --fc-event-bg-color: hsl(var(--primary));
+    --fc-event-border-color: hsl(var(--primary));
+    --fc-event-text-color: hsl(var(--primary-foreground));
+    --fc-non-business-color: hsl(var(--muted) / 0.2);
+    --fc-today-bg-color: hsl(var(--accent) / 0.1);
 }

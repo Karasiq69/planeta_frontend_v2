@@ -2,7 +2,7 @@
 import GoBackButton from "@/components/common/GoBackButton";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
-import {Printer, Trash2} from "lucide-react";
+import {CalendarPlus, Printer, Trash2} from "lucide-react";
 import ClientCard from "@/features/orders/components/client-card/ClientCard";
 import CarCard from "@/features/orders/components/car-card/CarCard";
 import OrdersTabsWrapper from "@/features/orders/components/OrdersTabsWrapper";
@@ -11,11 +11,13 @@ import React from "react";
 import {useParams} from "next/navigation";
 import {useOrderById} from "@/features/orders/api/queries";
 import StatusBadge from "@/features/orders/components/StatusBadge";
+import CreateOrderAppointment from "@/features/orders/components/CreateOrderAppointment";
 
 type Props = {};
 const OrderPageWrapper = (props: Props) => {
     const params = useParams()
-    const {data: order} = useOrderById(+params.id)
+    const orderId = Number(params.id)
+    const {data: order} = useOrderById(orderId)
     return (
         <div className={'space-y-5'}>
             <section>
@@ -30,6 +32,7 @@ const OrderPageWrapper = (props: Props) => {
                     </div>
 
                     <div className="space-x-4">
+                        <CreateOrderAppointment orderId={orderId}/>
                         <Button variant="outline" size={'sm'}><Printer size={16}/></Button>
                         <Button variant="ghost" size={'sm'}><Trash2 size={16}/> Удалить заказ</Button>
                     </div>
