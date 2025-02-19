@@ -9,6 +9,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import ProductForm from "@/features/products/components/forms/ProductForm";
 
 type Props = {};
 const CreateProductButton = (props: Props) => {
@@ -25,7 +26,7 @@ const CreateProductButton = (props: Props) => {
                         <DialogTitle>Создание товара</DialogTitle>
                         <DialogDescription></DialogDescription>
                     </DialogHeader>
-                    Форма
+                    <ProductForm/>
                 </DialogContent>
             </Dialog>
         </div>

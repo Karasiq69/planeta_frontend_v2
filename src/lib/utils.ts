@@ -8,3 +8,22 @@ export function cn(...inputs: ClassValue[]) {
 export const formatPhone = (phone: string) => {
   return phone.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '+7 ($1) $2-$3-$4');
 };
+
+export function formatPrice(
+    price: number | string,
+    options: {
+      currency?: 'RUB' | 'USD'
+      notation?: Intl.NumberFormatOptions['notation']
+    } = {}
+) {
+  const {currency = 'RUB', notation = 'compact'} = options
+
+  const numericPrice =
+      typeof price === 'string' ? parseFloat(price) : price
+
+  return new Intl.NumberFormat('ru-RU', {
+    style: 'currency',
+    currency,
+    maximumFractionDigits: 2,
+  }).format(numericPrice)
+}

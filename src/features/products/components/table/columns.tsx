@@ -5,6 +5,7 @@ import {Button} from "@/components/ui/button";
 import {ArrowRightCircle, Trash2} from "lucide-react";
 import Link from "next/link";
 import {Product} from "@/features/products/types";
+import {formatPrice} from "@/lib/utils";
 
 export const productsColumnsDefs: ColumnDef<Product>[] = [
     {
@@ -35,10 +36,7 @@ export const productsColumnsDefs: ColumnDef<Product>[] = [
         ),
         cell: ({ row }) => (
             <div className="font-medium">
-                {new Intl.NumberFormat('ru-RU', {
-                    style: 'currency',
-                    currency: 'RUB'
-                }).format(row.getValue("price"))}
+                {formatPrice(row.getValue('price'))}
             </div>
         )
     },
