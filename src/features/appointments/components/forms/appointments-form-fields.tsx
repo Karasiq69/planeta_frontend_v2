@@ -71,14 +71,9 @@ export const AppointmentFormFields = ({ form }: Props) => {
                 name="description"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Начало</FormLabel>
+                        <FormLabel>Описание (не обязательно)</FormLabel>
                         <FormControl>
-                            <DateTimePicker
-                                // @ts-ignore //fix dis TODO
-                                value={field.value}
-                                onChange={field.onChange}
-                                disabled={field.disabled}
-                            />
+                            <Textarea {...field}/>
                         </FormControl>
                         <FormMessage />
                     </FormItem>

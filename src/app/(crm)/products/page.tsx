@@ -1,7 +1,7 @@
 import {Card} from "@/components/ui/card";
-import ClientsDataTable from "@/features/clients/components/table/ClientsDataTable";
-import React, {Suspense} from "react";
-import CreateClientButton from "@/features/clients/components/CreateClientButton";
+import React from "react";
+import CreateProductButton from "@/features/products/components/CreateProductButton";
+import ProductsDataTable from "@/features/products/components/table/ProductsDataTable";
 
 const Page = async ({
                         searchParams,
@@ -12,10 +12,10 @@ const Page = async ({
     return (
         <section>
             <div className={'space-y-5'}>
-                <h3>Клиенты</h3>
-                <CreateClientButton/>
+                <h3>Товары и запчасти</h3>
+                <CreateProductButton/>
                 <Card>
-                    <ClientsDataTable/>
+                    <ProductsDataTable/>
                 </Card>
 
             </div>

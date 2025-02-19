@@ -10,7 +10,7 @@ export const appointmentSchema = z.object({
         required_error: "Выберите дату окончания",
     }),
     allDay: z.boolean().default(false),
-    resource: z.string().min(1, "Выберите мастера"),
+    resource: z.string().min(1, "Выберите станцию"),
 });
 
 export type AppointmentFormData = z.infer<typeof appointmentSchema>;

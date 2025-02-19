@@ -7,7 +7,6 @@ import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 
 import interactionPlugin from "@fullcalendar/interaction";
 import React, {useRef, useState} from "react";
-import {Card, CardHeader} from "@/components/ui/card";
 import {DateSelectArg, EventChangeArg, EventClickArg} from "@fullcalendar/core";
 import {Dialog, DialogContent, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import {Popover, PopoverContent} from "@/components/ui/popover";
