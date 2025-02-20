@@ -1,6 +1,5 @@
 import {ICar} from "@/features/cars/types";
 import {IClient} from "@/features/clients/types";
-import {Product} from "@/features/products/types";
 import {Mechanic} from "@/features/mechanics/types";
 import {IService} from "@/features/services/types";
 
@@ -15,15 +14,6 @@ export type OrderStatus =
     | 'cancelled';      // Отменен
 
 
-export interface OrderProduct {
-    id: number;
-    orderId: number;
-    productId: number;
-    quantity: number;
-    appliedPrice: number;
-    product: Product;
-}
-
 export interface Order {
     id: number;
     clientId?: number;
@@ -37,7 +27,6 @@ export interface Order {
     createdAt: string;
     updatedAt: string;
     services: OrderService[];
-    products: OrderProduct[];
 }
 
 

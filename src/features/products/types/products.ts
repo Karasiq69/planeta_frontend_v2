@@ -31,6 +31,5 @@ export interface Product {
     weight: number | null;
     dimensions: string | null;
     isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    brand: ProductBrand;
 }

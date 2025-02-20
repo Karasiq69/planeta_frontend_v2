@@ -1,5 +1,5 @@
 import {ColumnDef} from "@tanstack/react-table";
-import {OrderProduct} from "@/features/orders/types";
+import {OrderProduct} from "@/features/order-products/types";
 
 export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
     {
@@ -32,7 +32,7 @@ export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
         header: () => <div>Цена</div>,
         cell: ({row}) => {
             const originalPrice = row.original.product.price;
-            const appliedPrice = row.original.appliedPrice;
+            const appliedPrice = parseInt(row.original.estimatedPrice);
             const hasDiscount = originalPrice !== appliedPrice;
 
             return (
@@ -64,7 +64,7 @@ export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
         header: () => <div>Сумма</div>,
         cell: ({row}) => (
             <div className="space-x-1">
-                <span>{row.original.quantity * row.original.appliedPrice}</span>
+                {/*<span>{(row.original.quantity)   (parseInt(row.original.estimatedPrice))}</span>*/}
                 <span className="text-xs text-muted-foreground">руб.</span>
             </div>
         ),
