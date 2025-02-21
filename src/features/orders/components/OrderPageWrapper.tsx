@@ -58,7 +58,6 @@ const OrderPageWrapper = (props: Props) => {
                 {/* right section*/}
                 <div className="md:col-span-1 space-y-5">
                     <OrderSummary/>
-
                 </div>
             </section>
         </div>

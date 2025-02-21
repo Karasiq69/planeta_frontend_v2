@@ -1,5 +1,5 @@
 import {Card} from "@/components/ui/card";
-import React from "react";
+import React, {Suspense} from "react";
 import CreateProductButton from "@/features/products/components/CreateProductButton";
 import ProductsDataTable from "@/features/products/components/table/ProductsDataTable";
 
@@ -14,9 +14,11 @@ const Page = async ({
             <div className={'space-y-5'}>
                 <h3>Товары и запчасти</h3>
                 <CreateProductButton/>
-                <Card>
-                    <ProductsDataTable/>
-                </Card>
+                <Suspense>
+                    <Card>
+                        <ProductsDataTable/>
+                    </Card>
+                </Suspense>
 
             </div>
         </section>

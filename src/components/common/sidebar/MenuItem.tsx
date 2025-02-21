@@ -23,9 +23,9 @@ export function MenuItem({ title, url, icon: Icon, isActive, isOpen }: MenuItemP
                         <Button
                             variant={isActive ? "secondary" : "ghost"}
                             className={cn(
-                                'w-full justify-start h-10 mb-1 transition-all duration-200',
-                                'hover:bg-accent/40 hover:translate-x-1',
-                                isActive && 'flex gap-2 rounded-lg items-center h-10 bg-background shadow-sm border translate-x-1'
+                                'w-full justify-start h-10 mb-1 transition-all duration-200 ',
+                                'hover:translate-x-1 hover:bg-background',
+                                isActive && 'flex gap-2 rounded-lg items-center h-10 bg-background shadow border translate-x-1'
                             )}
                             asChild
                         >

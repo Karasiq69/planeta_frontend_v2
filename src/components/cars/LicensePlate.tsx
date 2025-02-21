@@ -4,7 +4,7 @@ type Props = {
     licensePlate?: string
 };
 const LicensePlate = ({licensePlate}: Props) => {
-    if (!licensePlate) return ''
+    if (!licensePlate) return '' // TODO change number to cyr??
     return (
         <div className="flex items-center gap-8">
             <div className="flex items-center gap-2">

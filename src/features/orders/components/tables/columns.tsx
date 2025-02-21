@@ -1,15 +1,14 @@
 import {ColumnDef} from "@tanstack/react-table"
 import * as React from "react"
-import {ArrowRightCircle, LucideIcon, Trash2} from "lucide-react"
+import {LucideIcon} from "lucide-react"
 import {Order} from "@/features/orders/types";
 import {getStatusField} from "@/features/orders/lib/utils";
-import {Button} from "@/components/ui/button";
-import Link from "next/link";
 import LicensePlate from "@/components/cars/LicensePlate";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {getBrandLogo} from "@/features/cars/utils";
 import {CardDescription, CardTitle} from "@/components/ui/card";
 import OrderTableActions from "@/features/orders/components/tables/OrderTableActions";
+import {formatPrice} from "@/lib/utils";
 
 export const OrdersColumnDefs: ColumnDef<Order>[] = [
     {
@@ -91,16 +90,16 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
             <LicensePlate licensePlate={row.original?.car?.licensePlate}/>
         ),
     },
-    // {
-    //     accessorKey: "totalCost",
-    //     header: () => <div>Стоимость</div>,
-    //     cell: ({ row }) => (
-    //         <div className="space-x-1">
-    //             <span>{row.original.totalCost?.toLocaleString()}</span>
-    //             <span className="text-xs text-muted-foreground">руб.</span>
-    //         </div>
-    //     ),
-    // },
+    {
+        accessorKey: "totalCost",
+        header: () => <div>Стоимость</div>,
+        cell: ({row}) => {
+            const totals = row.original.totalCost
+            return (
+                <span>{formatPrice(totals)}</span>
+            )
+        },
+    },
     {
         accessorKey: "reasonToApply",
         header: () => <div>Причина обращения</div>,

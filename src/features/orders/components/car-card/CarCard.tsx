@@ -1,4 +1,4 @@
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import React from "react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
 import {getBrandLogo} from "@/features/cars/utils";
@@ -44,13 +44,13 @@ const CarCard = (props: Props) => {
                     </div>
                     <CarCardDropdownMenu/>
                 </CardHeader>
-                <CardContent className={'flex gap-3  justify-between items-center'}>
+                <CardFooter className={'flex gap-2  justify-between items-center'}>
                     <LicensePlate licensePlate={car.licensePlate}/>
                     <div className={'text-sm text-muted-foreground flex items-center gap-2'}>
                         <Gauge className={'text-muted-foreground'} size={16}/>
                         {car.mileages[0]?.value ?? '-'} км
                     </div>
-                </CardContent>
+                </CardFooter>
             </Card>
         </>
     );

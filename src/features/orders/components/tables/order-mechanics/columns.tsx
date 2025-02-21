@@ -73,10 +73,7 @@ export const orderMechanicsColumnsDefs: ColumnDef<OrderServiceMechanic>[] = [
     {
         id: "actions",
         cell: ({row}) => {
-            const mechanicId = row?.original?.id
             return (
-                // <span>{mechanicId}</span>
-                // <ClientsTableRowActions row={row} clientId={clientId}/>
                 <OrderMechanicTableActions row={row}/>
             )
         },

@@ -3,13 +3,14 @@ import {useParams} from "next/navigation";
 import {useOrderServicesById} from "@/features/orders/api/queries";
 import {ExpandedState, flexRender, getCoreRowModel, getExpandedRowModel, useReactTable} from "@tanstack/react-table";
 import {ServicesColumnDefs} from "@/features/orders/components/tables/order-services/columns";
-import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import LoaderSectionAnimated from "@/components/ui/LoaderSectionAnimated";
 import DataTableSimpleMech from "@/features/mechanics/components/table/DataTableSimpleMech";
 import ServicesCombobox from "@/features/orders/components/order-tabs/order-services/ServicesCombobox";
 import {orderMechanicsColumnsDefs} from "@/features/orders/components/tables/order-mechanics/columns";
 import CreateOrderServiceButton from "@/features/orders/components/order-tabs/order-services/CreateOrderServiceButton";
+import {Separator} from "@/components/ui/separator";
 
 type Props = {};
 const ServicesTabContent = (props: Props) => {
@@ -105,7 +106,6 @@ const ServicesTabContent = (props: Props) => {
                         </TableBody>
                     </Table>
                 </CardContent>
-
             </Card>
         </>
     );

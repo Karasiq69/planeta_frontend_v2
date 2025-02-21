@@ -6,8 +6,6 @@ import {OrderProductsColumnDefs} from "@/features/orders/components/tables/order
 import {useOrderProductsByOrderId} from "@/features/order-products/api/queries";
 import LoaderSectionAnimated from "@/components/ui/LoaderSectionAnimated";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import ServicesCombobox from "@/features/orders/components/order-tabs/order-services/ServicesCombobox";
-import CreateOrderServiceButton from "@/features/orders/components/order-tabs/order-services/CreateOrderServiceButton";
 import OrderProductsCombobox from "@/features/order-products/components/OrderProductsCombobox";
 
 type Props = {};
@@ -32,10 +30,10 @@ const ProductsTabContent = (props: Props) => {
             <CardHeader
                 className={'flex flex-row items-center space-y-0 justify-between     border-b rounded-lg rounded-b-none'}>
                 <OrderProductsCombobox orderId={orderId}/>
-                <CreateOrderServiceButton/>
+                {/*<CreateOrderServiceButton/>*/}
             </CardHeader>
             <CardContent className={' space-y-3 shadow-inner p-0'}>
-        <DataTableBasic table={table} columns={columns}/>
+                <DataTableBasic table={table} columns={columns}/>
             </CardContent>
         </Card>
     );

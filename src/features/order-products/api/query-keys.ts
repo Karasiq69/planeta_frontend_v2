@@ -5,6 +5,9 @@ export const orderProductsQueryKeys = {
     details: () => [...orderProductsQueryKeys.all, 'product'] as const,
     detail: (id: number) => [...orderProductsQueryKeys.details(), id] as const,
 
+    byOrder: () => [...orderProductsQueryKeys.all, 'order'] as const,
+    byOrderDetail: (orderId: number) => [...orderProductsQueryKeys.details(), orderId] as const,
+
     lists: () => [...orderProductsQueryKeys.all, 'list'] as const,
     list: (params: ListParams) => [...orderProductsQueryKeys.lists(), {params}] as const
 }

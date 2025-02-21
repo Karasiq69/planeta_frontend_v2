@@ -2,6 +2,7 @@ import {ICar} from "@/features/cars/types";
 import {IClient} from "@/features/clients/types";
 import {Mechanic} from "@/features/mechanics/types";
 import {IService} from "@/features/services/types";
+import {User} from "@/types";
 
 export type OrderStatus =
     | 'application'     // Заявка
@@ -27,6 +28,8 @@ export interface Order {
     createdAt: string;
     updatedAt: string;
     services: OrderService[];
+    createdById: number;
+    creator: User
 }
 
 

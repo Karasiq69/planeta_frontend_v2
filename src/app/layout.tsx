@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import "./globals.css";
 import {RootProvider} from "@/providers/RootProvider";
 import {Toaster} from "@/components/ui/sonner";
+import NextTopLoader from 'nextjs-toploader';
 
 
 export const metadata: Metadata = {
@@ -23,7 +24,9 @@ export default function AppLayout({
         {/*        src="//unpkg.com/react-scan/dist/auto.global.js"*/}
         {/*    />*/}
         {/*</head>*/}
-        <body>
+        <body className={'overflow-y-scroll antialiased'}>
+        <NextTopLoader />
+
         <RootProvider>
             {children}
         </RootProvider>

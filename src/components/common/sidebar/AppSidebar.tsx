@@ -7,7 +7,6 @@ import {Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail,} fro
 import {TeamSwitcher} from "@/components/common/sidebar/team-switcher";
 import {NavMain} from "@/components/common/sidebar/nav-main";
 import {NavUser} from "@/components/common/sidebar/nav-user";
-import {NavSettings} from "@/components/common/sidebar/nav-settings";
 
 const data = {
   user: {

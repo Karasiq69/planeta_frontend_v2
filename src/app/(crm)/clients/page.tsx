@@ -14,10 +14,11 @@ const Page = async ({
             <div className={'space-y-5'}>
                 <h3>Клиенты</h3>
                 <CreateClientButton/>
+                <Suspense>
                 <Card>
                     <ClientsDataTable/>
                 </Card>
-
+                </Suspense>
             </div>
         </section>
     );

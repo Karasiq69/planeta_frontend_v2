@@ -2,10 +2,10 @@
 import * as React from "react";
 import useDebouncedSearch from "@/hooks/use-debounced-search";
 import {ComboboxSearch} from "@/components/ComboboxSearch";
-import {IService} from "@/features/services/types";
 import {Product} from "@/features/products/types";
 import {useProductsList} from "@/features/products/api/queries";
 import {useCreateOrderProduct} from "@/features/order-products/api/mutations";
+import {Badge} from "@/components/ui/badge";
 
 
 const OrderProductsCombobox = ({orderId}: { orderId: number }) => {
@@ -19,7 +19,7 @@ const OrderProductsCombobox = ({orderId}: { orderId: number }) => {
     const {mutate, isPending} = useCreateOrderProduct(orderId)
 
     const handleSelectItem = (item: Product) => {
-         mutate(item.id)
+        mutate(item.id)
     }
 
     return (
@@ -28,22 +28,21 @@ const OrderProductsCombobox = ({orderId}: { orderId: number }) => {
                 data={services}
                 isLoading={isLoading || isFetching}
                 isPending={isPending}
-
+                width={'w-[600px]'}
                 onSearch={debouncedHandleSearch}
                 onSelect={handleSelectItem}
                 getDisplayValue={(product) => product.name}
                 renderItem={(product) => (
-                    <div className="flex flex-col">
-                        <div className="flex w-full  items-center text-nowrap">
-
-                            <div className={'w-full flex-grow'}>
-                                <p className=" flex gap-1 items-center justify-between">
-                                    <span className={'text-muted-foreground'}>
-                                        {product.id}</span>
-                                    {product.name}
-                                </p>
-
+                    <div className="w-full max-w-6xl">
+                        <div className="flex items-center justify-between   ">
+                            <div className="flex items-center gap-5">
+                                <span className="text-sm text-gray-500  ">{product.partNumber}</span>
+                                <span className="font-medium ">{product.name}</span>
+                                <span className="text-xs text-muted-foreground grow-0">{product.sku}</span>
                             </div>
+                            <Badge variant="outline" className="ml-auto font-normal text-muted-foreground">
+                                {product.brand.name}
+                            </Badge>
                         </div>
                     </div>
                 )}
