@@ -17,6 +17,7 @@ import {useParams} from "next/navigation";
 import ServiceMechanicForm from "@/features/orders/components/forms/service-mechanic/ServiceMechanicForm";
 import {OrderProduct} from "@/features/order-products/types";
 import {useDeleteOrderProduct} from "@/features/order-products/api/mutations";
+import {OrderProductForm} from "@/features/order-products/components/forms/OrderProductForm";
 
 type Props = {
     row: Row<OrderProduct>
@@ -25,7 +26,6 @@ const OrderProductsTableActions = ({row}: Props) => {
     const {id} = useParams()
     const orderId = Number(id)
 
-    const mechanicId = row?.original.id
     const [popoverOpen, setPopoverOpen] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -49,14 +49,10 @@ const OrderProductsTableActions = ({row}: Props) => {
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Редактировать исполнителя</DialogTitle>
+                        <DialogTitle>Редактировать товар</DialogTitle>
                     </DialogHeader>
                     <DialogDescription></DialogDescription>
-
-                    {/*<ServiceMechanicForm*/}
-                    {/*    orderServiceId={row.original.orderServiceId}*/}
-                    {/*    mechanicData={row.original}*/}
-                    {/*/>*/}
+                    <OrderProductForm orderProductData={row.original}/>
                 </DialogContent>
 
             </Dialog>

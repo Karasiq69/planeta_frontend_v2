@@ -1,8 +1,9 @@
 "use server"
 
 import apiClient from "@/lib/auth/client";
-import {ORDER_PRODUCTS_URL, ORDERS_URL, SERVICES_URL} from "@/lib/constants";
+import {MECHANICS_URL, ORDER_PRODUCTS_URL, ORDERS_URL, SERVICES_URL} from "@/lib/constants";
 import {OrderProduct} from "@/features/order-products/types";
+import {OrderServiceMechanic} from "@/features/orders/types";
 
 
 export const getOrderProductsByOrderIdFn = async (orderId: number) => {
@@ -15,5 +16,11 @@ export const addOrderProductFn = async (orderId: number, productId: number) => {
         orderId,
         productId
     });
+    return response.data;
+}
+
+export const updateOrderProductFn = async (orderProductId: number, data: Partial<OrderProduct>) => {
+    const response = await apiClient.patch(`${ORDER_PRODUCTS_URL}/${orderProductId}`,
+        data)
     return response.data;
 }

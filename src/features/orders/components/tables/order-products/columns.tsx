@@ -90,7 +90,7 @@ export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
         accessorKey: "total",
         header: () => <span className={'text-xs text-nowrap'}>Сумма</span>,
         cell: ({row}) => {
-            const price = Number(row.original.quantity) * (parseInt(row.original.estimatedPrice))
+            const price = Number(row.original.quantity) * (parseInt(row.original.actualPrice || row.original.estimatedPrice))
             return (
                 <span>{formatPrice(price)}</span>
             )
