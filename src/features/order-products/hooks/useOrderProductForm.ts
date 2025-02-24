@@ -5,6 +5,7 @@ import {useForm} from "react-hook-form";
 import {OrderProduct} from "../types";
 import {OrderProductFormData, orderProductSchema} from "../components/forms/schema";
 import {useUpdateOrderProduct} from "@/features/order-products/api/mutations";
+import {useParams} from "next/navigation";
 
 
 type Props = {
@@ -14,7 +15,12 @@ type Props = {
 };
 
 export const useOrderProductForm = ({orderProductData, onUpdate, onCreate}: Props) => {
-    const {mutate: updateOrderProduct, isPending: isUpdatePending} = useUpdateOrderProduct(orderProductData?.orderId!);
+    const {id} = useParams()
+    const orderId = Number(id)
+    const {
+        mutate: updateOrderProduct,
+        isPending: isUpdatePending
+    } = useUpdateOrderProduct(orderProductData?.id || orderId);
 
     const form = useForm<OrderProductFormData>({
         resolver: zodResolver(orderProductSchema),

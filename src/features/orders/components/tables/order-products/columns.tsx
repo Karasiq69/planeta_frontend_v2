@@ -85,7 +85,6 @@ export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
             );
         },
     },
-
     {
         accessorKey: "total",
         header: () => <span className={'text-xs text-nowrap'}>Сумма</span>,

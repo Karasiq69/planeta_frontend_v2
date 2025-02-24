@@ -10,8 +10,8 @@ const Page = (props: Props) => {
     if (isEvLoad) return 'ev load'
     return (
         <div className={'text-xs text-muted-foreground'}>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-            <pre>{JSON.stringify(events, null, 2)}</pre>
+            {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
+            {/*<pre>{JSON.stringify(events, null, 2)}</pre>*/}
             sex
         </div>
     );
