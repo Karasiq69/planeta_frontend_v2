@@ -38,6 +38,21 @@ export const mainMenuItems = [
         icon: Package
     },
     {
+        title: "-- Транзакции?",
+        url: "/warehouse/transactions",
+        icon: Package
+    },
+    {
+        title: "-- Накладные",
+        url: "/warehouse/transactions",
+        icon: Package
+    },
+    {
+        title: "-- Inventory docs",
+        url: "/warehouse/inventory-documents",
+        icon: Package
+    },
+    {
         title: "Платежи",
         url: "/payments",
         icon: Wallet

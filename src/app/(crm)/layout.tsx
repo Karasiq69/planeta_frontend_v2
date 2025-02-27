@@ -32,7 +32,7 @@ export default function RootLayout({
                 <AppSidebar/>
                 <SidebarInset>
                     <Navbar/>
-                    <main className={`flex flex-1 flex-col gap-4 p-4  ${font.className}`}>
+                    <main className={`flex flex-1 flex-col gap-4 p-4 bg-muted/40 ${font.className}`}>
                         {children}
                     </main>
                 </SidebarInset>

@@ -15,6 +15,8 @@ export const ORDER_PRODUCTS_URL = '/order-products'
 export const ORDER_MECHANICS_URL = '/order-mechanics'
 export const COMMANDS_URL = '/commands'
 export const APPOINTMENTS_URL = '/appointments'
+export const WAREHOUSE_URL = '/warehouse'
+export const INVENTORY_DOCUMENTS = '/inventory-documents'
 
 
 export const BRAND_LOGOS: Record<string, string> = {

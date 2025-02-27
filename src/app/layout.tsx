@@ -24,7 +24,7 @@ export default function AppLayout({
         {/*        src="//unpkg.com/react-scan/dist/auto.global.js"*/}
         {/*    />*/}
         {/*</head>*/}
-        <body className={'overflow-y-scroll antialiased'}>
+        <body className={'overflow-y-scroll antialiased '}>
         <NextTopLoader />
 
         <RootProvider>

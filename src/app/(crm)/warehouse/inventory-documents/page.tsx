@@ -16,6 +16,9 @@ import {FileMinus2, FilePlus2, SquarePlus} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {WAREHOUSE_URL} from "@/lib/constants";
 import PageHeader from "@/components/common/PageHeader";
+import InventoryTransactionsDataTable
+    from "@/features/transactions/components/table/transactions/InventoryTransactionsDataTable";
+import InventoryDocumentsDataTable from "@/features/inventory-documents/components/table/InventoryDocumentsDatatable";
 
 type Props = {};
 const Page = (props: Props) => {
@@ -24,14 +27,14 @@ const Page = (props: Props) => {
     return (
         <section>
             <div className={'space-y-5'}>
-                <PageHeader title={'Склад'} showBackButton={false}/>
+                <PageHeader title={'Инвентарь документы ??'} showBackButton={false}/>
 
                 <div className={'flex gap-5 items-center'}>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button>
                                 <SquarePlus/>
-                                Создать документ
+                                Создать накладную?
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align={'start'}>
@@ -49,12 +52,12 @@ const Page = (props: Props) => {
                             <DropdownMenuItem disabled>Оформить списание</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <Button variant={'outline'}>Что-то еще сделать</Button>
+                    <Button variant={'outline'} disabled>Что-то еще сделать</Button>
                 </div>
                 <Card>
                     <Suspense>
                         {/*<InventoryTransactionsDataTable/>*/}
-                        <WarehouseDataTable/>
+                        <InventoryDocumentsDataTable/>
                     </Suspense>
                 </Card>
 
