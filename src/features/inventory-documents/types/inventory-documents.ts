@@ -1,5 +1,4 @@
-import {WarehouseItem} from "@/features/warehouse/types";
-import {IWarehouse} from "@/features/_inventory-documents(old)/types";
+import {Warehouse, WarehouseItem} from "@/features/warehouse/types";
 
 export const InventoryDocumentType = {
     RECEIPT: 'RECEIPT',
@@ -38,8 +37,8 @@ export interface InventoryDocument {
     createdAt: string;
     updatedAt: string;
     completedAt?: string;
-    warehouse?: IWarehouse;
-    targetWarehouse?: IWarehouse;
+    warehouse?: Warehouse;
+    targetWarehouse?: Warehouse;
 }
 
 // Параметры для запроса списка документов

@@ -23,11 +23,10 @@ export const useDocumentForm = ({
                                 }: UseDocumentFormProps) => {
     const doc = documentData?.document;
 
-    const createDocumentMutation = useCreateDraftDocument();
-    const updateDocumentMutation = documentId ? useUpdateDocument(documentId) : null;
+    const {mutate:createDocumentMutation, isPending:isCreateDocumentPending} = useCreateDraftDocument();
+    const {mutate:updateDocumentMutation, isPending: isUpdateDocumentMutation} = useUpdateDocument(documentId!)
 
-    const isLoading = createDocumentMutation.isPending ||
-        (updateDocumentMutation && updateDocumentMutation.isPending) || false;
+    const isLoading = isCreateDocumentPending || isUpdateDocumentMutation || false;
 
     const defaultValues = useMemo<InventoryDocumentFormData>(() => {
         return {
@@ -55,14 +54,14 @@ export const useDocumentForm = ({
     const onSubmit = (data: InventoryDocumentFormData) => {
 
         if (documentData) {
-            updateDocumentMutation?.mutate({
+            updateDocumentMutation({
                 ...data
             }, {
                 onSuccess: (data) => onUpdate && onUpdate(data.id)
 
             })
         } else {
-            createDocumentMutation.mutate({
+            createDocumentMutation({
                 ...data
             }, {
                 onSuccess: (data) => onUpdate && onUpdate(data.id)
