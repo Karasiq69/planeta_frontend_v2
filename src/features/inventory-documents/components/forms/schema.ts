@@ -1,24 +1,68 @@
 import { z } from "zod";
 
-export const serviceSchema = z.object({
-    name: z.string()
-        .min(1, "Название услуги обязательно для заполнения")
-        .max(100, "Название услуги не должно превышать 100 символов")
-        .transform(value => value.trim()),
-    
-    description: z.string()
-        .max(500, "Описание услуги не должно превышать 500 символов")
-        .transform(value => value.trim())
-        .optional(),
-
-    defaultDuration: z.coerce.number()
-        .min(1, "Длительность должна быть больше 0")
-        .max(480, "Длительность не может превышать 8 часов"),
-
-    // requiredQualifications: z.string()
-    //     .min(1, "Требуемая квалификация обязательна для заполнения")
-    //     .max(500, "Требуемая квалификация не должна превышать 500 символов")
-    //     .transform(value => value.trim()).optional(),
+// Схема для создания черновика документа
+export const createDraftDocumentSchema = z.object({
+    type: z.enum(['RECEIPT', 'EXPENSE', 'RETURN', 'TRANSFER', 'WRITE_OFF', 'INVENTORY']),
+    warehouseId: z.coerce.number().positive(),
+    targetWarehouseId: z.coerce.number().positive().optional(),
 });
 
-export type ServiceFormData = z.infer<typeof serviceSchema>; 
+// Схема для обновления документа
+export const updateDocumentSchema = z.object({
+    warehouseId: z.coerce.number().positive().optional(),
+    targetWarehouseId: z.coerce.number().positive().optional(),
+    orderId: z.coerce.number().positive().optional(),
+    number: z.string().optional(),
+    supplierId: z.coerce.number().positive().optional(),
+    incomingNumber: z.string().optional(),
+    incomingDate: z.union([
+        z.date(),
+        z.string().transform(val => val ? new Date(val) : undefined)
+    ]).optional(),
+    note: z.string().optional(),
+});
+
+// Схема для товара в документе
+export const documentItemSchema = z.object({
+    productId: z.number().positive(),
+    quantity: z.number().positive(),
+    fromStorageLocationId: z.number().optional(),
+    toStorageLocationId: z.number().optional(),
+    note: z.string().optional(),
+});
+
+// Схема для обновления товара
+export const updateDocumentItemSchema = z.object({
+    quantity: z.number().positive().optional(),
+    fromStorageLocationId: z.number().optional(),
+    toStorageLocationId: z.number().optional(),
+    note: z.string().optional(),
+});
+
+// Полная схема формы документа (для использования в формах UI)
+export const inventoryDocumentFormSchema = z.object({
+    type: z.enum(['RECEIPT', 'EXPENSE', 'RETURN', 'TRANSFER', 'WRITE_OFF', 'INVENTORY']),
+    warehouseId: z.coerce.number().positive(),
+    targetWarehouseId: z.coerce.number().positive().optional(),
+    // orderId: z.coerce.number().positive().optional(),
+    number: z.string().optional(),
+    supplierId: z.coerce.number().positive().optional(),
+    incomingNumber: z.string().optional(),
+    incomingDate: z.union([
+        z.date(),
+        z.string().transform(val => val ? new Date(val) : undefined)
+    ]).optional(),
+    createdAt: z.union([
+        z.date(),
+        z.string().transform(val => val ? new Date(val) : undefined)
+    ]).optional(),
+    note: z.string().optional(),
+});
+
+
+// Типы для использования в приложении
+export type CreateDraftDocumentFormData = z.infer<typeof createDraftDocumentSchema>;
+export type UpdateDocumentFormData = z.infer<typeof updateDocumentSchema>;
+export type DocumentItemFormData = z.infer<typeof documentItemSchema>;
+export type UpdateDocumentItemFormData = z.infer<typeof updateDocumentItemSchema>;
+export type InventoryDocumentFormData = z.infer<typeof inventoryDocumentFormSchema>;

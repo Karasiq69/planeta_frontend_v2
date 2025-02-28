@@ -16,6 +16,7 @@ import {useRouter} from "next/navigation";
 import {WAREHOUSE_URL} from "@/lib/constants";
 import PageHeader from "@/components/common/PageHeader";
 import InventoryInventoryDocumentsDatatable from "@/features/inventory-documents/components/table/InventoryInventoryDocumentsDatatable";
+import CreateInventoryDocumentButton from "@/features/inventory-documents/components/CreateInventoryDocumentButton";
 
 type Props = {};
 const Page = (props: Props) => {
@@ -24,14 +25,16 @@ const Page = (props: Props) => {
     return (
         <section>
             <div className={'space-y-5'}>
-                <PageHeader title={'Инвентарь документы ??'} showBackButton={false}/>
+                <PageHeader title={'Инвентарь документы main'} showBackButton={false}/>
 
                 <div className={'flex gap-5 items-center'}>
+                    <CreateInventoryDocumentButton/>
+
                     <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
+                        <DropdownMenuTrigger asChild disabled>
                             <Button>
                                 <SquarePlus/>
-                                Создать накладную?
+                                Новый документ
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align={'start'}>
@@ -54,7 +57,7 @@ const Page = (props: Props) => {
                 <Card>
                     <Suspense>
                         {/*<InventoryTransactionsDataTable/>*/}
-                        {/*<InventoryDocumentsDataTable/>*/}
+                        <InventoryInventoryDocumentsDatatable/>
                     </Suspense>
                 </Card>
 

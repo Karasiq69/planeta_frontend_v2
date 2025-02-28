@@ -14,7 +14,7 @@ interface DataTableProps<TData> {
 function DataTable<TData>({table, columns, totalCount}: DataTableProps<TData>) {
     return (
         <div className="w-full p-4">
-            <div className=" border  rounded-md  ">
+            <div className="border rounded-md">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -44,7 +44,7 @@ function DataTable<TData>({table, columns, totalCount}: DataTableProps<TData>) {
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}
-                                        className={'py-2'}
+                                        className={'py-1.5'}
                                         >
                                             {flexRender(
                                                 cell.column.columnDef.cell,

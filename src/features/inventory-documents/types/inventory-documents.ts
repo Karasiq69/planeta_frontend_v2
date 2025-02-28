@@ -1,3 +1,6 @@
+import {WarehouseItem} from "@/features/warehouse/types";
+import {IWarehouse} from "@/features/_inventory-documents(old)/types";
+
 export const InventoryDocumentType = {
     RECEIPT: 'RECEIPT',
     EXPENSE: 'EXPENSE',
@@ -17,11 +20,8 @@ export const InventoryDocumentStatus = {
 
 export type InventoryDocumentStatus = (typeof InventoryDocumentStatus)[keyof typeof InventoryDocumentStatus];
 
-export interface IWarehouse {
-    id: number;
-    name: string;
-}
 
+// Основной документ
 export interface InventoryDocument {
     id: number;
     type: InventoryDocumentType;
@@ -29,6 +29,9 @@ export interface InventoryDocument {
     number?: string;
     warehouseId: number;
     targetWarehouseId?: number;
+    incomingNumber?: string;
+    incomingDate?: string;
+    supplierId?: number;
     orderId?: number;
     userId: number;
     note?: string;
@@ -39,19 +42,10 @@ export interface InventoryDocument {
     targetWarehouse?: IWarehouse;
 }
 
-export interface InventoryDocumentsResponse {
-    data: InventoryDocument[];
-    meta: {
-        page: number;
-        limit: number;
-        total: number;
-        totalPages: number;
-    };
-}
-
+// Параметры для запроса списка документов
 export interface InventoryDocumentsQuery {
     page?: number;
-    pageSize?: number;
+    limit?: number; // Переименовано с pageSize для соответствия бэкенду
     type?: InventoryDocumentType;
     status?: InventoryDocumentStatus;
     warehouseId?: number;
@@ -59,4 +53,74 @@ export interface InventoryDocumentsQuery {
     dateFrom?: string;
     dateTo?: string;
     searchTerm?: string;
+}
+
+// DTO для создания черновика документа
+export interface CreateDraftDocumentDTO {
+    type: InventoryDocumentType;
+    warehouseId: number;
+    targetWarehouseId?: number;
+}
+
+// DTO для обновления документа
+export interface UpdateDocumentDTO {
+    warehouseId?: number;
+    targetWarehouseId?: number;
+    orderId?: number;
+    number?: string;
+    note?: string;
+    supplierId?: number;
+    incomingNumber?: string;
+    incomingDate?: Date | string;
+}
+
+// DTO для добавления товара в документ
+export interface DocumentItemDTO {
+    productId: number;
+    quantity: number;
+    fromStorageLocationId?: number;
+    toStorageLocationId?: number;
+    note?: string;
+}
+
+// DTO для обновления товара в документе
+export interface UpdateDocumentItemDTO {
+    quantity?: number;
+    fromStorageLocationId?: number;
+    toStorageLocationId?: number;
+    note?: string;
+}
+
+// Расширенный тип для товара с дополнительной информацией
+export interface InventoryDocumentItem {
+    id: number;
+    documentId: number;
+    warehouseItemId: number;
+    quantity: string | number;
+    fromStorageLocationId?: number;
+    toStorageLocationId?: number;
+    note?: string;
+    createdAt: string;
+    updatedAt: string;
+    userId: number;
+    warehouseItem: WarehouseItem
+}
+
+// Полная информация о документе со всеми товарами
+export interface InventoryDocumentDetails {
+    document: InventoryDocument;
+    items: InventoryDocumentItem[];
+}
+
+// Для удобства использования в компонентах, объединим информацию о товаре
+export interface InventoryDocumentProductItem {
+    id: number; // ID транзакции
+    productId: number;
+    productName: string;
+    partNumber?: string;
+    brandName?: string;
+    quantity: number;
+    fromStorageLocationId?: number;
+    toStorageLocationId?: number;
+    note?: string;
 }

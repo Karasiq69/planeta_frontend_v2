@@ -110,7 +110,7 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
         id: "actions",
         cell: ({row}) => {
             const id = row.original.id;
-            const url = `${INVENTORY_DOCUMENTS_URL}/${id}`
+            const url = `${WAREHOUSE_URL}${INVENTORY_DOCUMENTS_URL}/${id}`
             return (
                 <div className="flex gap-2 py-0">
                     <Button size="icon" variant="secondary" className="w-full p-0" asChild>

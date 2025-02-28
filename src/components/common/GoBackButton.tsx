@@ -8,7 +8,7 @@ import {useRouter} from "next/navigation";
 const GoBackButton = () => {
     const router = useRouter()
     return (
-        <Button size={'icon'} variant={'outline'} onClick={() => router.back()}>
+        <Button size={'sm'} variant={'outline'} onClick={() => router.back()}>
             <ChevronLeft/>
         </Button>
     );
