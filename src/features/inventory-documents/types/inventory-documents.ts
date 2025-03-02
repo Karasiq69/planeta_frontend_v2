@@ -96,13 +96,13 @@ export interface InventoryDocumentItem {
     documentId: number;
     warehouseItemId: number;
     quantity: string | number;
-    fromStorageLocationId?: number;
-    toStorageLocationId?: number;
-    note?: string;
+    fromStorageLocationId?: number | null; // Добавлен null
+    toStorageLocationId?: number | null;   // Добавлен null
+    note?: string | null;                  // Добавлен null
     createdAt: string;
     updatedAt: string;
     userId: number;
-    warehouseItem: WarehouseItem
+    warehouseItem: WarehouseItem;
 }
 
 // Полная информация о документе со всеми товарами

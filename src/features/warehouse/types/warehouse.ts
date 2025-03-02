@@ -13,9 +13,10 @@ export interface WarehouseItem {
     id: number;
     productId: number;
     warehouseId: number;
-    quantity: string;
-    reservedQuantity: string;
-    minimumQuantity: string;
+    storageLocationId?: number | null;  // Добавлено новое поле
+    quantity: string | number;          // Исправлено для поддержки числовых значений
+    reservedQuantity: string | number;  // Исправлено для поддержки числовых значений
+    minimumQuantity: string | number;   // Исправлено для поддержки числовых значений
     updatedAt: string;
     // Связанные данные
     product?: Product;

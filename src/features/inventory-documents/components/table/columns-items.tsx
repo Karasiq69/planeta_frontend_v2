@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Pencil } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import InventoryDocumentsTableActionButtons from "@/features/inventory-documents/components/table/action-buttons";
 
 export const DocumentProductsColumnDefs: ColumnDef<InventoryDocumentItem>[] = [
     {
@@ -79,14 +80,7 @@ export const DocumentProductsColumnDefs: ColumnDef<InventoryDocumentItem>[] = [
         header: "Действия",
         cell: ({ row }) => {
             return (
-                <div className="flex gap-1">
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive">
-                        <Trash2 className="h-4 w-4" />
-                    </Button>
-                </div>
+                <InventoryDocumentsTableActionButtons documentItem={row.original} />
             );
         },
     },

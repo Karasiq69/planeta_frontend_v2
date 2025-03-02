@@ -8,9 +8,10 @@ import {Badge} from "@/components/ui/badge";
 
 type InventoryDocumentProductsComboboxProps = {
     onSelectProduct: (product: Product) => void;
+    isPending: boolean
 };
 
-const InventoryDocumentProductsCombobox = ({ onSelectProduct }: InventoryDocumentProductsComboboxProps) => {
+const InventoryDocumentProductsCombobox = ({ onSelectProduct, isPending }: InventoryDocumentProductsComboboxProps) => {
     const {searchTerm, searchError, debouncedHandleSearch} = useDebouncedSearch();
 
     const {data: products, isLoading, isFetching} = useProductsList({
@@ -28,8 +29,8 @@ const InventoryDocumentProductsCombobox = ({ onSelectProduct }: InventoryDocumen
             <ComboboxSearch<Product>
                 data={products}
                 isLoading={isLoading || isFetching}
-                isPending={false}
-                width={'w-full'}
+                isPending={isPending}
+                width={'w-[600px]'}
                 onSearch={debouncedHandleSearch}
                 onSelect={handleSelectItem}
                 getDisplayValue={(product) => product.name}

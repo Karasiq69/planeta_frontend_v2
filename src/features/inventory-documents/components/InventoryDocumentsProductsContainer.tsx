@@ -6,17 +6,20 @@ import {useDocumentItems} from "@/features/inventory-documents/api/queries";
 import {useParams} from "next/navigation";
 import DataTableBasic from "@/components/common/table/data-table-basic";
 import {DocumentProductsColumnDefs} from "@/features/inventory-documents/components/table/columns-items";
-import OrderProductsCombobox from "@/features/order-products/components/OrderProductsCombobox";
+import InventoryDocumentProductsCombobox
+    from "@/features/inventory-documents/components/InventoryDocumentProductsCombobox";
+import {Product} from "@/features/products/types";
+import {useAddDocumentItem} from "@/features/inventory-documents/api/mutations";
 
 type Props = {
     onAddItem?: () => void;
 };
 
-const InventoryDocumentsProductDatatable = ({onAddItem}: Props) => {
+const InventoryDocumentsProductContainer = ({onAddItem}: Props) => {
     const {id} = useParams();
     const docId = Number(id);
     const {data: productItems, isLoading} = useDocumentItems(docId);
-
+    const {mutate, isPending} = useAddDocumentItem(docId)
     const columns = useMemo(() => DocumentProductsColumnDefs, []);
 
     const table = useReactTable({
@@ -25,14 +28,19 @@ const InventoryDocumentsProductDatatable = ({onAddItem}: Props) => {
         getCoreRowModel: getCoreRowModel(),
     });
 
-    // if (isLoading) return <LoaderSectionAnimated className="bg-background" text="Загружаем товары..."/>;
-    // if (!productItems) return <div className="text-center py-8 text-muted-foreground">Данные не найдены</div>;
+    const onSelectProduct = (product: Product) => {
+         mutate({
+            productId: product.id,
+            quantity: 1
+        })
+    }
+
 
     return (
         <>
             <div
                 className="flex flex-row items-center py-5 justify-between">
-                <OrderProductsCombobox orderId={2}/>
+                <InventoryDocumentProductsCombobox isPending={isPending} onSelectProduct={onSelectProduct}/>
             </div>
             <div className="space-y-3 rounded-md p-5 bg-background">
                 {isLoading
@@ -44,4 +52,4 @@ const InventoryDocumentsProductDatatable = ({onAddItem}: Props) => {
     );
 };
 
-export default InventoryDocumentsProductDatatable;
+export default InventoryDocumentsProductContainer;

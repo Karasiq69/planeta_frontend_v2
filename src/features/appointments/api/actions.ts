@@ -1,5 +1,4 @@
-"use server"
-import apiClient from "@/lib/auth/client";
+ import apiClient from "@/lib/auth/client";
 import {APPOINTMENTS_URL} from "@/lib/constants";
 
 export const getAppointmentsFn = async () => {

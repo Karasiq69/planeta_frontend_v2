@@ -5,12 +5,11 @@ import React from "react";
 import InventoryDocumentsProductsContainer
     from "@/features/inventory-documents/components/InventoryDocumentsProductsContainer";
 import {Button} from "@/components/ui/button";
-import GoBackButton from "@/components/common/GoBackButton";
-import {Badge} from "@/components/ui/badge";
 import {Printer, Trash2} from "lucide-react";
 import InventoryDocumentSubmitButton
     from "@/features/inventory-documents/components/forms/InventoryDocumentSubmitButton";
 import PageHeader from "@/components/common/PageHeader";
+import InventoryDocumentStatusBadge from "@/features/inventory-documents/components/InventoryDocumentStatusBadge";
 
 const Page = async ({
                         params,
@@ -23,13 +22,15 @@ const Page = async ({
         <div className={'space-y-5'}>
             <section>
                 <div className={'flex justify-between items-center'}>
-                   <PageHeader title={`Приходная накладная №${docId}`} showBackButton/>
-
-                    <div className="space-x-4">
+                    <div className={'flex justify-between items-center gap-5'}>
+                        <PageHeader title={`Приходная накладная №${docId}`} showBackButton/>
+                        <InventoryDocumentStatusBadge documentId={docId}/>
+                    </div>
+                    <div className="space-x-3">
                         <InventoryDocumentSubmitButton docId={docId}/>
 
                         <Button variant="outline" size={'sm'}><Printer size={16}/></Button>
-                        <Button variant="ghost" size={'sm'}><Trash2 size={16}/> Удалить заказ</Button>
+                        <Button variant="destructive" size={'sm'}><Trash2 size={16}/></Button>
                     </div>
 
                 </div>

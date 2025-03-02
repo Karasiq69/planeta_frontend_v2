@@ -1,17 +1,17 @@
 "use server"
 
 import apiClient from "@/lib/auth/client";
-import { INVENTORY_DOCUMENTS_URL } from "@/lib/constants";
-import { ListResponse } from "@/types/params";
+import {INVENTORY_DOCUMENTS_URL} from "@/lib/constants";
+import {ListResponse} from "@/types/params";
 import {
-    InventoryDocument,
-    InventoryDocumentsQuery,
     CreateDraftDocumentDTO,
-    UpdateDocumentDTO,
     DocumentItemDTO,
-    UpdateDocumentItemDTO,
+    InventoryDocument,
     InventoryDocumentDetails,
-    InventoryDocumentItem
+    InventoryDocumentItem,
+    InventoryDocumentsQuery,
+    UpdateDocumentDTO,
+    UpdateDocumentItemDTO
 } from "../types";
 
 // Получение списка документов с пагинацией и фильтрами

@@ -32,7 +32,7 @@ export const useInventoryDocument = (id: number) => {
 export const useDocumentItems = (documentId: number) => {
     return useQuery({
         queryKey: inventoryDocumentsQueryKeys.items(documentId),
-        queryFn: () => getDocumentItems(documentId),
+        queryFn: ()=>getDocumentItems(documentId),
         enabled: !!documentId
     });
 };
