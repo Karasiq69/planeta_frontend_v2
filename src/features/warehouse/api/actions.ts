@@ -1,5 +1,3 @@
-"use server"
-
 import apiClient from "@/lib/auth/client";
 import {SERVICES_URL, WAREHOUSE_URL} from "@/lib/constants";
 import {ListParams, ListResponse} from "@/types/params";

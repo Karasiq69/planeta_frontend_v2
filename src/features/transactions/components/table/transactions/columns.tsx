@@ -26,7 +26,7 @@ export const inventoryTransactionsColumnsDefs: ColumnDef<InventoryTransaction>[]
             <DataTableColumnHeader column={column} title="Количество"/>
         ),
         cell: ({ row }) => {
-            const quantity = parseFloat(row.getValue("quantity"));
+            const quantity = Number(row.getValue("quantity"));
             const isPositive = quantity > 0;
             return (
                 <div className={`font-medium ${isPositive ? "text-green-600" : "text-red-600"}`}>

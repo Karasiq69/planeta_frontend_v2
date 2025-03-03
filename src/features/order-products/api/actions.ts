@@ -1,9 +1,6 @@
-"use server"
-
 import apiClient from "@/lib/auth/client";
-import {MECHANICS_URL, ORDER_PRODUCTS_URL, ORDERS_URL, SERVICES_URL} from "@/lib/constants";
+import {ORDER_PRODUCTS_URL} from "@/lib/constants";
 import {OrderProduct} from "@/features/order-products/types";
-import {OrderServiceMechanic} from "@/features/orders/types";
 
 
 export const getOrderProductsByOrderIdFn = async (orderId: number) => {

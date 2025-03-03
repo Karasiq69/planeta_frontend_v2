@@ -1,5 +1,3 @@
-"use server"
-
 import apiClient from "@/lib/auth/client";
 import {MECHANICS_URL, ORDERS_URL, SERVICES_URL} from "@/lib/constants";
 import {

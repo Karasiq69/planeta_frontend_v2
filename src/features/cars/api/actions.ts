@@ -1,26 +1,18 @@
-"use server"
 import apiClient from "@/lib/auth/client";
 import {BRANDS_URL, CAR_MODELS_URL, CARS_URL} from "@/lib/constants";
-import {CarListParams, CarListResponse, ICar, ICarBrand, ICarModel} from "@/features/cars/types";
+import {CarListParams, ICar, ICarBrand, ICarModel} from "@/features/cars/types";
 import {ListResponse} from "@/types/params";
 
 export const getAllVehiclesListFn = async (params: CarListParams): Promise<ListResponse<ICar>> => {
-    try {
-        const res = await apiClient.get<ListResponse<ICar>>(CARS_URL, {
-            params
-        });
-        return res.data;
-    } catch (e) {
-        throw new Error('Failed to fetch clients');
-    }
+    const res = await apiClient.get<ListResponse<ICar>>(CARS_URL, {
+        params
+    });
+    return res.data;
+
 }
 export const getVehicleById = async (id: number): Promise<ICar> => {
-    try {
-        const res = await apiClient.get<ICar>(`${CARS_URL}/${id}`);
-        return res.data;
-    } catch (e) {
-        throw new Error('Failed to fetch client');
-    }
+    const res = await apiClient.get<ICar>(`${CARS_URL}/${id}`);
+    return res.data;
 }
 
 export const getCarModelsFn = async (brandId: number) => {

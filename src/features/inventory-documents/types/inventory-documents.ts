@@ -1,4 +1,5 @@
 import {Warehouse, WarehouseItem} from "@/features/warehouse/types";
+import {User} from "@/types";
 
 export const InventoryDocumentType = {
     RECEIPT: 'RECEIPT',
@@ -33,6 +34,7 @@ export interface InventoryDocument {
     supplierId?: number;
     orderId?: number;
     userId: number;
+    user: User;
     note?: string;
     createdAt: string;
     updatedAt: string;

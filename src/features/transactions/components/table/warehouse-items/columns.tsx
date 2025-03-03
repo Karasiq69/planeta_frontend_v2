@@ -37,7 +37,7 @@ export const warehouseItemsColumnsDefs: ColumnDef<WarehouseItem>[] = [
             <DataTableColumnHeader column={column} title="Количество"/>
         ),
         cell: ({ row }) => {
-            const available = parseFloat(row.original.quantity) - parseFloat(row.original.reservedQuantity);
+            const available = Number(row.original.quantity) - Number(row.original.reservedQuantity);
             return (
                 <div>
                     <div className="font-medium">
@@ -56,8 +56,8 @@ export const warehouseItemsColumnsDefs: ColumnDef<WarehouseItem>[] = [
             <DataTableColumnHeader column={column} title="Мин. остаток"/>
         ),
         cell: ({ row }) => {
-            const current = parseFloat(row.original.quantity) - parseFloat(row.original.reservedQuantity);
-            const minimum = parseFloat(row.original.minimumQuantity);
+            const current = Number(row.original.quantity) - Number(row.original.reservedQuantity);
+            const minimum = Number(row.original.minimumQuantity);
             const isLow = current <= minimum;
 
             return (

@@ -1,5 +1,3 @@
-"use server"
-
 import apiClient from "@/lib/auth/client";
 import {INVENTORY_DOCUMENTS_URL} from "@/lib/constants";
 import {ListResponse} from "@/types/params";

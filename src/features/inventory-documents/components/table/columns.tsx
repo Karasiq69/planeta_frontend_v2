@@ -18,7 +18,7 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
         ),
         cell: ({row}) => {
             const number = row.getValue("number") as string;
-            return <div className="font-medium">{number || `#${row.original.id}`}</div>;
+            return <div className="font-medium">{`#${row.original.id}`}</div>;
         },
         enableSorting: false,
     },
@@ -96,12 +96,12 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
 
     {
         accessorKey: "userId",
-        meta: "Менеджер",
+        meta: "ответственный",
         header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Менеджер"/>
+            <DataTableColumnHeader column={column} title="Ответственный"/>
         ),
         cell: ({row}) => {
-            return <div>{row.original.userId}</div>;
+            return <div>{row.original.user?.username}</div>;
         },
         enableSorting: false,
     },

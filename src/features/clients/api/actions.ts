@@ -1,23 +1,16 @@
-"use server"
 import {ClientListParams, ClientListResponse} from "@/features/clients/types/params";
 import apiClient from "@/lib/auth/client";
 import {IClient} from "@/features/clients/types";
+import {CLIENTS_URL} from "@/lib/constants";
 
 export const getAllClientsListFn = async (params: ClientListParams): Promise<ClientListResponse> => {
-    try {
-        const res = await apiClient.get<ClientListResponse>(`/clients`, {
-            params
-        });
-        return res.data;
-    } catch (e) {
-        throw new Error('Failed to fetch clients');
-    }
+    const res = await apiClient.get<ClientListResponse>(`${CLIENTS_URL}`, {
+        params
+    });
+    return res.data;
+
 }
 export const getClientById = async (id: number): Promise<IClient> => {
-    try {
-        const res = await apiClient.get<IClient>(`/clients/${id}`);
-        return res.data;
-    } catch (e) {
-        throw new Error('Failed to fetch client');
-    }
+    const res = await apiClient.get<IClient>(`${CLIENTS_URL}/${id}`);
+    return res.data;
 }

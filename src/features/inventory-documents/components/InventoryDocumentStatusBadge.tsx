@@ -10,9 +10,9 @@ const InventoryDocumentStatusBadge = ({documentId}: Props) => {
     const {data: document, isLoading} = useInventoryDocument(documentId)
     return (
         <div>
-            {!isLoading &&
-                <Badge variant={getStatusVariant(document?.document?.status!)}>
-                    {getStatusLabel(document?.document?.status!)}
+            {(!isLoading && document?.document.status) &&
+                <Badge variant={getStatusVariant(document?.document?.status)}>
+                    {getStatusLabel(document?.document?.status)}
                 </Badge>
             }
 
