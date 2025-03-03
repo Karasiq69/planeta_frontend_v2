@@ -38,6 +38,7 @@ export const useDocumentForm = ({
             supplierId: doc?.supplierId,
             incomingNumber: doc?.incomingNumber || "",
             note: doc?.note || "",
+
             incomingDate: doc?.incomingDate ? new Date(doc?.incomingDate) : undefined,
             createdAt: doc?.createdAt ? new Date(doc?.createdAt) : undefined,
         }

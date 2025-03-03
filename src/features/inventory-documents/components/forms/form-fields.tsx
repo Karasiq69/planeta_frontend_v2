@@ -1,22 +1,23 @@
 import React from 'react';
-import { UseFormReturn } from "react-hook-form";
-import { InventoryDocumentFormData } from "./schema";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { CalendarIcon, FileDown, Warehouse } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
+import {UseFormReturn} from "react-hook-form";
+import {InventoryDocumentFormData} from "./schema";
+import {FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {Button} from "@/components/ui/button";
+import {CalendarIcon, FileDown, Warehouse} from "lucide-react";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {Calendar} from "@/components/ui/calendar";
+import {cn} from "@/lib/utils";
+import {Label} from "@/components/ui/label";
 import {ru} from "date-fns/locale";
+import SuppliersSelectField from "@/features/inventory-documents/components/forms/form-field-supplier";
 
 type Props = {
     form: UseFormReturn<InventoryDocumentFormData>
 };
 
-const InventoryDocumentFormFields = ({ form }: Props) => {
+const InventoryDocumentFormFields = ({form}: Props) => {
     return (
         <div className="grid lg:grid-cols-2 gap-x-20 gap-y-2 mb-4">
             {/* Тип документа */}
@@ -26,7 +27,7 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                     <FormField
                         control={form.control}
                         name="type"
-                        render={({ field }) => (
+                        render={({field}) => (
                             <FormItem className="flex-1">
                                 <FormControl>
                                     <Select
@@ -34,7 +35,7 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                                         defaultValue={field.value}
                                     >
                                         <SelectTrigger className="flex-1">
-                                            <SelectValue placeholder="Выберите тип документа" />
+                                            <SelectValue placeholder="Выберите тип документа"/>
                                         </SelectTrigger>
                                         <SelectContent>
                                             <SelectItem value="RECEIPT">Поступление</SelectItem>
@@ -46,14 +47,12 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
                 </div>
             </div>
-
-
 
             {/* Номер документа */}
             <div className="flex items-center">
@@ -64,12 +63,12 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
 
                         control={form.control}
                         name="number"
-                        render={({ field }) => (
+                        render={({field}) => (
                             <FormItem className="flex-1">
                                 <FormControl>
-                                    <Input id="number" {...field} className="flex-1" placeholder="Авто" />
+                                    <Input id="number" {...field} className="flex-1" placeholder="Авто"/>
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
@@ -77,7 +76,7 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                     <FormField
                         control={form.control}
                         name="createdAt"
-                        render={({ field }) => (
+                        render={({field}) => (
                             <FormItem className="flex-1">
                                 <Popover>
                                     <PopoverTrigger asChild>
@@ -111,7 +110,7 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                                         />
                                     </PopoverContent>
                                 </Popover>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
@@ -119,47 +118,13 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
             </div>
 
             {/* Поставщик */}
-            <div className="flex items-center">
-                <Label htmlFor="warehouse" className="w-28 text-muted-foreground">Поставщик:</Label>
-                <div className="flex-1 flex gap-1">
-                    <FormField
-                        control={form.control}
-                        name="supplierId"
-                        render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormControl>
-                                    <Select
-                                        onValueChange={(value) => field.onChange(parseInt(value))}
-                                        value={field.value?.toString()}
-                                    >
-                                        <SelectTrigger
-                                            className={'[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0 [&>span_svg]:text-muted-foreground/80'}
-                                        >
-                                            <SelectValue placeholder="Выбрать поставщика" />
-                                        </SelectTrigger>
-                                        <SelectContent
-                                            className={'[&_*[role=option]>span>svg]:shrink-0 [&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2 [&_*[role=option]]:pe-8 [&_*[role=option]]:ps-2'}
-                                        >
-                                            <SelectItem value="1" className={'flex gap-2'}>
-                                                EMEX
-                                            </SelectItem>
-                                            <SelectItem value="2">
-                                                MOTORS MOTORS
-                                            </SelectItem>
-                                            <SelectItem value="3">
-                                                BUGA UGA
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </div>
-            </div>
+            <SuppliersSelectField
+                control={form.control}
 
-
+                name="supplierId"
+                label="Поставщик:"
+                placeholder="Выбрать поставщика"
+            />
             {/* Входящий номер */}
             <div className="flex items-center">
                 <Label htmlFor="incomingNumber" className="w-28 text-muted-foreground">Вх. номер:</Label>
@@ -167,12 +132,12 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                     <FormField
                         control={form.control}
                         name="incomingNumber"
-                        render={({ field }) => (
+                        render={({field}) => (
                             <FormItem className="flex-1">
                                 <FormControl>
-                                    <Input id="incomingNumber" {...field} className="flex-1" placeholder="№ договора" />
+                                    <Input id="incomingNumber" {...field} className="flex-1" placeholder="№ договора"/>
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
@@ -180,7 +145,7 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                     <FormField
                         control={form.control}
                         name="incomingDate"
-                        render={({ field }) => (
+                        render={({field}) => (
                             <FormItem className="flex-1">
                                 <Popover>
                                     <PopoverTrigger asChild>
@@ -214,7 +179,7 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                                         />
                                     </PopoverContent>
                                 </Popover>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
@@ -228,7 +193,7 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                     <FormField
                         control={form.control}
                         name="warehouseId"
-                        render={({ field }) => (
+                        render={({field}) => (
                             <FormItem className="flex-1">
                                 <FormControl>
                                     <Select
@@ -239,7 +204,7 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                                         <SelectTrigger
                                             className={'[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0 [&>span_svg]:text-muted-foreground/80'}
                                         >
-                                            <SelectValue placeholder="Выберите склад" />
+                                            <SelectValue placeholder="Выберите склад"/>
                                         </SelectTrigger>
                                         <SelectContent
                                             className={'[&_*[role=option]>span>svg]:shrink-0 [&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2 [&_*[role=option]]:pe-8 [&_*[role=option]]:ps-2'}
@@ -259,31 +224,33 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
                 </div>
             </div>
 
-            {/* Целевой склад (для перемещений) */}
+            {/* Склад назначения (для перемещений) */}
             <div className="flex items-center">
                 <Label htmlFor="targetWarehouse" className="w-28 text-muted-foreground">Склад назначения:</Label>
                 <div className="flex-1 flex gap-1">
                     <FormField
+
                         control={form.control}
                         name="targetWarehouseId"
-                        render={({ field }) => (
+                        render={({field}) => (
                             <FormItem className="flex-1">
                                 <FormControl>
                                     <Select
+                                        disabled
                                         onValueChange={(value) => field.onChange(value ? parseInt(value) : undefined)}
                                         value={field.value?.toString()}
                                     >
                                         <SelectTrigger
                                             className={'[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0 [&>span_svg]:text-muted-foreground/80'}
                                         >
-                                            <SelectValue placeholder="Выберите склад назначения" />
+                                            <SelectValue placeholder="Выберите склад назначения"/>
                                         </SelectTrigger>
                                         <SelectContent
                                             className={'[&_*[role=option]>span>svg]:shrink-0 [&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2 [&_*[role=option]]:pe-8 [&_*[role=option]]:ps-2'}
@@ -303,7 +270,7 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
@@ -336,12 +303,12 @@ const InventoryDocumentFormFields = ({ form }: Props) => {
                     <FormField
                         control={form.control}
                         name="note"
-                        render={({ field }) => (
+                        render={({field}) => (
                             <FormItem>
                                 <FormControl>
-                                    <Input id="note" {...field} placeholder="Дополнительная информация" />
+                                    <Input id="note" {...field} placeholder="Дополнительная информация"/>
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />

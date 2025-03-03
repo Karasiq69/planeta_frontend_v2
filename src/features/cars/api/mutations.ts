@@ -23,7 +23,6 @@ export function useCreateCar() {
 
                 // router.push(`${CARS_URL}/${createdCar.id}`);
 
-
             },
             onError: (error: ApiError) => {
                 const errorMessage = error.response?.data?.message || 'Произошла ошибка при создании автомобиля';

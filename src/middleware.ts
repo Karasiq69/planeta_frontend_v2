@@ -64,6 +64,8 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
+
+
     const accessToken = request.cookies.get('access');
     const refreshToken = request.cookies.get('refresh');
     let isAuthenticated = accessToken && refreshToken;

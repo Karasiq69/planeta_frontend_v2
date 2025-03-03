@@ -16,11 +16,11 @@ export default async function Hydration({
         },
     });
 
-    await queryClient.prefetchQuery({
-        queryKey: carQueryKeys.brands(),
-        queryFn: () => getCarBrandsFn(),
-        staleTime: 60 * 2000,
-    });
+    // await queryClient.prefetchQuery({
+    //     queryKey: carQueryKeys.brands(),
+    //     queryFn: () => getCarBrandsFn(),
+    //     staleTime: 60 * 2000,
+    // });
 
 
     return (
