@@ -64,28 +64,36 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-
-
     const accessToken = request.cookies.get('access');
     const refreshToken = request.cookies.get('refresh');
-    let isAuthenticated = accessToken && refreshToken;
 
-    // Если пользователь авторизован и пытается зайти на публичные страницы
-    if (isAuthenticated && publicPaths.includes(pathname)) {
-        return NextResponse.redirect(new URL('/dashboard', request.url));
+    // Пользователь полностью авторизован
+    if (accessToken && refreshToken) {
+        // Если пользователь авторизован и пытается зайти на публичные страницы
+        if (publicPaths.includes(pathname)) {
+            return NextResponse.redirect(new URL('/dashboard', request.url));
+        }
+        return NextResponse.next();
     }
 
-    // Если у пользователя нет access токена, но есть refresh токен,
-    // пробуем обновить токен перед редиректом
-    if (!accessToken && refreshToken && !publicPaths.includes(pathname)) {
+    // Есть только refresh токен, нет access токена
+    if (!accessToken && refreshToken) {
+        // Пробуем обновить токен в любом случае, независимо от запрашиваемого пути
         const refreshSuccessful = await attemptTokenRefresh(request);
+
         if (refreshSuccessful) {
+            // Если обновление успешно и пользователь на странице логина или других публичных,
+            // сразу перенаправляем на дашборд
+            if (publicPaths.includes(pathname)) {
+                return NextResponse.redirect(new URL('/dashboard', request.url));
+            }
+            // Иначе продолжаем запрос на запрашиваемую страницу
             return NextResponse.next();
         }
     }
 
     // Если пользователь не авторизован и пытается зайти на защищенные страницы
-    if (!isAuthenticated && !publicPaths.includes(pathname)) {
+    if (!publicPaths.includes(pathname)) {
         const searchParams = new URLSearchParams({
             returnUrl: pathname,
         });
