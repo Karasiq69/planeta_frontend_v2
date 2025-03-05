@@ -23,8 +23,8 @@ export const useDocumentForm = ({
                                 }: UseDocumentFormProps) => {
     const doc = documentData?.document;
 
-    const {mutate:createDocumentMutation, isPending:isCreateDocumentPending} = useCreateDraftDocument();
-    const {mutate:updateDocumentMutation, isPending: isUpdateDocumentMutation} = useUpdateDocument(documentId!)
+    const {mutate: createDocumentMutation, isPending: isCreateDocumentPending} = useCreateDraftDocument();
+    const {mutate: updateDocumentMutation, isPending: isUpdateDocumentMutation} = useUpdateDocument(documentId!)
 
     const isLoading = isCreateDocumentPending || isUpdateDocumentMutation || false;
 
@@ -38,9 +38,11 @@ export const useDocumentForm = ({
             supplierId: doc?.supplierId,
             incomingNumber: doc?.incomingNumber || "",
             note: doc?.note || "",
-
             incomingDate: doc?.incomingDate ? new Date(doc?.incomingDate) : undefined,
             createdAt: doc?.createdAt ? new Date(doc?.createdAt) : undefined,
+            organizationId: doc?.organizationId || undefined,
+            // organization: doc?.organization
+
         }
     }, [doc]);
 

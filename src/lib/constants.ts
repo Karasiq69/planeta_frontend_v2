@@ -18,6 +18,7 @@ export const APPOINTMENTS_URL = '/appointments'
 export const WAREHOUSE_URL = '/warehouse'
 export const INVENTORY_DOCUMENTS_URL = '/inventory-documents'
 export const SUPPLIER_URL = '/suppliers'
+export const ORGANIZATIONS_URL = '/organizations'
 
 
 export const BRAND_LOGOS: Record<string, string> = {

@@ -7,11 +7,11 @@ import LoaderAnimated from "@/components/ui/LoaderAnimated";
 import {useInventoryDocument} from "@/features/inventory-documents/api/queries";
 
 type Props = {
-    docId: number
+    documentId: number
 };
-const InventoryDocumentSubmitButton = ({docId}: Props) => {
+const InventoryDocumentSubmitButton = ({documentId}: Props) => {
     const isMutating = useIsMutating()
-    const {isLoading} = useInventoryDocument(docId)
+    const {isLoading} = useInventoryDocument(documentId)
 
 
     return (
@@ -19,7 +19,7 @@ const InventoryDocumentSubmitButton = ({docId}: Props) => {
             <Button
                 type={'submit'}
                 size={'sm'}
-                form={'newsletterForm'}
+                form={'inventoryDocumentForm'}
                 disabled={isMutating > 0 || isLoading}
             >
                 {isMutating > 0 ? <LoaderAnimated className="text-primary-foreground"/> : <CheckCheck />}
@@ -28,7 +28,7 @@ const InventoryDocumentSubmitButton = ({docId}: Props) => {
             <Button
                 type={'submit'}
                 size={'sm'}
-                form={'newsletterForm'}
+                form={'inventoryDocumentForm'}
                 variant={'outline'}
                 disabled={isMutating > 0}
             >

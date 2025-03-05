@@ -8,20 +8,24 @@ import Link from "next/link";
 import {Badge} from "@/components/ui/badge";
 import {getStatusConfig} from "@/features/inventory-documents/helpers/status-helper";
 import {INVENTORY_DOCUMENTS_URL, WAREHOUSE_URL} from "@/lib/constants";
+// дата ответтсвенный сумма поставщик коммент
 
 export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
     {
-        accessorKey: "number",
+        accessorKey: "id",
         meta: "Номер",
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Номер"/>
         ),
         cell: ({row}) => {
-            const number = row.getValue("number") as string;
             return <div className="font-medium">{`#${row.original.id}`}</div>;
         },
         enableSorting: false,
+        size: 200, //starting column size
+        minSize: 50, //enforced during column resizing
+        maxSize: 500, //enforced during column resizing
     },
+
     {
         accessorKey: "createdAt",
         meta: "Дата создания",
@@ -39,6 +43,9 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
             return <div>{formattedDate}</div>;
         },
         enableSorting: false,
+        size: 200, //starting column size
+        minSize: 50, //enforced during column resizing
+        maxSize: 500, //enforced during column resizing
     },
     {
         accessorKey: "status",
@@ -81,27 +88,49 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
         enableSorting: false,
     },
 
+
     {
-        accessorKey: "supplierId",
+        accessorKey: "supplier",
         meta: "Supplier",
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Поставщик"/>
         ),
         cell: ({row}) => {
-            return <div>{row.original.supplierId}</div>;
+            return <div>{row.original?.supplier?.name}</div>;
         },
         enableSorting: false,
     },
-
-
     {
-        accessorKey: "userId",
-        meta: "ответственный",
+        accessorKey: "user",
+        meta: "user",
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Ответственный"/>
         ),
         cell: ({row}) => {
             return <div>{row.original.user?.username}</div>;
+        },
+        enableSorting: false,
+    },
+
+    {
+        accessorKey: "note",
+        meta: "note",
+        header: ({column}) => (
+            <DataTableColumnHeader column={column} title="Заметка"/>
+        ),
+        cell: ({row}) => {
+            return <div>{row.original?.note}</div>;
+        },
+        enableSorting: false,
+    },
+    {
+        accessorKey: "totals",
+        meta: "totals",
+        header: ({column}) => (
+            <DataTableColumnHeader column={column} title="Сумма"/>
+        ),
+        cell: ({row}) => {
+            return <div>14 500</div>;
         },
         enableSorting: false,
     },

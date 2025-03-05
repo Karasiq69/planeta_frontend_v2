@@ -1,23 +1,34 @@
 import React from 'react';
-import {UseFormReturn} from "react-hook-form";
+import {UseFormReturn, useWatch} from "react-hook-form";
 import {InventoryDocumentFormData} from "./schema";
 import {FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {Button} from "@/components/ui/button";
-import {CalendarIcon, FileDown, Warehouse} from "lucide-react";
+import {CalendarIcon, Warehouse} from "lucide-react";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Calendar} from "@/components/ui/calendar";
 import {cn} from "@/lib/utils";
 import {Label} from "@/components/ui/label";
 import {ru} from "date-fns/locale";
 import SuppliersSelectField from "@/features/inventory-documents/components/forms/form-field-supplier";
+import FormFieldOrganization from "@/features/inventory-documents/components/forms/form-field-organization";
 
 type Props = {
     form: UseFormReturn<InventoryDocumentFormData>
 };
 
 const InventoryDocumentFormFields = ({form}: Props) => {
+    const documentType = useWatch({
+        control: form.control,
+        name: "type",
+    });
+    const {
+        organizationId,
+        organization
+    } = form.getValues();
+    const organizationName = organization?.name;
+
     return (
         <div className="grid lg:grid-cols-2 gap-x-20 gap-y-2 mb-4">
             {/* Тип документа */}
@@ -120,7 +131,6 @@ const InventoryDocumentFormFields = ({form}: Props) => {
             {/* Поставщик */}
             <SuppliersSelectField
                 control={form.control}
-
                 name="supplierId"
                 label="Поставщик:"
                 placeholder="Выбрать поставщика"
@@ -188,7 +198,7 @@ const InventoryDocumentFormFields = ({form}: Props) => {
 
             {/* Склад */}
             <div className="flex items-center">
-                <Label htmlFor="warehouse" className="w-28 text-muted-foreground">Склад:</Label>
+                <Label htmlFor="warehouseId" className="w-28 text-muted-foreground">Склад:</Label>
                 <div className="flex-1 flex gap-1">
                     <FormField
                         control={form.control}
@@ -233,7 +243,7 @@ const InventoryDocumentFormFields = ({form}: Props) => {
 
             {/* Склад назначения (для перемещений) */}
             <div className="flex items-center">
-                <Label htmlFor="targetWarehouse" className="w-28 text-muted-foreground">Склад назначения:</Label>
+                <Label htmlFor="targetWarehouseId" className="w-28 text-muted-foreground">Склад назначения:</Label>
                 <div className="flex-1 flex gap-1">
                     <FormField
 
@@ -277,24 +287,13 @@ const InventoryDocumentFormFields = ({form}: Props) => {
                 </div>
             </div>
 
-
+            <FormFieldOrganization
+                form={form}
+                label="Организация:"
+                placeholder="Выбрать организацию"
+            />
             {/* Организация */}
-            <div className="flex items-center">
-                <Label htmlFor="organization" className="w-28 text-muted-foreground">Организация:</Label>
-                <div className="flex-1 flex gap-1">
-                    <Select>
-                        <SelectTrigger className="flex-1">
-                            <SelectValue placeholder="Выберите организацию"/>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="1">ИП Молдован Екатерина Станиславовна</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <Button variant="outline" size="icon" className="h-10 w-8">
-                        <FileDown className="h-4 w-4"/>
-                    </Button>
-                </div>
-            </div>
+
 
             {/* Примечание */}
             <div className="col-span-full flex items-center">

@@ -159,7 +159,7 @@ export function AsyncSelect<T>({
                 setOptions(originalOptions);
             }
         }
-    }, [fetcher, debouncedSearchTerm, mounted, preload, filterFn, originalOptions]);
+    }, [fetcher, debouncedSearchTerm, mounted, preload, filterFn]);
 
     const handleSelect = useCallback((currentValue: string) => {
         const newValue = clearable && currentValue === selectedValue ? "" : currentValue;

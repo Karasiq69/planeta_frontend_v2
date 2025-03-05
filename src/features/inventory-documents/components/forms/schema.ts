@@ -1,4 +1,5 @@
 import { z } from "zod";
+import {organizationSchema} from "@/features/organizations/components/forms/schema";
 
 // Схема для создания черновика документа
 export const createDraftDocumentSchema = z.object({
@@ -44,7 +45,6 @@ export const inventoryDocumentFormSchema = z.object({
     type: z.enum(['RECEIPT', 'EXPENSE', 'RETURN', 'TRANSFER', 'WRITE_OFF', 'INVENTORY']),
     warehouseId: z.coerce.number().positive(),
     targetWarehouseId: z.coerce.number().positive().optional(),
-    // orderId: z.coerce.number().positive().optional(),
     number: z.string().optional(),
     supplierId: z.coerce.number().positive().optional(),
     incomingNumber: z.string().optional(),
@@ -57,6 +57,9 @@ export const inventoryDocumentFormSchema = z.object({
         z.string().transform(val => val ? new Date(val) : undefined)
     ]).optional(),
     note: z.string().optional(),
+    organizationId: z.coerce.number().positive().optional(),
+    organization: organizationSchema,
+
 });
 
 

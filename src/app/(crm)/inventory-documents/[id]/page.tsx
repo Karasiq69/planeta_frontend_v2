@@ -27,7 +27,7 @@ const Page = async ({
                         <InventoryDocumentStatusBadge documentId={docId}/>
                     </div>
                     <div className="space-x-3">
-                        <InventoryDocumentSubmitButton docId={docId}/>
+                        <InventoryDocumentSubmitButton documentId={docId}/>
 
                         <Button variant="outline" size={'sm'}><Printer size={16}/></Button>
                         <Button variant="destructive" size={'sm'}><Trash2 size={16}/></Button>

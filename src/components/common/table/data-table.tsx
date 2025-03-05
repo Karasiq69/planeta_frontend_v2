@@ -15,13 +15,16 @@ function DataTable<TData>({table, columns, totalCount}: DataTableProps<TData>) {
     return (
         <div className="w-full p-4">
             <div className="border rounded-md">
-                <Table>
+                <Table className={'table-auto'}>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead key={header.id}
+                                                   style={{ width: `${header.getSize()}px` }}
+
+                                        >
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(

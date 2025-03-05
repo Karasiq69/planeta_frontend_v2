@@ -1,6 +1,7 @@
 import {Warehouse, WarehouseItem} from "@/features/warehouse/types";
 import {User} from "@/types";
 import {Supplier} from "@/features/suppliers/types";
+import {Organization} from "@/features/organizations/types";
 
 export const InventoryDocumentType = {
     RECEIPT: 'RECEIPT',
@@ -22,7 +23,6 @@ export const InventoryDocumentStatus = {
 export type InventoryDocumentStatus = (typeof InventoryDocumentStatus)[keyof typeof InventoryDocumentStatus];
 
 
-// Основной документ
 export interface InventoryDocument {
     id: number;
     type: InventoryDocumentType;
@@ -43,6 +43,9 @@ export interface InventoryDocument {
     completedAt?: string;
     warehouse?: Warehouse;
     targetWarehouse?: Warehouse;
+    organization?: Organization;
+    organizationId?: number;
+    totalAmount?: number;
 }
 
 // Параметры для запроса списка документов
@@ -67,14 +70,18 @@ export interface CreateDraftDocumentDTO {
 
 // DTO для обновления документа
 export interface UpdateDocumentDTO {
+    type?: InventoryDocumentType;
+    status?: InventoryDocumentStatus;
+    number?: string;
     warehouseId?: number;
     targetWarehouseId?: number;
-    orderId?: number;
-    number?: string;
-    note?: string;
-    supplierId?: number;
     incomingNumber?: string;
     incomingDate?: Date | string;
+    supplierId?: number;
+    orderId?: number;
+    note?: string;
+    organizationId?: number;
+    totalAmount?: number;
 }
 
 // DTO для добавления товара в документ

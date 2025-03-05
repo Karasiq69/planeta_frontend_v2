@@ -2,7 +2,17 @@
 
 import Link from "next/link"
 import {usePathname} from "next/navigation"
-import {Calendar, Car, Cog, LayoutDashboard, Package, ShoppingCart, Users, Wallet} from "lucide-react"
+import {
+    BriefcaseBusiness,
+    Calendar,
+    Car,
+    Cog,
+    LayoutDashboard,
+    Package,
+    ShoppingCart,
+    Users,
+    Wallet
+} from "lucide-react"
 import {cn} from "@/lib/utils"
 import {useCallback} from "react"
 import {MenuItem} from "@/components/common/sidebar/MenuItem"
@@ -56,6 +66,11 @@ export const mainMenuItems = [
         title: "Платежи",
         url: "/payments",
         icon: Wallet
+    },
+    {
+        title: "Организации",
+        url: "/organizations",
+        icon: BriefcaseBusiness
     },
     {
         title: "Товары",
