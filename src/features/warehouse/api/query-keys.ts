@@ -10,4 +10,7 @@ export const warehouseQueryKeys = {
 
     items: () => [...warehouseQueryKeys.all, 'items'] as const,
     items_list: (params: ListParams) => [...warehouseQueryKeys.items(), {params}] as const,
+
+    storageLocations: () => [...warehouseQueryKeys.all, 'storage-locations'] as const,
+    // storageLocations_L: (params: ListParams) => [...warehouseQueryKeys.items(), {params}] as const,
 }

@@ -8,7 +8,7 @@ import {useInventoryDocuments} from "@/features/inventory-documents/api/queries"
 import LoaderSectionAnimated from "@/components/ui/LoaderSectionAnimated";
 import {useSearchParams} from "next/navigation";
 
-const InventoryInventoryDocumentsDatatable = () => {
+const InventoryDocumentsDatatable = () => {
     const columns = useMemo(() => inventoryDocumentColumns, []);
     const searchParams = useSearchParams();
     const searchTerm = searchParams.get('search');
@@ -56,4 +56,4 @@ const InventoryInventoryDocumentsDatatable = () => {
     );
 };
 
-export default InventoryInventoryDocumentsDatatable;
+export default InventoryDocumentsDatatable;

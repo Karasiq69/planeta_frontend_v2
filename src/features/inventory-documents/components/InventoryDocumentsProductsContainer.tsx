@@ -5,7 +5,7 @@ import React, {useMemo} from "react";
 import {useDocumentItems} from "@/features/inventory-documents/api/queries";
 import {useParams} from "next/navigation";
 import DataTableBasic from "@/components/common/table/data-table-basic";
-import {DocumentProductsColumnDefs} from "@/features/inventory-documents/components/table/columns-items";
+import {DocumentProductsColumnDefs} from "@/features/inventory-documents/components/table/items/columns-items";
 import InventoryDocumentProductsCombobox
     from "@/features/inventory-documents/components/InventoryDocumentProductsCombobox";
 import {Product} from "@/features/products/types";

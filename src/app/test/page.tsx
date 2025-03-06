@@ -1,19 +1,18 @@
 'use client'
-import {useUser} from "@/hooks/use-auth";
-import {useAppointments} from "@/features/appointments/api/queries";
 import Pre from "@/components/ui/Pre";
+import {useAllStorageLocations} from "@/features/warehouse/api/queries";
 
 type Props = {};
 const Page = (props: Props) => {
     // const {data, isLoading} = useUser()
-    const {data: events, isLoading: isEvLoad} = useAppointments()
-    console.log(events)
-    if (isEvLoad) return 'ev load'
+    const { data: storageLocations = [], isLoading } = useAllStorageLocations();
+
+    if (isLoading) return 'ev load'
     return (
         <div className={'text-xs '}>
             {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
             {/*<pre>{JSON.stringify(events, null, 2)}</pre>*/}
-            <Pre object={events}/>
+            <Pre object={storageLocations}/>
             sex
         </div>
     );

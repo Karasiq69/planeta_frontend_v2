@@ -2,22 +2,27 @@ import {ColumnDef} from "@tanstack/react-table";
 import {DocumentItem} from "@/features/inventory-documents/types";
 import {Button} from "@/components/ui/button";
 import {Pencil, Trash2} from "lucide-react";
-import {Input} from "@/components/ui/input";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {formatPrice} from "@/lib/utils";
-import {QuantityInput} from "@/components/ui/quantity-input";
+import {
+    DocumentItemsEditableCell
+} from "@/features/inventory-documents/components/table/items/DocumentItemsEditableCell";
+import {
+    DocumentItemsQuantityCell
+} from "@/features/inventory-documents/components/table/items/DocumentItemsQuantityCell";
+import DocumentItemsWarehouseCell
+    from "@/features/inventory-documents/components/table/items/DocumentItemsWarehouseCell";
 
 export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     {
         accessorKey: "index",
         header: "№",
-        cell: ({ row }) => <div>{row.index + 1} ({row.original.id})</div>,
+        cell: ({row}) => <div>{row.index + 1} ({row.original.id})</div>,
         enableSorting: false,
     },
     {
         accessorKey: "productName",
         header: "Наименование",
-        cell: ({ row }) => {
+        cell: ({row}) => {
             const item = row.original;
             return (
                 <div>
@@ -33,7 +38,7 @@ export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     {
         accessorKey: "brandName",
         header: "Производитель",
-        cell: ({ row }) => {
+        cell: ({row}) => {
             return (
                 <div>{row.original?.product?.brand?.name || "-"}</div>
             );
@@ -42,48 +47,46 @@ export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     {
         accessorKey: "storageLocation",
         header: "Ячейка",
-        cell: ({ row }) => {
+        cell: ({row}) => {
             return (
-                <Select defaultValue={row.original.toStorageLocationId?.toString() || ""}>
-                    <SelectTrigger className="h-8">
-                        <SelectValue placeholder="Не выбрана" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="1">A-1-2-3</SelectItem>
-                        <SelectItem value="2">B-1-2-3</SelectItem>
-                        <SelectItem value="3">C-1-2-3</SelectItem>
-                    </SelectContent>
-                </Select>
+                <DocumentItemsWarehouseCell
+                    documentId={row.original.documentId}
+                    item={row.original}
+                    fieldName="toStorageLocationId"
+                />
             );
         },
     },
     {
         accessorKey: "quantity",
         header: "Количество",
-        cell: ({ row }) => {
+        cell: ({row}) => {
             return (
-                // <Input
-                //     type="number"
-                //     defaultValue={row.original.quantity}
-                //     className="h-8 w-24"
-                //     placeholder="1"
-                // />
-                <QuantityInput defaultValue={Number(row.original.quantity)}/>
+                <DocumentItemsQuantityCell
+                    documentId={row.original.documentId}
+                    item={row.original}
+                    fieldName="quantity"
+                    minValue={1}
+                    step={1}
+                    width="w-32"
+                />
             );
         },
     },
     {
         accessorKey: "price",
         header: "Цена",
-        cell: ({ row }) => {
+        cell: ({row}) => {
             return (
-                <Input
+                <DocumentItemsEditableCell
+                    documentId={row.original.documentId}
+                    item={row.original}
+                    fieldName="price"
                     type="number"
-                    defaultValue={row.original.price || ""}
-                    className="h-8 w-28"
                     min={0}
-                    step={0.01}
+                    className="h-8 w-28"
                     placeholder="0.00"
+                    parseValue={(value) => parseFloat(value)}
                 />
             );
         },
@@ -91,7 +94,7 @@ export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     {
         accessorKey: "totalPrice",
         header: "Сумма",
-        cell: ({ row }) => {
+        cell: ({row}) => {
             return (
                 <span>{formatPrice(row.original?.totalPrice)}</span>
             );
@@ -100,10 +103,14 @@ export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     {
         accessorKey: "note",
         header: "Примечание",
-        cell: ({ row }) => {
+        cell: ({row}) => {
             return (
-                <Input
-                    defaultValue={row.original.note || ""}
+
+                <DocumentItemsEditableCell
+                    documentId={row.original.documentId}
+                    item={row.original}
+                    fieldName="note"
+                    type="text"
                     className="h-8"
                     placeholder="Примечание"
                 />
@@ -113,14 +120,14 @@ export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     {
         id: "actions",
         header: "Действия",
-        cell: ({ row }) => {
+        cell: ({row}) => {
             return (
                 <div className="flex gap-2">
                     <Button variant="ghost" size="icon" title="Редактировать">
-                        <Pencil className="h-4 w-4" />
+                        <Pencil className="h-4 w-4"/>
                     </Button>
                     <Button variant="ghost" size="icon" title="Удалить">
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4"/>
                     </Button>
                 </div>
             );

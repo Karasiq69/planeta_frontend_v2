@@ -15,7 +15,7 @@ import {FileMinus2, FilePlus2, SquarePlus} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {WAREHOUSE_URL} from "@/lib/constants";
 import PageHeader from "@/components/common/PageHeader";
-import InventoryInventoryDocumentsDatatable from "@/features/inventory-documents/components/table/InventoryInventoryDocumentsDatatable";
+import InventoryDocumentsDatatable from "@/features/inventory-documents/components/table/InventoryDocumentsDatatable";
 import CreateInventoryDocumentButton from "@/features/inventory-documents/components/CreateInventoryDocumentButton";
 
 type Props = {};
@@ -57,7 +57,7 @@ const Page = (props: Props) => {
                 <Card>
                     <Suspense>
                         {/*<InventoryTransactionsDataTable/>*/}
-                        <InventoryInventoryDocumentsDatatable/>
+                        <InventoryDocumentsDatatable/>
                     </Suspense>
                 </Card>
 
