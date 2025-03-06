@@ -3,6 +3,7 @@ import { Supplier } from '@/features/suppliers/types';
 import { useSuppliers } from '@/features/suppliers/api/queries';
 import useDebouncedSearch from "@/hooks/use-debounced-search";
 import {AsyncSelect} from "@/components/ui/async-select";
+import {BriefcaseBusiness} from "lucide-react";
 
 interface SuppliersComboboxProps {
     onSelect: (supplier: Supplier) => void;
@@ -60,8 +61,11 @@ const SuppliersCombobox: React.FC<SuppliersComboboxProps> = ({
             )}
             getOptionValue={(supplier) => supplier.id.toString()}
             getDisplayValue={(supplier) => (
-                <div className="flex flex-col leading-tight text-left">
-                    <div className="font-medium">{supplier.name}</div>
+                <div className={'[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0 [&>span_svg]:text-muted-foreground/80'}>
+                       <span className="font-medium gap-2" >
+                            <BriefcaseBusiness size={16} />
+                           {supplier.name}
+                       </span>
                     {/*<div className="text-xxs text-muted-foreground">{supplier.contactPerson}</div>*/}
                 </div>
             )}

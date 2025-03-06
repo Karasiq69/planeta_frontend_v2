@@ -10,12 +10,13 @@ export const formatPhone = (phone: string) => {
 };
 
 export function formatPrice(
-    price: number | string,
+    price: number | string | undefined,
     options: {
       currency?: 'RUB' | 'USD'
       notation?: Intl.NumberFormatOptions['notation']
     } = {}
 ) {
+    if (price === undefined) return '-'
   const {currency = 'RUB', notation = 'compact'} = options
 
   const numericPrice =

@@ -1,54 +1,41 @@
-import { ColumnDef } from "@tanstack/react-table";
-import { InventoryDocumentItem } from "@/features/inventory-documents/types";
-import { Button } from "@/components/ui/button";
-import { Trash2, Pencil } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import InventoryDocumentsTableActionButtons from "@/features/inventory-documents/components/table/action-buttons";
+import {ColumnDef} from "@tanstack/react-table";
+import {DocumentItem} from "@/features/inventory-documents/types";
+import {Button} from "@/components/ui/button";
+import {Pencil, Trash2} from "lucide-react";
+import {Input} from "@/components/ui/input";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {formatPrice} from "@/lib/utils";
+import {QuantityInput} from "@/components/ui/quantity-input";
 
-export const DocumentProductsColumnDefs: ColumnDef<InventoryDocumentItem>[] = [
+export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     {
         accessorKey: "index",
         header: "№",
-        cell: ({ row }) => <div>{row.index + 1}</div>,
+        cell: ({ row }) => <div>{row.index + 1} ({row.original.id})</div>,
         enableSorting: false,
     },
     {
         accessorKey: "productName",
-        header: "Номенклатура",
+        header: "Наименование",
         cell: ({ row }) => {
             const item = row.original;
             return (
                 <div>
-                    <div>{item?.warehouseItem?.product?.name}</div>
-                    {item?.warehouseItem?.product?.brandId && (
-                        <div className="text-xs text-muted-foreground">
-                            {/* TODO: Replace with actual brand name when available */}
-                            Бренд ID: {item?.warehouseItem.product?.brand?.name || 'brand'}
-                        </div>
-                    )}
+                    <div className="font-medium">{item?.product?.name || "-"}</div>
+                    <div className="text-xs text-muted-foreground mt-1">
+                        <span>Артикул: {item?.product?.sku || "-"}</span>
+                        <span className="ml-2">Партномер: {item?.product?.partNumber || "-"}</span>
+                    </div>
                 </div>
             );
         },
     },
     {
-        accessorKey: "partNumber",
-        header: "Артикул",
-        cell: ({ row }) => <div>{row.original?.warehouseItem?.product?.partNumber || "-"}</div>,
-    },
-    {
-        accessorKey: "quantity",
-        header: "Количество",
+        accessorKey: "brandName",
+        header: "Производитель",
         cell: ({ row }) => {
             return (
-                <Input
-                    type="number"
-                    value={row.original.quantity}
-                    readOnly
-                    className="h-8 w-20"
-                    min={0.001}
-                    step={0.001}
-                />
+                <div>{row.original?.product?.brand?.name || "-"}</div>
             );
         },
     },
@@ -57,7 +44,7 @@ export const DocumentProductsColumnDefs: ColumnDef<InventoryDocumentItem>[] = [
         header: "Ячейка",
         cell: ({ row }) => {
             return (
-                <Select value={row.original.toStorageLocationId?.toString() || ""} disabled>
+                <Select defaultValue={row.original.toStorageLocationId?.toString() || ""}>
                     <SelectTrigger className="h-8">
                         <SelectValue placeholder="Не выбрана" />
                     </SelectTrigger>
@@ -71,16 +58,71 @@ export const DocumentProductsColumnDefs: ColumnDef<InventoryDocumentItem>[] = [
         },
     },
     {
+        accessorKey: "quantity",
+        header: "Количество",
+        cell: ({ row }) => {
+            return (
+                // <Input
+                //     type="number"
+                //     defaultValue={row.original.quantity}
+                //     className="h-8 w-24"
+                //     placeholder="1"
+                // />
+                <QuantityInput defaultValue={Number(row.original.quantity)}/>
+            );
+        },
+    },
+    {
+        accessorKey: "price",
+        header: "Цена",
+        cell: ({ row }) => {
+            return (
+                <Input
+                    type="number"
+                    defaultValue={row.original.price || ""}
+                    className="h-8 w-28"
+                    min={0}
+                    step={0.01}
+                    placeholder="0.00"
+                />
+            );
+        },
+    },
+    {
+        accessorKey: "totalPrice",
+        header: "Сумма",
+        cell: ({ row }) => {
+            return (
+                <span>{formatPrice(row.original?.totalPrice)}</span>
+            );
+        },
+    },
+    {
         accessorKey: "note",
         header: "Примечание",
-        cell: ({ row }) => <div>{row.original.note || "-"}</div>,
+        cell: ({ row }) => {
+            return (
+                <Input
+                    defaultValue={row.original.note || ""}
+                    className="h-8"
+                    placeholder="Примечание"
+                />
+            );
+        },
     },
     {
         id: "actions",
         header: "Действия",
         cell: ({ row }) => {
             return (
-                <InventoryDocumentsTableActionButtons documentItem={row.original} />
+                <div className="flex gap-2">
+                    <Button variant="ghost" size="icon" title="Редактировать">
+                        <Pencil className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" title="Удалить">
+                        <Trash2 className="h-4 w-4" />
+                    </Button>
+                </div>
             );
         },
     },

@@ -1,11 +1,10 @@
 import {useRemoveDocumentItem} from "@/features/inventory-documents/api/mutations";
 import {Button} from "@/components/ui/button";
 import {Pencil, Trash2} from "lucide-react";
-import {InventoryDocumentItem} from "@/features/inventory-documents/types";
-import Pre from "@/components/ui/Pre";
+import {DocumentItem} from "@/features/inventory-documents/types";
 
 type Props = {
-    documentItem: InventoryDocumentItem
+    documentItem: DocumentItem
 };
 const InventoryDocumentsTableActionButtons = ({documentItem}: Props) => {
     const documentId = Number(documentItem?.id)

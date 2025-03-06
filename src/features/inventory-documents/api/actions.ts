@@ -6,7 +6,7 @@ import {
     DocumentItemDTO,
     InventoryDocument,
     InventoryDocumentDetails,
-    InventoryDocumentItem,
+    DocumentItem,
     InventoryDocumentsQuery,
     UpdateDocumentDTO,
     UpdateDocumentItemDTO
@@ -56,20 +56,20 @@ export const cancelDocument = async (id: number): Promise<InventoryDocument> => 
 };
 
 // Получение списка товаров документа
-export const getDocumentItems = async (documentId: number): Promise<InventoryDocumentItem[]> => {
-    const response = await apiClient.get<InventoryDocumentItem[]>(`${INVENTORY_DOCUMENTS_URL}/${documentId}/items`);
+export const getDocumentItems = async (documentId: number): Promise<DocumentItem[]> => {
+    const response = await apiClient.get<DocumentItem[]>(`${INVENTORY_DOCUMENTS_URL}/${documentId}/items`);
     return response.data;
 };
 
 // Добавление товара в документ
-export const addDocumentItem = async (documentId: number, data: DocumentItemDTO): Promise<InventoryDocumentItem> => {
-    const response = await apiClient.post<InventoryDocumentItem>(`${INVENTORY_DOCUMENTS_URL}/${documentId}/items`, data);
+export const addDocumentItem = async (documentId: number, data: DocumentItemDTO): Promise<DocumentItem> => {
+    const response = await apiClient.post<DocumentItem>(`${INVENTORY_DOCUMENTS_URL}/${documentId}/items`, data);
     return response.data;
 };
 
 // Обновление товара в документе
-export const updateDocumentItem = async (documentId: number, itemId: number, data: UpdateDocumentItemDTO): Promise<InventoryDocumentItem> => {
-    const response = await apiClient.patch<InventoryDocumentItem>(
+export const updateDocumentItem = async (documentId: number, itemId: number, data: UpdateDocumentItemDTO): Promise<DocumentItem> => {
+    const response = await apiClient.patch<DocumentItem>(
         `${INVENTORY_DOCUMENTS_URL}/${documentId}/items/${itemId}`,
         data
     );

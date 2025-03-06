@@ -8,8 +8,7 @@ import Link from "next/link";
 import {Badge} from "@/components/ui/badge";
 import {getStatusConfig} from "@/features/inventory-documents/helpers/status-helper";
 import {INVENTORY_DOCUMENTS_URL, WAREHOUSE_URL} from "@/lib/constants";
-// дата ответтсвенный сумма поставщик коммент
-
+import {formatPrice} from "@/lib/utils";
 export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
     {
         accessorKey: "id",
@@ -124,13 +123,14 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
         enableSorting: false,
     },
     {
-        accessorKey: "totals",
-        meta: "totals",
+        accessorKey: "totalAmount",
+        meta: "totalAmount",
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Сумма"/>
         ),
         cell: ({row}) => {
-            return <div>14 500</div>;
+            const totals = row.original.totalAmount
+            return <div>{formatPrice(totals)}</div>;
         },
         enableSorting: false,
     },
