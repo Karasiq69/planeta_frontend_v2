@@ -43,7 +43,7 @@ const Page = async ({
                 </CardHeader>
 
                 <Separator/>
-                <CardContent className={'bg-muted rounded-lg'}>
+                <CardContent className={'bg-muted rounded-lg space-y-3'}>
                     <InventoryDocumentsProductsContainer/>
                     <InventoryDocumentsFooter documentId={docId}/>
                 </CardContent>

@@ -44,11 +44,11 @@ const InventoryDocumentsProductContainer = ({onAddItem}: Props) => {
                 className="flex flex-row items-center py-5 justify-between">
                 <InventoryDocumentProductsCombobox isPending={isPending} onSelectProduct={onSelectProduct}/>
             </div>
-            <ScrollArea className="h-[400px]  rounded-none">
 
-            <div className="space-y-3 rounded-lg  bg-background">
+            <ScrollArea className="h-full overflow-y-auto" style={{ maxHeight: 'calc(85vh - 382px - 80px)' }}>
+            <div className="space-y-3 rounded-lg bg-background">
                 {isLoading
-                    ? <LoaderSectionAnimated className="bg-background" text="Загружаем товары..."/>
+                    ? <LoaderSectionAnimated className="" text="Загружаем товары..."/>
                     : <DataTableBasic table={table} columns={columns}/>
                 }
             </div>
