@@ -5,7 +5,7 @@ import {
     cancelDocument,
     completeDocument,
     createDraftDocument, deleteDocument,
-    removeDocumentItem,
+    removeDocumentItem, setDocumentIsComplete,
     updateDocument,
     updateDocumentItem
 } from "@/features/inventory-documents/api/actions";
@@ -171,6 +171,23 @@ export const useRemoveDocumentItem = (documentId: number) => {
         },
         onError: (error) => {
             toast.error(`Ошибка при удалении товара: ${error.message}`);
+        }
+    });
+};
+export const useSetDocumentIsComplete = (documentId: number) => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: () => setDocumentIsComplete(documentId),
+        onSuccess: () => {
+            toast.success('Документ успешно проведён.');
+            queryClient.invalidateQueries({
+                queryKey: inventoryDocumentsQueryKeys.detail(documentId)
+            });
+        },
+        onError: (error) => {
+            console.error(error)
+            toast.error(`Ошибка ${error.name}: ${error.message}`);
         }
     });
 };

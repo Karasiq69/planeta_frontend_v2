@@ -5,6 +5,7 @@ import React from "react";
 import {useIsMutating} from "@tanstack/react-query";
 import LoaderAnimated from "@/components/ui/LoaderAnimated";
 import {useInventoryDocument} from "@/features/inventory-documents/api/queries";
+import {useSetDocumentIsComplete} from "@/features/inventory-documents/api/mutations";
 
 type Props = {
     documentId: number
@@ -12,17 +13,20 @@ type Props = {
 const InventoryDocumentSubmitButton = ({documentId}: Props) => {
     const isMutating = useIsMutating()
     const {isLoading} = useInventoryDocument(documentId)
-
-
+    const {mutate: setDocumentisComplete, isPending: isCompletingPending} = useSetDocumentIsComplete(documentId)
+    const setIsComplete = () => {
+        setDocumentisComplete()
+    }
     return (
         <>
             <Button
-                type={'submit'}
+                type={'button'}
                 size={'sm'}
-                form={'inventoryDocumentForm'}
-                disabled={isMutating > 0 || isLoading}
+                // form={'inventoryDocumentForm'}
+                onClick={setIsComplete}
+                disabled={isCompletingPending}
             >
-                {isMutating > 0 ? <LoaderAnimated className="text-primary-foreground"/> : <CheckCheck />}
+                {isMutating > 0 ? <LoaderAnimated className="text-primary-foreground"/> : <CheckCheck/>}
                 Сохранить и провести
             </Button>
             <Button

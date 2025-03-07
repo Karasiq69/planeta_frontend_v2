@@ -3,10 +3,10 @@ import {INVENTORY_DOCUMENTS_URL} from "@/lib/constants";
 import {ListResponse} from "@/types/params";
 import {
     CreateDraftDocumentDTO,
+    DocumentItem,
     DocumentItemDTO,
     InventoryDocument,
     InventoryDocumentDetails,
-    DocumentItem,
     InventoryDocumentsQuery,
     UpdateDocumentDTO,
     UpdateDocumentItemDTO
@@ -79,4 +79,9 @@ export const updateDocumentItem = async (documentId: number, itemId: number, dat
 // Удаление товара из документа
 export const removeDocumentItem = async (documentId: number, itemId: number): Promise<void> => {
     await apiClient.delete(`${INVENTORY_DOCUMENTS_URL}/${documentId}/items/${itemId}`);
+};
+
+// Провести документ
+export const setDocumentIsComplete = async (documentId: number): Promise<void> => {
+    await apiClient.post(`${INVENTORY_DOCUMENTS_URL}/${documentId}/complete`);
 };
