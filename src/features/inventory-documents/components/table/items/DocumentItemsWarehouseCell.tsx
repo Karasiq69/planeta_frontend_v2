@@ -18,7 +18,6 @@ const DocumentItemsWarehouseCell: React.FC<DocumentItemsWarehouseCellProps> = ({
                                                                                }) => {
     const { data: storageLocations = [], isLoading } = useAllStorageLocations();
     const { mutate } = useUpdateDocumentItem(documentId, item.id);
-    console.log(storageLocations)
     // Получаем текущее значение
     const currentValue = item[fieldName]?.toString() || "";
 
@@ -58,7 +57,7 @@ const DocumentItemsWarehouseCell: React.FC<DocumentItemsWarehouseCellProps> = ({
                     <SelectItem value="default">Не выбрана</SelectItem>
 
                     {/* Отображаем все доступные ячейки */}
-                    {storageLocations.map((location) => (
+                    {storageLocations.map((location:StorageLocation) => (
                         <SelectItem key={location.id} value={location.id.toString()}>
                             {formatStorageLocationName(location)}
                         </SelectItem>

@@ -46,7 +46,6 @@ export function useDeleteOrder(orderId: number) {
 
     const deleteOrderFn = async () => {
         const response = await apiClient.delete<Order>(`${ORDERS_URL}/${orderId}/`);
-        console.log(response.data)
         return response.data;
     }
 

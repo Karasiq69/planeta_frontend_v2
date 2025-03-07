@@ -22,6 +22,5 @@ export const getAllWarehouseItemsListFn = async (params: ListParams): Promise<Li
 }
 export const getStorageLocationsFn = async () => {
     const response = await apiClient.get(`${WAREHOUSE_URL}${STORAGE_LOCATIONS_URL}`);
-    console.log(response)
     return response.data
 }

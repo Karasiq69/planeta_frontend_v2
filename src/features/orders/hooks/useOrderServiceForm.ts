@@ -29,16 +29,14 @@ export const useOrderServiceForm = ({orderServiceData, orderId, onUpdate, onCrea
     const onSubmit = async (data: OrderServiceFormData) => {
 
         if (orderServiceData?.id) {
-            console.log('data')
-            updateOrderService({
+             updateOrderService({
                 data: data,
                 orderServiceId: orderServiceData.id
             })
             // await updateOrderService.mutateAsync({ id: orderServiceData.id, ...serviceData });
             onUpdate?.(orderServiceData.id);
         } else {
-            console.log('no data')
-            // const newOrderService = await createOrderService.mutateAsync(serviceData);
+             // const newOrderService = await createOrderService.mutateAsync(serviceData);
             // onCreate?.(newOrderService);
         }
     };

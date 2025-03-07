@@ -137,7 +137,6 @@ export const useAddDocumentItem = (documentId: number) => {
 // Хук для обновления товара в документе
 export const useUpdateDocumentItem = (documentId: number, itemId: number) => {
     const queryClient = useQueryClient();
-
     return useMutation({
         mutationFn: (data: UpdateDocumentItemDTO) => updateDocumentItem(documentId, itemId, data),
         onSuccess: () => {

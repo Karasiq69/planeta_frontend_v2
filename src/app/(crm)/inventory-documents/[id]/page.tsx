@@ -1,5 +1,5 @@
 import InventoryDocumentFormContainer from "@/features/inventory-documents/components/InventoryDocumentFormContainer";
-import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
 import {Separator} from "@/components/ui/separator";
 import React from "react";
 import InventoryDocumentsProductsContainer
@@ -10,6 +10,7 @@ import InventoryDocumentSubmitButton
     from "@/features/inventory-documents/components/forms/InventoryDocumentSubmitButton";
 import PageHeader from "@/components/common/PageHeader";
 import InventoryDocumentStatusBadge from "@/features/inventory-documents/components/InventoryDocumentStatusBadge";
+import InventoryDocumentsFooter from "@/features/inventory-documents/components/InventoryDocumentsFooter";
 
 const Page = async ({
                         params,
@@ -42,8 +43,9 @@ const Page = async ({
                 </CardHeader>
 
                 <Separator/>
-                <CardContent className={'bg-muted'}>
+                <CardContent className={'bg-muted rounded-lg'}>
                     <InventoryDocumentsProductsContainer/>
+                    <InventoryDocumentsFooter documentId={docId}/>
                 </CardContent>
 
             </Card>

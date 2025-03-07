@@ -2,7 +2,6 @@ import {Card} from "@/components/ui/card";
 import React, {Suspense} from "react";
 import CreateVehicleButton from "@/features/cars/components/CreateVehicleButton";
 import VehiclesDataTable from "@/features/cars/components/table/VehiclesDataTable";
-import CarForm from "@/features/cars/components/forms/CarForm";
 
 const VehiclesPage = async ({
                         searchParams,

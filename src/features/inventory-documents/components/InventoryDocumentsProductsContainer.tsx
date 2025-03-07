@@ -10,6 +10,7 @@ import InventoryDocumentProductsCombobox
     from "@/features/inventory-documents/components/InventoryDocumentProductsCombobox";
 import {Product} from "@/features/products/types";
 import {useAddDocumentItem} from "@/features/inventory-documents/api/mutations";
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 type Props = {
     onAddItem?: () => void;
@@ -36,18 +37,22 @@ const InventoryDocumentsProductContainer = ({onAddItem}: Props) => {
     }
 
 
+
     return (
         <>
             <div
                 className="flex flex-row items-center py-5 justify-between">
                 <InventoryDocumentProductsCombobox isPending={isPending} onSelectProduct={onSelectProduct}/>
             </div>
-            <div className="space-y-3 rounded-md p-5 bg-background">
+            <ScrollArea className="h-[400px]  rounded-none">
+
+            <div className="space-y-3 rounded-lg  bg-background">
                 {isLoading
                     ? <LoaderSectionAnimated className="bg-background" text="Загружаем товары..."/>
                     : <DataTableBasic table={table} columns={columns}/>
                 }
             </div>
+            </ScrollArea>
         </>
     );
 };

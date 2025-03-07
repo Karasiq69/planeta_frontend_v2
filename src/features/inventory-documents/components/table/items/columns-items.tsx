@@ -16,7 +16,7 @@ export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     {
         accessorKey: "index",
         header: "№",
-        cell: ({row}) => <div>{row.index + 1} ({row.original.id})</div>,
+        cell: ({row}) => <div>{row.original.id}</div>,
         enableSorting: false,
     },
     {
@@ -75,7 +75,7 @@ export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     },
     {
         accessorKey: "price",
-        header: "Цена",
+        header: "Цена закупки",
         cell: ({row}) => {
             return (
                 <DocumentItemsEditableCell

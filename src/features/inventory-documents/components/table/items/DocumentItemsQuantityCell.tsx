@@ -57,7 +57,7 @@ export const DocumentItemsQuantityCell: React.FC<DocumentItemsQuantityCellProps>
     return (
         <QuantityInput
             defaultValue={defaultValue}
-            value={value}
+            // value={value}
             onChange={handleChange}
             minValue={minValue}
             maxValue={maxValue}
