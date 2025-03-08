@@ -1,9 +1,7 @@
 import InventoryDocumentFormContainer from "@/features/inventory-documents/components/InventoryDocumentFormContainer";
-import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
+import {Card, CardContent, CardHeader} from "@/components/ui/card";
 import {Separator} from "@/components/ui/separator";
 import React from "react";
-import InventoryDocumentsProductsContainer
-    from "@/features/inventory-documents/components/InventoryDocumentsProductsContainer";
 import {Button} from "@/components/ui/button";
 import {Printer, Trash2} from "lucide-react";
 import InventoryDocumentSubmitButton
@@ -23,17 +21,17 @@ const Page = async ({
         <div className={'space-y-5'}>
             <section className={'flex flex-col lg:flex-row gap-3 lg:justify-between'}>
 
-                    <div className={'flex flex-wrap gap-5'}>
-                        <PageHeader title={`Приходная накладная №${docId}`} showBackButton/>
-                        <InventoryDocumentStatusBadge documentId={docId}/>
-                    </div>
+                <div className={'flex flex-wrap gap-5'}>
+                    <PageHeader title={`Приходная накладная №${docId}`} showBackButton/>
+                    <InventoryDocumentStatusBadge documentId={docId}/>
+                </div>
 
-                    <div className=" flex gap-2 flex-wrap">
-                        <InventoryDocumentSubmitButton documentId={docId}/>
+                <div className="flex gap-3 flex-wrap">
+                    <InventoryDocumentSubmitButton documentId={docId}/>
 
-                        <Button variant="outline" size={'sm'}><Printer size={16}/></Button>
-                        <Button variant="destructive" size={'sm'}><Trash2 size={16}/></Button>
-                    </div>
+                    <Button variant="outline" size={'sm'}><Printer size={16}/></Button>
+                    <Button variant="destructive" size={'sm'}><Trash2 size={16}/></Button>
+                </div>
 
             </section>
 
