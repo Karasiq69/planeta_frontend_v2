@@ -21,20 +21,20 @@ const Page = async ({
 
     return (
         <div className={'space-y-5'}>
-            <section>
-                <div className={'flex justify-between items-center'}>
-                    <div className={'flex justify-between items-center gap-5'}>
+            <section className={'flex flex-col lg:flex-row gap-3 lg:justify-between'}>
+
+                    <div className={'flex flex-wrap gap-5'}>
                         <PageHeader title={`Приходная накладная №${docId}`} showBackButton/>
                         <InventoryDocumentStatusBadge documentId={docId}/>
                     </div>
-                    <div className="space-x-3">
+
+                    <div className=" flex gap-2 flex-wrap">
                         <InventoryDocumentSubmitButton documentId={docId}/>
 
                         <Button variant="outline" size={'sm'}><Printer size={16}/></Button>
                         <Button variant="destructive" size={'sm'}><Trash2 size={16}/></Button>
                     </div>
 
-                </div>
             </section>
 
             <Card>
@@ -44,7 +44,7 @@ const Page = async ({
 
                 <Separator/>
                 <CardContent className={'bg-muted rounded-lg space-y-3'}>
-                    <InventoryDocumentsProductsContainer/>
+                    {/*<InventoryDocumentsProductsContainer/>*/}
                     <InventoryDocumentsFooter documentId={docId}/>
                 </CardContent>
 

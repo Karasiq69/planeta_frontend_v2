@@ -12,15 +12,20 @@ const InventoryDocumentStatusBadge = ({documentId}: Props) => {
     return (
         <div className={'flex gap-2 items-center'}>
             {(!isLoading && document?.document.status) &&
-               <>
-                   <Badge variant={getStatusVariant(document?.document?.status)}>
-                       {getStatusLabel(document?.document?.status)}
-                   </Badge>
+                <>
+                    <Badge variant={getStatusVariant(document?.document?.status)}>
+                        {getStatusLabel(document?.document?.status)}
+                    </Badge>
 
-                   <span className={'text-xs text-muted-foreground'}>
-                       Обновлен: {formatRelativeTime(document.document.updatedAt)}
-                   </span>
-               </>
+                    <div className={'text-xs text-muted-foreground flex-col gap-2'}>
+                        <p>
+                            Обновлен: {formatRelativeTime(document.document.updatedAt)}
+                        </p>
+                        <p>
+                            Создан: {formatRelativeTime(document.document.createdAt)}
+                        </p>
+                    </div>
+                </>
 
             }
 
