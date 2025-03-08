@@ -19,22 +19,13 @@ type Props = {
 };
 
 const InventoryDocumentFormFields = ({form}: Props) => {
-    const documentType = useWatch({
-        control: form.control,
-        name: "type",
-    });
-    const {
-        organizationId,
-        organization
-    } = form.getValues();
-    const organizationName = organization?.name;
-
     return (
-        <div className="grid lg:grid-cols-2 gap-x-20 gap-y-2 mb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 md:gap-x-16 max-w-6xl">
+
             {/* Тип документа */}
-            <div className="flex items-center">
-                <Label htmlFor="type" className="w-28 text-muted-foreground">Тип:</Label>
-                <div className="flex-1 flex gap-1">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-3">
+                <Label htmlFor="type" className="lg:w-32  text-muted-foreground">Тип:</Label>
+                <div className="w-full">
                     <FormField
                         control={form.control}
                         name="type"
@@ -66,36 +57,35 @@ const InventoryDocumentFormFields = ({form}: Props) => {
             </div>
 
             {/* Номер документа */}
-            <div className="flex items-center">
-                <Label htmlFor="number" className="w-28 text-muted-foreground">Номер:</Label>
-                <div className="flex-1 flex gap-1 items-center">
+            <div className="flex flex-col lg:flex-row md:items-start gap-3">
+                <Label htmlFor="number" className="lg:w-32 text-muted-foreground md:pt-2">Номер:</Label>
+                <div className="w-full grid grid-cols-[1fr_auto_1fr] md:grid-cols-[1fr_auto_1fr] items-center gap-2">
                     <FormField
                         disabled
-
                         control={form.control}
                         name="number"
                         render={({field}) => (
-                            <FormItem className="flex-1">
+                            <FormItem>
                                 <FormControl>
-                                    <Input id="number" {...field} className="flex-1" placeholder="Авто"/>
+                                    <Input id="number" {...field} placeholder="Авто"/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
                         )}
                     />
-                    <Label className="w-8 text-center">от</Label>
+                    <Label className="text-center">от</Label>
                     <FormField
                         control={form.control}
                         name="createdAt"
                         render={({field}) => (
-                            <FormItem className="flex-1">
+                            <FormItem>
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <FormControl>
                                             <Button
                                                 variant={"outline"}
                                                 className={cn(
-                                                    "w-[240px] pl-3 text-left font-normal",
+                                                    "w-full pl-3 text-left font-normal",
                                                     !field.value && "text-muted-foreground"
                                                 )}
                                             >
@@ -114,9 +104,6 @@ const InventoryDocumentFormFields = ({form}: Props) => {
                                             mode="single"
                                             selected={field.value}
                                             onSelect={field.onChange}
-                                            // disabled={(date) =>
-                                            //     date > new Date() || date > new Date("1900-01-01")
-                                            // }
                                             initialFocus
                                         />
                                     </PopoverContent>
@@ -128,42 +115,44 @@ const InventoryDocumentFormFields = ({form}: Props) => {
                 </div>
             </div>
 
-            {/* Поставщик */}
+             {/*Поставщик */}
             <SuppliersSelectField
                 control={form.control}
                 name="supplierId"
+
                 label="Поставщик:"
                 placeholder="Выбрать поставщика"
             />
+
             {/* Входящий номер */}
-            <div className="flex items-center">
-                <Label htmlFor="incomingNumber" className="w-28 text-muted-foreground">Вх. номер:</Label>
-                <div className="flex-1 flex gap-1 items-center">
+            <div className="flex flex-col lg:flex-row md:items-start gap-3">
+                <Label htmlFor="incomingNumber" className="lg:w-32 text-muted-foreground md:pt-2">Вх. номер:</Label>
+                <div className="w-full grid grid-cols-[1fr_auto_1fr] md:grid-cols-[1fr_auto_1fr] items-center gap-2">
                     <FormField
                         control={form.control}
                         name="incomingNumber"
                         render={({field}) => (
-                            <FormItem className="flex-1">
+                            <FormItem>
                                 <FormControl>
-                                    <Input id="incomingNumber" {...field} className="flex-1" placeholder="№ договора"/>
+                                    <Input id="incomingNumber" {...field} placeholder="№ договора"/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
                         )}
                     />
-                    <Label className="w-8 text-center">от</Label>
+                    <Label className="text-center">от</Label>
                     <FormField
                         control={form.control}
                         name="incomingDate"
                         render={({field}) => (
-                            <FormItem className="flex-1">
+                            <FormItem>
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <FormControl>
                                             <Button
                                                 variant={"outline"}
                                                 className={cn(
-                                                    "w-[240px] pl-3 text-left font-normal",
+                                                    "w-full pl-3 text-left font-normal",
                                                     !field.value && "text-muted-foreground"
                                                 )}
                                             >
@@ -182,9 +171,6 @@ const InventoryDocumentFormFields = ({form}: Props) => {
                                             mode="single"
                                             selected={field.value}
                                             onSelect={field.onChange}
-                                            // disabled={(date) =>
-                                            //     date > new Date() || date > new Date("1900-01-01")
-                                            // }
                                             initialFocus
                                         />
                                     </PopoverContent>
@@ -197,9 +183,9 @@ const InventoryDocumentFormFields = ({form}: Props) => {
             </div>
 
             {/* Склад */}
-            <div className="flex items-center">
-                <Label htmlFor="warehouseId" className="w-28 text-muted-foreground">Склад:</Label>
-                <div className="flex-1 flex gap-1">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-3">
+                <Label htmlFor="warehouseId" className="lg:w-32  text-muted-foreground">Склад:</Label>
+                <div className="w-full">
                     <FormField
                         control={form.control}
                         name="warehouseId"
@@ -242,11 +228,10 @@ const InventoryDocumentFormFields = ({form}: Props) => {
             </div>
 
             {/* Склад назначения (для перемещений) */}
-            <div className="flex items-center">
-                <Label htmlFor="targetWarehouseId" className="w-28 text-muted-foreground">Склад назначения:</Label>
-                <div className="flex-1 flex gap-1">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-3">
+                <Label htmlFor="targetWarehouseId" className="lg:w-32  text-muted-foreground">Склад назначения:</Label>
+                <div className="w-full">
                     <FormField
-
                         control={form.control}
                         name="targetWarehouseId"
                         render={({field}) => (
@@ -287,18 +272,17 @@ const InventoryDocumentFormFields = ({form}: Props) => {
                 </div>
             </div>
 
+             {/*Организация */}
             <FormFieldOrganization
                 form={form}
-                label="Организация:"
+                label="Организация"
                 placeholder="Выбрать организацию"
             />
-            {/* Организация */}
-
 
             {/* Примечание */}
-            <div className="col-span-full flex items-center">
-                <Label htmlFor="note" className="w-28 text-muted-foreground">Примечание:</Label>
-                <div className="flex-1">
+            <div className="col-span-1  flex flex-col lg:flex-row lg:items-center gap-3">
+                <Label htmlFor="note" className="lg:w-32 text-muted-foreground">Примечание:</Label>
+                <div className="w-full">
                     <FormField
                         control={form.control}
                         name="note"

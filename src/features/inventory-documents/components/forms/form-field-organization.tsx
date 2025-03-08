@@ -30,9 +30,9 @@ const FormFieldOrganization: React.FC<OrganizationSelectFieldProps> = ({
     const currentOrgId = form.watch("organizationId");
 
     return (
-        <div className={cn("flex items-center", className)}>
-            <Label className="w-28 text-muted-foreground">{label}</Label>
-            <div className="flex-1">
+        <div className={cn("flex flex-col lg:flex-row gap-3", className)}>
+             <Label className="lg:w-32 text-muted-foreground">{label}</Label>
+            <div className="w-full">
                 <FormField
                     control={form.control}
                     name="organizationId"

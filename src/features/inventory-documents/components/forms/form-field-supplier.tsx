@@ -19,15 +19,15 @@ interface SuppliersSelectFieldProps {
 const SuppliersSelectField: React.FC<SuppliersSelectFieldProps> = ({
                                                                        control,
                                                                        name,
-                                                                       label = "Поставщик:",
+                                                                       label = "Поставщик!!:",
                                                                        placeholder = "Выбрать поставщика",
                                                                        className,
                                                                        disabled = false
                                                                    }) => {
     return (
-        <div className={cn("flex items-center", className)}>
-            <Label htmlFor="supplier" className="w-28 text-muted-foreground">{label}</Label>
-            <div className="flex-1">
+        <div className={'flex flex-col lg:flex-row lg:items-center gap-3'}>
+             <Label htmlFor="supplier" className="lg:w-32 text-muted-foreground">{label}</Label>
+            <div className="w-full">
                 <FormField
                     control={control}
                     name={name}

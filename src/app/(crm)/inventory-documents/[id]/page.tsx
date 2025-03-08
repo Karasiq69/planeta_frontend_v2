@@ -9,6 +9,8 @@ import InventoryDocumentSubmitButton
 import PageHeader from "@/components/common/PageHeader";
 import InventoryDocumentStatusBadge from "@/features/inventory-documents/components/InventoryDocumentStatusBadge";
 import InventoryDocumentsFooter from "@/features/inventory-documents/components/InventoryDocumentsFooter";
+import InventoryDocumentsProductsContainer
+    from "@/features/inventory-documents/components/InventoryDocumentsProductsContainer";
 
 const Page = async ({
                         params,
@@ -18,7 +20,7 @@ const Page = async ({
     const docId = Number(params.id)
 
     return (
-        <div className={'space-y-5'}>
+        <div className={'space-y-5 w-full overflow-y-hidden  min-w-full'}>
             <section className={'flex flex-col lg:flex-row gap-3 lg:justify-between'}>
 
                 <div className={'flex flex-wrap gap-5'}>
@@ -36,13 +38,13 @@ const Page = async ({
             </section>
 
             <Card>
-                <CardHeader className={'max-w-6xl'}>
+                <CardHeader className={''}>
                     <InventoryDocumentFormContainer/>
                 </CardHeader>
 
                 <Separator/>
-                <CardContent className={'bg-muted rounded-lg space-y-3'}>
-                    {/*<InventoryDocumentsProductsContainer/>*/}
+                <CardContent className={'bg-muted rounded-lg space-y-3 overflow-x-auto'}>
+                    <InventoryDocumentsProductsContainer/>
                     <InventoryDocumentsFooter documentId={docId}/>
                 </CardContent>
 
