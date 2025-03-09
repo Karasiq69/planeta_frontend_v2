@@ -41,7 +41,7 @@ const InventoryDocumentsDatatable = () => {
     if (!data) return <div className="p-4">Данные недоступны</div>;
 
     return (
-        <div>
+        <div className="flex flex-col">
             {/*<div className="flex gap-3 mb-4">*/}
             {/*    <InventoryDocumentsSearchBox searchParams={searchParams} />*/}
             {/*    {isFetching && <LoaderAnimated />}*/}

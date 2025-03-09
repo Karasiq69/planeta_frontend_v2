@@ -39,7 +39,7 @@ const InventoryDocumentsProductContainer = ({onAddItem}: Props) => {
 
 
     return (
-        <>
+        <div className={''}>
             <div
                 className="flex flex-row items-center py-5 justify-between">
                 <InventoryDocumentProductsCombobox isPending={isPending} onSelectProduct={onSelectProduct}/>
@@ -53,7 +53,7 @@ const InventoryDocumentsProductContainer = ({onAddItem}: Props) => {
                 }
             </div>
             </ScrollArea>
-        </>
+        </div>
     );
 };
 
