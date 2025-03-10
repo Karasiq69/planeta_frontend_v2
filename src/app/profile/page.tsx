@@ -1,5 +1,4 @@
 'use client'
-import {useAuth} from "@/providers/AuthProvider";
 
 type Props = {};
 const Page = (props: Props) => {
@@ -7,7 +6,12 @@ const Page = (props: Props) => {
     return (
         <div>
             <h1>Profile</h1>
-
+            <div className={'w-full flex gap-4 items-center justify-between'}>
+                <div className={''}>sadsdsaads</div>
+                <div className={''}>sadsdsaads</div>
+                <div className={''}>sadsdsaads</div>
+                <div className={''}>sadsdsaads</div>
+            </div>
         </div>
     );
 };

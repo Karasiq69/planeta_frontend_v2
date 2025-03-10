@@ -10,14 +10,14 @@ const InventoryDocumentsTableActionButtons = ({documentItem}: Props) => {
     const documentId = Number(documentItem?.id)
     const {mutate, isPending} = useRemoveDocumentItem(documentItem.documentId)
     const handleDelete = () => {
-        mutate(documentId)
+        mutate(documentItem.id)
     }
 
     return (
-        <div className="flex gap-1">
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-                <Pencil className="h-4 w-4"/>
-            </Button>
+        <div className="flex gap-1 justify-end">
+            {/*<Button variant="ghost" size="icon" className="h-8 w-8">*/}
+            {/*    <Pencil className="h-4 w-4"/>*/}
+            {/*</Button>*/}
             {/*<Pre object={documentItem}/>*/}
             <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive"
                     onClick={handleDelete} disabled={isPending}>

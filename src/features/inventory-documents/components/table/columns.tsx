@@ -7,8 +7,9 @@ import {ArrowRightCircle, Trash2} from "lucide-react";
 import Link from "next/link";
 import {Badge} from "@/components/ui/badge";
 import {getStatusConfig} from "@/features/inventory-documents/helpers/status-helper";
-import {INVENTORY_DOCUMENTS_URL, WAREHOUSE_URL} from "@/lib/constants";
+import {INVENTORY_DOCUMENTS_URL} from "@/lib/constants";
 import {formatPrice} from "@/lib/utils";
+
 export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
     {
         accessorKey: "id",
@@ -20,7 +21,7 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
             return <div className="font-medium">{`#${row.original.id}`}</div>;
         },
         enableSorting: false,
-        size: 200, //starting column size
+        size: 0, //starting column size
         minSize: 50, //enforced during column resizing
         maxSize: 500, //enforced during column resizing
     },
@@ -42,9 +43,7 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
             return <div>{formattedDate}</div>;
         },
         enableSorting: false,
-        size: 200, //starting column size
-        minSize: 50, //enforced during column resizing
-        maxSize: 500, //enforced during column resizing
+        size: 0, //starting column size
     },
     {
         accessorKey: "status",
@@ -62,6 +61,7 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
                 </Badge>
             );
         },
+        size: 0,
         enableSorting: false,
     },
 
@@ -85,6 +85,7 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
             return <div>{typeLabel}</div>;
         },
         enableSorting: false,
+        size: 0,
     },
 
 
@@ -118,7 +119,7 @@ export const inventoryDocumentColumns: ColumnDef<InventoryDocument>[] = [
             <DataTableColumnHeader column={column} title="Заметка"/>
         ),
         cell: ({row}) => {
-            return <div>{row.original?.note}</div>;
+            return <div className={'max-w'}>{row.original?.note}</div>;
         },
         enableSorting: false,
     },

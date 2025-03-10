@@ -1,9 +1,5 @@
 import {useEditOrder} from "@/features/orders/api/mutations";
-import {ChangeEventHandler, useState} from "react";
-import {useKeyDown} from "@/hooks/use-keydown";
-import {ListTodo} from "lucide-react";
 import {Order} from "@/features/orders/types";
-import InputWithIcon from "@/components/ui/input-with-icon";
 import EditableTextArea from "@/components/ui/editable-textarea";
 import LoaderAnimated from "@/components/ui/LoaderAnimated";
 import {useParams} from "next/navigation";

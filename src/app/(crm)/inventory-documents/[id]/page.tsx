@@ -32,7 +32,7 @@ const Page = async ({
                     <InventoryDocumentSubmitButton documentId={docId}/>
 
                     <Button variant="outline" size={'sm'}><Printer size={16}/></Button>
-                    <Button variant="destructive" size={'sm'}><Trash2 size={16}/></Button>
+                    <Button disabled variant="destructive" size={'sm'}><Trash2 size={16}/></Button>
                 </div>
 
             </section>

@@ -1,5 +1,4 @@
 import MainCalendar from "@/features/appointments/MainCalendar";
-import {Card} from "@/components/ui/card";
 import React from "react";
 
 type Props = {};
@@ -12,7 +11,7 @@ const Page = (props: Props) => {
                 <h3>Календарь</h3>
 
                 <>
-                        <MainCalendar/>
+               <MainCalendar/>
                 </>
 
             </div>

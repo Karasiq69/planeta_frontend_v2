@@ -88,7 +88,7 @@ export const AppointmentFormFields = ({ form }: Props) => {
                         <FormItem>
                             <FormLabel>Начало</FormLabel>
                             <FormControl>
-                                <DateTimePicker {...field} />
+                                <DateTimePicker  {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

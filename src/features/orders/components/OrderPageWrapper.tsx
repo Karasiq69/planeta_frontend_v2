@@ -17,7 +17,9 @@ type Props = {};
 const OrderPageWrapper = (props: Props) => {
     const params = useParams()
     const orderId = Number(params.id)
-    const {data: order} = useOrderById(orderId)
+    const {data: order, isLoading} = useOrderById(orderId)
+
+    // if (isLoading) return 'loading...'
     return (
         <div className={'space-y-5'}>
             <section>

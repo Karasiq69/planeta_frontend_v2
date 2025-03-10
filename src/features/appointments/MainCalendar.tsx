@@ -6,7 +6,7 @@ import ruLocale from '@fullcalendar/core/locales/ru';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 
 import interactionPlugin from "@fullcalendar/interaction";
-import React, {useRef, useState} from "react";
+import React, {memo, useRef, useState} from "react";
 import {DateSelectArg, EventChangeArg, EventClickArg} from "@fullcalendar/core";
 import {Dialog, DialogContent, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import {Popover, PopoverContent} from "@/components/ui/popover";
@@ -20,6 +20,10 @@ import {Trash} from "lucide-react";
 import {useAddAppointment, useDeleteAppointment, useEditAppointment} from "@/features/appointments/api/mutations";
 import {useAppointments} from "@/features/appointments/api/queries";
 import {useUser} from "@/hooks/use-auth";
+import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import Pre from "@/components/ui/Pre";
+import {DialogBody} from "next/dist/client/components/react-dev-overlay/internal/components/Dialog";
+import {AppointmentForm} from "@/features/appointments/components/forms/AppointmentForm";
 
 const MainCalendar = () => {
     const {data} = useUser()
@@ -70,16 +74,6 @@ const MainCalendar = () => {
         setPopoverOpen(true);
     };
 
-    // function renderEventContent(eventInfo: any) {
-    //     return (
-    //         <div>
-    //             <span className={'font-bolder text-ellipsis'}>{eventInfo.event?.title}</span>
-    //             <p className={'font-light text-sm mb-0 '}>{eventInfo.timeText}</p>
-    //             <p className={'font-light text-sm mb-0 '}>{eventInfo.event?.description}</p>
-    //         </div>
-    //     )
-    // }
-
     const handleAddEvent = (e: React.FormEvent) => {
         e.preventDefault();
         if (newEventTitle && selectedDate) {
@@ -110,16 +104,16 @@ const MainCalendar = () => {
 
     const handleEventChange = (changeInfo: EventChangeArg) => {
         const updatedEvent = {
-            id: changeInfo.event.id,
             title: changeInfo.event.title,
             start: changeInfo.event.startStr,
             end: changeInfo.event.endStr,
             resource: changeInfo.event.getResources()[0]?.id,
             description: changeInfo.event.extendedProps.description, // Добавьте это
-
-
         };
-        editAppointmentMutation(updatedEvent);
+        editAppointmentMutation({
+            eventId: Number(changeInfo.event.id),
+            updatedEvent: updatedEvent
+        });
     };
     const handleDeleteEvent = (selectedEventId: string) => {
         deleteEvent(selectedEventId, {
@@ -132,131 +126,156 @@ const MainCalendar = () => {
     return (
         <div className={'flex w-full gap-5'}>
             <section className={'w-full'}>
-                {/*<> // card*/}
-                <>
-                    <>
-                        <FullCalendar
-                            ref={calendarRef}
-                            locale={ruLocale}
-                            timeZone="local"
+                  <Card>
+                      <CardHeader>
+                          <>
+                              <FullCalendar
+                                  ref={calendarRef}
+                                  locale={ruLocale}
+                                  timeZone="local"
 
-                            firstDay={1}
-                            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, resourceTimeGridPlugin]}
-                            initialView="resourceTimeGridDay"
-                            headerToolbar={{
-                                left: "dayGridMonth,timeGridWeek,resourceTimeGridDay",
-                                center: "title",
-                                right: "prev,today,next",
-                            }}
-                            resources={resources}
+                                  firstDay={1}
+                                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, resourceTimeGridPlugin]}
+                                  initialView="timeGridWeek"
+                                  headerToolbar={{
+                                      left: "dayGridMonth,timeGridWeek,resourceTimeGridDay",
+                                      center: "title",
+                                      right: "prev,today,next",
+                                  }}
+                                  resources={resources}
 
-                            height={"80svh"}
-                            events={events}
-                            editable selectable selectMirror
-                            select={handleSelectDate}
-                            eventChange={handleEventChange}
-                            slotMinTime="09:00:00"
-                            slotMaxTime="22:00:00"
-                            // eventContent={renderEventContent} // custom render function
-                            eventDisplay={'block'}
-                            allDaySlot={false}
-                            expandRows={true}
-                            eventClick={handleEventClick}
+                                  height={"80svh"}
+                                  events={events}
+                                  editable selectable selectMirror
+                                  select={handleSelectDate}
+                                  eventChange={handleEventChange}
+                                  slotMinTime="09:00:00"
+                                  slotMaxTime="22:00:00"
+                                  // eventContent={renderEventContent} // custom render function
+                                  eventDisplay={'block'}
+                                  allDaySlot={false}
+                                  expandRows={true}
+                                  eventClick={handleEventClick}
 
-                        />
-                        <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-                            <PopoverContent align={'end'}
-                                            className="w-64"
-                                            style={{
-                                                position: 'fixed', // Изменено с 'absolute' на 'fixed'
-                                                top: `${popoverPosition.top}px`,
-                                                left: `${popoverPosition.left}px`,
-                                            }}
-                            >
-                                {selectedEvent && (
-                                    <>
-                                        <div className={'flex justify-between items-center'}>
-                                            <h4>{selectedEvent.title} </h4>
-                                            <Button
-                                                size={'sm'}
-                                                variant={'ghost'}
-                                                disabled={isDeletingEvent}
-                                                onClick={() => handleDeleteEvent(selectedEvent.id)}>
-                                                <Trash className={'text-destructive'} size={18}/>
-                                            </Button>
-                                        </div>
+                              />
+                              <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+                                  <PopoverContent align={'end'}
+                                                  className="w-64"
+                                                  style={{
+                                                      position: 'fixed', // Изменено с 'absolute' на 'fixed'
+                                                      top: `${popoverPosition.top}px`,
+                                                      left: `${popoverPosition.left}px`,
+                                                  }}
+                                  >
+                                      {selectedEvent && (
+                                          <>
+                                              <div className={'flex justify-between items-center'}>
+                                                  <h4>{selectedEvent.title} </h4>
+                                                  <Button
+                                                      size={'sm'}
+                                                      variant={'ghost'}
+                                                      disabled={isDeletingEvent}
+                                                      onClick={() => handleDeleteEvent(selectedEvent.id)}>
+                                                      <Trash className={'text-destructive'} size={18}/>
+                                                  </Button>
+                                              </div>
 
-                                        <div className={'mt-5 space-y-3'}>
-                                            <Separator/>
-                                            <div className={'text-sm text-muted-foreground'}>
-                                                Начало:
-                                                <p>{selectedEvent.start?.toLocaleString()}</p>
-                                                Конец:
-                                                <p>{selectedEvent.end?.toLocaleString()}</p>
-                                            </div>
-                                            <Separator/>
-                                            <div className={'text-sm text-muted-foreground'}>
-                                                Описание:
-                                                <p> {selectedEvent.extendedProps.description || 'Нет описания'}</p>
-                                            </div>
-                                        </div>
-                                    </>
-                                )}
-                            </PopoverContent>
-                        </Popover>
+                                              <div className={'mt-5 space-y-3'}>
+                                                  <Separator/>
+                                                  <div className={'text-sm text-muted-foreground'}>
+                                                      Начало:
+                                                      <p>{selectedEvent.start?.toLocaleString()}</p>
+                                                      Конец:
+                                                      <p>{selectedEvent.end?.toLocaleString()}</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div className={'text-sm text-muted-foreground'}>
+                                                      Описание:
+                                                      <p> {selectedEvent.extendedProps.description || 'Нет описания'}</p>
+                                                  </div>
+                                              </div>
+                                          </>
+                                      )}
+                                  </PopoverContent>
+                              </Popover>
 
-                        {/*Form */}
-                        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                            <DialogContent>
-                                <DialogHeader>
-                                    <DialogTitle>Новая запись
-                                    </DialogTitle>
-                                </DialogHeader>
-                                <form className="space-y-4" onSubmit={handleAddEvent}>
-                                    <Input
-                                        type={"text"}
-                                        name={'title'}
-                                        placeholder={"Заголовок"}
-                                        value={newEventTitle}
-                                        onChange={(e) => setNewEventTitle(e.target.value)}
-                                        required
-                                        className="w-full"
-                                    />
-                                    <Select
-                                        defaultValue={selectedResourceId}
-                                        onValueChange={setSelectedResourceId}
-                                    >
-                                        <SelectTrigger className="w-[180px]">
-                                            <SelectValue placeholder="" defaultValue={selectedResourceId}/>
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {resources.map((resource) => (
-                                                <SelectItem key={resource.id} value={resource.id}>
-                                                    {resource.title}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                              {/*Form */}
+                              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                                  <DialogContent>
+                                      <DialogHeader>
+                                          <DialogTitle>Новая запись
+                                          </DialogTitle>
+                                      </DialogHeader>
 
-                                    <Textarea name={'description'}
-                                              value={eventDesctiption}
-                                              onChange={(e) => setEventDesctiption(e.target.value)}
-                                              placeholder="Описание записи (не обязателньо)"/>
-                                    <Button
-                                        variant={'default'}
-                                        type="submit"
-                                        size={'default'}
-                                        className={'w-full'}
-                                    >
-                                        Создать
-                                    </Button>
-                                </form>
-                            </DialogContent>
-                        </Dialog>
-                    </>
-                </>
+                                      <>
+                                          <Pre object={{
+                                              title: newEventTitle,
+                                              start: selectedDate?.start,
+                                              end: selectedDate?.end,
+                                              allDay: selectedDate?.allDay,
+                                              resource: selectedResourceId,
+                                              description: eventDesctiption,
+                                              createdBy: data?.userId
+                                          }}/>
+                                      </>
+                                      <DialogBody>
+                                          <AppointmentForm appointmentData={{
+                                              title: newEventTitle,
+                                              start: selectedDate?.start,
+                                              end: selectedDate?.end,
+                                              allDay: selectedDate?.allDay,
+                                              resource: selectedResourceId,
+                                              description: eventDesctiption,
+                                              createdBy: data?.userId
+                                          }}/>
+                                      </DialogBody>
+                                      {/*<form className="space-y-4" onSubmit={handleAddEvent}>*/}
+                                      {/*    <Input*/}
+                                      {/*        type={"text"}*/}
+                                      {/*        name={'title'}*/}
+                                      {/*        placeholder={"Заголовок"}*/}
+                                      {/*        value={newEventTitle}*/}
+                                      {/*        onChange={(e) => setNewEventTitle(e.target.value)}*/}
+                                      {/*        required*/}
+                                      {/*        className="w-full"*/}
+                                      {/*    />*/}
+                                      {/*    <Select*/}
+                                      {/*        defaultValue={selectedResourceId}*/}
+                                      {/*        onValueChange={setSelectedResourceId}*/}
+                                      {/*    >*/}
+                                      {/*        <SelectTrigger className="w-[180px]">*/}
+                                      {/*            <SelectValue placeholder="" defaultValue={selectedResourceId}/>*/}
+                                      {/*        </SelectTrigger>*/}
+                                      {/*        <SelectContent>*/}
+                                      {/*            {resources.map((resource) => (*/}
+                                      {/*                <SelectItem key={resource.id} value={resource.id}>*/}
+                                      {/*                    {resource.title}*/}
+                                      {/*                </SelectItem>*/}
+                                      {/*            ))}*/}
+                                      {/*        </SelectContent>*/}
+                                      {/*    </Select>*/}
+                                      {/*    */}
+                                      {/*    <Textarea name={'description'}*/}
+                                      {/*              value={eventDesctiption}*/}
+                                      {/*              onChange={(e) => setEventDesctiption(e.target.value)}*/}
+                                      {/*              placeholder="Описание записи (не обязателньо)"/>*/}
+                                      {/*    <Button*/}
+                                      {/*        variant={'default'}*/}
+                                      {/*        type="submit"*/}
+                                      {/*        size={'default'}*/}
+                                      {/*        className={'w-full'}*/}
+                                      {/*    >*/}
+                                      {/*        Создать*/}
+                                      {/*    </Button>*/}
+                                      {/*</form>*/}
+                                  </DialogContent>
+                              </Dialog>
+                          </>
+                      </CardHeader>
+                  </Card>
+
             </section>
         </div>
     );
 };
-export default MainCalendar;
+export default memo(MainCalendar)

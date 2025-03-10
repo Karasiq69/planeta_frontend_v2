@@ -33,13 +33,13 @@ export function useAddAppointment() {
 export function useEditAppointment() {
     const queryClient = useQueryClient();
 
-    const editAppointmentFn = async (updatedEvent: EventInput) => {
-        const response = await apiClient.patch(`${APPOINTMENTS_URL}/${updatedEvent.id}/`, updatedEvent);
+    const editAppointmentFn = async (eventId: number, updatedEvent: EventInput ) => {
+        const response = await apiClient.patch(`${APPOINTMENTS_URL}/${eventId}/`, updatedEvent);
         return response.data
     }
 
     return useMutation({
-        mutationFn: editAppointmentFn,
+        mutationFn: ({eventId, updatedEvent}: {eventId: number, updatedEvent: EventInput}) => editAppointmentFn(eventId, updatedEvent),
         onSuccess: () => {
             toast.success('Запись изменена')
         },

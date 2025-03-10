@@ -48,18 +48,13 @@ export const mainMenuItems = [
         icon: Package
     },
     {
-        title: "-- Движения товаров (transaction)?",
+        title: "-- Движения товаров",
         url: "/warehouse/transactions",
         icon: Package
     },
     {
-        title: "-- Накладные new",
+        title: "-- Накладные",
         url: "/inventory-documents",
-        icon: Package
-    },
-    {
-        title: "-- Inventory docs old",
-        url: "/warehouse/inventory-documents",
         icon: Package
     },
     {

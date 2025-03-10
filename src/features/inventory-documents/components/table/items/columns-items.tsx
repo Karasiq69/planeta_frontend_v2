@@ -11,6 +11,7 @@ import {
 } from "@/features/inventory-documents/components/table/items/DocumentItemsQuantityCell";
 import DocumentItemsWarehouseCell
     from "@/features/inventory-documents/components/table/items/DocumentItemsWarehouseCell";
+import InventoryDocumentsTableActionButtons from "@/features/inventory-documents/components/table/items/action-buttons";
 
 export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     {
@@ -119,17 +120,10 @@ export const DocumentProductsColumnDefs: ColumnDef<DocumentItem>[] = [
     },
     {
         id: "actions",
-        header: "Действия",
+        header: "",
         cell: ({row}) => {
             return (
-                <div className="flex gap-2">
-                    <Button variant="ghost" size="icon" title="Редактировать">
-                        <Pencil className="h-4 w-4"/>
-                    </Button>
-                    <Button variant="ghost" size="icon" title="Удалить">
-                        <Trash2 className="h-4 w-4"/>
-                    </Button>
-                </div>
+                <InventoryDocumentsTableActionButtons documentItem={row.original}/>
             );
         },
     },

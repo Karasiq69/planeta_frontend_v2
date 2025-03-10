@@ -1,18 +1,23 @@
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
-import {useAddAppointment} from "../api/mutations";
+import {useAddAppointment, useEditAppointment} from "../api/mutations";
 import {useUser} from "@/hooks/use-auth";
 import {AppointmentFormData, appointmentSchema} from "@/features/appointments/components/forms/schema";
 import {STATION_RESOURCES} from "@/lib/constants";
+import {AppointmentInput} from "@/features/appointments/types";
 
 type Props = {
-    orderId: number;
+    orderId?: number;
+    appointmentData?: AppointmentInput
     onSuccess?: () => void;
+    onCreate?: (data: AppointmentInput) => void; // дополнительная функция при создании
+    onUpdate?: (eventId: number) => AppointmentInput;
 };
 
-export const useAppointmentForm = ({ orderId, onSuccess }: Props) => {
-    const { data: userData } = useUser();
-    const { mutate: addAppointment, isPending } = useAddAppointment();
+export const useAppointmentForm = ({orderId, onSuccess, appointmentData, onUpdate, onCreate}: Props) => {
+    const {data: userData} = useUser();
+    const {mutate: addAppointment, isPending} = useAddAppointment();
+    const {mutate: editAppointmentMutation, isPending: isEditAppointmentPending} = useEditAppointment();
 
     const form = useForm<AppointmentFormData>({
         resolver: zodResolver(appointmentSchema),
