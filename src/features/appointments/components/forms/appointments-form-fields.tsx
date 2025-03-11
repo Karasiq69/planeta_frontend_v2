@@ -34,7 +34,7 @@ export const AppointmentFormFields = ({ form }: Props) => {
                                         <TabsTrigger
                                             key={station.id}
                                             value={station.id}
-                                            className="flex gap-2"
+                                            className="flex gap-2 font-bold"
                                         >
                                             {station.title}
                                             <span

@@ -4,11 +4,12 @@ import apiClient from "@/lib/auth/client";
 import {APPOINTMENTS_URL} from "@/lib/constants";
 import {appointmentsQueryKeys} from "@/features/appointments/api/query-keys";
 import {EventInput} from "@fullcalendar/core";
+import {AppointmentInput} from "@/features/appointments/types";
 
 export function useAddAppointment() {
     const queryClient = useQueryClient();
 
-    const addAppointmentFn = async (appointment: any) => {
+    const addAppointmentFn = async (appointment: AppointmentInput) => {
         const response = await apiClient.post(`${APPOINTMENTS_URL}/`, appointment);
         return response.data
     }

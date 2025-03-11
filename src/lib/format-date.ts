@@ -42,3 +42,12 @@ export const formatRelativeTime = (input: string): string => {
 
     return `${dateFormatter.format(moscowDate)} в ${timeFormatter.format(moscowDate)}`;
 };
+
+
+// Функция для форматирования времени в формате ЧЧ:ММ
+export const getTimeFromDate = (date: Date | null): string => {
+    if (date == null) return ''
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+};

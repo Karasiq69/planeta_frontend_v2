@@ -1,64 +1,86 @@
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
-import {useAddAppointment, useEditAppointment} from "../api/mutations";
-import {useUser} from "@/hooks/use-auth";
-import {AppointmentFormData, appointmentSchema} from "@/features/appointments/components/forms/schema";
-import {STATION_RESOURCES} from "@/lib/constants";
-import {AppointmentInput} from "@/features/appointments/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { appointmentSchema, AppointmentFormData } from "../components/forms/schema";
+import { useState, useMemo } from "react";
+import { AppointmentInput } from "../types";
 
-type Props = {
+interface UseAppointmentFormProps {
     orderId?: number;
-    appointmentData?: AppointmentInput
+    appointmentData?: AppointmentInput;
     onSuccess?: () => void;
-    onCreate?: (data: AppointmentInput) => void; // дополнительная функция при создании
-    onUpdate?: (eventId: number) => AppointmentInput;
-};
+    onCreate?: (data: AppointmentInput) => void;
+    onUpdate?: (eventId: number) => (data: AppointmentInput) => void;
+}
 
-export const useAppointmentForm = ({orderId, onSuccess, appointmentData, onUpdate, onCreate}: Props) => {
-    const {data: userData} = useUser();
-    const {mutate: addAppointment, isPending} = useAddAppointment();
-    const {mutate: editAppointmentMutation, isPending: isEditAppointmentPending} = useEditAppointment();
+export const useAppointmentForm = ({
+                                       orderId,
+                                       appointmentData,
+                                       onSuccess,
+                                       onCreate,
+                                       onUpdate,
+                                   }: UseAppointmentFormProps) => {
+    const [isLoading, setIsLoading] = useState(false);
 
+    // Используем useMemo для вычисления defaultValues
+    const defaultValues = useMemo(() => {
+        return {
+            title: appointmentData?.title || "",
+            description: appointmentData?.description || "",
+            start: appointmentData?.start as Date,
+            end: appointmentData?.end as Date? appointmentData?.end as Date : appointmentData?.start as Date,
+            allDay: appointmentData?.allDay || false,
+            resource: appointmentData?.resource || "A",
+        };
+    }, [appointmentData]);
+
+    // Настройка формы с начальными значениями
     const form = useForm<AppointmentFormData>({
         resolver: zodResolver(appointmentSchema),
-        defaultValues: {
-            title: "",
-            description: "",
-            allDay: false,
-            resource: STATION_RESOURCES[0].id, // По умолчанию первая станция
-            start: new Date(),
-            end: new Date(),
-        },
+        mode: 'onSubmit',
+        defaultValues: defaultValues,
     });
 
     const onSubmit = async (data: AppointmentFormData) => {
-        if (!userData?.userId) return;
+        setIsLoading(true);
+        try {
+            if (appointmentData?.id && onUpdate) {
+                // Если есть ID, то это обновление
+                const updateFn = onUpdate(Number(appointmentData.id));
+                updateFn({
+                    title: data.title,
+                    description: data.description,
+                    start: data.start,
+                    end: data.end,
+                    allDay: data.allDay,
+                    resource: data.resource,
+                    orderId: appointmentData.orderId,
+                    createdBy: appointmentData.createdBy
+                });
+            } else if (onCreate) {
+                // Иначе это создание
+                onCreate({
+                    title: data.title,
+                    description: data.description,
+                    start: data.start,
+                    end: data.end,
+                    allDay: data.allDay,
+                    resource: data.resource,
+                    orderId: orderId,
+                    createdBy: appointmentData?.createdBy
+                });
+            }
 
-        // Находим выбранную станцию для использования её цветов
-        const selectedStation = STATION_RESOURCES.find(station => station.id === data.resource);
-
-        const appointmentData = {
-            ...data,
-            orderId,
-            createdBy: userData.userId,
-            status: "scheduled",
-            // Добавляем цвета из ресурса
-            backgroundColor: selectedStation?.eventColor,
-            textColor: selectedStation?.eventTextColor,
-            borderColor: selectedStation?.eventBorderColor,
-        };
-
-        addAppointment(appointmentData, {
-            onSuccess: () => {
-                form.reset();
-                onSuccess?.();
-            },
-        });
+            onSuccess?.();
+        } catch (error) {
+            console.error("Error submitting form:", error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return {
         form,
         onSubmit,
-        isLoading: isPending,
+        isLoading,
     };
 };

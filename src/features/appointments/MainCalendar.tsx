@@ -4,50 +4,33 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import ruLocale from '@fullcalendar/core/locales/ru';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-
 import interactionPlugin from "@fullcalendar/interaction";
 import React, {memo, useRef, useState} from "react";
-import {DateSelectArg, EventChangeArg, EventClickArg} from "@fullcalendar/core";
-import {Dialog, DialogContent, DialogHeader, DialogTitle} from "@/components/ui/dialog";
-import {Popover, PopoverContent} from "@/components/ui/popover";
-import {EventImpl} from "@fullcalendar/core/internal";
-import {Separator} from "@/components/ui/separator";
-import {Input} from "@/components/ui/input";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {Button} from "@/components/ui/button";
-import {Textarea} from "@/components/ui/textarea";
-import {Trash} from "lucide-react";
+import {DateSelectArg, EventChangeArg, EventClickArg, EventContentArg} from "@fullcalendar/core";
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
+import {Card, CardHeader} from "@/components/ui/card";
 import {useAddAppointment, useDeleteAppointment, useEditAppointment} from "@/features/appointments/api/mutations";
 import {useAppointments} from "@/features/appointments/api/queries";
 import {useUser} from "@/hooks/use-auth";
-import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import Pre from "@/components/ui/Pre";
-import {DialogBody} from "next/dist/client/components/react-dev-overlay/internal/components/Dialog";
 import {AppointmentForm} from "@/features/appointments/components/forms/AppointmentForm";
+import {AppointmentInput} from "@/features/appointments/types";
+import {getTimeFromDate} from "@/lib/format-date";
 
 const MainCalendar = () => {
-    const {data} = useUser()
-    const [popoverOpen, setPopoverOpen] = useState(false);
-    const [selectedEvent, setSelectedEvent] = useState<EventImpl>();
-    const [popoverPosition, setPopoverPosition] = useState({top: 0, left: 0});
-
-
+    const {data: userData} = useUser();
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-    const [newEventTitle, setNewEventTitle] = useState<string>("");
-    const [eventDesctiption, setEventDesctiption] = useState("");
-
-    const [selectedResourceId, setSelectedResourceId] = useState<string>("A");
+    const [dialogTitle, setDialogTitle] = useState<string>("Новая запись");
+    const [currentAppointment, setCurrentAppointment] = useState<AppointmentInput | null>(null);
     const calendarRef = useRef<FullCalendar>(null);
 
-
-    const [selectedDate, setSelectedDate] = useState<DateSelectArg | null>(null);
-
-    const {data: events, isLoading} = useAppointments()
+    const {data: events, isLoading} = useAppointments();
     const {mutate: addEvent, isPending: isAddingEvent} = useAddAppointment();
-    const {mutate: editAppointmentMutation, isPending} = useEditAppointment();
+    const {mutate: editAppointmentMutation, isPending: isEditingEvent} = useEditAppointment();
     const {mutate: deleteEvent, isPending: isDeletingEvent} = useDeleteAppointment();
 
-    const isLoadingState = isLoading || isAddingEvent || isPending || isDeletingEvent
+    const isLoadingState = isLoading || isAddingEvent || isEditingEvent || isDeletingEvent;
+
+    // Ресурсы для calendar
     const resources = [
         {id: 'A', title: 'Подъемник 1', eventColor: '#cfeea8', eventTextColor: '#062000', eventBorderColor: '#98af7a'},
         {id: 'B', title: 'Подъемник 2', eventColor: '#d6d5ff', eventTextColor: '#111030', eventBorderColor: '#a4a4c6'},
@@ -55,52 +38,55 @@ const MainCalendar = () => {
         {id: 'D', title: 'Диагност', eventColor: '#b8e6ff', eventTextColor: '#023350', eventBorderColor: '#87a9bc'},
         {id: 'E', title: 'Проход', eventColor: '#ffd6e5', eventTextColor: '#570228', eventBorderColor: '#c69dac'}
     ];
+
     const handleCloseDialog = () => {
         setIsDialogOpen(false);
-        setNewEventTitle("");
-        setEventDesctiption("");
-        setSelectedResourceId("A");
+        setCurrentAppointment(null);
     };
-
 
     const handleEventClick = (clickInfo: EventClickArg) => {
-        const rect = clickInfo.el.getBoundingClientRect();
-        const popoverWidth = 256; // Ширина вашего Popover (w-64 = 16rem = 256px)
-        setPopoverPosition({
-            top: rect.top,
-            left: rect.left - popoverWidth - 10, // 10px отступ от события
-        });
-        setSelectedEvent(clickInfo.event);
-        setPopoverOpen(true);
-    };
+        const event = clickInfo.event;
 
-    const handleAddEvent = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (newEventTitle && selectedDate) {
-            const calendarApi = selectedDate.view.calendar;
-            const newEvent = {
-                // id: `${selectedDate.start.toISOString()}-${newEventTitle}`,
-                title: newEventTitle,
-                start: selectedDate.start,
-                end: selectedDate.end,
-                allDay: selectedDate.allDay,
-                resource: selectedResourceId,
-                description: eventDesctiption,
-                createdBy: data?.userId
-            };
-            addEvent(newEvent);
-            handleCloseDialog();
-            calendarApi.unselect();
-        }
+        // Проверяем наличие дат и создаем корректные объекты Date
+        const startDate = event.start ? new Date(event.start) : new Date();
+        const endDate = event.end ? new Date(event.end) : new Date(startDate.getTime() + 60 * 60 * 1000); // +1 час по умолчанию
+
+        // Формируем данные для формы из существующего события
+        setCurrentAppointment({
+            id: event.id,
+            title: event.title,
+            start: startDate,
+            end: endDate,
+            allDay: event.allDay,
+            resource: event.getResources()[0]?.id || 'A',
+            description: event.extendedProps.description || '',
+            orderId: event.extendedProps.orderId,
+            createdBy: event.extendedProps.createdBy
+        });
+
+        setDialogTitle("Редактирование записи");
+        setIsDialogOpen(true);
     };
 
     const handleSelectDate = (selected: DateSelectArg) => {
-        setSelectedDate(selected)
-        if (selected.resource) {
-            setSelectedResourceId(selected.resource.id)
-        }
+        // Проверяем наличие дат и создаем корректные объекты Date
+        const startDate = selected.start ? new Date(selected.start) : new Date();
+        const endDate = selected.end ? new Date(selected.end) : new Date(startDate.getTime() + 60 * 60 * 1000); // +1 час по умолчанию
+
+        // Формируем новое событие на основе выбранных дат
+        setCurrentAppointment({
+            title: "",
+            start: startDate,
+            end: endDate,
+            allDay: selected.allDay,
+            resource: selected.resource ? selected.resource.id : 'A',
+            description: "",
+            createdBy: userData?.userId
+        });
+
+        setDialogTitle("Новая запись");
         setIsDialogOpen(true);
-    }
+    };
 
     const handleEventChange = (changeInfo: EventChangeArg) => {
         const updatedEvent = {
@@ -108,174 +94,130 @@ const MainCalendar = () => {
             start: changeInfo.event.startStr,
             end: changeInfo.event.endStr,
             resource: changeInfo.event.getResources()[0]?.id,
-            description: changeInfo.event.extendedProps.description, // Добавьте это
+            description: changeInfo.event.extendedProps.description,
+            orderId: changeInfo.event.extendedProps.orderId
         };
+
         editAppointmentMutation({
             eventId: Number(changeInfo.event.id),
             updatedEvent: updatedEvent
         });
     };
-    const handleDeleteEvent = (selectedEventId: string) => {
-        deleteEvent(selectedEventId, {
+
+    const handleCreateAppointment = (data: AppointmentInput) => {
+        addEvent(data, {
             onSuccess: () => {
-                setPopoverOpen(false)
+                handleCloseDialog();
+                if (calendarRef.current) {
+                    calendarRef.current.getApi().unselect();
+                }
             }
-        })
+        });
+    };
 
-    }
+    const handleUpdateAppointment = (eventId: number, data: AppointmentInput) => {
+        editAppointmentMutation({
+            eventId: eventId,
+            updatedEvent: data
+        }, {
+            onSuccess: () => {
+                handleCloseDialog();
+            }
+        });
+    };
+
+    const handleDeleteAppointment = (eventId: number) => {
+        deleteEvent(String(eventId), {
+            onSuccess: () => {
+                handleCloseDialog();
+            }
+        });
+    };
+
+    // Кастомный рендер содержимого события
+    const renderEventContent = (eventInfo: EventContentArg) => {
+        const {event} = eventInfo;
+        const orderId = event.extendedProps.orderId;
+        const description = event.extendedProps.description;
+
+        return (
+            <div className="w-full overflow-hidden ">
+                <div className="bg-background/50 rounded-t-sm p-1">{getTimeFromDate(event.start)} -  {getTimeFromDate(event.end)}</div>
+                <div className="font-semibold">{event.title}</div>
+
+                {orderId && (
+                    <div className="text-xs font-medium">
+                        Заказ №{orderId}
+                    </div>
+                )}
+
+                {description && (
+                    <div className="text-xs mt-1 line-clamp-2">
+                        {description}
+                    </div>
+                )}
+            </div>
+        );
+    };
+
     return (
-        <div className={'flex w-full gap-5'}>
-            <section className={'w-full'}>
-                  <Card>
-                      <CardHeader>
-                          <>
-                              <FullCalendar
-                                  ref={calendarRef}
-                                  locale={ruLocale}
-                                  timeZone="local"
+        <div className="flex w-full gap-5">
+            <section className="w-full">
+                <Card>
+                    <CardHeader>
+                        <FullCalendar
+                            ref={calendarRef}
+                            locale={ruLocale}
+                            timeZone="local"
+                            firstDay={1}
+                            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, resourceTimeGridPlugin]}
+                            initialView="timeGridWeek"
+                            headerToolbar={{
+                                left: "dayGridMonth,timeGridWeek,resourceTimeGridDay",
+                                center: "title",
+                                right: "prev,today,next",
+                            }}
+                            resources={resources}
+                            height={"80svh"}
+                            events={events}
+                            editable
+                            selectable
+                            selectMirror
+                            select={handleSelectDate}
+                            eventChange={handleEventChange}
+                            slotMinTime="09:00:00"
+                            slotMaxTime="22:00:00"
+                            eventDisplay={"block"}
+                            allDaySlot={false}
+                            expandRows={true}
+                            eventClick={handleEventClick}
+                            eventContent={renderEventContent}
+                        />
 
-                                  firstDay={1}
-                                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, resourceTimeGridPlugin]}
-                                  initialView="timeGridWeek"
-                                  headerToolbar={{
-                                      left: "dayGridMonth,timeGridWeek,resourceTimeGridDay",
-                                      center: "title",
-                                      right: "prev,today,next",
-                                  }}
-                                  resources={resources}
+                        {/* Единая форма для создания и редактирования событий */}
+                        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                            <DialogContent className={'max-w-3xl'}>
+                                <DialogHeader>
+                                    <DialogTitle>{dialogTitle}</DialogTitle>
+                                    <DialogDescription className={'sr-only'}></DialogDescription>
+                                </DialogHeader>
 
-                                  height={"80svh"}
-                                  events={events}
-                                  editable selectable selectMirror
-                                  select={handleSelectDate}
-                                  eventChange={handleEventChange}
-                                  slotMinTime="09:00:00"
-                                  slotMaxTime="22:00:00"
-                                  // eventContent={renderEventContent} // custom render function
-                                  eventDisplay={'block'}
-                                  allDaySlot={false}
-                                  expandRows={true}
-                                  eventClick={handleEventClick}
-
-                              />
-                              <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-                                  <PopoverContent align={'end'}
-                                                  className="w-64"
-                                                  style={{
-                                                      position: 'fixed', // Изменено с 'absolute' на 'fixed'
-                                                      top: `${popoverPosition.top}px`,
-                                                      left: `${popoverPosition.left}px`,
-                                                  }}
-                                  >
-                                      {selectedEvent && (
-                                          <>
-                                              <div className={'flex justify-between items-center'}>
-                                                  <h4>{selectedEvent.title} </h4>
-                                                  <Button
-                                                      size={'sm'}
-                                                      variant={'ghost'}
-                                                      disabled={isDeletingEvent}
-                                                      onClick={() => handleDeleteEvent(selectedEvent.id)}>
-                                                      <Trash className={'text-destructive'} size={18}/>
-                                                  </Button>
-                                              </div>
-
-                                              <div className={'mt-5 space-y-3'}>
-                                                  <Separator/>
-                                                  <div className={'text-sm text-muted-foreground'}>
-                                                      Начало:
-                                                      <p>{selectedEvent.start?.toLocaleString()}</p>
-                                                      Конец:
-                                                      <p>{selectedEvent.end?.toLocaleString()}</p>
-                                                  </div>
-                                                  <Separator/>
-                                                  <div className={'text-sm text-muted-foreground'}>
-                                                      Описание:
-                                                      <p> {selectedEvent.extendedProps.description || 'Нет описания'}</p>
-                                                  </div>
-                                              </div>
-                                          </>
-                                      )}
-                                  </PopoverContent>
-                              </Popover>
-
-                              {/*Form */}
-                              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                                  <DialogContent>
-                                      <DialogHeader>
-                                          <DialogTitle>Новая запись
-                                          </DialogTitle>
-                                      </DialogHeader>
-
-                                      <>
-                                          <Pre object={{
-                                              title: newEventTitle,
-                                              start: selectedDate?.start,
-                                              end: selectedDate?.end,
-                                              allDay: selectedDate?.allDay,
-                                              resource: selectedResourceId,
-                                              description: eventDesctiption,
-                                              createdBy: data?.userId
-                                          }}/>
-                                      </>
-                                      <DialogBody>
-                                          <AppointmentForm appointmentData={{
-                                              title: newEventTitle,
-                                              start: selectedDate?.start,
-                                              end: selectedDate?.end,
-                                              allDay: selectedDate?.allDay,
-                                              resource: selectedResourceId,
-                                              description: eventDesctiption,
-                                              createdBy: data?.userId
-                                          }}/>
-                                      </DialogBody>
-                                      {/*<form className="space-y-4" onSubmit={handleAddEvent}>*/}
-                                      {/*    <Input*/}
-                                      {/*        type={"text"}*/}
-                                      {/*        name={'title'}*/}
-                                      {/*        placeholder={"Заголовок"}*/}
-                                      {/*        value={newEventTitle}*/}
-                                      {/*        onChange={(e) => setNewEventTitle(e.target.value)}*/}
-                                      {/*        required*/}
-                                      {/*        className="w-full"*/}
-                                      {/*    />*/}
-                                      {/*    <Select*/}
-                                      {/*        defaultValue={selectedResourceId}*/}
-                                      {/*        onValueChange={setSelectedResourceId}*/}
-                                      {/*    >*/}
-                                      {/*        <SelectTrigger className="w-[180px]">*/}
-                                      {/*            <SelectValue placeholder="" defaultValue={selectedResourceId}/>*/}
-                                      {/*        </SelectTrigger>*/}
-                                      {/*        <SelectContent>*/}
-                                      {/*            {resources.map((resource) => (*/}
-                                      {/*                <SelectItem key={resource.id} value={resource.id}>*/}
-                                      {/*                    {resource.title}*/}
-                                      {/*                </SelectItem>*/}
-                                      {/*            ))}*/}
-                                      {/*        </SelectContent>*/}
-                                      {/*    </Select>*/}
-                                      {/*    */}
-                                      {/*    <Textarea name={'description'}*/}
-                                      {/*              value={eventDesctiption}*/}
-                                      {/*              onChange={(e) => setEventDesctiption(e.target.value)}*/}
-                                      {/*              placeholder="Описание записи (не обязателньо)"/>*/}
-                                      {/*    <Button*/}
-                                      {/*        variant={'default'}*/}
-                                      {/*        type="submit"*/}
-                                      {/*        size={'default'}*/}
-                                      {/*        className={'w-full'}*/}
-                                      {/*    >*/}
-                                      {/*        Создать*/}
-                                      {/*    </Button>*/}
-                                      {/*</form>*/}
-                                  </DialogContent>
-                              </Dialog>
-                          </>
-                      </CardHeader>
-                  </Card>
-
+                                {currentAppointment && (
+                                    <AppointmentForm
+                                        appointmentData={currentAppointment}
+                                        onCreate={handleCreateAppointment}
+                                        onUpdate={(eventId) => (data: AppointmentInput) => handleUpdateAppointment(eventId, data)}
+                                        onDelete={handleDeleteAppointment}
+                                        onSuccess={handleCloseDialog}
+                                    />
+                                )}
+                            </DialogContent>
+                        </Dialog>
+                    </CardHeader>
+                </Card>
             </section>
         </div>
     );
 };
-export default memo(MainCalendar)
+
+export default memo(MainCalendar);
