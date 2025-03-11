@@ -14,6 +14,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
     {
         accessorKey: "id",
         header: () => <div>№ Заказа</div>,
+        size: 0,
         cell: ({row}) => (
             <div>
                 <p className="font-medium m-0">
@@ -21,10 +22,12 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
                 </p>
             </div>
         ),
+
     },
     {
         accessorKey: "status",
         header: () => <div>Статус</div>,
+        size: 0,
         cell: ({row}) => {
             const StatusIcon = getStatusField(row.original.status, 'icon') as LucideIcon;
             const statusColor = getStatusField(row.original.status, 'color') as string;
@@ -89,6 +92,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
         cell: ({row}) => (
             <LicensePlate licensePlate={row.original?.car?.licensePlate}/>
         ),
+        size: 0,
     },
     {
         accessorKey: "totalCost",
