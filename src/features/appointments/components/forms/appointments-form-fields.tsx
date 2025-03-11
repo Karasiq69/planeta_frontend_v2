@@ -117,6 +117,7 @@ export const AppointmentFormFields = ({ form }: Props) => {
                     <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                         <FormControl>
                             <Checkbox
+                                disabled
                                 checked={field.value}
                                 onCheckedChange={field.onChange}
                             />
