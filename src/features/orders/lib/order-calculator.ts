@@ -1,8 +1,6 @@
 import {OrderService} from "@/features/orders/types";
 import {OrderProduct} from "@/features/order-products/types";
 import {formatPrice} from "@/lib/utils";
-import {useOrderServicesById} from "@/features/orders/api/queries";
-import {useOrderProductsByOrderId} from "@/features/order-products/api/queries";
 
 /**
  * Вычисляет общую длительность всех сервисов в минутах
