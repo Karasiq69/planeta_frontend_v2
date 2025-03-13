@@ -10,13 +10,19 @@ import {Button} from "@/components/ui/button";
 import {CalendarPlus} from "lucide-react";
 import {AppointmentForm} from "@/features/appointments/components/forms/AppointmentForm";
 import {useState} from "react";
+import {useAddAppointment} from "@/features/appointments/api/mutations";
+import {AppointmentInput} from "@/features/appointments/types";
 
 type Props = {
     orderId: number
 };
 const CreateOrderAppointment = ({orderId}: Props) => {
     const [open, setOpen] = useState(false);
+    const {mutate, isPending} = useAddAppointment()
 
+    const handleCreateAppointment = (data: AppointmentInput) => {
+        mutate(data)
+    }
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -30,6 +36,8 @@ const CreateOrderAppointment = ({orderId}: Props) => {
                     <DialogTitle>Создание записи</DialogTitle>
                 </DialogHeader>
                 <AppointmentForm
+                    onCreate={handleCreateAppointment}
+
                     orderId={orderId}
                     onSuccess={() => setOpen(false)}
                 />

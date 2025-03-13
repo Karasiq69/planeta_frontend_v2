@@ -9,11 +9,14 @@ import {useOrderById} from "@/features/orders/api/queries";
 import OrderSkeletonCard from "@/components/skeletons/order-card-skeleton";
 import AddOrderCarButton from "@/features/orders/components/car-card/AddOrderCarButton";
 import CarCardDropdownMenu from "@/features/orders/components/car-card/CarCardDropdownMenu";
+import {Button} from "@/components/ui/button";
+import MileageButton from "@/features/orders/components/car-card/MileageButton";
 
 type Props = {};
 const CarCard = (props: Props) => {
     const params = useParams()
-    const {data, isLoading} = useOrderById(+params.id)
+    const orderId = Number(params.id)
+    const {data, isLoading} = useOrderById(orderId)
 
     if (isLoading) return <OrderSkeletonCard/>
     if (!data) return 'no order or error'
@@ -34,7 +37,8 @@ const CarCard = (props: Props) => {
                         </div>
                         <div>
                             <CardTitle className={'flex items-center gap-2'}>
-                                {car?.brand?.name}
+                                {`${car?.model?.name} ${car?.model?.series}${car?.model?.engine?.name} `}
+
                                 <span className={'font-normal text-sm'}> {car?.year}</span>
                             </CardTitle>
                             <CardDescription>
@@ -44,12 +48,9 @@ const CarCard = (props: Props) => {
                     </div>
                     <CarCardDropdownMenu/>
                 </CardHeader>
-                <CardFooter className={'flex gap-2  justify-between items-center'}>
+                <CardFooter className={'flex gap-2  justify-between items-end'}>
                     <LicensePlate licensePlate={car.licensePlate}/>
-                    <div className={'text-sm text-muted-foreground flex items-center gap-2'}>
-                        <Gauge className={'text-muted-foreground'} size={16}/>
-                        {car.mileages[0]?.value ?? '-'} км
-                    </div>
+                    <MileageButton orderId={orderId} carId={car.id}/>
                 </CardFooter>
             </Card>
         </>

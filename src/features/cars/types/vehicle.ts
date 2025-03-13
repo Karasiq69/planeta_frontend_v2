@@ -37,6 +37,7 @@ export interface IMileage {
     id: number;
     carId: number;
     value: number;
+    orderId?: number;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -62,6 +63,12 @@ export interface ICar {
     brand?: ICarBrand;
     model?: ICarModel;
     mileages: IMileage[]
+}
+
+export interface CreateMileageDTO {
+    carId: number;
+    value: number;
+    orderId?: number;
 }
 // Типы для создания новых записей (без id и дат)
 export type CreateCarBrand = Omit<ICarBrand, 'id' | 'createdAt' | 'updatedAt'>;
