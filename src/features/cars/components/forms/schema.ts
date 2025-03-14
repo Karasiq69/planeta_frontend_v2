@@ -1,8 +1,8 @@
 import {z} from "zod";
 
 export const carFormSchema = z.object({
-    brandId: z.string().transform(val => Number(val)),
-    modelId: z.string().transform(val => Number(val)),
+    brandId: z.coerce.number(),
+    modelId: z.coerce.number(),
     year: z.coerce.number().transform(val=> Number(val)).optional().refine(val => !val || (val >= 1900 && val <= new Date().getFullYear()), {
         message: "Год должен быть между 1900 и текущим годом",
     }),

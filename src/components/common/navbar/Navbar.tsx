@@ -15,11 +15,7 @@ const Navbar = () => {
                 <Input className={'w-full md:w-96'} placeholder={'Поиск....'}/>
             </div>
             <div>
-
             </div>
-            <div className={'mr-5'}>
-                bobbik
-             </div>
         </header>
     )
 };

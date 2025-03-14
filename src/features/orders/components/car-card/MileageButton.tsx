@@ -76,7 +76,7 @@ const MileageButton = ({carId, orderId}: Props) => {
             <PopoverTrigger asChild>
                 <Button variant={'ghost'} className={'text-sm text-muted-foreground h-8 flex items-center gap-2'}>
                     <Gauge className={'text-muted-foreground'} size={16}/>
-                    {lastMileage ? `${lastMileage.toLocaleString('ru-RU')} км` : "Нет данных"}
+                    {lastMileage ? `${lastMileage.toLocaleString('ru-RU')} км` : "Добавить пробег"}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="p-0 md:w-[400px]" align={"end"}>

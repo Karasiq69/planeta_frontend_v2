@@ -1,5 +1,6 @@
 import {getAllOrganizationsFn} from "@/features/organizations/api/actions";
 import Pre from "@/components/ui/Pre";
+import OrganizationsPageWrapper from "@/features/organizations/OrganizationsPageWrapper";
 
 type Props = {};
 const Page = async (props: Props) => {
@@ -7,6 +8,7 @@ const Page = async (props: Props) => {
     return (
         <div>
             <Pre object={orgs.data}/>
+            <OrganizationsPageWrapper/>
         </div>
     );
 };

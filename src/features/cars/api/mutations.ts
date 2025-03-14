@@ -41,17 +41,16 @@ export function useCreateCar() {
 
 export function useEditCar(carId: number) {
     const queryClient = useQueryClient();
-    const router = useRouter()
 
     const editCarFn = async (data: Partial<ICar>) => {
-        const response = await apiClient.put<ICar>(`${CARS_URL}/`, data);
+        const response = await apiClient.patch<ICar>(`${CARS_URL}/${carId}`, data);
         return response.data;
     }
     return (
         useMutation({
             mutationFn: editCarFn,
             onSuccess: (createdCar, variables) => {
-                toast.success('Автомобиль создан')
+                toast.success('Автомобиль обновлен успешно')
                 queryClient.invalidateQueries({
                     queryKey: carQueryKeys.detail(carId)
                 });
@@ -60,8 +59,8 @@ export function useEditCar(carId: number) {
                 });
             },
             onError: (error: ApiError) => {
-                const errorMessage = error.response?.data?.message || 'Произошла ошибка при изменении автомобиля';
-                toast.error(errorMessage);
+                // const errorMessage = error.response?.data?.message || 'Произошла ошибка при изменении автомобиля';
+                toast.error(error.message);
                 console.error(error)
             },
             onSettled: () => {

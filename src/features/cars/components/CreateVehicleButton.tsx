@@ -21,7 +21,7 @@ const CreateVehicleButton = (props: Props) => {
         <div>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button variant={'default'}><CirclePlus/>Новый автомобильsdaasddas</Button>
+                    <Button variant={'default'}><CirclePlus/>Новый автомобиль</Button>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>

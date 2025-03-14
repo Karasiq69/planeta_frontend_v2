@@ -71,7 +71,7 @@ const CarFormFieldModelSelect = ({form}: ModelSelectProps) => {
                                                 key={model.id}
                                                 value={`${model.name} ${model.series || ''} ${model.code || ''}`}
                                                 onSelect={() => {
-                                                    form.setValue("modelId", String(model.id));
+                                                    form.setValue("modelId", model.id);
                                                     setOpen(false);
                                                 }}
                                             >
