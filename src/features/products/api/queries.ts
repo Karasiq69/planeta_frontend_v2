@@ -1,8 +1,7 @@
 import {keepPreviousData, useQuery} from "@tanstack/react-query";
-import {getClientById} from "@/features/clients/api/actions";
 import {ProductsListParams} from "@/features/products/types/params";
 import {productsQueryKeys} from "@/features/products/api/query-keys";
-import {getAllProductsListFn} from "@/features/products/api/actions";
+import {getAllProductsListFn, getProductById} from "@/features/products/api/actions";
 
 
 export const useProductsList = (params: ProductsListParams) => {
@@ -18,7 +17,7 @@ export const useProductsList = (params: ProductsListParams) => {
 export const useProductById = (id?: number) => {
     return useQuery({
         queryKey: productsQueryKeys.detail(id as number),
-        queryFn: () => getClientById(id as number),
+        queryFn: () => getProductById(id as number),
         enabled: !!id
     })
 }

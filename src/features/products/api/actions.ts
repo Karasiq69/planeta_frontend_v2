@@ -9,7 +9,7 @@ export const getAllProductsListFn = async (params: ProductsListParams): Promise<
         });
         return res.data;
 }
-export const getProductsById = async (id: number): Promise<Product> => {
+export const getProductById = async (id: number): Promise<Product> => {
         const res = await apiClient.get<Product>(`${PRODUCTS_URL}/${id}`);
         return res.data;
 }
