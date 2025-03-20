@@ -11,7 +11,7 @@ import {OrdersColumnDefs} from "@/features/orders/components/tables/columns";
 import OrdersSearchBox from "@/features/orders/components/tables/OrdersSearchBox";
 
 
-const ClientsDataTable = () => {
+const OrdersDataTable = () => {
 
 
     const columns = useMemo(() => OrdersColumnDefs, []);
@@ -60,4 +60,4 @@ const ClientsDataTable = () => {
     );
 };
 
-export default ClientsDataTable;
+export default OrdersDataTable;

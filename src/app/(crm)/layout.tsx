@@ -30,7 +30,7 @@ export default function RootLayout({
         <Hydration>
             <SidebarProvider>
                 <AppSidebar/>
-                <SidebarInset className="  flex flex-col overflow-hidden">
+                <SidebarInset className="flex flex-col overflow-hidden">
                     <Navbar/>
                     <main className={`flex flex-1 flex-col gap-4 p-4 bg-muted/40   ${font.className}`}>
                         {children}

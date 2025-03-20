@@ -6,6 +6,7 @@ import {Product} from "@/features/products/types";
 import {useProductsList} from "@/features/products/api/queries";
 import {useCreateOrderProduct} from "@/features/order-products/api/mutations";
 import {Badge} from "@/components/ui/badge";
+import {formatPrice} from "@/lib/utils";
 
 
 const OrderProductsCombobox = ({orderId}: { orderId: number }) => {
@@ -34,15 +35,19 @@ const OrderProductsCombobox = ({orderId}: { orderId: number }) => {
                 getDisplayValue={(product) => product.name}
                 renderItem={(product) => (
                     <div className="w-full max-w-6xl">
-                        <div className="flex items-center justify-between   ">
+                        <div className="flex items-center justify-between">
                             <div className="flex items-center gap-5">
                                 <span className="text-sm text-gray-500  ">{product.partNumber}</span>
                                 <span className="font-medium ">{product.name}</span>
-                                <span className="text-xs text-muted-foreground grow-0">{product.sku}</span>
+                                <span className="font-bold">{formatPrice(product.price)}</span>
                             </div>
-                            <Badge variant="outline" className="ml-auto font-normal text-muted-foreground">
-                                {product.brand.name}
-                            </Badge>
+                           <div className={'gap-2 flex'}>
+                               <span className="text-xs text-muted-foreground grow-0">{product.sku}</span>
+
+                               <Badge variant="outline" className="ml-auto font-normal text-muted-foreground">
+                                   {product.brand.name}
+                               </Badge>
+                           </div>
                         </div>
                     </div>
                 )}
