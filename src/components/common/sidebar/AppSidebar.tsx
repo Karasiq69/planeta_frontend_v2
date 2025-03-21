@@ -1,7 +1,7 @@
 "use client"
 import {
     ArrowRight,
-    AudioWaveform,
+    AudioWaveform, BookDashed,
     BriefcaseBusiness,
     Calendar,
     Car,
@@ -54,9 +54,13 @@ const data = {
         },
     ],
     navMain: [
-
         {
-            title: "Заказы",
+            title: "Заявки на ремонт",
+            url: "/applications",
+            icon: BookDashed,
+        },
+        {
+            title: "Заказ-наряды",
             url: "/orders",
             icon: FileText,
         },

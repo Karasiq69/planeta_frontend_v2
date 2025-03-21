@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, {ReactNode} from 'react';
 import GoBackButton from "@/components/common/GoBackButton";
 
 export type PageHeaderProps = {
@@ -11,10 +11,6 @@ export type PageHeaderProps = {
      * @default false
      */
     showBackButton?: boolean;
-    /**
-     * Статус страницы, если указан - будет отображаться как Badge
-     */
-    status?: string;
     /**
      * Дополнительные элементы, которые будут отображаться в заголовке
      */
@@ -31,13 +27,12 @@ export type PageHeaderProps = {
 const PageHeader: React.FC<PageHeaderProps> = ({
                                                    title,
                                                    showBackButton = false,
-                                                   status,
                                                    elements = [],
                                                    className = '',
                                                }) => {
     return (
         <div className={`flex flex-wrap gap-5 items-center ${className}`}>
-            {showBackButton && <GoBackButton />}
+            {showBackButton && <GoBackButton/>}
 
             <>
                 <h3>{title}</h3>

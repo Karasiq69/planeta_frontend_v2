@@ -2,6 +2,7 @@ import { LucideIcon } from 'lucide-react';
 import { getStatusField } from "@/features/orders/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import {OrderStatus} from "@/features/orders/types";
+import {cn} from "@/lib/utils";
 
 const StatusBadge = ({status}: { status?: OrderStatus }) => {
     const StatusIcon = getStatusField(status, 'icon') as LucideIcon;
@@ -11,7 +12,7 @@ const StatusBadge = ({status}: { status?: OrderStatus }) => {
     return (
         <Badge
             variant={'outline'}
-            className={color}
+            className={cn(color, 'h-9 rounded-md')}
         >
             {StatusIcon && <StatusIcon className="w-4 h-4 mr-2" />}
              {statusLabel}

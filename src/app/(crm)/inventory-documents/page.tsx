@@ -25,7 +25,7 @@ const Page = (props: Props) => {
     return (
         <section>
             <div className={'space-y-5'}>
-                <PageHeader title={'Инвентарь документы main'} showBackButton={false}/>
+                <PageHeader title={'Инвентарь документы'} showBackButton={false}/>
 
                 <div className={'flex gap-5 items-center'}>
                     <CreateInventoryDocumentButton/>
