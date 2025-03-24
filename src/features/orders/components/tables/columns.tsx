@@ -37,7 +37,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
                 <div className="flex items-center gap-2">
                     <span className={`${statusColor} px-2 py-1 rounded-md text-xs flex items-center gap-1`}>
                         {StatusIcon && <StatusIcon size={14}/>}
-                        <span>{statusLabel}</span>
+                        <span className={'text-nowrap'}>{statusLabel}</span>
                     </span>
                 </div>
             );
@@ -52,7 +52,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
             const fullName = `${row.original.client?.firstName || ''} ${row.original.client?.lastName || ''}`
             return (
                 <div>
-                    <p className="font-medium m-0">
+                    <p className="font-medium m-0 lg:text-nowrap">
                         {fullName}
                     </p>
                     <span className="text-xs text-muted-foreground">
@@ -75,11 +75,11 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
                     </Avatar>
                     <div>
                         <CardTitle className={'flex font-normal text-sm items-center gap-2'}>
-                            {car?.model?.code} {car?.model?.series} {car?.model?.name}
+                            {car?.vin}
                             <span className={'font-normal text-xs text-muted-foreground'}> {car?.year}</span>
                         </CardTitle>
                         <CardDescription className={'text-muted-foreground text-xs'}>
-                            {car?.vin}
+                            {car?.model?.code} {car?.model?.series} {car?.model?.name}
                         </CardDescription>
                     </div>
                 </div>
@@ -87,7 +87,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
         },
     },
     {
-        accessorKey: "car.licencePlate",
+        accessorKey: "licencePlate",
         header: () => <div>Госномер</div>,
         cell: ({row}) => (
             <LicensePlate licensePlate={row.original?.car?.licensePlate}/>
@@ -120,7 +120,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
         cell: ({row}) => {
             const orderId = row?.original?.id
             return (
-                 <OrderTableActions orderId={orderId}/>
+                <OrderTableActions orderId={orderId}/>
             )
         },
     },

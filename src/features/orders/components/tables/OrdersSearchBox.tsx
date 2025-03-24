@@ -14,9 +14,9 @@ const OrdersSearchBox = ({searchParams}: { searchParams: any }) => {
         const params = new URLSearchParams(currentSearchParams);
 
         if (term) {
-            params.set('search', term);
+            params.set('searchTerm', term);
         } else {
-            params.delete('search');
+            params.delete('searchTerm');
         }
 
         replace(`${pathname}?${params.toString()}`);

@@ -1,5 +1,4 @@
 'use client'
-import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
 import {Printer, Trash2} from "lucide-react";
 import ClientCard from "@/features/orders/components/client-card/ClientCard";
@@ -12,8 +11,7 @@ import StatusBadge from "@/features/orders/components/StatusBadge";
 import CreateOrderAppointment from "@/features/orders/components/CreateOrderAppointment";
 import CommentsPopoverButton from "@/features/orders/comments/components/CommentsPopoverButton";
 import PageHeader from "@/components/common/PageHeader";
-import {getOrderTitleText, isOrderApplication} from "@/features/orders/lib/utils";
-import {cn} from "@/lib/utils";
+import {getOrderTitleText} from "@/features/orders/lib/utils";
 
 type Props = {
     orderId: number
@@ -40,8 +38,8 @@ const OrderPageWrapper = ({orderId}: Props) => {
                         <CreateOrderAppointment orderId={orderId}/>
                         <CommentsPopoverButton orderId={orderId}/>
 
-                        <Button variant="outline" size={'sm'}><Printer size={16}/></Button>
-                        <Button variant="ghost" size={'sm'}><Trash2 size={16}/> Удалить заказ</Button>
+                        <Button variant="outline" disabled size={'sm'}><Printer size={16}/></Button>
+                        <Button variant="ghost" disabled size={'sm'}><Trash2 size={16}/> Удалить заказ</Button>
                     </div>
 
                 </div>

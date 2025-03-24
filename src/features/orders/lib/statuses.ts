@@ -1,7 +1,15 @@
-import {CircleCheck, CircleDashed, CircleEqual, CircleX, FileClock, Timer, Warehouse} from "lucide-react";
+import { CircleCheck, CircleDashed, CircleEqual, CircleX, FileClock, Timer, Warehouse } from "lucide-react";
 
-export type StatusItem = typeof statuses[number];
-export const statuses = [
+// Определение типа статуса
+export interface StatusItem {
+    value: string;
+    label: string;
+    icon: React.ComponentType<{ className?: string }>;
+    color: string;
+}
+
+// Экспорт массива статусов с правильной типизацией
+export const statuses: StatusItem[] = [
     {
         value: "application",
         label: "Заявка",
@@ -50,4 +58,4 @@ export const statuses = [
         icon: CircleX,
         color: "bg-gray-100 text-gray-800",
     },
-] as const;
+];

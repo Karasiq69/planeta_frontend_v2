@@ -1,52 +1,47 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export default function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>] {
+    // При первом рендере на сервере и клиенте используем initialValue
+    const [storedValue, setStoredValue] = useState<T>(initialValue);
 
-    const [storedValue, setStoredValue] = useState(initialValue);
-    // We will use this flag to trigger the reading from localStorage
-    const [firstLoadDone, setFirstLoadDone] = useState(false);
+    // Флаг для отслеживания, находимся ли мы на клиенте
+    const [isMounted, setIsMounted] = useState(false);
 
-    // Use an effect hook in order to prevent SSR inconsistencies and errors.
-    // This will update the state with the value from the local storage after
-    // the first initial value is applied.
+    // После монтирования компонента загружаем значение из localStorage
     useEffect(() => {
-        const fromLocal = () => {
-            if (typeof window === 'undefined') {
-                return initialValue;
-            }
+        setIsMounted(true);
+
+        // Функция для получения значения из localStorage
+        const getValueFromStorage = () => {
             try {
                 const item = window.localStorage.getItem(key);
+                // Если значение найдено, парсим его, иначе используем initialValue
                 return item ? JSON.parse(item) as T : initialValue;
             } catch (error) {
-                console.error(error);
+                console.error('Error reading from localStorage:', error);
                 return initialValue;
             }
         };
 
-        // Set the value from localStorage
-        setStoredValue(fromLocal);
-        // First load is done
-        setFirstLoadDone(true);
-    }, [initialValue, key]);
+        // Загружаем значение из localStorage
+        const valueFromStorage = getValueFromStorage();
+        setStoredValue(valueFromStorage);
+        // Этот эффект запускается только при монтировании
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    // Instead of replacing the setState function, react to changes.
-    // Whenever the state value changes, save it in the local storage.
+    // Сохраняем значение в localStorage, когда оно изменяется
     useEffect(() => {
-        // If it's the first load, don't store the value.
-        // Otherwise, the initial value will overwrite the local storage.
-        if (!firstLoadDone) {
-            return;
-        }
+        // Сохраняем в localStorage только на клиенте и после монтирования
+        if (!isMounted) return;
 
         try {
-            if (typeof window !== 'undefined') {
-                window.localStorage.setItem(key, JSON.stringify(storedValue));
-            }
+            window.localStorage.setItem(key, JSON.stringify(storedValue));
         } catch (error) {
-            console.log(error);
+            console.error('Error saving to localStorage:', error);
         }
-    }, [storedValue, firstLoadDone, key]);
+    }, [key, storedValue, isMounted]);
 
-    // Return the original useState functions
+    // Возвращаем текущее значение и функцию для его обновления
     return [storedValue, setStoredValue];
 }

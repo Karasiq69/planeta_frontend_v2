@@ -39,7 +39,11 @@ export interface OrdersQueryParams {
     pageSize?: number;
     clientId?: number;
     status?: OrderStatus;
-    searchTerm?: string | undefined
+    searchTerm?: string | undefined;
+    filters?: {
+        status?: string[];
+        [key: string]: unknown;
+    };
 }
 
 // Response типы

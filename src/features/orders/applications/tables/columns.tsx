@@ -18,7 +18,7 @@ export const OrdersApplicationsColumnDefs: ColumnDef<Order>[] = [
         cell: ({row}) => (
             <div>
                 <p className="font-medium m-0">
-                    {String(row.original.id).padStart(6, '0')}
+                    {row.original.id}
                 </p>
             </div>
         ),

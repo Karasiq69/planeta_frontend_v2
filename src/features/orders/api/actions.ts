@@ -23,8 +23,29 @@ export const editOrderFn = async (orderId: number, data: Partial<Order>) => {
 }
 
 export const getAllOrdersListFn = async (params: OrdersQueryParams): Promise<OrdersListResponse> => {
-    const res = await apiClient.get(`${ORDERS_URL}`, {params});
-    return res.data
+    // Создаем экземпляр URLSearchParams для корректного формирования параметров
+    const urlParams = new URLSearchParams();
+
+    // Добавляем основные параметры
+    if (params.page) urlParams.append('page', params.page.toString());
+    if (params.pageSize) urlParams.append('pageSize', params.pageSize.toString());
+    if (params.searchTerm) urlParams.append('searchTerm', params.searchTerm);
+
+    // Обрабатываем статусы из filters, если они есть
+    if (params.filters && params.filters.status && Array.isArray(params.filters.status)) {
+        params.filters.status.forEach((status: string) => {
+            urlParams.append('status', status);
+        });
+    }
+
+    // Если передан одиночный статус напрямую (для обратной совместимости)
+    if (params.status) {
+        urlParams.append('status', params.status);
+    }
+
+    // Выполняем запрос с корректно сформированными параметрами
+    const res = await apiClient.get(`${ORDERS_URL}`, {params: urlParams});
+    return res.data;
 }
 
 export const getOrderServicesById = async (orderId: number) => {
