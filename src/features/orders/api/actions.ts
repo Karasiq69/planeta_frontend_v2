@@ -5,7 +5,7 @@ import {
     OrderService,
     OrderServiceMechanic,
     OrdersListResponse,
-    OrdersQueryParams
+    OrdersQueryParams, OrderStatus
 } from "@/features/orders/types";
 
 export const getOrderById = async (orderId: number) => {
@@ -83,3 +83,10 @@ export const updateMechanicOrderServiceFn = async (orderServiceId: number, mecha
         data)
     return response.data;
 }
+
+export const changeOrderStatus = async (orderId: number, newStatus: OrderStatus) => {
+    const response = await apiClient.patch(`${ORDERS_URL}/${orderId}/status`, {status: newStatus});
+    return response.data;
+}
+
+
