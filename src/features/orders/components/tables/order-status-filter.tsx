@@ -5,22 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Filter } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import {OrderStatus} from "@/features/orders/types";
+import {OrderStatus, statusOptions} from "@/features/orders/types";
 
 interface OrdersStatusFilterProps {
     searchParams: URLSearchParams;
 }
 
-const statusOptions: { value: OrderStatus; label: string }[] = [
-    { value: "application", label: "Заявка" },
-    { value: "order", label: "Заказ-наряд" },
-    { value: "in_progress", label: "В работе" },
-    { value: "waiting_warehouse", label: "Ждет склад" },
-    { value: "awaiting_payment", label: "Ждет оплаты" },
-    { value: "completed", label: "Завершен" },
-    { value: "closed", label: "Закрыт/Архив" },
-    { value: "cancelled", label: "Отменен" },
-];
+
 
 const OrdersStatusFilter = ({ searchParams }: OrdersStatusFilterProps) => {
     const router = useRouter();
@@ -31,7 +22,7 @@ const OrdersStatusFilter = ({ searchParams }: OrdersStatusFilterProps) => {
     const selectedStatuses = selectedStatusParam
         ? selectedStatusParam.split(",") as OrderStatus[]
         : statusOptions
-            .filter(status => status.value !== "application")
+            .filter(status => status.value !== OrderStatus.APPLICATION)
             .map(status => status.value);
 
     // Get counts for each status (in a real app you might fetch this from API)

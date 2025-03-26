@@ -36,7 +36,7 @@ export const documentStatusConfig: StatusMapping = {
 // С fallback вариантом, если статус не найден
 export const getStatusConfig = (status: string): StatusConfig => {
     return documentStatusConfig[status] || {
-        label: status,
+        label: status.toLowerCase(),
         variant: "info",
         description: "Неизвестный статус"
     };

@@ -6,7 +6,7 @@ export const getStatusField = (
     field: keyof StatusItem
 ) => {
     if (!status) return '';
-    const statusObj = statuses.find(s => s.value === status);
+    const statusObj = statuses.find(s => s.value.toUpperCase() === status.toUpperCase());
     return statusObj?.[field] ?? status;
 }
 

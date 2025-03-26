@@ -4,16 +4,29 @@ import {Mechanic} from "@/features/mechanics/types";
 import {IService} from "@/features/services/types";
 import {User} from "@/types";
 
-export type OrderStatus =
-    | 'application'     // Заявка
-    | 'order'           // Заказ-наряд
-    | 'in_progress'     // В работе
-    | 'waiting_warehouse'  // Ждет склад
-    | 'awaiting_payment'   // Ждет оплаты
-    | 'completed'       // Завершен
-    | 'closed'          // Закрыт/Архив
-    | 'cancelled';      // Отменен
+export const OrderStatus = {
+    APPLICATION: 'APPLICATION',
+    ORDER: 'ORDER',
+    IN_PROGRESS: 'IN_PROGRESS',
+    WAITING_WAREHOUSE: 'WAITING_WAREHOUSE',
+    WAITING_PAYMENT: 'WAITING_PAYMENT',
+    COMPLETED: 'COMPLETED',
+    CANCELLED: 'CANCELLED'
+} as const;
 
+// Тип OrderStatus на основе констант
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
+
+// Массив опций для UI компонентов (например, селектов)
+export const statusOptions: { value: OrderStatus; label: string }[] = [
+    { value: OrderStatus.APPLICATION, label: "Заявка" },
+    { value: OrderStatus.ORDER, label: "Заказ-наряд" },
+    { value: OrderStatus.IN_PROGRESS, label: "В работе" },
+    { value: OrderStatus.WAITING_WAREHOUSE, label: "Ждет склад" },
+    { value: OrderStatus.WAITING_PAYMENT, label: "Ждет оплаты" },
+    { value: OrderStatus.COMPLETED, label: "Завершен" },
+    { value: OrderStatus.CANCELLED, label: "Отменен" }
+];
 
 export interface Order {
     id: number;
