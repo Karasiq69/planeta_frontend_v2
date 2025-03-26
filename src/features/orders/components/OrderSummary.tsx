@@ -2,14 +2,14 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {Button} from "@/components/ui/button";
 import {Copy} from "lucide-react";
 import {Separator} from "@/components/ui/separator";
-import {OrderStatusSelector} from "@/features/orders/components/OrderStatusSelector";
 import {useOrderById} from "@/features/orders/api/queries";
 import ReasonToApply from "@/features/orders/components/order-summary/reason-to-apply";
 import Recommendation from "@/features/orders/components/order-summary/recommendation";
 import OrderSummarySkeleton from "@/components/skeletons/order-summary-skeleton";
 import {formatRelativeTime} from "@/lib/format-date";
 import OrderTotals from "@/features/orders/components/order-summary/OrderTotals";
-import {getOrderTitleText, isOrderApplication} from "@/features/orders/lib/utils";
+import OrderStatusSelect from "@/features/orders/components/OrderStatusSelect";
+import {getStatusData} from "@/features/orders/lib/statuses";
 
 
 type Props = {
@@ -18,7 +18,8 @@ type Props = {
 const OrderSummary = ({orderId}: Props) => {
 
     const {data: order, isLoading} = useOrderById(orderId)
-    const isApplication = isOrderApplication(order?.status)
+    const {isApplication, titleText} = getStatusData(order?.status);
+
 
     if (isLoading) return <OrderSummarySkeleton/>
     if (!order) return 'no order or error'
@@ -28,7 +29,7 @@ const OrderSummary = ({orderId}: Props) => {
                 <CardHeader className="flex flex-row items-start bg-background/80 rounded-t-lg border-b">
                     <div className="grid gap-0.5">
                         <CardTitle className="group flex items-center gap-2 text-lg">
-                            {getOrderTitleText(order.status)} №{orderId}
+                            {titleText} №{orderId}
                             <Button
                                 size="icon"
                                 variant="outline"
@@ -45,7 +46,7 @@ const OrderSummary = ({orderId}: Props) => {
                         <p className={'text-xs'}>Создан {formatRelativeTime(order?.createdAt)}</p>
                     </div>
                     <div className="ml-auto flex items-center gap-1">
-                        <OrderStatusSelector/>
+                        <OrderStatusSelect order={order}/>
                     </div>
                 </CardHeader>
                 {!isApplication ?

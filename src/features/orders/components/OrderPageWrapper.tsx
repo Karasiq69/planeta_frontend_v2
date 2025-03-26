@@ -11,20 +11,21 @@ import StatusBadge from "@/features/orders/components/StatusBadge";
 import CreateOrderAppointment from "@/features/orders/components/CreateOrderAppointment";
 import CommentsPopoverButton from "@/features/orders/comments/components/CommentsPopoverButton";
 import PageHeader from "@/components/common/PageHeader";
-import {getOrderTitleText} from "@/features/orders/lib/utils";
+import {getStatusData} from "@/features/orders/lib/statuses";
 
 type Props = {
     orderId: number
 };
 const OrderPageWrapper = ({orderId}: Props) => {
     const {data: order} = useOrderById(orderId)
+    const {titleText} = getStatusData(order?.status)
     return (
         <div className={'space-y-5'}>
             <section>
                 <div className={'flex justify-between items-center'}>
                     <div className={'flex flex-wrap gap-5 items-center'}>
 
-                        <PageHeader title={`${getOrderTitleText(order?.status)} №${orderId}`}
+                        <PageHeader title={`${titleText} №${orderId}`}
                                     showBackButton={true}
                                     elements={[
                                         <StatusBadge key={order?.id} status={order?.status}/>,

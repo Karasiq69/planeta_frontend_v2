@@ -2,13 +2,15 @@ import {ColumnDef} from "@tanstack/react-table"
 import * as React from "react"
 import {LucideIcon} from "lucide-react"
 import {Order} from "@/features/orders/types";
-import {getStatusField} from "@/features/orders/lib/utils";
 import LicensePlate from "@/components/cars/LicensePlate";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {getBrandLogo} from "@/features/cars/utils";
 import {CardDescription, CardTitle} from "@/components/ui/card";
 import OrderTableActions from "@/features/orders/components/tables/OrderTableActions";
 import {formatPrice} from "@/lib/utils";
+import {getStatusData} from "@/features/orders/lib/statuses";
+
+
 
 export const OrdersColumnDefs: ColumnDef<Order>[] = [
     {
@@ -29,15 +31,14 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
         header: () => <div>Статус</div>,
         size: 0,
         cell: ({row}) => {
-            const StatusIcon = getStatusField(row.original.status, 'icon') as LucideIcon;
-            const statusColor = getStatusField(row.original.status, 'color') as string;
-            const statusLabel = getStatusField(row.original.status, 'label') as string;
+            const {icon: StatusIcon, color, label} = getStatusData(row.original.status);
+
 
             return (
                 <div className="flex items-center gap-2">
-                    <span className={`${statusColor} px-2 py-1 rounded-md text-xs flex items-center gap-1`}>
+                    <span className={`${color} px-2 py-1 rounded-md text-xs flex items-center gap-1`}>
                         {StatusIcon && <StatusIcon size={14}/>}
-                        <span className={'text-nowrap'}>{statusLabel}</span>
+                        <span className={'text-nowrap'}>{label}</span>
                     </span>
                 </div>
             );
