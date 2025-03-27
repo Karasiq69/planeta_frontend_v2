@@ -46,6 +46,7 @@ const OrderSummary = ({orderId}: Props) => {
                         <p className={'text-xs'}>Создан {formatRelativeTime(order?.createdAt)}</p>
                     </div>
                     <div className="ml-auto flex items-center gap-1">
+
                         <OrderStatusSelect order={order}/>
                     </div>
                 </CardHeader>
