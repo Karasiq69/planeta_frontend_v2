@@ -1,8 +1,6 @@
 import {ColumnDef} from "@tanstack/react-table"
 import * as React from "react"
-import {LucideIcon} from "lucide-react"
 import {Order} from "@/features/orders/types";
-import {getStatusField} from "@/features/orders/lib/utils";
 import LicensePlate from "@/components/cars/LicensePlate";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {getBrandLogo} from "@/features/cars/utils";

@@ -9,26 +9,23 @@ import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger,} from "@/
 import {useState} from "react";
 
 type Props = {
-    order: Order | undefined;
+    order: Order;
 };
 
 const OrderStatusSelect = ({order}: Props) => {
-    const [isSelectOpen, setIsSelectOpen] = useState(false);
+    const {mutate, isPending} = useChangeOrderStatus(order?.id);
 
+    const [isSelectOpen, setIsSelectOpen] = useState(false);
     if (!order) return null;
 
     const currentStatus = order?.status;
     // Получаем информацию о текущем статусе, включая nextStatus
     const {nextStatus} = getStatusData(currentStatus);
     const {color: nextStatusColor, label: nextStatusLabel} = getStatusData(nextStatus);
-    const {mutate, isPending} = useChangeOrderStatus(order?.id);
 
     // Обработчик клика по кнопке следующего статуса
     const handleStatusChange = () => {
-        console.log("Переход к статусу:", nextStatus);
-        if (nextStatus) {
-            mutate({newStatus: nextStatus as OrderStatus});
-        }
+        mutate({newStatus: nextStatus as OrderStatus});
     };
 
     // Обработчик выбора статуса из выпадающего списка

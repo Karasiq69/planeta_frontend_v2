@@ -1,22 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
-import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
-import { useDebounce } from "@/hooks/use-debounce";
+import {useCallback, useEffect, useState} from "react";
+import {Check, ChevronsUpDown, Loader2} from "lucide-react";
+import {useDebounce} from "@/hooks/use-debounce";
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from "@/components/ui/command";
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover";
+import {cn} from "@/lib/utils";
+import {Button} from "@/components/ui/button";
+import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,} from "@/components/ui/command";
+import {Popover, PopoverContent, PopoverTrigger,} from "@/components/ui/popover";
 
 export interface Option {
     value: string;
@@ -159,6 +148,7 @@ export function AsyncSelect<T>({
                 setOptions(originalOptions);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetcher, debouncedSearchTerm, mounted, preload, filterFn]);
 
     const handleSelect = useCallback((currentValue: string) => {
@@ -181,7 +171,7 @@ export function AsyncSelect<T>({
                         disabled && "opacity-50 cursor-not-allowed",
                         triggerClassName
                     )}
-                    style={{ width: width }}
+                    style={{width: width}}
                     disabled={disabled}
                 >
                     {selectedOption ? (
@@ -189,10 +179,10 @@ export function AsyncSelect<T>({
                     ) : (
                         placeholder
                     )}
-                    <ChevronsUpDown className="opacity-50" size={10} />
+                    <ChevronsUpDown className="opacity-50" size={10}/>
                 </Button>
             </PopoverTrigger>
-            <PopoverContent style={{ width: width }} className={cn("p-0", className)}>
+            <PopoverContent style={{width: width}} className={cn("p-0", className)}>
                 <Command shouldFilter={false}>
                     <div className="relative border-b w-full">
                         <CommandInput
@@ -204,7 +194,7 @@ export function AsyncSelect<T>({
                         />
                         {loading && options.length > 0 && (
                             <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center">
-                                <Loader2 className="h-4 w-4 animate-spin" />
+                                <Loader2 className="h-4 w-4 animate-spin"/>
                             </div>
                         )}
                     </div>
@@ -215,10 +205,11 @@ export function AsyncSelect<T>({
                             </div>
                         )}
                         {loading && options.length === 0 && (
-                            loadingSkeleton || <DefaultLoadingSkeleton />
+                            loadingSkeleton || <DefaultLoadingSkeleton/>
                         )}
                         {!loading && !error && options.length === 0 && (
-                            notFound || <CommandEmpty>{noResultsMessage ?? `Не найдено ${label.toLowerCase()}`}</CommandEmpty>
+                            notFound ||
+                            <CommandEmpty>{noResultsMessage ?? `Не найдено ${label.toLowerCase()}`}</CommandEmpty>
                         )}
                         <CommandGroup>
                             {options.map((option) => (
@@ -250,10 +241,10 @@ function DefaultLoadingSkeleton() {
             {[1, 2, 3].map((i) => (
                 <CommandItem key={i} disabled>
                     <div className="flex items-center gap-2 w-full">
-                        <div className="h-6 w-6 rounded-full animate-pulse bg-muted" />
+                        <div className="h-6 w-6 rounded-full animate-pulse bg-muted"/>
                         <div className="flex flex-col flex-1 gap-1">
-                            <div className="h-4 w-24 animate-pulse bg-muted rounded" />
-                            <div className="h-3 w-16 animate-pulse bg-muted rounded" />
+                            <div className="h-4 w-24 animate-pulse bg-muted rounded"/>
+                            <div className="h-3 w-16 animate-pulse bg-muted rounded"/>
                         </div>
                     </div>
                 </CommandItem>

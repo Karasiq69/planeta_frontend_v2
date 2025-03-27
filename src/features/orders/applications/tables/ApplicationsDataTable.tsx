@@ -25,7 +25,7 @@ const ApplicationsDataTable = () => {
     const {data, isLoading, isFetching} = useOrdersList({
         page: pagination.pageIndex + 1,
         pageSize: pagination.pageSize,
-        status: 'application',
+        status: 'APPLICATION',
         searchTerm: searchTerm || undefined,
     });
 
