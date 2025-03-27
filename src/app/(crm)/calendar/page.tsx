@@ -1,5 +1,6 @@
 import MainCalendar from "@/features/appointments/MainCalendar";
 import React from "react";
+import PageHeader from "@/components/common/PageHeader";
 
 type Props = {};
 const Page = (props: Props) => {
@@ -8,7 +9,7 @@ const Page = (props: Props) => {
         <section>
 
             <div className={'space-y-5'}>
-                <h3>Календарь</h3>
+                <PageHeader title={"Календарь"}/>
 
                 <>
                <MainCalendar/>

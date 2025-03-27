@@ -142,7 +142,8 @@ const MainCalendar = () => {
 
         return (
             <div className="w-full overflow-hidden ">
-                <div className="bg-background/50 rounded-t-sm p-1 text-xs">{getTimeFromDate(event.start)} -  {getTimeFromDate(event.end)}</div>
+                <div
+                    className="bg-background/50 rounded-t-sm p-1 text-xs">{getTimeFromDate(event.start)} - {getTimeFromDate(event.end)}</div>
                 <div className="font-semibold">{event.title}</div>
 
                 {orderId && (

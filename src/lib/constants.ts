@@ -22,18 +22,18 @@ export const ORGANIZATIONS_URL = '/organizations';
 export const CLIENT_ORDERS = '/client-orders';
 
 export const BRAND_LOGOS: Record<string, string> = {
-  Porsche: 'porsche-logo.svg',
+  'Porsche': 'porsche-logo.svg',
   'Mercedes-Benz': 'mercedes-logo.svg',
-  BMW: 'bmw-logo.svg',
-  Audi: 'audi-logo.svg',
-} as const;
+  'BMW': 'bmw-logo.svg',
+  'Audi': 'audi-logo.svg',
+ } as const;
 
 export const STATION_RESOURCES = [
-  {
-    id: 'A',
-    title: 'Подъемник 1',
-    eventColor: '#cfeea8',
-    eventTextColor: '#062000',
+    {
+        id: 'A',
+        title: 'Подъемник 1',
+        eventColor: '#cfeea8',
+        eventTextColor: '#062000',
     eventBorderColor: '#98af7a',
   },
   {
@@ -51,6 +51,13 @@ export const STATION_RESOURCES = [
     eventBorderColor: '#ccbc71',
   },
   {
+        id: 'F',
+        title: 'Сход Развал',
+        eventColor: '#ffb8b8',
+        eventTextColor: '#500000',
+        eventBorderColor: '#c68787'
+    },
+    {
     id: 'D',
     title: 'Диагност',
     eventColor: '#b8e6ff',
