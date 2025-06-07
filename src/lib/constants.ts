@@ -16,7 +16,11 @@ export const COMMANDS_URL = '/commands';
 export const APPOINTMENTS_URL = '/appointments';
 export const WAREHOUSE_URL = '/warehouse';
 export const STORAGE_LOCATIONS_URL = '/storage-locations';
-export const INVENTORY_DOCUMENTS_URL = '/inventory-documents';
+export const INVENTORY_DOCUMENTS_URL = '/inventory-documents'
+
+export const RECEIPT_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/receipt`;
+export const TRANSFER_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/transfer`;
+
 export const SUPPLIER_URL = '/suppliers';
 export const ORGANIZATIONS_URL = '/organizations';
 export const CLIENT_ORDERS = '/client-orders';

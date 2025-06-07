@@ -23,6 +23,7 @@ import {
 import FormFieldSelectWarehouse from "@/features/inventory-documents/components/form-field-select-warehouse";
 import FormFieldSelectOperation
     from "@/features/inventory-documents/transfer/components/forms/form-field-select-operation";
+import OrdersCombobox from "@/components/orders/orders-combobox/orders-combobox";
 
 type Props = {
     documentData?: TransferDocument;
@@ -210,19 +211,12 @@ const TransferDocumentForm = ({onSubmit, documentData: doc}: Props) => {
                                 render={({field}) => (
                                     <FormItem className="flex-1">
                                         <FormControl>
-                                            <Select
-                                                onValueChange={(value) => field.onChange(parseInt(value))}
+                                            <OrdersCombobox
                                                 value={field.value?.toString()}
-                                            >
-                                                <SelectTrigger id="related-order">
-                                                    <SelectValue placeholder="Выберите заказ"/>
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="1">Заказ №001</SelectItem>
-                                                    <SelectItem value="2">Заказ №002</SelectItem>
-                                                    <SelectItem value="3">Заказ №003</SelectItem>
-                                                </SelectContent>
-                                            </Select>
+                                                onChange={(value) => {
+                                                    field.onChange(value ? parseInt(value) : undefined);
+                                                }}
+                                            />
                                         </FormControl>
                                         <FormMessage/>
                                     </FormItem>
