@@ -5,7 +5,7 @@ import {ListParams} from "@/types/params";
 import {warehouseQueryKeys} from "@/features/warehouse/api/query-keys";
 import {
     getAllInventoryTransactionsListFn,
-    getAllWarehouseItemsListFn,
+    getAllWarehouseItemsListFn, getAllWarehousesFn,
     getStorageLocationsFn
 } from "@/features/warehouse/api/actions";
 
@@ -18,6 +18,17 @@ export const useAllInventoryTransactions = (params: ListParams) => {
         placeholderData: keepPreviousData
     })
 }
+
+
+export const useGetWarehouses = () => {
+    return useQuery({
+        queryKey: warehouseQueryKeys.list(),
+        gcTime: 5000 * 60 * 20,
+        staleTime: 10000 * 60 * 5,
+        queryFn: getAllWarehousesFn
+    })
+}
+
 
 
 export const useAllWarehouseItems = (params: ListParams) => {

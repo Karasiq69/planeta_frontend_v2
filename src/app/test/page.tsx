@@ -1,11 +1,12 @@
 'use client'
 import Pre from "@/components/ui/Pre";
 import {useAllStorageLocations} from "@/features/warehouse/api/queries";
+import {useReceiptDocumentItems} from "@/features/inventory-documents/receipt/api/queries";
 
 type Props = {};
 const Page = (props: Props) => {
     // const {data, isLoading} = useUser()
-    const { data: storageLocations = [], isLoading } = useAllStorageLocations();
+    const { data: storageLocations = [], isLoading } = useReceiptDocumentItems(131);
 
     if (isLoading) return 'ev load'
     return (

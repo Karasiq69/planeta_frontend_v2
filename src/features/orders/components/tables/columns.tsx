@@ -1,6 +1,5 @@
 import {ColumnDef} from "@tanstack/react-table"
 import * as React from "react"
-import {LucideIcon} from "lucide-react"
 import {Order} from "@/features/orders/types";
 import LicensePlate from "@/components/cars/LicensePlate";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
@@ -9,7 +8,6 @@ import {CardDescription, CardTitle} from "@/components/ui/card";
 import OrderTableActions from "@/features/orders/components/tables/OrderTableActions";
 import {formatPrice} from "@/lib/utils";
 import {getStatusData} from "@/features/orders/lib/statuses";
-
 
 
 export const OrdersColumnDefs: ColumnDef<Order>[] = [
@@ -69,11 +67,13 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
         cell: ({row}) => {
             const car = row.original?.car
             return (
-                <div className={'flex flex-row gap-1 items-center'}>
-                    <Avatar>
-                        <AvatarImage className={'size-8'} src={getBrandLogo(car?.brand)}/>
-                        <AvatarFallback>CN</AvatarFallback>
+                <div className={'flex flex-row gap-2 items-center'}>
+                    <Avatar className={'size-8'}>
+                        <AvatarImage src={getBrandLogo(car?.brand)}/>
+                        <AvatarFallback>{car?.brand?.name?.charAt(0) || 'B'}
+                        </AvatarFallback>
                     </Avatar>
+
                     <div>
                         <CardTitle className={'flex font-normal text-sm items-center gap-2'}>
                             {car?.vin}

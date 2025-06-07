@@ -1,41 +1,87 @@
 import {Product} from "@/features/products/types";
+import {InventoryDocumentStatus, InventoryDocumentType} from "@/features/inventory-documents/types";
+
+export const WarehouseTypeEnum = {
+    MAIN: 'MAIN',
+    WORKSHOP: 'WORKSHOP',
+    TRANSIT: 'TRANSIT',
+    DEFECTIVE: 'DEFECTIVE'
+} as const
+
+export type WarehouseTypeEnum = (typeof WarehouseTypeEnum)[keyof typeof WarehouseTypeEnum];
+
 
 export interface Warehouse {
     id: number;
     name: string;
     description: string | null;
     isActive: boolean;
+    type: WarehouseTypeEnum
     createdAt: string;
 }
 
-// Типы для товаров на складе
+
 export interface WarehouseItem {
     id: number;
     productId: number;
     warehouseId: number;
-    storageLocationId?: number | null;  // Добавлено новое поле
-    quantity: string | number;          // Исправлено для поддержки числовых значений
-    reservedQuantity: string | number;  // Исправлено для поддержки числовых значений
-    minimumQuantity: string | number;   // Исправлено для поддержки числовых значений
+    storageLocationId?: number | null;
+    quantity: string | number;
+    reservedQuantity: string | number;
+    minimumQuantity: string | number;
     updatedAt: string;
-    // Связанные данные
+
     product?: Product;
     warehouse?: Warehouse;
 }
 
-// Типы для складских транзакций
+export interface BaseDocument {
+    id: number;
+    number: string | null;
+    date: string;
+    userId: number;
+    status: InventoryDocumentStatus;
+    type: InventoryDocumentType;
+    warehouseId: number | null;
+    totalAmount: number;
+    organizationId: number;
+    operationType: OperationTypeEnum;
+    note: string | null;
+    createdAt: string;
+    completedAt: string | null;
+    updatedAt: string;
+}
+
+
 export interface InventoryTransaction {
     id: number;
+    documentId: number;
     warehouseItemId: number;
-    orderId: number | null;
+    document: BaseDocument;
     type: 'RECEIPT' | 'RESERVED' | 'WRITE_OFF' | 'RETURN' | 'INVENTORY' | 'TRANSFER';
     quantity: string;
+    price: string;
+    totalPrice: string;
+    fromStorageLocationId: number | null;
+    toStorageLocationId: number | null;
     userId: number;
     createdAt: string;
     note: string | null;
-    // Связанные данные
+
     warehouseItem?: WarehouseItem;
 }
+
+export const OperationType = {
+    TRANSFER: 'TRANSFER',                    // Перемещение
+    WRITE_OFF: 'WRITE_OFF',                 // Списание
+    SEND_TO_REPAIR: 'SEND_TO_REPAIR',       // Передача в ремонт (основное)
+    TRANSFER_IN_REPAIR: 'TRANSFER_IN_REPAIR', // Передача внутри ремонта
+    RETURN_FROM_REPAIR: 'RETURN_FROM_REPAIR', // Возврат из ремонта
+    RETURN_FROM_OPERATION: 'RETURN_FROM_OPERATION' // Возврат из эксплуатации
+} as const
+
+export type OperationTypeEnum = (typeof OperationType)[keyof typeof OperationType];
+
 
 export const TRANSACTION_TYPE_LABELS: Record<InventoryTransaction['type'], string> = {
     'RECEIPT': 'Поступление',
@@ -45,25 +91,3 @@ export const TRANSACTION_TYPE_LABELS: Record<InventoryTransaction['type'], strin
     'INVENTORY': 'Инвентаризация',
     'TRANSFER': 'Перемещение'
 };
-
-// Типы для запросов
-export interface AddWarehouseItemRequest {
-    productId: number;
-    warehouseId: number;
-    quantity: number;
-    note?: string;
-}
-
-// Типы для параметров запроса транзакций
-export interface GetTransactionsParams {
-    page?: number;
-    limit?: number;
-    searchTerm?: string;
-    userId?: number;
-}
-
-// Тип для ответа при добавлении товара
-export interface AddWarehouseItemResponse {
-    warehouseItem: WarehouseItem;
-    transaction: InventoryTransaction;
-}

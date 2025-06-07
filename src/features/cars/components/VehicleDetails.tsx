@@ -81,7 +81,7 @@ const VehicleDetails = ({car}: Props) => {
                 </ul>
                 <div className="flex items-center gap-8">
                     <div className="flex items-center gap-2">
-                        <div className="flex items-center bg-white border-2 border-black rounded px-3  ">
+                        <div className="flex items-center  bg-background border-2 border-black rounded px-3  ">
                             <span>{licensePlate?.slice(0, 1)}</span>
                             <span className="mx-1 font-mono">{licensePlate?.slice(1, 4)}</span>
                             <span className="mx-1 font-normal">{licensePlate?.slice(4, 6)}</span>

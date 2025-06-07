@@ -25,8 +25,8 @@ import {
     useUpdateOrderService
 } from "@/features/orders/api/mutations";
 import {OrderService} from "@/features/orders/types";
-import {DialogBody} from "next/dist/client/components/react-dev-overlay/internal/components/Dialog";
 import {OrderServiceForm} from "@/features/orders/components/forms/order-service/OrderServiceForm";
+import {DialogBody} from "next/dist/client/components/react-dev-overlay/internal/components/Dialog";
 
 
 type Props = {

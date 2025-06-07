@@ -5,11 +5,7 @@ import CreateOrderButton from "@/features/orders/components/create-order/CreateO
 import ApplicationsDataTable from "@/features/orders/applications/tables/ApplicationsDataTable";
 import PageHeader from "@/components/common/PageHeader";
 
-const Page = async ({
-                        searchParams,
-                    }: {
-    searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+const Page = async () => {
 
     return (
         <section>

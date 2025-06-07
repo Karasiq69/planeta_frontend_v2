@@ -1,14 +1,11 @@
 "use client"
 import {
-    ArrowRight,
-    AudioWaveform, BookDashed,
+    AudioWaveform,
+    BookDashed,
     BriefcaseBusiness,
     Calendar,
     Car,
     CarFront,
-    ClipboardCheck,
-    ClipboardList,
-    FileSpreadsheet,
     FileText,
     HelpCircle,
     LayoutDashboard,
@@ -27,6 +24,8 @@ import {NavUser} from "@/components/common/sidebar/nav-user";
 import {NavWarehouse} from "@/components/common/sidebar/nav-warehouse";
 import {NavBottom} from "@/components/common/sidebar/nav-bottom";
 import {NavIntro} from "@/components/common/sidebar/nav-intro";
+import {INVENTORY_DOCUMENTS_URL} from "@/lib/constants";
+import {InventoryDocumentType} from "@/features/inventory-documents/types";
 
 const teams = [
     {
@@ -123,7 +122,7 @@ const data = {
     ],
     products: [
         {
-            name: "Товары",
+            title: "Товары и запчасти",
             url: "/products",
             icon: ShoppingCart,
         }
@@ -140,14 +139,29 @@ const data = {
                     url: "/warehouse",
                 },
                 {
-                    title: "Номенклатура",
-                    url: "/products",
+                    title: "Приходные накладные",
+                    url: `${INVENTORY_DOCUMENTS_URL}/${InventoryDocumentType.RECEIPT.toLowerCase()}`,
+
                 },
                 {
-                    title: "Документы",
+                    title: "Перемещения товаров",
+                    url: `${INVENTORY_DOCUMENTS_URL}/${InventoryDocumentType.TRANSFER.toLowerCase()}`,
+                },
+                {
+                    title: "_Расходные накладные",
+                    url: `${INVENTORY_DOCUMENTS_URL}/${InventoryDocumentType.EXPENSE.toLowerCase()}`,
+                },
+                {
+                    title: "_Возвраты",
+                    url: `${INVENTORY_DOCUMENTS_URL}/${InventoryDocumentType.RETURN.toLowerCase()}`,
+                },
+
+                {
+                    title: "--Документы",
                     url: "/inventory-documents",
-                },{
-                    title: "Движения товаров",
+                },
+                {
+                    title: "--Движения товаров",
                     url: "/warehouse/transactions",
                 },
 
@@ -166,6 +180,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
             <SidebarContent>
                 <NavIntro items={data.intro}/>
                 <NavMain items={data.navMain}/>
+                <NavIntro items={data.products}/>
                 <NavWarehouse items={data.warehouse}/>
 
                 <NavBottom items={data.navBottom} className="mt-auto"/>

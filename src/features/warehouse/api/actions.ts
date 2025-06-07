@@ -14,6 +14,11 @@ export const getAllInventoryTransactionsListFn = async (params: ListParams): Pro
     return response.data
 }
 
+export const getAllWarehousesFn = async ()=> {
+    const response = await apiClient.get(`${WAREHOUSE_URL}/`)
+    return response.data
+}
+
 export const getAllWarehouseItemsListFn = async (params: ListParams): Promise<ListResponse<WarehouseItem>> => {
     const response = await apiClient.get<ListResponse<WarehouseItem>>(`${WAREHOUSE_URL}/items`, {
         params

@@ -21,8 +21,8 @@ export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
 export const statusOptions: { value: OrderStatus; label: string }[] = [
     { value: OrderStatus.APPLICATION, label: "Заявка" },
     { value: OrderStatus.ORDER, label: "Заказ-наряд" },
-    { value: OrderStatus.IN_PROGRESS, label: "В работе" },
     { value: OrderStatus.WAITING_WAREHOUSE, label: "Ждет склад" },
+    { value: OrderStatus.IN_PROGRESS, label: "В работе" },
     { value: OrderStatus.WAITING_PAYMENT, label: "Ждет оплаты" },
     { value: OrderStatus.COMPLETED, label: "Завершен" },
     { value: OrderStatus.CANCELLED, label: "Отменен" }

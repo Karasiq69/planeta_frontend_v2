@@ -2,6 +2,8 @@ import {ListParams} from "@/types/params";
 
 export const warehouseQueryKeys = {
     all: ['warehouse'] as const,
+    list: () => [...warehouseQueryKeys.all, 'list'] as const,
+
     details: () => [...warehouseQueryKeys.all, 'warehouse'] as const,
     detail: (id: number) => [...warehouseQueryKeys.details(), id] as const,
 

@@ -28,7 +28,6 @@ export const useServiceForm = ({serviceData, onUpdate, onCreate}: Props) => {
     const onSubmit = async (data: ServiceFormData) => {
 
         if (serviceData) {
-            console.log('serv data::', serviceData)
             // updateService({
             //     firstName: data.firstName,
             //     lastName: data?.lastName,

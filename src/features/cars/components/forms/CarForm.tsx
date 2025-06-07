@@ -22,7 +22,7 @@ const CarForm = ({carId, carData, onUpdate, onCreate}: Props) => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
                     <CarFormFields form={form}/>
                     <Button disabled={isLoading} variant={'default'} className={'w-full'} type="submit">
-                        {carId ? 'Обновить' : 'Создать'} {isLoading && <LoaderAnimated className={'text-white'}/>}
+                        {carId ? 'Обновить' : 'Создать'} {isLoading && <LoaderAnimated className={'text-foreground'}/>}
                     </Button>
                 </form>
             </Form>

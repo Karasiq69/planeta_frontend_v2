@@ -9,10 +9,6 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
-
-import ClientForm from "@/features/clients/components/forms/ClientForm";
-import BusinessClientForm from "@/features/clients/components/forms/BusinessClientForm";
 import CarForm from "@/features/cars/components/forms/CarForm";
 
 type Props = {};

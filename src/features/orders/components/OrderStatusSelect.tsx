@@ -30,7 +30,6 @@ const OrderStatusSelect = ({order}: Props) => {
 
     // Обработчик выбора статуса из выпадающего списка
     const handleSelectChange = (newStatus: OrderStatus) => {
-        console.log("Выбран статус:", newStatus);
         if (currentStatus !== newStatus) {
             mutate({newStatus: newStatus});
         }

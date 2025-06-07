@@ -17,7 +17,7 @@ export default function AppLayout({
 }>) {
     return (
 
-        <html lang="ru">
+        <html lang="ru" suppressHydrationWarning>
         {/*<head>*/}
         {/*    <script*/}
         {/*        crossOrigin="anonymous"*/}

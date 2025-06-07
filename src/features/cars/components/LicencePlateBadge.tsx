@@ -16,11 +16,11 @@ const LicencePlateBadge = ({licence_plate}: Props) => {
                         text-sm
                         py-1
                         px-2
-                        bg-white
+                        bg-background
                         border-2
-                        border-slate-100
+                        border-secondary
                         rounded-md
-                        hover:bg-gray-100
+                        hover:border-secondary-foreground
                         transition-colors
 
       "

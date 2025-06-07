@@ -7,7 +7,6 @@ export const useDeleteTodo = () => {
     const queryClient = useQueryClient();
 
     const deleteTodoFn = async (todoId: number) => {
-        console.log(todoId, 'TODOID')
         return await apiClient.delete(`todos/${todoId}/`);
     }
 

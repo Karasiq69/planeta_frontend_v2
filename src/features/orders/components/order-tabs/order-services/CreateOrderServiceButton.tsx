@@ -40,7 +40,6 @@ const CreateOrderServiceButton = () => {
                     <Button variant={'default'}>
                         <CirclePlus/>
                         Новая услуга
-
                     </Button>
                 </DialogTrigger>
                 <DialogContent>

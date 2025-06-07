@@ -1,9 +1,15 @@
 import OrderPageWrapper from "@/features/orders/components/OrderPageWrapper";
 
 
-const Page = async ({ params }: { params: { id: string } }) => {
+export default async function Page({
+                                       params,
+                                       searchParams,
+                                   }: {
+    params: Promise<{ id: string }>
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+    const {id} = await params
     return (
-        <OrderPageWrapper orderId={Number(params.id)}/>
+        <OrderPageWrapper orderId={Number(id)}/>
     );
 };
-export default Page;

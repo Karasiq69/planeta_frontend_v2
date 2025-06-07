@@ -71,7 +71,7 @@ const QuantityInput = React.forwardRef<HTMLDivElement, QuantityInputProps>(
                         disabled={decrementDisabled}
                     >
                         <Minus size={16} strokeWidth={2} className={'text-muted-foreground'} />
-                        <span className="sr-only">Уменьшить</span>
+                        <span className="sr-only">Уменьшить {value}</span>
                     </Button>
                     <Input
                         type="text"

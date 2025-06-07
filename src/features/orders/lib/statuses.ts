@@ -22,16 +22,16 @@ export const statuses: StatusItem[] = [
         color: "bg-sky-100 text-sky-800 hover:bg-sky-200",
     },
     {
-        value: OrderStatus.IN_PROGRESS,
-        label: "В работе",
-        icon: Timer,
-        color: "bg-violet-100 text-violet-800 hover:bg-violet-200",
-    },
-    {
         value: OrderStatus.WAITING_WAREHOUSE,
         label: "Ждет склад",
         icon: Warehouse,
         color: "bg-amber-100 text-amber-800 hover:bg-amber-200",
+    },
+    {
+        value: OrderStatus.IN_PROGRESS,
+        label: "В работе",
+        icon: Timer,
+        color: "bg-violet-100 text-violet-800 hover:bg-violet-200",
     },
     {
         value: OrderStatus.WAITING_PAYMENT,

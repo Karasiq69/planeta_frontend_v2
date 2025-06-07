@@ -1,8 +1,14 @@
-import {Warehouse, WarehouseItem} from "@/features/warehouse/types";
+import {z} from "zod";
+import {
+    CreateReceiptDocumentSchema, GetReceiptDocumentsQuerySchema, ReceiptItemSchema,
+    UpdateReceiptDocumentSchema
+} from "@/features/inventory-documents/receipt/components/forms/schema";
+import {Product} from "@/features/products/types";
+import {StorageLocation, Warehouse} from "@/features/warehouse/types";
 import {User} from "@/types";
 import {Supplier} from "@/features/suppliers/types";
+import {Order} from "@/features/orders/types";
 import {Organization} from "@/features/organizations/types";
-import {Product} from "@/features/products/types";
 
 export const InventoryDocumentType = {
     RECEIPT: 'RECEIPT',
@@ -24,128 +30,92 @@ export const InventoryDocumentStatus = {
 export type InventoryDocumentStatus = (typeof InventoryDocumentStatus)[keyof typeof InventoryDocumentStatus];
 
 
-export interface InventoryDocument {
-    id: number;
-    type: InventoryDocumentType;
-    status: InventoryDocumentStatus;
-    number?: string;
-    warehouseId: number;
-    targetWarehouseId?: number;
-    incomingNumber?: string;
-    incomingDate?: string;
-    supplierId?: number;
-    supplier?: Supplier;
-    orderId?: number;
-    userId: number;
-    user: User;
-    note?: string;
-    warehouse?: Warehouse;
-    targetWarehouse?: Warehouse;
-    organization?: Organization;
-    organizationId?: number;
-    totalAmount?: number;
-    items: DocumentItem[];
+// Типы для использования в сервисном слое
+export type CreateReceiptDocumentDto = z.infer<typeof CreateReceiptDocumentSchema>;
+export type UpdateReceiptDocumentDto = z.infer<typeof UpdateReceiptDocumentSchema>;
+export type GetReceiptDocumentsQueryDto = z.infer<typeof GetReceiptDocumentsQuerySchema>;
+export type ReceiptItemDto = z.infer<typeof ReceiptItemSchema>;
 
+
+
+
+export interface ReceiptDocumentItem {
+    id: number;
+    documentId: number;
+    productId: number;
+    quantity: string;
+    price?: string | null;
+    totalPrice?: string | null;
+    toStorageLocationId?: number | null;
+    note?: string | null;
+    createdById: number;
     createdAt: string;
     updatedAt: string;
-    completedAt?: string;
 
+    // Связанные объекты
+    product: Product;
+    toStorageLocation?: StorageLocation | null;
+    createdBy: User;
 }
 
-// Расширенный тип для товара с дополнительной информацией
-// export interface DocumentItem {
-//     id: number;
-//     documentId: number;
-//     warehouseItemId: number;
-//     quantity: string | number;
-//     fromStorageLocationId?: number | null; // Добавлен null
-//     toStorageLocationId?: number | null;   // Добавлен null
-//     note?: string | null;                  // Добавлен null
-//     createdAt: string;
-//     updatedAt: string;
-//     userId: number;
-//     warehouseItem: WarehouseItem;
-// }
+// Дополнительная информация для приходного документа
+export interface ReceiptDocumentExt {
+    id: number;
+    documentId: number;
+    supplierId?: number | null;
+    incomingNumber?: string | null;
+    incomingDate?: string | null;
+    storageLocationId?: number | null;
+    paymentTerms?: string | null;
+    orderId?: number | null;
 
-// Параметры для запроса списка документов
-export interface InventoryDocumentsQuery {
+    // Связанные объекты
+    supplier?: Supplier | null;
+    storageLocation?: StorageLocation | null;
+    order?: Order | null;
+}
+
+// Полная структура приходного документа
+export interface ReceiptDocument {
+    // Базовые поля документа
+    id: number;
+    number: string | null;
+    date: string;
+    userId: number;
+    status: InventoryDocumentStatus | string;
+    type: InventoryDocumentType;
+    warehouseId: number | null;
+    totalAmount: string;
+    organizationId: number | null;
+    operationType: string | null;
+    note: string | null;
+    createdAt: string;
+    completedAt: string | null;
+    updatedAt: string;
+
+    // Связанные объекты
+    user: User;
+    organization: Organization | null;
+    warehouse: Warehouse | null;
+
+    // Расширение для приходных документов
+    receiptDocument: ReceiptDocumentExt | null;
+
+    // Товарные позиции
+    items: ReceiptDocumentItem[];
+}
+
+// Параметры для фильтрации и поиска приходных документов
+export interface ReceiptDocumentsQueryParams {
     page?: number;
-    limit?: number; // Переименовано с pageSize для соответствия бэкенду
-    type?: InventoryDocumentType;
+    limit?: number;
     status?: InventoryDocumentStatus;
     warehouseId?: number;
+    supplierId?: number;
     orderId?: number;
+    organizationId?: number;
     dateFrom?: string;
     dateTo?: string;
     searchTerm?: string;
 }
 
-export interface InventoryDocumentDetails {
-    document: InventoryDocument;
-    items: DocumentItem[];
-}
-
-export interface DocumentItem {
-    id: number;
-    documentId: number;
-    productId: number;
-    quantity: string;
-    fromStorageLocationId: number | null;
-    toStorageLocationId: number | null;
-    note: string | null;
-    product: Product;
-    fromStorageLocation: string | number;
-    toStorageLocation: string | number;
-    createdBy: User;
-
-    markupPercentage: number | null;
-    price: number;
-    totalPrice: number;
-
-    createdAt: string;
-    updatedAt: string;
-    createdById: number;
-}
-
-// DTO для создания черновика документа
-export interface CreateDraftDocumentDTO {
-    type: InventoryDocumentType;
-    warehouseId: number;
-    targetWarehouseId?: number;
-}
-
-// DTO для обновления документа
-export interface UpdateDocumentDTO {
-    type?: InventoryDocumentType;
-    status?: InventoryDocumentStatus;
-    number?: string;
-    warehouseId?: number;
-    targetWarehouseId?: number;
-    incomingNumber?: string;
-    incomingDate?: Date | string;
-    supplierId?: number;
-    orderId?: number;
-    note?: string;
-    organizationId?: number;
-    totalAmount?: number;
-}
-
-// DTO для добавления товара в документ
-export interface DocumentItemDTO {
-    productId: number;
-    quantity: number;
-    fromStorageLocationId?: number;
-    toStorageLocationId?: number;
-    note?: string;
-}
-
-// DTO для обновления товара в документе
-export interface UpdateDocumentItemDTO {
-    quantity?: number;
-    fromStorageLocationId?: number;
-    toStorageLocationId?: number;
-    note?: string;
-}
-
-
-// Полная информация о документе со всеми товарами
