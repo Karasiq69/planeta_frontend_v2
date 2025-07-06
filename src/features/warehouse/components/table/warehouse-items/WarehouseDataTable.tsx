@@ -52,6 +52,7 @@ const WarehouseDataTable = (props: Props) => {
             </div>
 
             <DataTable
+                cellSize={'small'}
                 columns={columns}
                 table={table}
                 totalCount={data?.meta?.total} // Используем общее количество из метаданных

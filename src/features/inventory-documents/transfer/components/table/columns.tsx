@@ -39,6 +39,26 @@ export const inventoryDocumentTransferColumns: ColumnDef<TransferDocument>[] = [
         size: 0,
     },
     {
+        accessorKey: "status",
+        meta: "Статус",
+        header: ({column}) => (
+            <DataTableColumnHeader column={column} title="Статус"/>
+        ),
+        cell: ({row}) => {
+            const status = row.getValue("status") as string;
+            const statusConfig = getStatusConfig(status);
+
+            return (
+                <Badge variant={statusConfig.variant}>
+                    {statusConfig.label}
+                </Badge>
+            );
+        },
+        size: 0,
+        enableSorting: true,
+        filterFn: "equals",
+    },
+    {
         accessorKey: "totalAmount",
         meta: "Сумма",
         header: ({column}) => (

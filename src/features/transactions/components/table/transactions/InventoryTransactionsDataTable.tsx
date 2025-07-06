@@ -49,7 +49,7 @@ const InventoryTransactionsDataTable = (props: Props) => {
                 <ProductsSearchBox searchParams={searchParams}/>
                 {isFetching && <LoaderAnimated/>}
             </div>
-
+adsdas11
             <DataTable
                 columns={columns}
                 table={table}

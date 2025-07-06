@@ -10,7 +10,6 @@ import {formatPrice} from "@/lib/utils";
 import {formatRelativeTime} from "@/lib/format-date";
 import {ReceiptDocument} from "@/features/inventory-documents/types";
 import {getStatusConfig} from "@/features/inventory-documents/receipt/helpers/status-helper";
-import {useDeleteReceiptDocument} from "@/features/inventory-documents/receipt/api/mutations";
 
 // Колонки для таблицы приходных накладных, используем специализированный тип ReceiptDocument
 export const inventoryDocumentReceiptColumns: ColumnDef<ReceiptDocument>[] = [
@@ -25,8 +24,6 @@ export const inventoryDocumentReceiptColumns: ColumnDef<ReceiptDocument>[] = [
         },
         enableSorting: false,
         size: 0,
-        minSize: 50,
-        maxSize: 500,
     },
     {
         accessorKey: "date",

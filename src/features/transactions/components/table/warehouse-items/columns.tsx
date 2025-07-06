@@ -11,10 +11,10 @@ export const warehouseItemsColumnsDefs: ColumnDef<WarehouseItem>[] = [
     {
         id: "product",
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Товар"/>
+            <DataTableColumnHeader column={column} title="Товарsss"/>
         ),
         cell: ({ row }) => (
-            <div className="w-auto">
+            <div className="w-auto flex">
                 <div className="font-medium">{row.original.product?.name || '-'}</div>
                 <div className="text-sm text-muted-foreground">
                     {row.original.product?.sku || '-'}
@@ -65,7 +65,8 @@ export const warehouseItemsColumnsDefs: ColumnDef<WarehouseItem>[] = [
                     {row.getValue("minimumQuantity")}
                 </div>
             );
-        }
+        },
+        size: 0
     },
     {
         id: "price",

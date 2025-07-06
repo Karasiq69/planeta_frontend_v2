@@ -50,7 +50,7 @@ const WarehouseDataTable = (props: Props) => {
                 <ProductsSearchBox searchParams={searchParams}/>
                 {isFetching && <LoaderAnimated/>}
             </div>
-
+1211
             <DataTable
                 columns={columns}
                 table={table}

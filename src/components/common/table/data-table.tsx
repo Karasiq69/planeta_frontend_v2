@@ -4,14 +4,16 @@ import * as React from "react"
 import {ColumnDef, flexRender, Table as TableType} from "@tanstack/react-table";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {DataTablePagination} from "@/components/common/table/data-table-pagination";
+import {cn} from "@/lib/utils";
 
 interface DataTableProps<TData> {
     table: TableType<TData>,
     columns: ColumnDef<TData>[]
     totalCount?: number | undefined
+    cellSize?: 'default' | 'small'
 }
 
-function DataTable<TData>({table, columns, totalCount}: DataTableProps<TData>) {
+function DataTable<TData>({table, columns, totalCount, cellSize = 'default'}: DataTableProps<TData>) {
     return (
         <div className="w-full p-4">
             <div className="border rounded-md">
@@ -47,7 +49,7 @@ function DataTable<TData>({table, columns, totalCount}: DataTableProps<TData>) {
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}
-                                        className={'py-1.5'}
+                                        className={cn(cellSize === 'small' ? 'py-0' : 'py-1.5')}
                                         >
                                             {flexRender(
                                                 cell.column.columnDef.cell,
