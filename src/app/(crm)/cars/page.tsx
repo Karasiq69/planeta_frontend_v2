@@ -6,6 +6,12 @@ import PageHeader from "@/components/common/PageHeader";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {CARS_URL} from "@/lib/constants";
+import type {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "Автомобили | CRM автосервис",
+    description: "",
+};
 
 const VehiclesPage = async ({
                         searchParams,

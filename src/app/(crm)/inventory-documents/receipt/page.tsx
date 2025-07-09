@@ -1,13 +1,18 @@
-import {Card, CardHeader, CardTitle} from "@/components/ui/card";
-import React, {Suspense} from "react";
-import {Button} from "@/components/ui/button";
+import {Card} from "@/components/ui/card";
+import React from "react";
 import PageHeader from "@/components/common/PageHeader";
 import InventoryDocumentsReceiptDatatable
     from "@/features/inventory-documents/receipt/components/table/InventoryDocumentsReceiptDatatable";
 import CreateReceiptDocumentButton from "@/features/inventory-documents/receipt/components/CreateReceiptDocumentButton";
+import type {Metadata} from "next";
 
-type Props = {};
-const Page = (props: Props) => {
+
+export const metadata: Metadata = {
+    title: "Приходные накладные",
+    description: "CRM автосервис",
+};
+
+const Page = () => {
 
     return (
         <section>
@@ -16,18 +21,9 @@ const Page = (props: Props) => {
 
                 <div className={'flex gap-5 items-center'}>
                     <CreateReceiptDocumentButton redirectAfterCreate={true}/>
-
-                    <Button variant={'outline'} disabled>Что-то еще сделать</Button>
                 </div>
                 <Card>
-                    <CardHeader>
-                        <CardTitle>
-                            Все приходные накладные // черновик
-                        </CardTitle>
-                    </CardHeader>
-                    <Suspense>
-                        <InventoryDocumentsReceiptDatatable/>
-                    </Suspense>
+                    <InventoryDocumentsReceiptDatatable/>
                 </Card>
             </div>
         </section>

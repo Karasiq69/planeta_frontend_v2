@@ -2,9 +2,9 @@
 import React from "react";
 import {useProductById} from "@/features/products/api/queries";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import Pre from "@/components/ui/Pre";
 import ProductForm from "@/features/products/components/forms/ProductForm";
 import PageHeader from "@/components/common/PageHeader";
+
 
 type Props = {
     params: {
@@ -18,7 +18,7 @@ const Page = ({params}: Props) => {
     if (isLoading) return null
     if (!product) return null
 
-
+// todo fix use client
     return (
         <>
 
@@ -28,7 +28,7 @@ const Page = ({params}: Props) => {
                     <Card className={'max-w-2xl'}>
                         <CardHeader></CardHeader>
                         <CardContent>
-                           <ProductForm productData={product}/>
+                            <ProductForm productData={product}/>
                         </CardContent>
                     </Card>
                 </div>

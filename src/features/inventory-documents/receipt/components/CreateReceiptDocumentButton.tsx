@@ -2,7 +2,7 @@
 import {useRouter} from "next/navigation";
 import {Button} from "@/components/ui/button";
 import LoaderAnimated from "@/components/ui/LoaderAnimated";
-import {SquarePlus} from "lucide-react";
+import {PlusCircle} from "lucide-react";
 import React from "react";
 import {InventoryDocumentType} from "@/features/inventory-documents/types";
 import {useCreateReceiptDocument} from "@/features/inventory-documents/receipt/api/mutations";
@@ -44,9 +44,11 @@ const CreateReceiptDocumentButton = ({
             disabled={isPending}
             {...props}
         >
-            {isPending ? <LoaderAnimated className="mr-2"/> : <SquarePlus/>}
+            {isPending ? <LoaderAnimated className="mr-2"/> : <PlusCircle className="mr-2 h-4 w-4"/>
+            }
             Создать документ
         </Button>
+
     );
 };
 

@@ -1,7 +1,11 @@
 import {SectionCards} from "@/features/dashboard/components/SectionCards";
 import React from "react";
 import PageHeader from "@/components/common/PageHeader";
-
+import type {Metadata} from "next";
+export const metadata: Metadata = {
+    title: "Дашборд | CRM автосервис",
+    description: "",
+};
 type Props = {};
 const Page = (props: Props) => {
     return (

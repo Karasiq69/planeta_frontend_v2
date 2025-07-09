@@ -2,7 +2,11 @@ import {Card} from "@/components/ui/card";
 import React, {Suspense} from "react";
 import CreateProductButton from "@/features/products/components/CreateProductButton";
 import ProductsDataTable from "@/features/products/components/table/ProductsDataTable";
-
+import {Metadata} from "next";
+export const metadata: Metadata = {
+    title: "Товары | CRM автосервис",
+    description: "",
+};
 const Page = async ({
                         searchParams,
                     }: {

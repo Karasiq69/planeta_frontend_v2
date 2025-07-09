@@ -1,3 +1,9 @@
+import {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "Настройки | CRM автосервис",
+    description: "",
+};
 type Props = {};
 const Page = (props: Props) => {
     return (

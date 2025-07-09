@@ -59,6 +59,30 @@ export const inventoryDocumentTransferColumns: ColumnDef<TransferDocument>[] = [
         filterFn: "equals",
     },
     {
+        accessorKey: "warehouse",
+        meta: "Склад",
+        header: ({column}) => (
+            <DataTableColumnHeader column={column} title="Склад"/>
+        ),
+        cell: ({row}) => {
+            return <div>{row.original.transferDocument.sourceWarehouse?.name || '-'}</div>;
+        },
+        enableSorting: false,
+        size: 0,
+    },
+    {
+        accessorKey: "transferDocument.destinationLocationId",
+        meta: "Склад-получатель",
+        header: ({column}) => (
+            <DataTableColumnHeader column={column} title="Склад-получатель"/>
+        ),
+        cell: ({row}) => {
+            return <div>{row.original.transferDocument.destinationWarehouse?.name || '-'}</div>;
+        },
+        enableSorting: false,
+        size: 0,
+    },
+    {
         accessorKey: "totalAmount",
         meta: "Сумма",
         header: ({column}) => (
@@ -68,18 +92,6 @@ export const inventoryDocumentTransferColumns: ColumnDef<TransferDocument>[] = [
             return <div>{formatPrice(row.original.totalAmount)}</div>;
         },
         enableSorting: true,
-        size: 0,
-    },
-    {
-        accessorKey: "note",
-        meta: "Комментарий",
-        header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Комментарий"/>
-        ),
-        cell: ({row}) => {
-            return <div className="max-w-[200px] truncate">{row.original.note || '-'}</div>;
-        },
-        enableSorting: false,
         size: 0,
     },
     {
@@ -95,25 +107,13 @@ export const inventoryDocumentTransferColumns: ColumnDef<TransferDocument>[] = [
         size: 0,
     },
     {
-        accessorKey: "warehouse",
-        meta: "Склад",
+        accessorKey: "note",
+        meta: "Комментарий",
         header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Склад"/>
+            <DataTableColumnHeader column={column} title="Комментарий"/>
         ),
         cell: ({row}) => {
-            return <div>{row.original.warehouse?.name || '-'}</div>;
-        },
-        enableSorting: false,
-        size: 0,
-    },
-    {
-        accessorKey: "transferDocument.destinationLocationId",
-        meta: "Склад-получатель",
-        header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Склад-получатель"/>
-        ),
-        cell: ({row}) => {
-            return <div>{row.original.transferDocument.destinationLocationId || '-'}</div>;
+            return <div className="max-w-[200px] truncate">{row.original.note || '-'}</div>;
         },
         enableSorting: false,
         size: 0,
@@ -134,12 +134,12 @@ export const inventoryDocumentTransferColumns: ColumnDef<TransferDocument>[] = [
                             <ArrowRightCircle className="h-4 w-4"/>
                         </Link>
                     </Button>
-                    <Button onClick={handleClick} size="icon" variant="ghost" className="p-0" disabled={ row.original.status !== 'DRAFT'}>
-                        <Trash2 className="h-4 w-4"/>
-                    </Button>
+                    {/*<Button onClick={handleClick} size="icon" variant="ghost" className="p-0" disabled={ row.original.status !== 'DRAFT'}>*/}
+                    {/*    <Trash2 className="h-4 w-4"/>*/}
+                    {/*</Button>*/}
                 </div>
             );
         },
-        size: 0,
+        size: 100,
     },
 ];

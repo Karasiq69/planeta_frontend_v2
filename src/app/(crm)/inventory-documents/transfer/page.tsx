@@ -4,7 +4,11 @@ import PageHeader from "@/components/common/PageHeader";
 import CreateTransferDocumentButton from "@/features/inventory-documents/transfer/components/CreateTransferDocument";
 import InventoryDocumentsTransferDatatable
     from "@/features/inventory-documents/transfer/components/table/InventoryDocumentTransferDatatable";
-
+import type {Metadata} from "next";
+export const metadata: Metadata = {
+    title: "Перемещения | CRM автосервис",
+    description: "",
+};
 type Props = {};
 const Page = (props: Props) => {
     return (

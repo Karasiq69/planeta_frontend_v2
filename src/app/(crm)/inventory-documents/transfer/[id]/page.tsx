@@ -7,6 +7,12 @@ import PageHeader from "@/components/common/PageHeader";
 import TransferFormContainer from "@/features/inventory-documents/transfer/components/TransferFormContainer";
 import TransferItemsContainer from "@/features/inventory-documents/transfer/components/TransferItemsContainer";
 import TransferSubmitButton from "@/features/inventory-documents/transfer/components/forms/TransferSubmitButton";
+import {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "Документ перемещения | CRM автосервис",
+    description: "",
+};
 
 const Page = async ({
                         params,

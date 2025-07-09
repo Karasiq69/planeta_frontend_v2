@@ -3,6 +3,12 @@ import {ChevronLeft, Printer, Trash2} from "lucide-react";
 import CarContentWrapper from "@/features/cars/components/CarContentWrapper";
 import {Button} from "@/components/ui/button";
 import GoBackButton from "@/components/common/GoBackButton";
+import type {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "Авто | CRM автосервис",
+    description: "",
+};
 
 type Props = {
     params: {

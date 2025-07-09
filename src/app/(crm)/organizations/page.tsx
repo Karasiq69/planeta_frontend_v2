@@ -1,7 +1,12 @@
 import {getAllOrganizationsFn} from "@/features/organizations/api/actions";
 import Pre from "@/components/ui/Pre";
 import OrganizationsPageWrapper from "@/features/organizations/OrganizationsPageWrapper";
+import {Metadata} from "next";
 
+export const metadata: Metadata = {
+    title: "Организации | CRM автосервис",
+    description: "",
+};
 type Props = {};
 const Page = async (props: Props) => {
     const orgs = await getAllOrganizationsFn()

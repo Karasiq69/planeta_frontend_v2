@@ -2,22 +2,23 @@
 
 import {
     ColumnFiltersState,
-    getCoreRowModel, getFilteredRowModel,
-    getPaginationRowModel, getSortedRowModel,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
     SortingState,
-    useReactTable, VisibilityState
+    useReactTable,
+    VisibilityState
 } from "@tanstack/react-table";
-import React, { useMemo } from "react";
+import React, {useMemo} from "react";
 import DataTable from "@/components/common/table/data-table";
 import LoaderSectionAnimated from "@/components/ui/LoaderSectionAnimated";
-import { useSearchParams } from "next/navigation";
-import { useOrdersList } from "@/features/orders/api/queries";
-import { OrdersColumnDefs } from "@/features/orders/components/tables/columns";
-import OrdersSearchBox from "@/features/orders/components/tables/OrdersSearchBox";
-import { DataTableToolbar } from "@/components/tables/data-table-toolbar";
-import { statuses } from "@/features/orders/lib/statuses";
+import {useSearchParams} from "next/navigation";
+import {useOrdersList} from "@/features/orders/api/queries";
+import {OrdersColumnDefs} from "@/features/orders/components/tables/columns";
+import {DataTableToolbar} from "@/components/tables/data-table-toolbar";
+import {statuses} from "@/features/orders/lib/statuses";
 import useLocalStorage from "@/hooks/use-local-storage";
-import {CardHeader} from "@/components/ui/card";
 
 // Получаем все значения статусов кроме "application"
 const DEFAULT_STATUSES = statuses
@@ -104,7 +105,7 @@ const OrdersDataTable = () => {
     if (!data) return <div className="p-4">No data available</div>;
 
     return (
-        <div>
+        <section>
             <div className={'px-4 pt-5'}>
                 <DataTableToolbar
                     table={table}
@@ -117,7 +118,7 @@ const OrdersDataTable = () => {
                 table={table}
                 totalCount={data.meta.total}
             />
-        </div>
+        </section>
     );
 };
 

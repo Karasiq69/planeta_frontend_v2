@@ -16,7 +16,12 @@ import {FileMinus2, FilePlus2, SquarePlus} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {WAREHOUSE_URL} from "@/lib/constants";
 import PageHeader from "@/components/common/PageHeader";
+// export const metadata: Metadata = {
+//     title: "Склад | CRM автосервис",
+//     description: "",
+// };
 
+//todo fix use client
 type Props = {};
 const Page = (props: Props) => {
     const router = useRouter()

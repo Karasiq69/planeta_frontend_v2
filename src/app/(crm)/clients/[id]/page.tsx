@@ -4,7 +4,11 @@ import {getClientById} from "@/features/clients/api/actions";
 import ClientFormContainer from "@/features/clients/components/forms/ClientFormContainer";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {Button} from "@/components/ui/button";
-
+import type {Metadata} from "next";
+export const metadata: Metadata = {
+    title: "Редактировать клиента | CRM автосервис",
+    description: "",
+};
 type Props = {
     params: {
         id: string

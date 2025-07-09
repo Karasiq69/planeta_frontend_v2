@@ -2,28 +2,7 @@
 import {Card} from "@/components/ui/card";
 import React, {Suspense} from "react";
 import {Button} from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
-    ArrowLeftRight,
-    Bolt,
-    BookX,
-    ChevronDown,
-    CopyPlus,
-    FileMinus2,
-    FilePlus2,
-    Files,
-    Layers2,
-    SquarePlus,
-    Trash
-} from "lucide-react";
-import {useRouter} from "next/navigation";
+import {ArrowLeftRight, BookX, FileMinus2, FilePlus2, Layers2, SquarePlus} from "lucide-react";
 import {INVENTORY_DOCUMENTS_URL, WAREHOUSE_URL} from "@/lib/constants";
 import PageHeader from "@/components/common/PageHeader";
 import InventoryTransactionsDataTable
@@ -108,7 +87,7 @@ const Page = () => {
                     {/*        <DropdownMenuItem disabled>Оформить списание</DropdownMenuItem>*/}
                     {/*    </DropdownMenuContent>*/}
                     {/*</DropdownMenu>*/}
-                    <Button variant={'outline'} disabled>Что-то еще сделать</Button>
+                    <Button variant={'outline'} disabled>Что-то еще сделать!!</Button>
                 </div>
                 <Card>
                     <Suspense>

@@ -2,7 +2,11 @@ import {Card} from "@/components/ui/card";
 import ClientsDataTable from "@/features/clients/components/table/ClientsDataTable";
 import React, {Suspense} from "react";
 import CreateClientButton from "@/features/clients/components/CreateClientButton";
-
+import type {Metadata} from "next";
+export const metadata: Metadata = {
+    title: "Клиенты | CRM автосервис",
+    description: "",
+};
 const Page = async ({
                         searchParams,
                     }: {

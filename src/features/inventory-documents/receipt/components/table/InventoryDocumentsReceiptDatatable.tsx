@@ -7,6 +7,7 @@ import LoaderSectionAnimated from "@/components/ui/LoaderSectionAnimated";
 import {useSearchParams} from "next/navigation";
 import {inventoryDocumentReceiptColumns} from "@/features/inventory-documents/receipt/components/table/columns";
 import {useReceiptDocuments} from "@/features/inventory-documents/receipt/api/queries";
+import {DataTableToolbar} from "@/components/tables/data-table-toolbar";
 
 const InventoryDocumentsReceiptDatatable = () => {
     const columns = useMemo(() => inventoryDocumentReceiptColumns, []);
@@ -41,11 +42,13 @@ const InventoryDocumentsReceiptDatatable = () => {
     if (!data) return <div className="p-4">Данные недоступны</div>;
 
     return (
-        <div className="flex flex-col">
-            {/*<div className="flex gap-3 mb-4">*/}
-            {/*    <InventoryDocumentsSearchBox searchParams={searchParams} />*/}
-            {/*    {isFetching && <LoaderAnimated />}*/}
-            {/*</div>*/}
+        <div className="">
+            <div className={'px-4 pt-5'}>
+                <DataTableToolbar
+                    table={table}
+                    isLoading={isFetching}
+                />
+            </div>
 
             <DataTable
                 columns={columns}
