@@ -7,13 +7,13 @@ import { ClientFormSkeleton } from '@/features/clients/components/forms/ClientFo
 
 const ClientFormContainer = ({}) => {
   const { id } = useParams()
-  const { data: clientData, isLoading } = useClientById(+id)
+  const { data: clientData, isLoading } = useClientById(+id!)
 
   if (isLoading) {
     return <ClientFormSkeleton />
   }
 
-  return <ClientForm clientId={+id} clientData={clientData} />
+  return <ClientForm clientId={+id!} clientData={clientData} />
 }
 
 export default ClientFormContainer

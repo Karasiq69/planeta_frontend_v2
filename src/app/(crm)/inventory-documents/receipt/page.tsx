@@ -21,7 +21,9 @@ const Page = (props: Props) => {
           </Button>
         </div>
         <Card>
-          <InventoryDocumentsReceiptDatatable />
+          <Suspense fallback={<div>Загрузка...</div>}>
+            <InventoryDocumentsReceiptDatatable />
+          </Suspense>
         </Card>
       </div>
     </section>

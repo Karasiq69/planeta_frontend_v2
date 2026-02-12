@@ -4,13 +4,12 @@ import { QueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import React, { createContext, useContext, useState } from 'react'
 
-
 import { useUser } from '@/hooks/use-auth'
 import { authApi } from '@/lib/auth/auth'
 
 import type { User } from '@/types/user'
 import type { AxiosResponse } from 'axios'
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react'
 
 // import {getQueryClient} from "@/providers/QueryProvider";
 
@@ -27,8 +26,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const { data: user, isLoading: isUserLoading, error: userError } = useUser()
-  const router = useRouter()
-  // const queryClient = getQueryClient()
+
   const [isLoggingIn, setIsLoggingIn] = useState(false)
   const queryClient = new QueryClient()
   const login = async (email: string, password: string) => {

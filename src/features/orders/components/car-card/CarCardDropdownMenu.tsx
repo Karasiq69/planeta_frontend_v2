@@ -16,15 +16,19 @@ type Props = {}
 const CarCardDropdownMenu = (props: Props) => {
   const { id: orderId } = useParams()
 
+  if (!orderId || typeof orderId !== 'string') {
+    return null
+  }
+
   return (
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="icon">
+          <Button variant='outline' size='icon'>
             <EllipsisVertical />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent side="bottom" align="start">
+        <DropdownMenuContent side='bottom' align='start'>
           <DropdownMenuItem disabled>
             <CopyPlus size={16} strokeWidth={2} className='opacity-60' aria-hidden='true' />
             Сменить авто

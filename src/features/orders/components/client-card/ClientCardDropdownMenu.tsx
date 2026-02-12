@@ -16,6 +16,10 @@ type Props = {}
 const ClientCardDropdownMenu = (props: Props) => {
   const { id: orderId } = useParams()
 
+  if (!orderId || typeof orderId !== 'string') {
+    return null
+  }
+
   return (
     <div>
       <DropdownMenu>

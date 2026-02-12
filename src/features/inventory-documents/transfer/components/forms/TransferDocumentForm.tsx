@@ -1,7 +1,7 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ru } from 'date-fns/locale'
-import { CalendarIcon, Warehouse } from 'lucide-react'
+import { CalendarIcon } from 'lucide-react'
 import React, { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -19,25 +19,14 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import FormFieldOrganization from '@/features/inventory-documents/components/form-field-organization'
-import SuppliersSelectField from '@/features/inventory-documents/components/form-field-supplier'
+import FormFieldSelectWarehouse from '@/features/inventory-documents/components/form-field-select-warehouse'
+import FormFieldSelectOperation from '@/features/inventory-documents/transfer/components/forms/form-field-select-operation'
+import { UpdateTransferDocumentSchema } from '@/features/inventory-documents/transfer/components/forms/schema'
 import { OperationType } from '@/features/inventory-documents/transfer/types'
 import { cn } from '@/lib/utils'
 
-
-
-
-
-
-import type {
-  UpdateTransferDocumentDto} from '@/features/inventory-documents/transfer/components/forms/schema';
-import type { TransferDocument } from '@/features/inventory-documents/transfer/types';
-
-import { InventoryDocumentType } from '@/features/inventory-documents/types'
-import {
-  UpdateTransferDocumentSchema,
-} from '@/features/inventory-documents/transfer/components/forms/schema'
-import FormFieldSelectWarehouse from '@/features/inventory-documents/components/form-field-select-warehouse'
-import FormFieldSelectOperation from '@/features/inventory-documents/transfer/components/forms/form-field-select-operation'
+import type { UpdateTransferDocumentDto } from '@/features/inventory-documents/transfer/components/forms/schema'
+import type { TransferDocument } from '@/features/inventory-documents/transfer/types'
 
 type Props = {
   documentData?: TransferDocument

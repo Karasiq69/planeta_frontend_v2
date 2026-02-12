@@ -18,6 +18,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import FormFieldOrganization from '@/features/inventory-documents/components/form-field-organization'
+import SuppliersSelectField from '@/features/inventory-documents/components/form-field-supplier'
 import { UpdateReceiptDocumentSchema } from '@/features/inventory-documents/receipt/components/forms/schema'
 import {
   InventoryDocumentType
@@ -31,8 +33,6 @@ import type {
   ReceiptDocument,
   UpdateReceiptDocumentDto} from '@/features/inventory-documents/types';
 
-import SuppliersSelectField from '@/features/inventory-documents/components/form-field-supplier'
-import FormFieldOrganization from '@/features/inventory-documents/components/form-field-organization'
 
 
 type Props = {

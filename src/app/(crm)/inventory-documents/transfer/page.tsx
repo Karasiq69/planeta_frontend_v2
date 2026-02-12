@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import PageHeader from '@/components/common/PageHeader'
 import { Card, CardHeader } from '@/components/ui/card'
@@ -25,8 +25,9 @@ const Page = (props: Props) => {
         </div>
         <Card>
           <CardHeader></CardHeader>
-
-          <InventoryDocumentsTransferDatatable />
+          <Suspense fallback={<div>Загрузка...</div>}>
+            <InventoryDocumentsTransferDatatable />
+          </Suspense>
         </Card>
       </div>
     </section>

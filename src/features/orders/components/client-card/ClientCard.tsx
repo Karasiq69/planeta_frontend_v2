@@ -16,6 +16,11 @@ import ClientOrdersDropdownMenu from './ClientOrdersDropdownMenu'
 type Props = {}
 const ClientCard = (props: Props) => {
   const params = useParams()
+
+  if (!params.id || typeof params.id !== 'string') {
+    return <OrderSkeletonCard />
+  }
+
   const { data: order, isLoading } = useOrderById(+params.id)
 
   if (isLoading) return <OrderSkeletonCard />
