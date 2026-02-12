@@ -51,18 +51,6 @@ export const inventoryDocumentTransferColumns: ColumnDef<TransferDocument>[] = [
         size: 0,
     },
     {
-        accessorKey: "note",
-        meta: "Комментарий",
-        header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Комментарий"/>
-        ),
-        cell: ({row}) => {
-            return <div className="max-w-[200px] truncate">{row.original.note || '-'}</div>;
-        },
-        enableSorting: false,
-        size: 0,
-    },
-    {
         accessorKey: "user",
         meta: "Ответственный",
         header: ({column}) => (
@@ -81,19 +69,31 @@ export const inventoryDocumentTransferColumns: ColumnDef<TransferDocument>[] = [
             <DataTableColumnHeader column={column} title="Склад"/>
         ),
         cell: ({row}) => {
-            return <div>{row.original.warehouse?.name || '-'}</div>;
+            return <div>{row.original.transferDocument.sourceWarehouse?.name || '-'}</div>;
         },
         enableSorting: false,
         size: 0,
     },
     {
-        accessorKey: "transferDocument.destinationLocationId",
+        id: "warehouseReciever",
         meta: "Склад-получатель",
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Склад-получатель"/>
         ),
         cell: ({row}) => {
-            return <div>{row.original.transferDocument.destinationLocationId || '-'}</div>;
+            return <div>{row.original.transferDocument.destinationWarehouse?.name || '-'}</div>;
+        },
+        enableSorting: false,
+        size: 0,
+    },
+    {
+        accessorKey: "note",
+        meta: "Комментарий",
+        header: ({column}) => (
+            <DataTableColumnHeader column={column} title="Комментарий"/>
+        ),
+        cell: ({row}) => {
+            return <div className="max-w-[200px] truncate text-xs">{row.original.note || '-'}</div>;
         },
         enableSorting: false,
         size: 0,

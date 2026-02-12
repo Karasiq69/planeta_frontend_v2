@@ -20,14 +20,8 @@ const Page = (props: Props) => {
                     <Button variant={'outline'} disabled>Что-то еще сделать</Button>
                 </div>
                 <Card>
-                    <CardHeader>
-                        <CardTitle>
-                            Все приходные накладные // черновик
-                        </CardTitle>
-                    </CardHeader>
-                    <Suspense>
-                        <InventoryDocumentsReceiptDatatable/>
-                    </Suspense>
+                    <InventoryDocumentsReceiptDatatable/>
+
                 </Card>
             </div>
         </section>

@@ -27,29 +27,7 @@ const Page = (props: Props) => {
                 <PageHeader title={'Склад'} showBackButton={false}/>
 
                 <div className={'flex gap-5 items-center'}>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button>
-                                <SquarePlus/>
-                                Создать документ
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align={'start'}>
-                            <DropdownMenuLabel>Выбрать вариант</DropdownMenuLabel>
-                            <DropdownMenuSeparator/>
-                            <DropdownMenuItem onClick={()=>router.push(`${WAREHOUSE_URL}/new-receipt`)}>
-                                <DropdownMenuShortcut><FilePlus2/></DropdownMenuShortcut>
-                                Оформить приход
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <DropdownMenuShortcut><FileMinus2/></DropdownMenuShortcut>
-                                Оформить расход
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator/>
-                            <DropdownMenuItem disabled>Оформить списание</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                    <Button variant={'outline'}>Что-то еще сделать</Button>
+                    <Button disabled variant={'outline'}>Что-то сделать</Button>
                 </div>
                 <Card>
                     <Suspense>

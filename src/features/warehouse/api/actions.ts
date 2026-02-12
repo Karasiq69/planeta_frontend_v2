@@ -3,12 +3,14 @@ import {SERVICES_URL, STORAGE_LOCATIONS_URL, WAREHOUSE_URL} from "@/lib/constant
 import {ListParams, ListResponse} from "@/types/params";
 import {IService} from "@/features/services/types";
 import {ServiceFormData} from "@/features/services/components/forms/schema";
-import {InventoryTransaction, WarehouseItem} from "@/features/warehouse/types";
+import {WarehouseItem} from "@/features/warehouse/types";
 import {StorageLocation} from "@/features/warehouse/types/storage-locations";
 
+import {StockMovements} from "@/features/stock-movements/types/stock-movements";
 
-export const getAllInventoryTransactionsListFn = async (params: ListParams): Promise<ListResponse<InventoryTransaction>> => {
-    const response = await apiClient.get<ListResponse<InventoryTransaction>>(`${WAREHOUSE_URL}/transactions`, {
+
+export const getAllInventoryTransactionsListFn = async (params: ListParams): Promise<ListResponse<StockMovements>> => {
+    const response = await apiClient.get<ListResponse<StockMovements>>(`${WAREHOUSE_URL}/transactions`, {
         params
     });
     return response.data

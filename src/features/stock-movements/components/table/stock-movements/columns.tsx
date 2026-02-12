@@ -4,24 +4,13 @@ import {DataTableColumnHeader} from "@/components/common/table/data-table-column
 import {Button} from "@/components/ui/button";
 import {ArrowRightCircle} from "lucide-react";
 import Link from "next/link";
-import {InventoryTransaction, OperationType} from "@/features/warehouse/types";
 import {InventoryDocumentStatus, InventoryDocumentType} from "@/features/inventory-documents/types";
+import {getStatusConfig} from "@/features/inventory-documents/receipt/helpers/status-helper";
+import {Badge} from "@/components/ui/badge";
 
-export const inventoryTransactionsColumnsDefs: ColumnDef<InventoryTransaction>[] = [
-    {
-        id: "operationType",
-        header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Тип операции"/>
-        ),
-        cell: ({row}) => (
-            <div className="font-medium">
-                {row.original.document?.operationType
-                    ? OperationType[row.original.document.operationType]
-                    : '-'
-                }
-            </div>
-        )
-    },
+import {StockMovements} from "@/features/stock-movements/types/stock-movements";
+
+export const StockMovementsColumnsDefs: ColumnDef<StockMovements>[] = [
     {
         id: "documentType",
         header: ({column}) => (
@@ -33,6 +22,7 @@ export const inventoryTransactionsColumnsDefs: ColumnDef<InventoryTransaction>[]
                     ? InventoryDocumentType[row.original.document.type]
                     : '-'
                 }
+                {}
             </div>
         )
     },
@@ -42,28 +32,19 @@ export const inventoryTransactionsColumnsDefs: ColumnDef<InventoryTransaction>[]
             <DataTableColumnHeader column={column} title="Статус"/>
         ),
         cell: ({row}) => {
-            const status = row.original.document?.status;
-            if (!status) return <div>-</div>;
-
-            const statusColors = {
-                'DRAFT': 'bg-gray-100 text-gray-700',
-                'PENDING': 'bg-yellow-100 text-yellow-700',
-                'COMPLETED': 'bg-green-100 text-green-700',
-                'CANCELLED': 'bg-red-100 text-red-700'
-            };
+            const statusConfig = getStatusConfig(row.original.document.status);
 
             return (
-                <span
-                    className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${statusColors[status]}`}>
-                    {InventoryDocumentStatus[status]}
-                </span>
+                <Badge variant={statusConfig.variant}>
+                    {statusConfig.label}
+                </Badge>
             );
-        }
+        },
     },
     {
         accessorKey: "quantity",
         header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Количество"/>
+            <DataTableColumnHeader column={column} title="Кол-во"/>
         ),
         cell: ({row}) => {
             const quantity = parseFloat(row.getValue("quantity"));
@@ -73,7 +54,8 @@ export const inventoryTransactionsColumnsDefs: ColumnDef<InventoryTransaction>[]
                     {isPositive ? '+' : ''}{quantity}
                 </div>
             );
-        }
+        },
+        size: 0
     },
     {
         id: "product",
@@ -82,16 +64,12 @@ export const inventoryTransactionsColumnsDefs: ColumnDef<InventoryTransaction>[]
         ),
         cell: ({row}) => (
             <div className="w-auto">
-                <div className="font-medium">
+                <div className="font-medium text-xs">
                     {row.original.warehouseItem?.product?.name || '-'}
                 </div>
-                {row.original.warehouseItem?.product?.sku && (
-                    <div className="text-xs text-muted-foreground">
-                        {row.original.warehouseItem.product.sku}
-                    </div>
-                )}
             </div>
-        )
+        ),
+        size: 200
     },
     {
         id: "warehouse",
@@ -142,7 +120,7 @@ export const inventoryTransactionsColumnsDefs: ColumnDef<InventoryTransaction>[]
                     {note && <div className="truncate">{note}</div>}
                     {documentNote && (
                         <div className="text-xs text-muted-foreground truncate">
-                           {documentNote}
+                            {documentNote}
                         </div>
                     )}
                     {!note && !documentNote && '-'}
@@ -168,11 +146,6 @@ export const inventoryTransactionsColumnsDefs: ColumnDef<InventoryTransaction>[]
                             minute: '2-digit'
                         })}
                     </div>
-                    {documentDate && documentDate.toDateString() !== createdAt.toDateString() && (
-                        <div className="text-xs text-muted-foreground">
-                            Док: {documentDate.toLocaleDateString('ru-RU')}
-                        </div>
-                    )}
                 </div>
             );
         }

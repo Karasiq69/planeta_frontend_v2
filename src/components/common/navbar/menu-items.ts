@@ -1,4 +1,10 @@
-import {NavbarMenuItem} from "@/types/menus";
+ import {ReactNode} from "react";
+
+export interface NavbarMenuItem {
+    url: string
+    title: string
+    icon?: ReactNode
+}
 
 export const menuItemsConfig: NavbarMenuItem[] = [
     {

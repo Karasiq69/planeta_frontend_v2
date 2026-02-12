@@ -60,6 +60,8 @@ export interface TransferDocumentExt {
     destinationWarehouseId?: number,
     destinationLocationId?: number,
     relatedOrderId?: number
+    destinationWarehouse?: Warehouse
+    sourceWarehouse?: Warehouse
 }
 
 export interface TransferDocumentsQueryParams {
