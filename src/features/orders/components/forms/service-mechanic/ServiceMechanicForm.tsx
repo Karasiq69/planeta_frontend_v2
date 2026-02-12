@@ -1,38 +1,38 @@
 'use client'
-import { Button } from "@/components/ui/button"
-import { Form } from "@/components/ui/form"
-import {OrderServiceMechanic} from "@/features/orders/types";
-import {useOrderServiceMechanicForm} from "@/features/orders/hooks/useOrderServiceMechanicForm";
-import ServiceMechanicFormFields
-    from "@/features/orders/components/forms/service-mechanic/service-mechanic-form-fields";
-import LoaderAnimated from "@/components/ui/LoaderAnimated";
+import { Button } from '@/components/ui/button'
+import { Form } from '@/components/ui/form'
+import LoaderAnimated from '@/components/ui/LoaderAnimated'
+import ServiceMechanicFormFields from '@/features/orders/components/forms/service-mechanic/service-mechanic-form-fields'
+import { useOrderServiceMechanicForm } from '@/features/orders/hooks/useOrderServiceMechanicForm'
+
+import type { OrderServiceMechanic } from '@/features/orders/types'
 
 type Props = {
-    orderServiceId: number;
-    mechanicData?: OrderServiceMechanic;
-    onCreate?: (data: OrderServiceMechanic) => void;
-    onUpdate?: (mechanicId: number) => OrderServiceMechanic;
-};
+  orderServiceId: number
+  mechanicData?: OrderServiceMechanic
+  onCreate?: (data: OrderServiceMechanic) => void
+  onUpdate?: (mechanicId: number) => OrderServiceMechanic
+}
 
-const ServiceMechanicForm = ({orderServiceId, mechanicData, onCreate, onUpdate}: Props) => {
-    const {form, onSubmit, isLoading} = useOrderServiceMechanicForm({
-        orderServiceId,
-        mechanicData, 
-        onUpdate, 
-        onCreate
-    });
+const ServiceMechanicForm = ({ orderServiceId, mechanicData, onCreate, onUpdate }: Props) => {
+  const { form, onSubmit, isLoading } = useOrderServiceMechanicForm({
+    orderServiceId,
+    mechanicData,
+    onUpdate,
+    onCreate,
+  })
 
-    return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                <ServiceMechanicFormFields form={form}/>
-                <Button disabled={isLoading} variant={'default'} className={'w-full'} type="submit">
-                    {mechanicData ? 'Обновить' : 'Добавить механика'} 
-                    {isLoading && <LoaderAnimated className={'text-white'}/>}
-                </Button>
-            </form>
-        </Form>
-    );
-};
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
+        <ServiceMechanicFormFields form={form} />
+        <Button disabled={isLoading} variant="default" className="w-full" type='submit'>
+          {mechanicData ? 'Обновить' : 'Добавить механика'}
+          {isLoading && <LoaderAnimated className="text-white" />}
+        </Button>
+      </form>
+    </Form>
+  )
+}
 
-export default ServiceMechanicForm; 
+export default ServiceMechanicForm

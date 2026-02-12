@@ -1,7 +1,3 @@
 export function useTodos() {
-
-
-    return {
-
-    }
+  return {}
 }

@@ -1,6 +1,7 @@
-import {z} from "zod";
+import { z } from 'zod'
 
-export const organizationSchema = z.object({
+export const organizationSchema = z
+  .object({
     id: z.number(),
     name: z.string(),
     inn: z.string(),
@@ -16,4 +17,5 @@ export const organizationSchema = z.object({
     logo: z.string().optional(),
     createdAt: z.string().optional(),
     updatedAt: z.string().optional(),
-}).optional();
+  })
+  .optional()

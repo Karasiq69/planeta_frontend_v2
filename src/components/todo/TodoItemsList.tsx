@@ -161,10 +161,8 @@
 //     )
 // }
 
-type Props = {};
+type Props = {}
 const TodoItemsList = (props: Props) => {
-    return (
-        <div>TodoItemsList</div>
-    );
-};
-export default TodoItemsList;
+  return <div>TodoItemsList</div>
+}
+export default TodoItemsList

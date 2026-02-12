@@ -1,9 +1,7 @@
-import NewCarPageWrapper from "@/features/cars/components/NewCarPageWrapper";
+import NewCarPageWrapper from '@/features/cars/components/NewCarPageWrapper'
 
-type Props = {};
+type Props = {}
 const Page = (props: Props) => {
-    return (
-        <NewCarPageWrapper/>
-    );
-};
-export default Page;
+  return <NewCarPageWrapper />
+}
+export default Page

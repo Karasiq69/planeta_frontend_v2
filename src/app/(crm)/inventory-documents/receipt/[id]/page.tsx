@@ -1,51 +1,51 @@
-import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import {Separator} from "@/components/ui/separator";
-import React from "react";
-import {Button} from "@/components/ui/button";
-import {Printer, Trash2} from "lucide-react";
-import PageHeader from "@/components/common/PageHeader";
-import ReceiptFormContainer from "@/features/inventory-documents/receipt/components/ReceiptFormContainer";
-import ReceiptSubmitButton from "@/features/inventory-documents/receipt/components/forms/ReceiptSubmitButton";
-import ReceiptItemsContainer from "@/features/inventory-documents/receipt/components/ReceiptItemsContainer";
+import { Printer, Trash2 } from 'lucide-react'
+import React from 'react'
 
-const Page = async (
-    props: {
-        params: Promise<{ [key: string]: string | string[] | undefined }>;
-    }
-) => {
-    const params = await props.params;
-    const docId = Number(params.id)
+import PageHeader from '@/components/common/PageHeader'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import ReceiptSubmitButton from '@/features/inventory-documents/receipt/components/forms/ReceiptSubmitButton'
+import ReceiptFormContainer from '@/features/inventory-documents/receipt/components/ReceiptFormContainer'
+import ReceiptItemsContainer from '@/features/inventory-documents/receipt/components/ReceiptItemsContainer'
 
-    return (
-        <div className={'space-y-5 w-full overflow-y-hidden  min-w-full'}>
-            <section className={'flex flex-col lg:flex-row gap-3 lg:justify-between'}>
+const Page = async (props: {
+  params: Promise<{ [key: string]: string | string[] | undefined }>
+}) => {
+  const params = await props.params
+  const docId = Number(params.id)
 
-                <div className={'flex flex-wrap gap-5'}>
-                    <PageHeader title={`Приходная накладная №${docId}`} showBackButton/>
-
-                </div>
-
-                <div className="flex gap-3 flex-wrap">
-                    <ReceiptSubmitButton documentId={docId}/>
-
-                    <Button variant="outline" size={'sm'}><Printer size={16}/></Button>
-                    <Button disabled variant="destructive" size={'sm'}><Trash2 size={16}/></Button>
-                </div>
-            </section>
-
-            <Card>
-                <CardHeader className={''}>
-                    <ReceiptFormContainer documentId={docId}/>
-                </CardHeader>
-
-                <Separator/>
-                <CardContent className={'bg-muted rounded-lg space-y-3 overflow-x-auto'}>
-                    <ReceiptItemsContainer documentId={docId}/>
-                    {/*<InventoryDocumentsFooter documentId={docId}/>*/}
-                </CardContent>
-
-            </Card>
+  return (
+    <div className="space-y-5 w-full overflow-y-hidden  min-w-full">
+      <section className="flex flex-col lg:flex-row gap-3 lg:justify-between">
+        <div className="flex flex-wrap gap-5">
+          <PageHeader title={`Приходная накладная №${docId}`} showBackButton />
         </div>
-    );
-};
-export default Page;
+
+        <div className='flex gap-3 flex-wrap'>
+          <ReceiptSubmitButton documentId={docId} />
+
+          <Button variant='outline' size="sm">
+            <Printer size={16} />
+          </Button>
+          <Button disabled variant='destructive' size="sm">
+            <Trash2 size={16} />
+          </Button>
+        </div>
+      </section>
+
+      <Card>
+        <CardHeader className="">
+          <ReceiptFormContainer documentId={docId} />
+        </CardHeader>
+
+        <Separator />
+        <CardContent className="bg-muted rounded-lg space-y-3 overflow-x-auto">
+          <ReceiptItemsContainer documentId={docId} />
+          {/*<InventoryDocumentsFooter documentId={docId}/>*/}
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+export default Page

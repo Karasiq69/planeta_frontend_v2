@@ -1,43 +1,41 @@
-export const CLIENTS_URL = '/clients';
-export const CARS_URL = '/cars';
-export const CAR_MODELS_URL = '/models';
-export const BRANDS_URL = '/brands';
-export const MILEAGES_URL = `${CARS_URL}/mileages`;
-export const ORDERS_URL = '/orders';
-export const SERVICES_URL = '/services';
-export const PRODUCTS_URL = '/products';
-export const MECHANICS_URL = '/mechanics';
-export const COMMENTS_URL = '/comments';
-export const ORDER_SERVICES_URL = '/order-services';
+export const CLIENTS_URL = '/clients'
+export const CARS_URL = '/cars'
+export const CAR_MODELS_URL = '/models'
+export const BRANDS_URL = '/brands'
+export const MILEAGES_URL = `${CARS_URL}/mileages`
+export const ORDERS_URL = '/orders'
+export const SERVICES_URL = '/services'
+export const PRODUCTS_URL = '/products'
+export const MECHANICS_URL = '/mechanics'
+export const COMMENTS_URL = '/comments'
+export const ORDER_SERVICES_URL = '/order-services'
 
-export const ORDER_PRODUCTS_URL = '/order-products';
-export const ORDER_MECHANICS_URL = '/order-mechanics';
-export const COMMANDS_URL = '/commands';
-export const APPOINTMENTS_URL = '/appointments';
-export const WAREHOUSE_URL = '/warehouse';
-export const STORAGE_LOCATIONS_URL = '/storage-locations';
-export const INVENTORY_DOCUMENTS_URL = '/inventory-documents';
-export const SUPPLIER_URL = '/suppliers';
-export const ORGANIZATIONS_URL = '/organizations';
-export const CLIENT_ORDERS = '/client-orders';
+export const ORDER_PRODUCTS_URL = '/order-products'
+export const ORDER_MECHANICS_URL = '/order-mechanics'
+export const COMMANDS_URL = '/commands'
+export const APPOINTMENTS_URL = '/appointments'
+export const WAREHOUSE_URL = '/warehouse'
+export const STORAGE_LOCATIONS_URL = '/storage-locations'
+export const INVENTORY_DOCUMENTS_URL = '/inventory-documents'
+export const SUPPLIER_URL = '/suppliers'
+export const ORGANIZATIONS_URL = '/organizations'
+export const CLIENT_ORDERS = '/client-orders'
 export const RECEIPT_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/receipt`
 export const TRANSFER_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/transfer`
 
-
-
 export const BRAND_LOGOS: Record<string, string> = {
-  'Porsche': 'porsche-logo.svg',
+  Porsche: 'porsche-logo.svg',
   'Mercedes-Benz': 'mercedes-logo.svg',
-  'BMW': 'bmw-logo.svg',
-  'Audi': 'audi-logo.svg',
- } as const;
+  BMW: 'bmw-logo.svg',
+  Audi: 'audi-logo.svg',
+} as const
 
 export const STATION_RESOURCES = [
-    {
-        id: 'A',
-        title: 'Подъемник 1',
-        eventColor: '#cfeea8',
-        eventTextColor: '#062000',
+  {
+    id: 'A',
+    title: 'Подъемник 1',
+    eventColor: '#cfeea8',
+    eventTextColor: '#062000',
     eventBorderColor: '#98af7a',
   },
   {
@@ -55,13 +53,13 @@ export const STATION_RESOURCES = [
     eventBorderColor: '#ccbc71',
   },
   {
-        id: 'F',
-        title: 'Сход Развал',
-        eventColor: '#ffb8b8',
-        eventTextColor: '#500000',
-        eventBorderColor: '#c68787'
-    },
-    {
+    id: 'F',
+    title: 'Сход Развал',
+    eventColor: '#ffb8b8',
+    eventTextColor: '#500000',
+    eventBorderColor: '#c68787',
+  },
+  {
     id: 'D',
     title: 'Диагност',
     eventColor: '#b8e6ff',
@@ -75,4 +73,4 @@ export const STATION_RESOURCES = [
     eventTextColor: '#570228',
     eventBorderColor: '#c69dac',
   },
-] as const;
+] as const

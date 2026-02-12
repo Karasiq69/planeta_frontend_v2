@@ -1,47 +1,50 @@
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
-import {useState} from "react";
-import {OrderService} from "../types";
-import {OrderServiceFormData, orderServiceSchema} from "../components/forms/order-service/schema";
-import {useUpdateOrderService} from "@/features/orders/api/mutations";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+
+import { useUpdateOrderService } from '@/features/orders/api/mutations'
+
+import { orderServiceSchema } from '../components/forms/order-service/schema'
+
+import type { OrderServiceFormData} from '../components/forms/order-service/schema';
+import type { OrderService } from '../types'
+
 
 type Props = {
-    orderServiceData?: OrderService;
-    orderId: number;
-    onUpdate?: (orderServiceId: number) => void;
-    onCreate?: (data: OrderService) => void;
-};
+  orderServiceData?: OrderService
+  orderId: number
+  onUpdate?: (orderServiceId: number) => void
+  onCreate?: (data: OrderService) => void
+}
 
-export const useOrderServiceForm = ({orderServiceData, orderId, onUpdate, onCreate}: Props) => {
+export const useOrderServiceForm = ({ orderServiceData, orderId, onUpdate, onCreate }: Props) => {
+  const { mutate: updateOrderService, isPending: isUpdatePending } = useUpdateOrderService(orderId)
 
-    const {mutate: updateOrderService, isPending: isUpdatePending} = useUpdateOrderService(orderId)
+  const form = useForm<OrderServiceFormData>({
+    resolver: zodResolver(orderServiceSchema),
+    defaultValues: {
+      defaultDuration: orderServiceData?.defaultDuration || 60,
+      appliedRate: orderServiceData?.appliedRate || 0,
+      appliedPrice: orderServiceData?.appliedPrice || 0,
+      discountPercent: orderServiceData?.discountPercent || 0,
+    },
+  })
 
-    const form = useForm<OrderServiceFormData>({
-        resolver: zodResolver(orderServiceSchema),
-        defaultValues: {
-            defaultDuration: orderServiceData?.defaultDuration || 60,
-            appliedRate: orderServiceData?.appliedRate || 0,
-            appliedPrice: orderServiceData?.appliedPrice || 0,
-            discountPercent: orderServiceData?.discountPercent || 0,
-        },
-    });
+  const onSubmit = async (data: OrderServiceFormData) => {
+    if (orderServiceData?.id) {
+      updateOrderService({
+        data: data,
+        orderServiceId: orderServiceData.id,
+      })
+      // await updateOrderService.mutateAsync({ id: orderServiceData.id, ...serviceData });
+      onUpdate?.(orderServiceData.id)
+    } else {
+      // const newOrderService = await createOrderService.mutateAsync(serviceData);
+      // onCreate?.(newOrderService);
+    }
+  }
 
-    const onSubmit = async (data: OrderServiceFormData) => {
+  const isLoading = isUpdatePending
 
-        if (orderServiceData?.id) {
-             updateOrderService({
-                data: data,
-                orderServiceId: orderServiceData.id
-            })
-            // await updateOrderService.mutateAsync({ id: orderServiceData.id, ...serviceData });
-            onUpdate?.(orderServiceData.id);
-        } else {
-             // const newOrderService = await createOrderService.mutateAsync(serviceData);
-            // onCreate?.(newOrderService);
-        }
-    };
-
-    const isLoading = isUpdatePending
-
-    return {form, onSubmit, isLoading};
-};
+  return { form, onSubmit, isLoading }
+}

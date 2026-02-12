@@ -140,11 +140,8 @@
 // };
 // export default Page;
 
-
-type Props = {};
+type Props = {}
 const Page = (props: Props) => {
-    return (
-        <div>Page</div>
-    );
-};
-export default Page;
+  return <div>Page</div>
+}
+export default Page

@@ -1,23 +1,20 @@
-import MainCalendar from "@/features/appointments/MainCalendar";
-import React from "react";
-import PageHeader from "@/components/common/PageHeader";
+import React from 'react'
 
-type Props = {};
+import PageHeader from '@/components/common/PageHeader'
+import MainCalendar from '@/features/appointments/MainCalendar'
+
+type Props = {}
 const Page = (props: Props) => {
-    return (
+  return (
+    <section>
+      <div className="space-y-5">
+        <PageHeader title="Календарь" />
 
-        <section>
-
-            <div className={'space-y-5'}>
-                <PageHeader title={"Календарь"}/>
-
-                <>
-               <MainCalendar/>
-                </>
-
-            </div>
-        </section>
-    );
-};
-export default Page;
-          
+        <>
+          <MainCalendar />
+        </>
+      </div>
+    </section>
+  )
+}
+export default Page
