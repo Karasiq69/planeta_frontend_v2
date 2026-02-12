@@ -6,11 +6,12 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {Button} from "@/components/ui/button";
 
 type Props = {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 };
-const Page = async ({params}: Props) => {
+const Page = async (props: Props) => {
+    const params = await props.params;
     const client = await getClientById(+params.id)
     return (
         <>

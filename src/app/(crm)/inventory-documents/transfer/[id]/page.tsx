@@ -8,11 +8,12 @@ import TransferFormContainer from "@/features/inventory-documents/transfer/compo
 import TransferItemsContainer from "@/features/inventory-documents/transfer/components/TransferItemsContainer";
 import TransferSubmitButton from "@/features/inventory-documents/transfer/components/forms/TransferSubmitButton";
 
-const Page = async ({
-                        params,
-                    }: {
-    params: { [key: string]: string | string[] | undefined };
-}) => {
+const Page = async (
+    props: {
+        params: Promise<{ [key: string]: string | string[] | undefined }>;
+    }
+) => {
+    const params = await props.params;
     const docId = Number(params.id)
 
     return (

@@ -5,11 +5,12 @@ import {Button} from "@/components/ui/button";
 import GoBackButton from "@/components/common/GoBackButton";
 
 type Props = {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 };
-const Page = async ({params}: Props) => {
+const Page = async (props: Props) => {
+    const params = await props.params;
     return (
         <>
             <section>

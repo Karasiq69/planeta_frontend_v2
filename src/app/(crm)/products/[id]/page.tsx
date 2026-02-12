@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, { use } from "react";
 import {useProductById} from "@/features/products/api/queries";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
 import Pre from "@/components/ui/Pre";
@@ -7,11 +7,12 @@ import ProductForm from "@/features/products/components/forms/ProductForm";
 import PageHeader from "@/components/common/PageHeader";
 
 type Props = {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 };
-const Page = ({params}: Props) => {
+const Page = (props: Props) => {
+    const params = use(props.params);
     const productId = Number(params.id)
     const {data: product, isLoading} = useProductById(productId)
 

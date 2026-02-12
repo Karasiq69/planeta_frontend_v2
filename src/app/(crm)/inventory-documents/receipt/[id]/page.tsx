@@ -8,11 +8,12 @@ import ReceiptFormContainer from "@/features/inventory-documents/receipt/compone
 import ReceiptSubmitButton from "@/features/inventory-documents/receipt/components/forms/ReceiptSubmitButton";
 import ReceiptItemsContainer from "@/features/inventory-documents/receipt/components/ReceiptItemsContainer";
 
-const Page = async ({
-                        params,
-                    }: {
-    params: { [key: string]: string | string[] | undefined };
-}) => {
+const Page = async (
+    props: {
+        params: Promise<{ [key: string]: string | string[] | undefined }>;
+    }
+) => {
+    const params = await props.params;
     const docId = Number(params.id)
 
     return (
