@@ -35,7 +35,7 @@ const ServicesCombobox = ({orderId}:{orderId: number}) => {
                     <div className="flex flex-col">
                         <div className="flex w-full  items-center text-nowrap">
 
-                            <div className={'w-full flex-grow'}>
+                            <div className={'w-full grow'}>
                                 <p className=" flex gap-1 items-center justify-between">
                                     <span className={'text-muted-foreground'}>
                                         {service.id}</span>

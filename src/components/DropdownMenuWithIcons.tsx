@@ -30,7 +30,7 @@ export function DropdownMenuWithIcons({ items, children }: SimpleDropdownMenuPro
                 {children}
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className={'w-[--radix-dropdown-menu-trigger-width] min-w-20'}>
+            <DropdownMenuContent className={'w-(--radix-dropdown-menu-trigger-width) min-w-20'}>
                 {items.map((item) => {
                     const Icon = item.icon;
 

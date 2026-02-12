@@ -82,7 +82,7 @@ const ServicesTabContent = (props: Props) => {
                                                 <TableCell colSpan={row.getAllCells().length}
                                                            className={'bg-muted p-0'}>
                                                     <div
-                                                        className={'bg-gradient-to-t from-gray-50 to-zinc-200 p-3 px-10 shadow-inner'}>
+                                                        className={'bg-linear-to-t from-gray-50 to-zinc-200 p-3 px-10 shadow-inner'}>
                                                         <DataTableSimpleMech
                                                             data={row.getValue('mechanics') || []}
                                                             columns={mechanicsColumns}/>

@@ -20,7 +20,7 @@ export const MechanicCard = ({mechanic}: MechanicCardProps) => {
     };
 
     return (
-        <div className="flex items-center justify-between gap-3 p-2 bg-white rounded-md shadow-sm border">
+        <div className="flex items-center justify-between gap-3 p-2 bg-white rounded-md shadow-xs border">
             <div className="flex gap-2 items-center">
                 <Avatar className="size-7">
                     <AvatarImage src={logoUrl}/>

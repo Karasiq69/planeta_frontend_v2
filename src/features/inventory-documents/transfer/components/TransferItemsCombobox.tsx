@@ -39,7 +39,7 @@ const TransferItemsCombobox = ({onSelectProduct, isPending}: TransferItemsCombob
                     <div className="w-full">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-5">
-                                <span className="flex-grow">{warehouseItem?.product?.name}</span>
+                                <span className="grow">{warehouseItem?.product?.name}</span>
                                 <span className="text-xs text-muted-foreground grow-0">{warehouseItem?.product?.sku}</span>
                             </div>
                             <Badge variant="outline" className="ml-auto font-normal text-muted-foreground">

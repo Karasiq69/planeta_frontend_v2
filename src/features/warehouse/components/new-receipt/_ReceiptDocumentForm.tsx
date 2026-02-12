@@ -399,7 +399,7 @@ const _ReceiptDocumentForm = () => {
 
 
                                     <Table className={'table-auto '}>
-                                        <TableHeader className={'sticky top-0 z-10 bg-background/90 backdrop-blur-sm'}>
+                                        <TableHeader className={'sticky top-0 z-10 bg-background/90 backdrop-blur-xs'}>
                                             <TableRow>
                                                 <TableHead className="w-12">№</TableHead>
                                                 <TableHead>Номенклатура</TableHead>

@@ -49,7 +49,7 @@ const CarCombobox = ({handleSelect}: Props) => {
                                         {car.brand?.name?.charAt(0) || 'B'}
                                     </AvatarFallback>
                                 </Avatar>
-                                <div className={'w-full flex-grow'}>
+                                <div className={'w-full grow'}>
                                     <p className="font-bold flex gap-1 items-center justify-between">{getFullModelName(car.model)}
                                     <span className={'text-muted-foreground text-xs'}>{car.licensePlate}</span>
                                     </p>

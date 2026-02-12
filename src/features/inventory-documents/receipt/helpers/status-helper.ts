@@ -7,7 +7,7 @@ export type BadgeVariant =
     "default"
     | "secondary"
     | "destructive"
-    | "outline"
+    | "outline-solid"
     | "success"
     | "warning"
     | "info"

@@ -44,7 +44,7 @@ const OrderStatusSelect = ({order}: Props) => {
         <div>
             <span className={'text-xs text-muted-foreground'}>Сменить статус на:</span>
             <div className="flex items-center gap-1">
-                <div className="inline-flex -space-x-px rounded-lg shadow-sm shadow-black/5 rtl:space-x-reverse">
+                <div className="inline-flex -space-x-px rounded-lg shadow-xs shadow-black/5 rtl:space-x-reverse">
 
                     <Button
                         className={cn("rounded-none shadow-none first:rounded-s-lg last:rounded-e-lg focus-visible:z-10 group", nextStatusColor)}

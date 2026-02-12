@@ -25,7 +25,7 @@ export function MenuItem({ title, url, icon: Icon, isActive, isOpen }: MenuItemP
                             className={cn(
                                 'w-full justify-start h-10 mb-1 transition-all duration-200 ',
                                 'hover:translate-x-1 hover:bg-background',
-                                isActive && 'flex gap-2 rounded-lg items-center h-10 bg-background shadow border translate-x-1'
+                                isActive && 'flex gap-2 rounded-lg items-center h-10 bg-background shadow-sm border translate-x-1'
                             )}
                             asChild
                         >

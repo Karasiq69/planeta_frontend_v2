@@ -11,7 +11,7 @@ import {
 
 export function SectionCards() {
     return (
-        <div className="*:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-4 grid grid-cols-1 gap-4  *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card ">
+        <div className="data-[slot=card]:*:shadow-2xs md:grid-cols-2 lg:grid-cols-4 grid grid-cols-1 gap-4  data-[slot=card]:*:bg-linear-to-t data-[slot=card]:*:from-primary/5 data-[slot=card]:*:to-card dark:data-[slot=card]:*:bg-card ">
             <Card className="">
                 <CardHeader className="relative">
                     <CardDescription>Заказов в работе</CardDescription>

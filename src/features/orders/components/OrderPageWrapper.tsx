@@ -49,7 +49,7 @@ const OrderPageWrapper = ({orderId}: Props) => {
             <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3  gap-5">
                 {/* left section*/}
                 <div className="md:col-span-2 space-y-5">
-                    <div className="grid grid-cols-1 lg:grid-cols-2  gap-4 md:min-h-[156px]   drop-shadow-sm">
+                    <div className="grid grid-cols-1 lg:grid-cols-2  gap-4 md:min-h-[156px]   drop-shadow-xs">
                         <ClientCard/>
                         <CarCard/>
                     </div>

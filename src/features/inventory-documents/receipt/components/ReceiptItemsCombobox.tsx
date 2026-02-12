@@ -39,7 +39,7 @@ const ReceiptItemsCombobox = ({onSelectProduct, isPending}: InventoryDocumentPro
                     <div className="w-full">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-5">
-                                <span className="flex-grow">{product.name}</span>
+                                <span className="grow">{product.name}</span>
                                 <span className="text-xs text-muted-foreground grow-0">{product.sku}</span>
                             </div>
                             <Badge variant="outline" className="ml-auto font-normal text-muted-foreground">
