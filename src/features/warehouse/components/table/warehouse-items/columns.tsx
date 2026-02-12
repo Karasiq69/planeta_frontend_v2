@@ -14,11 +14,21 @@ export const warehouseItemsColumnsDefs: ColumnDef<WarehouseItem>[] = [
             <DataTableColumnHeader column={column} title="Товар"/>
         ),
         cell: ({ row }) => (
-            <div className="w-auto">
+            <div className="w-full">
                 <div className="font-medium">{row.original.product?.name || '-'}</div>
-                <div className="text-sm text-muted-foreground">
-                    {row.original.product?.sku || '-'}
-                </div>
+
+            </div>
+        ),
+        size: 200
+    },
+    {
+        accessorKey: "product.sku",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Артикул"/>
+        ),
+        cell: ({ row }) => (
+            <div className="w-auto text-xs">
+                {row.original.product?.sku || '-'}
             </div>
         )
     },
@@ -75,17 +85,6 @@ export const warehouseItemsColumnsDefs: ColumnDef<WarehouseItem>[] = [
         cell: ({ row }) => (
             <div className="font-medium">
                 {formatPrice(row.original.product?.price || 0)}
-            </div>
-        )
-    },
-    {
-        accessorKey: "updatedAt",
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Обновлено"/>
-        ),
-        cell: ({ row }) => (
-            <div>
-                {new Date(row.getValue("updatedAt")).toLocaleDateString('ru-RU')}
             </div>
         )
     },

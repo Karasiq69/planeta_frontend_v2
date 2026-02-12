@@ -26,8 +26,8 @@ import {
 import {useRouter} from "next/navigation";
 import {INVENTORY_DOCUMENTS_URL, WAREHOUSE_URL} from "@/lib/constants";
 import PageHeader from "@/components/common/PageHeader";
-import InventoryTransactionsDataTable
-    from "@/features/transactions/components/table/transactions/InventoryTransactionsDataTable";
+import StockMovementsDataTable
+    from "@/features/stock-movements/components/table/stock-movements/StockMovementsDataTable";
 import {DropdownMenuWithIcons, DropdownWithIconMenuItem} from "@/components/DropdownMenuWithIcons";
 
 
@@ -113,7 +113,7 @@ const Page = () => {
                 <Card>
                     <Suspense>
                         {/*<InventoryTransactionsDataTable/>*/}
-                        <InventoryTransactionsDataTable/>
+                        <StockMovementsDataTable/>
                     </Suspense>
                 </Card>
 

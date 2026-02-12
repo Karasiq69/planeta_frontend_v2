@@ -148,19 +148,6 @@ const data = {
                     url: `${INVENTORY_DOCUMENTS_URL}/${InventoryDocumentType.TRANSFER.toLowerCase()}`,
                 },
                 {
-                    title: "_Расходные накладные",
-                    url: `${INVENTORY_DOCUMENTS_URL}/${InventoryDocumentType.EXPENSE.toLowerCase()}`,
-                },
-                {
-                    title: "_Возвраты",
-                    url: `${INVENTORY_DOCUMENTS_URL}/${InventoryDocumentType.RETURN.toLowerCase()}`,
-                },
-
-                {
-                    title: "--Документы",
-                    url: "/inventory-documents",
-                },
-                {
                     title: "--Движения товаров",
                     url: "/warehouse/transactions",
                 },

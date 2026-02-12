@@ -6,13 +6,13 @@ import {getCoreRowModel, getPaginationRowModel, useReactTable} from "@tanstack/r
 import React, {useMemo, useState} from "react";
 import {useSearchParams} from "next/navigation";
 import ProductsSearchBox from "@/features/products/components/table/ProductsSearchBox";
-import {inventoryTransactionsColumnsDefs} from "@/features/warehouse/components/table/transactions/columns";
 import {useAllInventoryTransactions} from "@/features/warehouse/api/queries";
+import {StockMovementsColumnsDefs} from "@/features/stock-movements/components/table/stock-movements/columns";
 
 type Props = {};
-const InventoryTransactionsDataTable = (props: Props) => {
+const StockMovementsDataTable = (props: Props) => {
 
-    const columns = useMemo(() => inventoryTransactionsColumnsDefs, []);
+    const columns = useMemo(() => StockMovementsColumnsDefs, []);
     const searchParams = useSearchParams();
     const searchTerm = searchParams.get('search');
     const [pagination, setPagination] = useState({
@@ -58,4 +58,4 @@ const InventoryTransactionsDataTable = (props: Props) => {
         </div>
     );
 };
-export default InventoryTransactionsDataTable;
+export default StockMovementsDataTable;

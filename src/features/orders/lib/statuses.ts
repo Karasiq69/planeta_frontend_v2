@@ -9,23 +9,17 @@ export interface StatusItem {
     color: string;
 }
 export const statuses: StatusItem[] = [
-    {
-        value: OrderStatus.APPLICATION,
-        label: "Заявка",
-        icon: CircleDashed,
-        color: "bg-gray-100 text-gray-800 hover:bg-gray-200", // Серый цвет для заявки
-    },
+    // {
+    //     value: OrderStatus.APPLICATION,
+    //     label: "Заявка",
+    //     icon: CircleDashed,
+    //     color: "bg-gray-100 text-gray-800 hover:bg-gray-200", // Серый цвет для заявки
+    // },
     {
         value: OrderStatus.ORDER,
         label: "Заказ-наряд",
         icon: CircleEqual,
         color: "bg-sky-100 text-sky-800 hover:bg-sky-200",
-    },
-    {
-        value: OrderStatus.WAITING_WAREHOUSE,
-        label: "Ждет склад",
-        icon: Warehouse,
-        color: "bg-amber-100 text-amber-800 hover:bg-amber-200",
     },
     {
         value: OrderStatus.IN_PROGRESS,
@@ -34,16 +28,22 @@ export const statuses: StatusItem[] = [
         color: "bg-violet-100 text-violet-800 hover:bg-violet-200",
     },
     {
-        value: OrderStatus.WAITING_PAYMENT,
-        label: "Ждет оплаты",
-        icon: FileClock,
-        color: "bg-emerald-100 text-emerald-800 hover:bg-emerald-200",
+        value: OrderStatus.WAITING_WAREHOUSE,
+        label: "Ждет склад",
+        icon: Warehouse,
+        color: "bg-amber-100 text-amber-800 hover:bg-amber-200",
     },
     {
         value: OrderStatus.COMPLETED,
         label: "Завершен",
         icon: CircleCheck,
         color: "bg-green-100 text-green-800 hover:bg-green-200",
+    },
+    {
+        value: OrderStatus.WAITING_PAYMENT,
+        label: "Ждет оплаты",
+        icon: FileClock,
+        color: "bg-emerald-100 text-emerald-800 hover:bg-emerald-200",
     },
     {
         value: OrderStatus.CANCELLED,

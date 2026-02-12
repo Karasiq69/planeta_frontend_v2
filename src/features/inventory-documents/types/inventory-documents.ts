@@ -1,6 +1,8 @@
 import {z} from "zod";
 import {
-    CreateReceiptDocumentSchema, GetReceiptDocumentsQuerySchema, ReceiptItemSchema,
+    CreateReceiptDocumentSchema,
+    GetReceiptDocumentsQuerySchema,
+    ReceiptItemSchema,
     UpdateReceiptDocumentSchema
 } from "@/features/inventory-documents/receipt/components/forms/schema";
 import {Product} from "@/features/products/types";
@@ -9,6 +11,7 @@ import {User} from "@/types";
 import {Supplier} from "@/features/suppliers/types";
 import {Order} from "@/features/orders/types";
 import {Organization} from "@/features/organizations/types";
+import {OperationTypeEnum} from "@/helpers";
 
 export const InventoryDocumentType = {
     RECEIPT: 'RECEIPT',
@@ -117,5 +120,33 @@ export interface ReceiptDocumentsQueryParams {
     dateFrom?: string;
     dateTo?: string;
     searchTerm?: string;
+}
+
+export const DocumentMovementTypeEnum = {
+    RECEIPT: 'RECEIPT',           // Поступление
+    RESERVED: 'RESERVED',         // Резервирование
+    WRITE_OFF: 'WRITE_OFF',       // Списание
+    RETURN: 'RETURN',             // Возврат
+    INVENTORY: 'INVENTORY',       // Инвентаризация
+    TRANSFER: 'TRANSFER'          // Перемещение
+} as const;
+
+export type  DocumentTypes = 'RECEIPT' | 'RESERVED' | 'WRITE_OFF' | 'RETURN' | 'INVENTORY' | 'TRANSFER'
+
+export interface BaseDocument {
+    id: number;
+    number: string | null;
+    date: string;
+    userId: number;
+    status: InventoryDocumentStatus;
+    type: InventoryDocumentType;
+    warehouseId: number | null;
+    totalAmount: number;
+    organizationId: number;
+    operationType: OperationTypeEnum;
+    note: string | null;
+    createdAt: string;
+    completedAt: string | null;
+    updatedAt: string;
 }
 

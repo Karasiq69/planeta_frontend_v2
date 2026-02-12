@@ -20,6 +20,10 @@ export const INVENTORY_DOCUMENTS_URL = '/inventory-documents';
 export const SUPPLIER_URL = '/suppliers';
 export const ORGANIZATIONS_URL = '/organizations';
 export const CLIENT_ORDERS = '/client-orders';
+export const RECEIPT_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/receipt`
+export const TRANSFER_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/transfer`
+
+
 
 export const BRAND_LOGOS: Record<string, string> = {
   'Porsche': 'porsche-logo.svg',
@@ -72,5 +76,3 @@ export const STATION_RESOURCES = [
     eventBorderColor: '#c69dac',
   },
 ] as const;
-
-export type StationResource = (typeof STATION_RESOURCES)[number];
