@@ -1,16 +1,5 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Commands
-
-```bash
-npm run dev      # Dev server (Turbopack)
-npm run build    # Production build
-npm run lint     # ESLint check
-npm run lint:fix # ESLint autofix
-npm run format   # Prettier format all src/
-```
 
 ## Quick Reference
 

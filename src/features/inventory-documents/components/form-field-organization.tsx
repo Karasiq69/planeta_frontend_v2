@@ -39,7 +39,7 @@ const FormFieldOrganization: React.FC<OrganizationSelectFieldProps> = ({
 
   return (
     <div className={cn('flex flex-col lg:flex-row gap-3 items-center', className)}>
-      <Label className='lg:w-32 text-muted-foreground'>{label}</Label>
+      <Label className='lg:w-36 text-muted-foreground'>{label}</Label>
       <div className='w-full'>
         <FormField
           control={form.control}

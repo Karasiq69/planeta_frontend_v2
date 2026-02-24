@@ -11,9 +11,8 @@ import {
 import { useGetWarehouses } from '@/features/warehouse/api/queries'
 import { WarehouseTypeEnum } from '@/features/warehouse/types'
 
-import type { Warehouse} from '@/features/warehouse/types';
+import type { Warehouse } from '@/features/warehouse/types'
 import type { ControllerRenderProps } from 'react-hook-form'
-
 
 interface FormFieldSelectWarehouseProps {
   field: ControllerRenderProps<any, any>

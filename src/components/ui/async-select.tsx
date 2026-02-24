@@ -75,7 +75,7 @@ export function AsyncSelect<T>({
   value,
   onChange,
   disabled = false,
-  width = '200px',
+  width,
   className,
   triggerClassName,
   noResultsMessage,
@@ -174,7 +174,7 @@ export function AsyncSelect<T>({
   )
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={setOpen} modal>
       <PopoverTrigger asChild>
         <Button
           variant='outline'
@@ -192,7 +192,14 @@ export function AsyncSelect<T>({
           <ChevronsUpDown className='opacity-50' size={10} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent style={{ width: width }} className={cn('p-0', className)}>
+      <PopoverContent
+        style={{ width: width }}
+        className={cn(
+          'p-0',
+          className,
+          'w-[--radix-popover-trigger-width] max-h-[--radix-popover-content-available-height]">'
+        )}
+      >
         <Command shouldFilter={false}>
           <div className='relative border-b w-full'>
             <CommandInput

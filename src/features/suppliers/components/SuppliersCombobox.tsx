@@ -55,7 +55,7 @@ const SuppliersCombobox: React.FC<SuppliersComboboxProps> = ({
       renderOption={(supplier) => (
         <div className='flex flex-col w-full'>
           <div className='font-bold'>{supplier.name}</div>
-          <div className="flex items-center justify-between w-full">
+          <div className='flex items-center justify-between w-full'>
             <div className='text-xs text-muted-foreground'>{supplier.contactPerson}</div>
             {supplier.inn && (
               <div className='text-xs text-muted-foreground'>ИНН: {supplier.inn}</div>
@@ -65,9 +65,7 @@ const SuppliersCombobox: React.FC<SuppliersComboboxProps> = ({
       )}
       getOptionValue={(supplier) => supplier.id.toString()}
       getDisplayValue={(supplier) => (
-        <div
-          className="[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0 [&>span_svg]:text-muted-foreground/80"
-        >
+        <div className='[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0 [&>span_svg]:text-muted-foreground/80'>
           <span className='font-medium gap-2'>
             <BriefcaseBusiness size={16} />
             {supplier.name}
@@ -80,10 +78,9 @@ const SuppliersCombobox: React.FC<SuppliersComboboxProps> = ({
       placeholder='Поиск поставщика...'
       value={initialValue?.toString() || ''}
       onChange={handleSupplierChange}
-      width=""
-      className="w-(--radix-popover-trigger-width)"
+      className='w-(--radix-popover-trigger-width)'
       disabled={isPending || isLoading}
-      triggerClassName="w-full"
+      triggerClassName='w-full'
       clearable={true}
     />
   )

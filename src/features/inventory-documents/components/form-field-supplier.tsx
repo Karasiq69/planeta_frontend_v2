@@ -27,7 +27,7 @@ const SuppliersSelectField: React.FC<SuppliersSelectFieldProps> = ({
 }) => {
   return (
     <div className="flex flex-col lg:flex-row lg:items-center gap-3">
-      <Label htmlFor='supplier' className='lg:w-32 text-muted-foreground'>
+      <Label htmlFor='supplier' className='lg:w-36 text-muted-foreground'>
         {label}
       </Label>
       <div className='w-full'>

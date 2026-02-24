@@ -6,6 +6,7 @@ import {
   Calendar,
   Car,
   CarFront,
+  Files,
   FileText,
   HelpCircle,
   LayoutDashboard,
@@ -30,8 +31,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar'
-import { InventoryDocumentType } from '@/features/inventory-documents/types'
-import { INVENTORY_DOCUMENTS_URL } from '@/lib/constants'
+
 
 const teams = [
   {
@@ -133,6 +133,24 @@ const data = {
       icon: ShoppingCart,
     },
   ],
+  documents: [
+    {
+      title: 'Документы',
+      url: '#',
+      icon: Files,
+      isActive: true,
+      items: [
+        {
+          title: 'Приходные накладные',
+          url: '/documents/receipt',
+        },
+        {
+          title: 'Перемещения товаров',
+          url: '/documents/transfer',
+        },
+      ],
+    },
+  ],
   warehouse: [
     {
       title: 'Склад',
@@ -143,14 +161,6 @@ const data = {
         {
           title: 'Товары на складе',
           url: '/warehouse',
-        },
-        {
-          title: 'Приходные накладные',
-          url: `${INVENTORY_DOCUMENTS_URL}/${InventoryDocumentType.RECEIPT.toLowerCase()}`,
-        },
-        {
-          title: 'Перемещения товаров',
-          url: `${INVENTORY_DOCUMENTS_URL}/${InventoryDocumentType.TRANSFER.toLowerCase()}`,
         },
         {
           title: '--Движения товаров',
@@ -171,6 +181,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavIntro items={data.intro} />
         <NavMain items={data.navMain} />
         <NavIntro items={data.products} />
+        <NavWarehouse items={data.documents} />
         <NavWarehouse items={data.warehouse} />
 
         <NavBottom items={data.navBottom} className='mt-auto' />
