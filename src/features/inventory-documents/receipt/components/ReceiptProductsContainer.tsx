@@ -6,7 +6,7 @@ import React, { useMemo } from 'react'
 import DataTableBasic from '@/components/common/table/data-table-basic'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import InventoryDocumentProductsCombobox from '@/features/inventory-documents/components/InventoryDocumentProductsCombobox'
+import ProductsCombobox from '@/features/products/components/ProductsCombobox'
 import { useAddReceiptDocumentItem } from '@/features/inventory-documents/receipt/api/mutations'
 import { useReceiptDocumentItems } from '@/features/inventory-documents/receipt/api/queries'
 import { ReceiptItemsColumnsDefs } from '@/features/inventory-documents/receipt/components/table/items/columns-items'
@@ -40,9 +40,9 @@ const ReceiptProductContainer = ({ onAddItem }: Props) => {
   return (
     <div className="">
       <div className='flex flex-row items-center py-5 justify-between'>
-        <InventoryDocumentProductsCombobox
+        <ProductsCombobox
           isPending={isPending}
-          onSelectProduct={onSelectProduct}
+          onSelect={onSelectProduct}
         />
       </div>
 

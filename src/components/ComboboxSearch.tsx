@@ -38,7 +38,7 @@ export function ComboboxSearch<T extends { id: number | string }>({
   renderItem,
   searchError,
   placeholder = 'Выберите...',
-  width = 'w-[400px]',
+  width = '',
 }: SearchComboboxProps<T>) {
   const [open, setOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<string | number>('')
@@ -71,9 +71,9 @@ export function ComboboxSearch<T extends { id: number | string }>({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className={`${width} p-0`}>
+      <PopoverContent className={`${width} p-0`} align="start">
         <Command shouldFilter={false}>
-          <CommandInput placeholder="Поиск.." onValueChange={onSearch} />
+          <CommandInput placeholder='Поиск..' onValueChange={onSearch} />
 
           {searchError && <p className='px-2 text-sm text-destructive'>{searchError}</p>}
 

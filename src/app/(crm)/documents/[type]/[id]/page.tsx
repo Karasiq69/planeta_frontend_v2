@@ -1,7 +1,8 @@
-import React from 'react'
-
-import PageHeader from '@/components/common/PageHeader'
 import { getDocumentById } from '@/features/documents/api/actions'
+import DocumentActions from '@/features/documents/components/DocumentActions'
+import DocumentItemsSection from '@/features/documents/components/DocumentItemsSection'
+import DocumentLayout from '@/features/documents/components/DocumentLayout'
+import ReceiptDocumentHeader from '@/features/documents/components/ReceiptDocumentHeader'
 
 type Props = {
   params: Promise<{ type: string; id: string }>
@@ -12,14 +13,14 @@ const Page = async ({ params }: Props) => {
   const document = await getDocumentById(Number(id))
 
   return (
-    <section>
-      <div className='space-y-5'>
-        <PageHeader title={`Документ #${document.id}`} showBackButton />
-        <pre className='text-xs bg-muted p-4 rounded-lg overflow-auto'>
-          {JSON.stringify(document, null, 2)}
-        </pre>
-      </div>
-    </section>
+    <DocumentLayout
+      title={`Документ #${document.id}`}
+      status={document.status}
+      header={<ReceiptDocumentHeader document={document} />}
+      actions={<DocumentActions document={document} />}
+    >
+      <DocumentItemsSection status={document.status} />
+    </DocumentLayout>
   )
 }
 

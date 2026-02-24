@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import FormFieldOrganization from '@/features/inventory-documents/components/form-field-organization'
+import FormFieldOrganization from '@/features/organizations/components/FormFieldOrganization'
 import FormFieldSelectWarehouse from '@/features/inventory-documents/components/form-field-select-warehouse'
 import FormFieldSelectOperation from '@/features/inventory-documents/transfer/components/forms/form-field-select-operation'
 import { UpdateTransferDocumentSchema } from '@/features/inventory-documents/transfer/components/forms/schema'

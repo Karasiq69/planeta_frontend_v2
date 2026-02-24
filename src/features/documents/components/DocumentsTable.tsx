@@ -6,7 +6,7 @@ import { useState } from 'react'
 import DataTable from '@/components/common/table/data-table'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { useDocumentsList } from '@/features/documents/api/queries'
-import { documentTypeConfigs } from '@/features/documents/config'
+import { documentTypeConfigs } from '@/features/documents/lib/document-config'
 
 interface DocumentsTableProps {
   type: string

@@ -14,11 +14,11 @@ import {
 } from '@/components/ui/dialog'
 import CreateDocumentForm from '@/features/documents/components/CreateDocumentForm'
 
-import type { InventoryDocumentType } from '@/features/inventory-documents/types'
+import type { DocumentType } from '@/features/documents/types'
 
 interface Props {
   type: string
-  documentType: InventoryDocumentType
+  documentType: DocumentType
 }
 
 const CreateDocumentDialog = ({ type, documentType }: Props) => {

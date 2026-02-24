@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import PageHeader from '@/components/common/PageHeader'
 import CreateDocumentDialog from '@/features/documents/components/CreateDocumentDialog'
 import DocumentsTable from '@/features/documents/components/DocumentsTable'
-import { documentTypeConfigs } from '@/features/documents/config'
+import { documentTypeConfigs } from '@/features/documents/lib/document-config'
 
 type Props = { params: Promise<{ type: string }> }
 

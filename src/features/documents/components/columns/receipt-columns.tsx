@@ -5,11 +5,11 @@ import * as React from 'react'
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { getStatusConfig } from '@/features/inventory-documents/receipt/helpers/status-helper'
+import { getStatusConfig } from '@/features/documents/lib/status-helper'
 import { formatRelativeTime } from '@/lib/format-date'
 import { formatPrice } from '@/lib/utils'
 
-import type { Document } from '@/features/documents/api/actions'
+import type { Document } from '@/features/documents/types'
 import type { ColumnDef } from '@tanstack/react-table'
 
 export const receiptColumns: ColumnDef<Document>[] = [
@@ -26,7 +26,7 @@ export const receiptColumns: ColumnDef<Document>[] = [
     meta: 'Дата',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Дата' />,
     cell: ({ row }) => (
-      <span className='text-nowrap text-xs'>{formatRelativeTime(row.original.date)}</span>
+      <span className='text-nowrap text-xs'>{row.original.date ? formatRelativeTime(row.original.date) : '—'}</span>
     ),
     enableSorting: true,
     size: 0,
@@ -46,7 +46,7 @@ export const receiptColumns: ColumnDef<Document>[] = [
     accessorKey: 'totalAmount',
     meta: 'Сумма',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Сумма' />,
-    cell: ({ row }) => <div>{formatPrice(row.original.totalAmount)}</div>,
+    cell: ({ row }) => <div>{formatPrice(row.original.totalAmount ?? 0)}</div>,
     enableSorting: true,
     size: 0,
   },

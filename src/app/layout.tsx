@@ -24,11 +24,11 @@ export default function AppLayout({
       {/*        src="//unpkg.com/react-scan/dist/auto.global.js"*/}
       {/*    />*/}
       {/*</head>*/}
-      <body className=" antialiased ">
+      <body className='h-screen overflow-hidden antialiased'>
         <NextTopLoader />
 
         <RootProvider>{children}</RootProvider>
-        <Toaster richColors={true} />
+        <Toaster theme="light" richColors={true} />
       </body>
     </html>
   )

@@ -15,11 +15,11 @@ import { Label } from '@/components/ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 import { useCreateDocument } from '@/features/documents/api/mutations'
-import FormFieldOrganization from '@/features/inventory-documents/components/form-field-organization'
+import FormFieldOrganization from '@/features/organizations/components/FormFieldOrganization'
 import FormFieldSelectWarehouse from '@/features/inventory-documents/components/form-field-select-warehouse'
 import SuppliersSelectField from '@/features/inventory-documents/components/form-field-supplier'
 
-import type { InventoryDocumentType } from '@/features/inventory-documents/types'
+import type { DocumentType } from '@/features/documents/types'
 
 const schema = z.object({
   warehouseId: z.number({ required_error: 'Выберите склад' }).int().positive(),
@@ -34,11 +34,20 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>
 
 interface Props {
-  type: InventoryDocumentType
+  type: DocumentType
+  defaultValues?: Partial<FormValues>
+  onSubmit?: (values: FormValues) => void
+  submitLabel?: string
   onSuccess?: (documentId: number) => void
 }
 
-const CreateDocumentForm = ({ type, onSuccess }: Props) => {
+const CreateDocumentForm = ({
+  type,
+  defaultValues: externalDefaults,
+  onSubmit: externalSubmit,
+  submitLabel = 'Создать',
+  onSuccess,
+}: Props) => {
   const { mutate, isPending } = useCreateDocument()
 
   const form = useForm<FormValues>({
@@ -46,10 +55,15 @@ const CreateDocumentForm = ({ type, onSuccess }: Props) => {
     defaultValues: {
       note: '',
       incomingNumber: '',
+      ...externalDefaults,
     },
   })
 
   const onSubmit = (values: FormValues) => {
+    if (externalSubmit) {
+      externalSubmit(values)
+      return
+    }
     mutate(
       {
         ...values,
@@ -162,7 +176,7 @@ const CreateDocumentForm = ({ type, onSuccess }: Props) => {
 
         <div className='flex gap-3'>
           <Button type='submit' disabled={isPending}>
-            {isPending ? 'Создание...' : 'Создать'}
+            {isPending ? 'Сохранение...' : submitLabel}
           </Button>
         </div>
       </form>
