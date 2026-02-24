@@ -1,4 +1,4 @@
-import { OrdersQueryParams } from '@/features/orders/types';
+import type { OrdersQueryParams } from '@/features/orders/types'
 
 export const ordersQueryKeys = {
   all: ['orders'] as const,
@@ -6,14 +6,11 @@ export const ordersQueryKeys = {
   detail: (id: number) => [...ordersQueryKeys.details(), id] as const,
 
   lists: () => [...ordersQueryKeys.all, 'list'] as const,
-  list: (params: OrdersQueryParams) =>
-    [...ordersQueryKeys.lists(), { params }] as const,
+  list: (params: OrdersQueryParams) => [...ordersQueryKeys.lists(), { params }] as const,
 
-  services: (orderId: number) =>
-    [...ordersQueryKeys.detail(orderId), 'services'] as const,
-  products: (orderId: number) =>
-    [...ordersQueryKeys.detail(orderId), 'products'] as const,
+  services: (orderId: number) => [...ordersQueryKeys.detail(orderId), 'services'] as const,
+  products: (orderId: number) => [...ordersQueryKeys.detail(orderId), 'products'] as const,
   // service: (id: number) => [...ordersQueryKeys.services(), id] as const,
 
   clientOrders: (clientId: number) => ['clientOrders', clientId] as const,
-};
+}

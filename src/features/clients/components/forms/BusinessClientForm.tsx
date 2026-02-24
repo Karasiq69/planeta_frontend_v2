@@ -1,7 +1,5 @@
-type Props = {};
+type Props = {}
 const BusinessClientForm = (props: Props) => {
-    return (
-        <div>BusinessClientForm</div>
-    );
-};
-export default BusinessClientForm;
+  return <div>BusinessClientForm</div>
+}
+export default BusinessClientForm

@@ -104,7 +104,7 @@
 //     }
 //
 //     return (
-//         <li className="p-4 bg-background rounded-md drop-shadow-sm hover:drop-shadow-lg flex gap-5">
+//         <li className="p-4 bg-background rounded-md drop-shadow-xs hover:drop-shadow-lg flex gap-5">
 //             <Checkbox
 //                 id={`todo-${item.id}`}
 //                 checked={item.is_completed}
@@ -112,7 +112,7 @@
 //                 disabled={isPending}
 //                 onCheckedChange={handleCheckedChange}
 //             />
-//             <div className="flex-grow">
+//             <div className="grow">
 //                 <h5 className={cn(item.is_completed && "line-through text-muted-foreground")}>
 //                     {item.title}
 //                 </h5>
@@ -161,10 +161,8 @@
 //     )
 // }
 
-type Props = {};
+type Props = {}
 const TodoItemsList = (props: Props) => {
-    return (
-        <div>TodoItemsList</div>
-    );
-};
-export default TodoItemsList;
+  return <div>TodoItemsList</div>
+}
+export default TodoItemsList

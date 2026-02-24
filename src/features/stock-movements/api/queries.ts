@@ -1,27 +1,31 @@
-import {keepPreviousData, useQuery} from "@tanstack/react-query";
-import {getAllServicesFn} from "@/features/services/api/actions";
-import {servicesQueryKeys} from "@/features/services/api/query-keys";
-import {ListParams} from "@/types/params";
-import {warehouseQueryKeys} from "@/features/warehouse/api/query-keys";
-import {getAllInventoryTransactionsListFn, getAllWarehouseItemsListFn} from "@/features/warehouse/api/actions";
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
+
+import { getAllServicesFn } from '@/features/services/api/actions'
+import { servicesQueryKeys } from '@/features/services/api/query-keys'
+import {
+  getAllInventoryTransactionsListFn,
+  getAllWarehouseItemsListFn,
+} from '@/features/warehouse/api/actions'
+import { warehouseQueryKeys } from '@/features/warehouse/api/query-keys'
+
+import type { ListParams } from '@/types/params'
 
 export const useAllInventoryTransactions = (params: ListParams) => {
-    return useQuery({
-        queryKey: warehouseQueryKeys.transaction_list(params),
-        queryFn: () => getAllInventoryTransactionsListFn(params),
-        gcTime: 1000 * 60 * 20,
-        staleTime: 1000 * 60 * 5,
-        placeholderData: keepPreviousData
-    })
+  return useQuery({
+    queryKey: warehouseQueryKeys.transaction_list(params),
+    queryFn: () => getAllInventoryTransactionsListFn(params),
+    gcTime: 1000 * 60 * 20,
+    staleTime: 1000 * 60 * 5,
+    placeholderData: keepPreviousData,
+  })
 }
 
-
 export const useAllWarehouseItems = (params: ListParams) => {
-    return useQuery({
-        queryKey: warehouseQueryKeys.items_list(params),
-        queryFn: () => getAllWarehouseItemsListFn(params),
-        gcTime: 1000 * 60 * 20,
-        staleTime: 1000 * 60 * 5,
-        placeholderData: keepPreviousData
-    })
+  return useQuery({
+    queryKey: warehouseQueryKeys.items_list(params),
+    queryFn: () => getAllWarehouseItemsListFn(params),
+    gcTime: 1000 * 60 * 20,
+    staleTime: 1000 * 60 * 5,
+    placeholderData: keepPreviousData,
+  })
 }

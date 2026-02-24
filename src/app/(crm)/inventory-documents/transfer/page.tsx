@@ -1,37 +1,36 @@
-import React from "react";
+import React, { Suspense } from 'react'
 
-import PageHeader from "@/components/common/PageHeader";
-import {Card, CardHeader} from "@/components/ui/card";
-import CreateTransferDocumentButton from "@/features/inventory-documents/transfer/components/CreateTransferDocument";
-import InventoryDocumentsTransferDatatable
-	from "@/features/inventory-documents/transfer/components/table/InventoryDocumentTransferDatatable";
+import PageHeader from '@/components/common/PageHeader'
+import { Card, CardHeader } from '@/components/ui/card'
+import CreateTransferDocumentButton from '@/features/inventory-documents/transfer/components/CreateTransferDocument'
+import InventoryDocumentsTransferDatatable from '@/features/inventory-documents/transfer/components/table/InventoryDocumentTransferDatatable'
 
-import type {Metadata} from "next";
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-	title: "Перемещения | CRM автосервис",
-	description: "",
-};
+  title: 'Перемещения | CRM автосервис',
+  description: '',
+}
 
-type Props = {};
+type Props = {}
 
 const Page = (props: Props) => {
-	return (
-		<section>
-			<div className="space-y-5">
-				<PageHeader title="Перемещения товаров" showBackButton={false}/>
+  return (
+    <section>
+      <div className='space-y-5'>
+        <PageHeader title='Перемещения товаров' showBackButton={false} />
 
-				<div className="flex gap-5 items-center">
-					<CreateTransferDocumentButton redirectAfterCreate={true}/>
-				</div>
-				<Card>
-					<CardHeader>
-					</CardHeader>
-
-					<InventoryDocumentsTransferDatatable/>
-				</Card>
-			</div>
-		</section>
-	);
-};
-export default Page;
+        <div className='flex gap-5 items-center'>
+          <CreateTransferDocumentButton redirectAfterCreate={true} />
+        </div>
+        <Card>
+          <CardHeader></CardHeader>
+          <Suspense fallback={<div>Загрузка...</div>}>
+            <InventoryDocumentsTransferDatatable />
+          </Suspense>
+        </Card>
+      </div>
+    </section>
+  )
+}
+export default Page

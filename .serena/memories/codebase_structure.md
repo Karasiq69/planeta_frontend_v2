@@ -41,7 +41,7 @@ src/
   hooks/             # Shared hooks (useAuth, useDebounce, etc.)
   types/             # Shared types (ListParams, ListResponse<T>, etc.)
   helpers/           # Utility functions
-  middleware.ts      # Auth redirect middleware
+  proxy.ts           # Auth redirect proxy (Next.js 16)
 ```
 
 ## Feature Module Pattern

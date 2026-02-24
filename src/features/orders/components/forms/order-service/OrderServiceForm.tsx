@@ -1,17 +1,19 @@
 'use client'
 
-import { OrderService } from "../../../types";
-import { useOrderServiceForm } from "../../../hooks/useOrderServiceForm";
-import { OrderServiceFormFields } from "./order-service-form-fields";
-import { Form } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import LoaderAnimated from "@/components/ui/LoaderAnimated";
+import { Button } from '@/components/ui/button'
+import { Form } from '@/components/ui/form'
+import LoaderAnimated from '@/components/ui/LoaderAnimated'
+
+import { OrderServiceFormFields } from './order-service-form-fields'
+import { useOrderServiceForm } from '../../../hooks/useOrderServiceForm'
+
+import type { OrderService } from '../../../types'
 
 interface Props {
-  orderServiceData?: OrderService;
-  orderId: number;
-  onUpdate?: (orderServiceId: number) => void;
-  onCreate?: (data: OrderService) => void;
+  orderServiceData?: OrderService
+  orderId: number
+  onUpdate?: (orderServiceId: number) => void
+  onCreate?: (data: OrderService) => void
 }
 
 export const OrderServiceForm = ({ orderServiceData, orderId, onUpdate, onCreate }: Props) => {
@@ -20,17 +22,17 @@ export const OrderServiceForm = ({ orderServiceData, orderId, onUpdate, onCreate
     orderId,
     onUpdate,
     onCreate,
-  });
+  })
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
         <OrderServiceFormFields form={form} />
-        <Button disabled={isLoading} variant="default" className="w-full" type="submit">
+        <Button disabled={isLoading} variant='default' className='w-full' type='submit'>
           {orderServiceData ? 'Обновить' : 'Добавить услугу'}
-          {isLoading && <LoaderAnimated className="text-white" />}
+          {isLoading && <LoaderAnimated className='text-white' />}
         </Button>
       </form>
     </Form>
-  );
-}; 
+  )
+}
