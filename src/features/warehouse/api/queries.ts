@@ -8,6 +8,7 @@ import {
 } from '@/features/warehouse/api/actions'
 import { warehouseQueryKeys } from '@/features/warehouse/api/query-keys'
 
+import type { WarehouseItemsParams } from '@/features/warehouse/types'
 import type { ListParams } from '@/types/params'
 
 export const useAllInventoryTransactions = (params: ListParams) => {
@@ -29,7 +30,7 @@ export const useGetWarehouses = () => {
   })
 }
 
-export const useAllWarehouseItems = (params: ListParams) => {
+export const useAllWarehouseItems = (params: WarehouseItemsParams) => {
   return useQuery({
     queryKey: warehouseQueryKeys.items_list(params),
     queryFn: () => getAllWarehouseItemsListFn(params),

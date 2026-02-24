@@ -1,8 +1,10 @@
 import { DocumentType } from '@/features/documents/lib/constants'
-import CreateDocumentForm from '@/features/documents/components/CreateDocumentForm'
-import CreateTransferForm from '@/features/documents/components/CreateTransferForm'
-import ReceiptDocumentHeader from '@/features/documents/components/ReceiptDocumentHeader'
-import TransferDocumentHeader from '@/features/documents/components/TransferDocumentHeader'
+import CreateDocumentForm from '@/features/documents/components/forms/CreateDocumentForm'
+import CreateTransferForm from '@/features/documents/components/forms/CreateTransferForm'
+import ReceiptDocumentHeader from '@/features/documents/components/headers/ReceiptDocumentHeader'
+import TransferDocumentHeader from '@/features/documents/components/headers/TransferDocumentHeader'
+import ReceiptItemsSection from '@/features/documents/components/items-sections/ReceiptItemsSection'
+import TransferItemsSection from '@/features/documents/components/items-sections/TransferItemsSection'
 import { receiptColumns } from '@/features/documents/components/columns/receipt-columns'
 import { transferColumns } from '@/features/documents/components/columns/transfer-columns'
 
@@ -23,6 +25,7 @@ export interface DocumentTypeConfig {
   type: DocumentType
   FormComponent: ComponentType<DocumentFormProps>
   HeaderComponent: ComponentType<{ document: Document }>
+  ItemsSectionComponent: ComponentType<{ document: Document }>
 }
 
 export const documentTypeConfigs: Record<string, DocumentTypeConfig> = {
@@ -32,6 +35,7 @@ export const documentTypeConfigs: Record<string, DocumentTypeConfig> = {
     type: DocumentType.RECEIPT,
     FormComponent: CreateDocumentForm,
     HeaderComponent: ReceiptDocumentHeader,
+    ItemsSectionComponent: ReceiptItemsSection,
   },
   transfer: {
     title: 'Перемещения товаров',
@@ -39,5 +43,6 @@ export const documentTypeConfigs: Record<string, DocumentTypeConfig> = {
     type: DocumentType.TRANSFER,
     FormComponent: CreateTransferForm,
     HeaderComponent: TransferDocumentHeader,
+    ItemsSectionComponent: TransferItemsSection,
   },
 }

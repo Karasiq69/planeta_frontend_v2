@@ -2,7 +2,6 @@
 
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { Package } from 'lucide-react'
-import { useParams } from 'next/navigation'
 import { useMemo } from 'react'
 import { toast } from 'sonner'
 
@@ -15,25 +14,30 @@ import {
   useUpdateDocumentItem,
 } from '@/features/documents/api/mutations'
 import { useDocumentItems } from '@/features/documents/api/queries'
-import {
-  documentItemColumns,
-  type DocumentItemTableMeta,
-} from '@/features/documents/components/columns/document-item-columns'
 import { DocumentStatus } from '@/features/documents/types'
-import ProductsCombobox from '@/features/products/components/ProductsCombobox'
 
-import type { Product } from '@/features/products/types'
+import type { ReactNode } from 'react'
+import type { DocumentItem } from '@/features/documents/types'
+import type { ColumnDef } from '@tanstack/react-table'
 
-interface Props {
-  status: string
+export interface ItemsSectionTableMeta {
+  isDraft: boolean
+  updatingItemId: number | null
+  deletingItemId: number | null
+  onUpdateItem: (itemId: number, data: { quantity?: number; price?: number }) => void
+  onDeleteItem: (itemId: number) => void
 }
 
-const DocumentItemsSection = ({ status }: Props) => {
-  const { id } = useParams()
-  const documentId = Number(id)
+interface BaseItemsSectionProps {
+  documentId: number
+  status: string
+  columns: ColumnDef<DocumentItem>[]
+  combobox: ReactNode | null
+  onItemAdded?: () => void
+}
 
+const BaseItemsSection = ({ documentId, status, columns, combobox }: BaseItemsSectionProps) => {
   const { data: items, isLoading } = useDocumentItems(documentId)
-  const { mutate: addItem, isPending: isAdding } = useAddDocumentItem(documentId)
   const {
     mutate: updateItem,
     isPending: isUpdating,
@@ -47,7 +51,7 @@ const DocumentItemsSection = ({ status }: Props) => {
 
   const isDraft = status === DocumentStatus.DRAFT
 
-  const tableMeta = useMemo<DocumentItemTableMeta>(
+  const tableMeta = useMemo<ItemsSectionTableMeta>(
     () => ({
       isDraft,
       updatingItemId: isUpdating ? (updateVariables?.itemId ?? null) : null,
@@ -64,27 +68,16 @@ const DocumentItemsSection = ({ status }: Props) => {
 
   const table = useReactTable({
     data: items ?? [],
-    columns: documentItemColumns,
+    columns,
     getCoreRowModel: getCoreRowModel(),
     meta: tableMeta,
   })
 
-  const handleSelectProduct = (product: Product) => {
-    addItem(
-      { productId: product.id, quantity: 1 },
-      {
-        onSuccess: () => {
-          toast.success(`Товар добавлен: ${product.name}`)
-        },
-      }
-    )
-  }
-
   return (
     <div className='flex flex-col h-full rounded-lg border bg-card'>
-      {isDraft && (
+      {isDraft && combobox && (
         <div className='p-4 border-b'>
-          <ProductsCombobox onSelect={handleSelectProduct} isPending={isAdding} />
+          {combobox}
         </div>
       )}
 
@@ -94,7 +87,7 @@ const DocumentItemsSection = ({ status }: Props) => {
             <LoaderSectionAnimated text='Загружаем товары...' />
           </div>
         ) : items && items.length > 0 ? (
-          <DataTableBasic table={table} columns={documentItemColumns} />
+          <DataTableBasic table={table} columns={columns} />
         ) : (
           <div className='flex flex-col items-center justify-center py-12 text-muted-foreground'>
             <Package className='size-10 mb-3 opacity-40' />
@@ -106,4 +99,4 @@ const DocumentItemsSection = ({ status }: Props) => {
   )
 }
 
-export default DocumentItemsSection
+export default BaseItemsSection

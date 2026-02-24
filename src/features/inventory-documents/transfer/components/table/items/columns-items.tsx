@@ -1,11 +1,5 @@
-
-import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
-import ReceiptDocumentsTableActionButtons from '@/features/inventory-documents/receipt/components/table/items/action-buttons'
-import { DocumentItemsEditableCell } from '@/features/inventory-documents/receipt/components/table/items/DocumentItemsEditableCell'
-import { DocumentItemsQuantityCell } from '@/features/inventory-documents/receipt/components/table/items/DocumentItemsQuantityCell'
-import DocumentItemsWarehouseCell from '@/features/inventory-documents/receipt/components/table/items/DocumentItemsWarehouseCell'
-import { useRemoveTransferDocumentItem } from '@/features/inventory-documents/transfer/api/mutations'
-import { formatPrice } from '@/lib/utils'
+import TransferActionButtons from '@/features/inventory-documents/transfer/components/table/items/TransferActionButtons'
+import { TransferItemsQuantityCell } from '@/features/inventory-documents/transfer/components/table/items/TransferItemsQuantityCell'
 
 import type { TransferDocumentItem } from '@/features/inventory-documents/transfer/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -46,24 +40,11 @@ export const TransferItemsColumnsDefs: ColumnDef<TransferDocumentItem>[] = [
     },
   },
   {
-    accessorKey: 'storageLocation',
-    header: 'Ячейка',
-    cell: ({ row }) => {
-      return (
-        <DocumentItemsWarehouseCell
-          documentId={row.original.documentId}
-          item={row.original}
-          fieldName='toStorageLocationId'
-        />
-      )
-    },
-  },
-  {
     accessorKey: 'quantity',
     header: 'Количество',
     cell: ({ row }) => {
       return (
-        <DocumentItemsQuantityCell
+        <TransferItemsQuantityCell
           documentId={row.original.documentId}
           item={row.original}
           fieldName='quantity'
@@ -78,7 +59,7 @@ export const TransferItemsColumnsDefs: ColumnDef<TransferDocumentItem>[] = [
     id: 'actions',
     header: '',
     cell: ({ row }) => {
-      return <ReceiptDocumentsTableActionButtons documentItem={row.original} />
+      return <TransferActionButtons documentItem={row.original} />
     },
   },
 ]

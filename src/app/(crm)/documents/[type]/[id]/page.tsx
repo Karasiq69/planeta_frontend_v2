@@ -1,9 +1,7 @@
-import { Package } from 'lucide-react'
 import { notFound } from 'next/navigation'
 
 import { getDocumentById } from '@/features/documents/api/actions'
 import DocumentActions from '@/features/documents/components/DocumentActions'
-import DocumentItemsSection from '@/features/documents/components/DocumentItemsSection'
 import DocumentLayout from '@/features/documents/components/DocumentLayout'
 import { documentTypeConfigs } from '@/features/documents/lib/document-config'
 
@@ -18,9 +16,7 @@ const Page = async ({ params }: Props) => {
   if (!config) return notFound()
 
   const document = await getDocumentById(Number(id))
-  const { HeaderComponent } = config
-
-  const showItems = type !== 'transfer'
+  const { HeaderComponent, ItemsSectionComponent } = config
 
   return (
     <DocumentLayout
@@ -29,14 +25,7 @@ const Page = async ({ params }: Props) => {
       header={<HeaderComponent document={document} />}
       actions={<DocumentActions document={document} />}
     >
-      {showItems ? (
-        <DocumentItemsSection status={document.status} />
-      ) : (
-        <div className='flex flex-col items-center justify-center h-full rounded-lg border bg-card py-12 text-muted-foreground'>
-          <Package className='size-10 mb-3 opacity-40' />
-          <span className='text-sm'>Товары перемещения — в разработке</span>
-        </div>
-      )}
+      <ItemsSectionComponent document={document} />
     </DocumentLayout>
   )
 }

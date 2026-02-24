@@ -31,3 +31,10 @@ export interface WarehouseItem {
   product?: Product
   warehouse?: Warehouse
 }
+
+export interface WarehouseItemsParams {
+  page?: number
+  pageSize?: number
+  searchTerm?: string
+  warehouseId?: number
+}

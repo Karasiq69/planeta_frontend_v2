@@ -6,7 +6,7 @@ import DataTableBasic from '@/components/common/table/data-table-basic'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useAddTransferDocumentItem } from '@/features/inventory-documents/transfer/api/mutations'
-import { useTransferDocumentItems } from '@/features/inventory-documents/transfer/api/queries'
+import { useTransferDocument, useTransferDocumentItems } from '@/features/inventory-documents/transfer/api/queries'
 import { TransferItemsColumnsDefs } from '@/features/inventory-documents/transfer/components/table/items/columns-items'
 import TransferItemsCombobox from '@/features/inventory-documents/transfer/components/TransferItemsCombobox'
 
@@ -17,9 +17,12 @@ type Props = {
 }
 
 const TransferItemsContainer = ({ documentId }: Props) => {
+  const { data: doc } = useTransferDocument(documentId)
   const { data: productItems, isLoading } = useTransferDocumentItems(documentId)
   const { mutate, isPending } = useAddTransferDocumentItem(documentId)
   const columns = useMemo(() => TransferItemsColumnsDefs, [])
+
+  const sourceWarehouseId = doc?.warehouseId ?? undefined
 
   const table = useReactTable({
     data: productItems || [],
@@ -33,14 +36,17 @@ const TransferItemsContainer = ({ documentId }: Props) => {
     mutate({
       productId: warehouseItem.product.id,
       quantity: '1',
-      // toStorageLocationId: warehouseItem.storageLocationId || undefined
     })
   }
 
   return (
     <>
       <div className='flex flex-row items-center py-5 justify-between'>
-        <TransferItemsCombobox isPending={isPending} onSelectProduct={onSelectProduct} />
+        <TransferItemsCombobox
+          isPending={isPending}
+          onSelectProduct={onSelectProduct}
+          warehouseId={sourceWarehouseId}
+        />
       </div>
 
       <ScrollArea
