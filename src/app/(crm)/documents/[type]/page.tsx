@@ -18,7 +18,7 @@ const Page = async ({ params }: Props) => {
       <div className='space-y-5'>
         <PageHeader title={config.title} showBackButton={false} />
         <div className='flex gap-3'>
-          <CreateDocumentDialog type={type} documentType={config.type} />
+          <CreateDocumentDialog type={type} />
         </div>
         <DocumentsTable type={type} />
       </div>

@@ -1,7 +1,7 @@
 import apiClient from '@/lib/auth/client'
 import { DOCUMENTS_URL } from '@/lib/constants'
 
-import type { CreateDocumentDto, Document, DocumentItem, DocumentsQueryParams } from '@/features/documents/types'
+import type { CreateDocumentDto, Document, DocumentItem, DocumentsQueryParams, UpdateDocumentDto } from '@/features/documents/types'
 import type { ListResponse } from '@/types/params'
 
 export const getDocumentById = async (id: number): Promise<Document> => {
@@ -18,6 +18,11 @@ export const getDocuments = async (
 	params: DocumentsQueryParams
 ): Promise<ListResponse<Document>> => {
 	const response = await apiClient.get<ListResponse<Document>>(DOCUMENTS_URL, { params })
+	return response.data
+}
+
+export const updateDocument = async (id: number, data: UpdateDocumentDto): Promise<Document> => {
+	const response = await apiClient.patch<Document>(`${DOCUMENTS_URL}/${id}`, data)
 	return response.data
 }
 

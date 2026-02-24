@@ -10,10 +10,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import CreateDocumentForm from '@/features/documents/components/CreateDocumentForm'
-import { useUpdateReceiptDocument } from '@/features/inventory-documents/receipt/api/mutations'
+import { useUpdateDocument } from '@/features/documents/api/mutations'
+import { documentTypeConfigs } from '@/features/documents/lib/document-config'
 
 import type { Document } from '@/features/documents/types'
+
+const documentTypeToKey: Record<string, string> = {
+  RECEIPT: 'receipt',
+  TRANSFER: 'transfer',
+}
+
+const getDefaultValues = (document: Document) => ({
+  warehouseId: document.warehouseId ?? undefined,
+  fromWarehouseId: document.fromWarehouseId ?? undefined,
+  supplierId: document.supplierId ?? undefined,
+  organizationId: document.organizationId ?? undefined,
+  orderId: document.orderId ?? undefined,
+  incomingNumber: document.incomingNumber ?? '',
+  incomingDate: document.incomingDate ? new Date(document.incomingDate) : undefined,
+  operationType: document.operationType ?? undefined,
+  note: document.note ?? '',
+})
 
 interface Props {
   document: Document
@@ -22,19 +39,13 @@ interface Props {
 
 const EditDocumentDialog = ({ document, disabled }: Props) => {
   const [open, setOpen] = useState(false)
-  const { mutate, isPending } = useUpdateReceiptDocument(document.id)
+  const { mutate } = useUpdateDocument(document.id)
 
-  const defaultValues = {
-    warehouseId: document.warehouseId ?? undefined,
-    supplierId: document.supplierId ?? undefined,
-    organizationId: document.organizationId ?? undefined,
-    orderId: document.orderId ?? undefined,
-    incomingNumber: document.incomingNumber ?? '',
-    incomingDate: document.incomingDate
-      ? new Date(document.incomingDate)
-      : undefined,
-    note: document.note ?? '',
-  }
+  const configKey = documentTypeToKey[document.type]
+  const config = configKey ? documentTypeConfigs[configKey] : undefined
+  if (!config) return null
+
+  const { FormComponent } = config
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -47,9 +58,8 @@ const EditDocumentDialog = ({ document, disabled }: Props) => {
         <DialogHeader>
           <DialogTitle>Редактирование документа #{document.id}</DialogTitle>
         </DialogHeader>
-        <CreateDocumentForm
-          type={document.type}
-          defaultValues={defaultValues}
+        <FormComponent
+          defaultValues={getDefaultValues(document)}
           submitLabel='Сохранить'
           onSubmit={(values) => {
             mutate(values, {

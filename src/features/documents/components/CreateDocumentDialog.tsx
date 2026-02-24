@@ -12,18 +12,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import CreateDocumentForm from '@/features/documents/components/CreateDocumentForm'
-
-import type { DocumentType } from '@/features/documents/types'
+import { documentTypeConfigs } from '@/features/documents/lib/document-config'
 
 interface Props {
   type: string
-  documentType: DocumentType
 }
 
-const CreateDocumentDialog = ({ type, documentType }: Props) => {
+const CreateDocumentDialog = ({ type }: Props) => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const { FormComponent } = documentTypeConfigs[type]
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -37,8 +35,7 @@ const CreateDocumentDialog = ({ type, documentType }: Props) => {
         <DialogHeader>
           <DialogTitle>Новый документ</DialogTitle>
         </DialogHeader>
-        <CreateDocumentForm
-          type={documentType}
+        <FormComponent
           onSuccess={(id) => {
             setOpen(false)
             router.push(`/documents/${type}/${id}`)

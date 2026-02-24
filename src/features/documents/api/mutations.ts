@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { addDocumentItem, createDocument, deleteDocumentItem, updateDocumentItem } from './actions'
+import { addDocumentItem, createDocument, deleteDocumentItem, updateDocument, updateDocumentItem } from './actions'
 import { documentsQueryKeys } from './query-keys'
 
-import type { CreateDocumentDto } from '@/features/documents/types'
+import type { CreateDocumentDto, UpdateDocumentDto } from '@/features/documents/types'
 
 export const useCreateDocument = () => {
   const queryClient = useQueryClient()
@@ -17,6 +17,22 @@ export const useCreateDocument = () => {
     },
     onError: (error) => {
       toast.error(`Ошибка при создании документа: ${error.message}`)
+    },
+  })
+}
+
+export const useUpdateDocument = (id: number) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (data: UpdateDocumentDto) => updateDocument(id, data),
+    onSuccess: () => {
+      toast.success('Документ обновлён')
+      queryClient.invalidateQueries({ queryKey: documentsQueryKeys.detail(id) })
+      queryClient.invalidateQueries({ queryKey: documentsQueryKeys.lists() })
+    },
+    onError: (error) => {
+      toast.error(`Ошибка при обновлении документа: ${error.message}`)
     },
   })
 }

@@ -7,8 +7,6 @@ import type { User } from '@/types'
 
 export { DocumentType, DocumentStatus } from '@/features/documents/lib/constants'
 
-export type * from './receipt'
-
 // ============================================================
 // Document-specific reference types
 // ============================================================
@@ -64,6 +62,7 @@ export interface Document {
   userId: number
   incomingNumber: string | null
   incomingDate: string | null
+  operationType: string | null
   createdAt: string | null
   updatedAt: string | null
   confirmedAt: string | null
@@ -90,6 +89,7 @@ export interface CreateDocumentDto {
   note?: string
   incomingNumber?: string
   incomingDate?: string
+  operationType?: string
 }
 
 export interface UpdateDocumentDto {
@@ -102,6 +102,7 @@ export interface UpdateDocumentDto {
   date?: string
   incomingNumber?: string
   incomingDate?: string
+  operationType?: string
 }
 
 export interface DocumentsQueryParams {
