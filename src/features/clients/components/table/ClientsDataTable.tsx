@@ -44,8 +44,8 @@ const ClientsDataTable = () => {
   if (!data) return <div className='p-4'>No data available</div>
 
   return (
-    <div className="">
-      <div className="flex gap-3">
+    <div className="flex flex-col h-full">
+      <div className="flex gap-3 shrink-0">
         <ClientsSearchBox searchParams={searchParams} />
         {isFetching && <LoaderAnimated />}
       </div>

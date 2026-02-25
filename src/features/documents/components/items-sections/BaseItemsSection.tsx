@@ -7,9 +7,7 @@ import { toast } from 'sonner'
 
 import DataTableBasic from '@/components/common/table/data-table-basic'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import {
-  useAddDocumentItem,
   useDeleteDocumentItem,
   useUpdateDocumentItem,
 } from '@/features/documents/api/mutations'
@@ -76,25 +74,23 @@ const BaseItemsSection = ({ documentId, status, columns, combobox }: BaseItemsSe
   return (
     <div className='flex flex-col h-full rounded-lg border bg-card'>
       {isDraft && combobox && (
-        <div className='p-4 border-b'>
+        <div className='p-4 border-b shrink-0'>
           {combobox}
         </div>
       )}
 
-      <ScrollArea className='flex-1 min-h-0'>
-        {isLoading ? (
-          <div className='p-4'>
-            <LoaderSectionAnimated text='Загружаем товары...' />
-          </div>
-        ) : items && items.length > 0 ? (
-          <DataTableBasic table={table} columns={columns} />
-        ) : (
-          <div className='flex flex-col items-center justify-center py-12 text-muted-foreground'>
-            <Package className='size-10 mb-3 opacity-40' />
-            <span className='text-sm'>Товары не добавлены</span>
-          </div>
-        )}
-      </ScrollArea>
+      {isLoading ? (
+        <div className='p-4'>
+          <LoaderSectionAnimated text='Загружаем товары...' />
+        </div>
+      ) : items && items.length > 0 ? (
+        <DataTableBasic table={table} columns={columns} className='flex-1 min-h-0' />
+      ) : (
+        <div className='flex flex-col items-center justify-center py-12 text-muted-foreground'>
+          <Package className='size-10 mb-3 opacity-40' />
+          <span className='text-sm'>Товары не добавлены</span>
+        </div>
+      )}
     </div>
   )
 }

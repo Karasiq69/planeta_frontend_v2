@@ -4,20 +4,19 @@ import PageHeader from '@/components/common/PageHeader'
 import { Card } from '@/components/ui/card'
 import ApplicationsDataTable from '@/features/orders/applications/tables/ApplicationsDataTable'
 import CreateOrderButton from '@/features/orders/components/create-order/CreateOrderButton'
-import OrdersDataTable from '@/features/orders/components/tables/OrdersDataTable'
 
 const Page = async () => {
   return (
-    <section>
-      <div className="space-y-5">
+    <section className="flex flex-col h-full">
+      <div className="space-y-5 shrink-0">
         <PageHeader title="Заявки на ремонт" showBackButton={false} />
         <CreateOrderButton />
-        <Card>
-          <Suspense>
-            <ApplicationsDataTable />
-          </Suspense>
-        </Card>
       </div>
+      <Card className="mt-5 flex-1 min-h-0 flex flex-col">
+        <Suspense>
+          <ApplicationsDataTable />
+        </Suspense>
+      </Card>
     </section>
   )
 }

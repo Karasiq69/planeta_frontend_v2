@@ -7,9 +7,9 @@ import {
 import { useParams } from 'next/navigation'
 import React, { useMemo } from 'react'
 
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import { Separator } from '@/components/ui/separator'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Table,
   TableBody,
@@ -60,7 +60,8 @@ const ServicesTabContent = (props: Props) => {
           <ServicesCombobox orderId={orderId} />
           <CreateOrderServiceButton />
         </CardHeader>
-        <CardContent className=" space-y-3 shadow-inner p-0">
+        <CardContent className="shadow-inner p-0">
+          <ScrollArea className="max-h-[500px]">
           <Table className="table-auto">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -119,6 +120,7 @@ const ServicesTabContent = (props: Props) => {
               )}
             </TableBody>
           </Table>
+          </ScrollArea>
         </CardContent>
       </Card>
     </>

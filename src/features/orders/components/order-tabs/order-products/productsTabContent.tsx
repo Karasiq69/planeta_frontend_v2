@@ -33,8 +33,8 @@ const ProductsTabContent = (props: Props) => {
         <OrderProductsCombobox orderId={orderId} />
         {/*<CreateOrderServiceButton/>*/}
       </CardHeader>
-      <CardContent className=" space-y-3 shadow-inner p-0">
-        <DataTableBasic table={table} columns={columns} />
+      <CardContent className="shadow-inner p-0">
+        <DataTableBasic table={table} columns={columns} className="max-h-[500px]" />
       </CardContent>
     </Card>
   )

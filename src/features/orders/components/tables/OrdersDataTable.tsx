@@ -124,8 +124,8 @@ const OrdersDataTable = () => {
   if (!data) return <div className='p-4'>No data available</div>
 
   return (
-    <div>
-      <div className="px-4 pt-5">
+    <div className="flex flex-col h-full">
+      <div className="px-4 pt-5 shrink-0">
         <DataTableToolbar table={table} isLoading={isFetching} />
       </div>
 

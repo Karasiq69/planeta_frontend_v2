@@ -1,32 +1,18 @@
 'use client'
 import {
   ArrowLeftRight,
-  Bolt,
   BookX,
-  ChevronDown,
-  CopyPlus,
   FileMinus2,
   FilePlus2,
-  Files,
   Layers2,
   SquarePlus,
-  Trash,
 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import React, { Suspense } from 'react'
 
 import PageHeader from '@/components/common/PageHeader'
 import { DropdownMenuWithIcons } from '@/components/DropdownMenuWithIcons'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 import StockMovementsDataTable from '@/features/stock-movements/components/table/stock-movements/StockMovementsDataTable'
 import { INVENTORY_DOCUMENTS_URL, WAREHOUSE_URL } from '@/lib/constants'
 
@@ -67,10 +53,9 @@ const dropdownItems: DropdownWithIconMenuItem[] = [
 
 const Page = () => {
   return (
-    <section>
-      <div className="space-y-5">
+    <section className="flex flex-col h-full">
+      <div className="space-y-5 shrink-0">
         <PageHeader title="Движение товаров" showBackButton={false} />
-
         <div className="flex gap-5 items-center">
           <DropdownMenuWithIcons items={dropdownItems}>
             <Button variant='default'>
@@ -78,40 +63,16 @@ const Page = () => {
               Создать документ
             </Button>
           </DropdownMenuWithIcons>
-
-          {/*<DropdownMenu>*/}
-          {/*    <DropdownMenuTrigger asChild>*/}
-          {/*        <Button>*/}
-          {/*            <SquarePlus/>*/}
-          {/*            Создать накладную?*/}
-          {/*        </Button>*/}
-          {/*    </DropdownMenuTrigger>*/}
-          {/*    <DropdownMenuContent align={'start'}>*/}
-          {/*        <DropdownMenuLabel>Выбрать вариант</DropdownMenuLabel>*/}
-          {/*        <DropdownMenuSeparator/>*/}
-          {/*        <DropdownMenuItem onClick={() => router.push(`${WAREHOUSE_URL}/new-receipt`)}>*/}
-          {/*            <DropdownMenuShortcut><FilePlus2/></DropdownMenuShortcut>*/}
-          {/*            Оформить приход*/}
-          {/*        </DropdownMenuItem>*/}
-          {/*        <DropdownMenuItem>*/}
-          {/*            <DropdownMenuShortcut><FileMinus2/></DropdownMenuShortcut>*/}
-          {/*            Оформить расход*/}
-          {/*        </DropdownMenuItem>*/}
-          {/*        <DropdownMenuSeparator/>*/}
-          {/*        <DropdownMenuItem disabled>Оформить списание</DropdownMenuItem>*/}
-          {/*    </DropdownMenuContent>*/}
-          {/*</DropdownMenu>*/}
           <Button variant="outline" disabled>
             Что-то еще сделать
           </Button>
         </div>
-        <Card>
-          <Suspense>
-            {/*<InventoryTransactionsDataTable/>*/}
-            <StockMovementsDataTable />
-          </Suspense>
-        </Card>
       </div>
+      <Card className="mt-5 flex-1 min-h-0 flex flex-col">
+        <Suspense>
+          <StockMovementsDataTable />
+        </Suspense>
+      </Card>
     </section>
   )
 }
