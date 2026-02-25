@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
-import { getDocumentItems, getDocuments } from './actions'
+import { getDocumentById, getDocumentItems, getDocuments } from './actions'
 import { documentsQueryKeys } from './query-keys'
 
 import type { DocumentsQueryParams } from '@/features/documents/types'
@@ -18,5 +18,12 @@ export const useDocumentItems = (documentId: number) => {
     queryKey: documentsQueryKeys.items(documentId),
     queryFn: () => getDocumentItems(documentId),
     enabled: !!documentId,
+  })
+}
+
+export const useDocument = (id: number) => {
+  return useQuery({
+    queryKey: documentsQueryKeys.detail(id),
+    queryFn: () => getDocumentById(id),
   })
 }

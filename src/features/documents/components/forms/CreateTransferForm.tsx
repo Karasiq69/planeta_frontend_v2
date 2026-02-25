@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { OrdersCombobox } from '@/components/orders/orders-combobox'
 import { Label } from '@/components/ui/label'
 import { useCreateDocument } from '@/features/documents/api/mutations'
 import FormFieldSelectOperation from '@/features/documents/components/FormFieldSelectOperation'
@@ -133,7 +134,9 @@ const CreateTransferForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input {...field} type='number' placeholder='ID связанного заказа' />
+                    <OrdersCombobox
+                      onSelect={(order) => field.onChange(order.id)}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

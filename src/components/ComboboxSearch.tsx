@@ -45,9 +45,8 @@ export function ComboboxSearch<T extends { id: number | string }>({
 
   const handleSelectItem = (item: T) => {
     onSelect(item)
-
-    // setSelectedItem(item.id)
-    // setOpen(false)
+    setSelectedItem(item.id)
+    setOpen(false)
   }
   return (
     <Popover open={open} onOpenChange={setOpen} modal={true}>
