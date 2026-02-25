@@ -18,6 +18,8 @@ import type { Document } from '@/features/documents/types'
 const documentTypeToKey: Record<string, string> = {
   RECEIPT: 'receipt',
   TRANSFER: 'transfer',
+  EXPENSE: 'expense',
+  WRITE_OFF: 'write-off',
 }
 
 const getDefaultValues = (document: Document) => ({

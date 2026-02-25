@@ -148,6 +148,14 @@ const data = {
           title: 'Перемещения товаров',
           url: '/documents/transfer',
         },
+        {
+          title: 'Расходные документы',
+          url: '/documents/expense',
+        },
+        {
+          title: 'Списания',
+          url: '/documents/write-off',
+        },
       ],
     },
   ],
