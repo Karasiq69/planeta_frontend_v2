@@ -24,28 +24,28 @@ const OrderSummary = ({ orderId }: Props) => {
   return (
     <>
       <Card className="">
-        <CardHeader className='flex flex-row items-start bg-background/80 rounded-t-lg border-b'>
-          <div className='grid gap-0.5'>
-            <CardTitle className='group flex items-center gap-2 text-lg'>
-              {titleText} №{orderId}
-              <Button
-                size='icon'
-                variant='outline'
-                className='h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100'
-              >
-                <Copy className='h-3 w-3' />
-                <span className='sr-only'>Copy Order ID</span>
-              </Button>
-            </CardTitle>
-            <CardDescription className="text-xs">
-              <span className="flex gap-1 items-center">Создал: {order?.creator?.username}</span>
-            </CardDescription>
-            <p className="text-xs">Изменен {formatRelativeTime(order?.updatedAt)}</p>
-            <p className="text-xs">Создан {formatRelativeTime(order?.createdAt)}</p>
+        <CardHeader className='bg-background/80 rounded-t-lg border-b space-y-3'>
+          <div className='flex items-start justify-between'>
+            <div className='grid gap-0.5'>
+              <CardTitle className='group flex items-center gap-2 text-lg'>
+                {titleText} №{orderId}
+                <Button
+                  size='icon'
+                  variant='outline'
+                  className='h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100'
+                >
+                  <Copy className='h-3 w-3' />
+                  <span className='sr-only'>Copy Order ID</span>
+                </Button>
+              </CardTitle>
+              <CardDescription className='text-xs'>
+                <span className='flex gap-1 items-center'>Создал: {order?.creator?.username}</span>
+              </CardDescription>
+              <p className='text-xs text-muted-foreground'>Изменен {formatRelativeTime(order?.updatedAt)}</p>
+              <p className='text-xs text-muted-foreground'>Создан {formatRelativeTime(order?.createdAt)}</p>
+            </div>
           </div>
-          <div className='ml-auto flex items-center gap-1'>
-            <OrderStatusSelect order={order} />
-          </div>
+          <OrderStatusSelect order={order} />
         </CardHeader>
         {!isApplication ? (
           <CardContent className="p-6">

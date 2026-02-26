@@ -10,11 +10,10 @@ const Page = (props: Props) => {
 
   if (isLoading) return 'ev load'
   return (
-    <div className="text-xs ">
+    <div className='text-xs '>
       {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
       {/*<pre>{JSON.stringify(events, null, 2)}</pre>*/}
       <Pre object={storageLocations} />
-      sex
     </div>
   )
 }
