@@ -43,6 +43,31 @@ export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
     ),
   },
   {
+    accessorKey: 'stockQuantity',
+    header: () => <span className='text-xs text-nowrap'>На складе</span>,
+    cell: ({ row }) => {
+      const stock = row.original.stockQuantity
+      if (stock === null) {
+        return <span className='text-xs text-destructive text-nowrap'>Нет в системе</span>
+      }
+      const qty = Number(stock)
+      if (qty === 0) {
+        return (
+          <div className='space-x-1 text-nowrap'>
+            <span className='text-xs text-amber-500'>0</span>
+            <span className='text-xs text-muted-foreground'>шт.</span>
+          </div>
+        )
+      }
+      return (
+        <div className='space-x-1 text-nowrap'>
+          <span className='text-xs text-green-500'>{qty.toFixed()}</span>
+          <span className='text-xs text-muted-foreground'>шт.</span>
+        </div>
+      )
+    },
+  },
+  {
     accessorKey: 'appliedPrice',
     header: () => <span className='text-xs text-nowrap'>Цена</span>,
     cell: ({ row }) => {

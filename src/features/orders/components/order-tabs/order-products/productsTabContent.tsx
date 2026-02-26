@@ -22,19 +22,16 @@ const ProductsTabContent = (props: Props) => {
     getCoreRowModel: getCoreRowModel(),
   })
 
-  if (isLoading) return <LoaderSectionAnimated className="bg-background" text="Загружаем..." />
+  if (isLoading) return <LoaderSectionAnimated className='bg-background' text='Загружаем...' />
   if (!data) return 'no data'
 
   return (
-    <Card className="">
-      <CardHeader
-        className="flex flex-row items-center space-y-0 justify-between     border-b rounded-lg rounded-b-none"
-      >
+    <Card className=''>
+      <CardHeader className='flex flex-row items-center space-y-0 justify-between     border-b rounded-lg rounded-b-none'>
         <OrderProductsCombobox orderId={orderId} />
-        {/*<CreateOrderServiceButton/>*/}
       </CardHeader>
-      <CardContent className="shadow-inner p-0">
-        <DataTableBasic table={table} columns={columns} className="max-h-[500px]" />
+      <CardContent className='shadow-inner p-0'>
+        <DataTableBasic table={table} columns={columns} className='max-h-[500px]' />
       </CardContent>
     </Card>
   )

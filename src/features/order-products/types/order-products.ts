@@ -10,6 +10,7 @@ export interface OrderProduct {
   estimatedPrice: string // decimal as string, e.g. "3500.00"
   actualPrice: string | null // может быть null или decimal как string
   status: OrderProductStatus
+  stockQuantity: string | null // суммарный остаток на складах, null = не числится
   product: Product
 }
 

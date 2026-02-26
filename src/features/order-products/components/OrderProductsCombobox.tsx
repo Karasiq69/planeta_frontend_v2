@@ -22,7 +22,7 @@ const OrderProductsCombobox = ({ orderId }: { orderId: number }) => {
     searchTerm: searchTerm || undefined,
   })
   const { mutate, isPending } = useCreateOrderProduct(orderId)
-
+  console.log(products)
   const handleSelectItem = (item: Product) => {
     mutate(item.id)
   }
@@ -33,7 +33,7 @@ const OrderProductsCombobox = ({ orderId }: { orderId: number }) => {
         data={products}
         isLoading={isLoading || isFetching}
         isPending={isPending}
-        width="w-[600px]"
+        width='w-[600px]'
         onSearch={debouncedHandleSearch}
         onSelect={handleSelectItem}
         getDisplayValue={(product) => product.name}
