@@ -10,8 +10,7 @@ import {
 
 import { OrderStatus } from '@/features/orders/types'
 
-import type {
-  LucideIcon} from 'lucide-react';
+import type { LucideIcon } from 'lucide-react'
 
 // Определение типа статуса
 export interface StatusItem {
@@ -20,13 +19,14 @@ export interface StatusItem {
   icon: LucideIcon
   color: string
 }
+
 export const statuses: StatusItem[] = [
-  // {
-  //     value: OrderStatus.APPLICATION,
-  //     label: "Заявка",
-  //     icon: CircleDashed,
-  //     color: "bg-gray-100 text-gray-800 hover:bg-gray-200", // Серый цвет для заявки
-  // },
+  {
+    value: OrderStatus.APPLICATION,
+    label: 'Заявка',
+    icon: CircleDashed,
+    color: 'bg-gray-100 text-gray-800 hover:bg-gray-200', // Серый цвет для заявки
+  },
   {
     value: OrderStatus.ORDER,
     label: 'Заказ-наряд',

@@ -6,7 +6,6 @@ import { Badge } from '@/components/ui/badge'
 import { useCreateOrderProduct } from '@/features/order-products/api/mutations'
 import { useProductsList } from '@/features/products/api/queries'
 import useDebouncedSearch from '@/hooks/use-debounced-search'
-import { formatPrice } from '@/lib/utils'
 
 import type { Product } from '@/features/products/types'
 
@@ -14,7 +13,7 @@ const OrderProductsCombobox = ({ orderId }: { orderId: number }) => {
   const { searchTerm, searchError, debouncedHandleSearch } = useDebouncedSearch()
 
   const {
-    data: services,
+    data: products,
     isLoading,
     isFetching,
   } = useProductsList({
@@ -31,7 +30,7 @@ const OrderProductsCombobox = ({ orderId }: { orderId: number }) => {
   return (
     <div>
       <ComboboxSearch<Product>
-        data={services}
+        data={products}
         isLoading={isLoading || isFetching}
         isPending={isPending}
         width="w-[600px]"
@@ -39,20 +38,15 @@ const OrderProductsCombobox = ({ orderId }: { orderId: number }) => {
         onSelect={handleSelectItem}
         getDisplayValue={(product) => product.name}
         renderItem={(product) => (
-          <div className='w-full max-w-6xl'>
+          <div className='w-full'>
             <div className='flex items-center justify-between'>
               <div className='flex items-center gap-5'>
-                <span className='text-sm text-gray-500  '>{product.partNumber}</span>
-                <span className='font-medium '>{product.name}</span>
-                <span className='font-bold'>{formatPrice(product.price)}</span>
-              </div>
-              <div className="gap-2 flex">
+                <span className='grow'>{product.name}</span>
                 <span className='text-xs text-muted-foreground grow-0'>{product.sku}</span>
-
-                <Badge variant='outline' className='ml-auto font-normal text-muted-foreground'>
-                  {product.brand.name}
-                </Badge>
               </div>
+              <Badge variant='outline' className='ml-auto font-normal text-muted-foreground'>
+                {product.brand.name}
+              </Badge>
             </div>
           </div>
         )}
