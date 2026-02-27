@@ -15,6 +15,7 @@ import {
   Users,
   Wallet,
   Warehouse,
+  Banknote,
 } from 'lucide-react'
 import * as React from 'react'
 
@@ -83,6 +84,11 @@ const data = {
       title: 'Платежи',
       url: '/payments',
       icon: Wallet,
+    },
+    {
+      title: 'Зарплаты',
+      url: '/payrolls',
+      icon: Banknote,
     },
   ],
   navBottom: [
