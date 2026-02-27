@@ -1,7 +1,7 @@
 'use client'
 
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { ChevronDown, ChevronUp, Play, CheckCircle, Banknote, Trash2, Undo2 } from 'lucide-react'
+import { Banknote, CheckCircle, ChevronDown, ChevronUp, Play, Trash2, Undo2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -19,6 +19,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Table,
@@ -28,7 +29,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import {
   useConfirmPayroll,
   useDeletePayroll,
@@ -39,12 +39,13 @@ import {
 import { usePayroll, usePayrollItems } from '@/features/payrolls/api/queries'
 import { PAYROLL_STATUS_LABELS, PAYROLL_STATUS_VARIANT } from '@/features/payrolls/lib/constants'
 import { formatPayrollPeriod } from '@/features/payrolls/lib/format'
-import { mechanicSummaryColumns } from './mechanic-summary-columns'
-import { payrollItemColumns } from './payroll-item-columns'
 import { formatRelativeTime } from '@/lib/format-date'
 import { formatPrice } from '@/lib/utils'
 
-import type { PayrollDetail } from '@/features/payrolls/types'
+
+import { mechanicSummaryColumns } from './mechanic-summary-columns'
+import { payrollItemColumns } from './payroll-item-columns'
+
 import type { ColumnDef } from '@tanstack/react-table'
 
 interface Props {
@@ -94,7 +95,10 @@ function MiniTable<T>({ data, columns }: { data: T[]; columns: ColumnDef<T>[] })
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className='h-16 text-center text-muted-foreground'>
+              <TableCell
+                colSpan={columns.length}
+                className='h-16 text-center text-muted-foreground'
+              >
                 Нет данных
               </TableCell>
             </TableRow>
@@ -105,7 +109,10 @@ function MiniTable<T>({ data, columns }: { data: T[]; columns: ColumnDef<T>[] })
   )
 }
 
-const CONFIRM_CONFIG: Record<ConfirmAction, { title: string; description: string; action: string }> = {
+const CONFIRM_CONFIG: Record<
+  ConfirmAction,
+  { title: string; description: string; action: string }
+> = {
   generate: {
     title: 'Сгенерировать начисления?',
     description: 'Начисления будут рассчитаны на основе выполненных услуг за период.',
@@ -180,7 +187,11 @@ const PayrollDetailPage = ({ payrollId }: Props) => {
         <div className='flex items-center gap-2 shrink-0'>
           {payroll.status === 'draft' && (
             <>
-              <Button variant='outline' onClick={() => setConfirmAction('generate')} disabled={isBusy}>
+              <Button
+                variant='outline'
+                onClick={() => setConfirmAction('generate')}
+                disabled={isBusy}
+              >
                 <Play className='h-4 w-4' />
                 Сгенерировать
               </Button>
@@ -200,7 +211,11 @@ const PayrollDetailPage = ({ payrollId }: Props) => {
           )}
           {payroll.status === 'confirmed' && (
             <>
-              <Button variant='outline' onClick={() => setConfirmAction('revert')} disabled={isBusy}>
+              <Button
+                variant='outline'
+                onClick={() => setConfirmAction('revert')}
+                disabled={isBusy}
+              >
                 <Undo2 className='h-4 w-4' />
                 Откатить
               </Button>
@@ -224,8 +239,14 @@ const PayrollDetailPage = ({ payrollId }: Props) => {
         <div className='grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3'>
           <Field label='Период:' value={formatPayrollPeriod(payroll.periodStart)} />
           <Field label='Создана:' value={formatRelativeTime(payroll.createdAt)} />
-          <Field label='Подтверждена:' value={payroll.confirmedAt ? formatRelativeTime(payroll.confirmedAt) : null} />
-          <Field label='Оплачена:' value={payroll.paidAt ? formatRelativeTime(payroll.paidAt) : null} />
+          <Field
+            label='Подтверждена:'
+            value={payroll.confirmedAt ? formatRelativeTime(payroll.confirmedAt) : null}
+          />
+          <Field
+            label='Оплачена:'
+            value={payroll.paidAt ? formatRelativeTime(payroll.paidAt) : null}
+          />
           <Field label='Начислений:' value={payroll.totalItems.toString()} />
           <Field label='Сумма:' value={formatPrice(payroll.totalAmount)} />
         </div>
@@ -262,7 +283,9 @@ const PayrollDetailPage = ({ payrollId }: Props) => {
       <AlertDialog open={confirmAction !== null} onOpenChange={() => setConfirmAction(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{confirmAction && CONFIRM_CONFIG[confirmAction].title}</AlertDialogTitle>
+            <AlertDialogTitle>
+              {confirmAction && CONFIRM_CONFIG[confirmAction].title}
+            </AlertDialogTitle>
             <AlertDialogDescription>
               {confirmAction && CONFIRM_CONFIG[confirmAction].description}
             </AlertDialogDescription>
