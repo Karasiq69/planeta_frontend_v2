@@ -24,6 +24,7 @@ export const INVENTORY_DOCUMENTS_URL = '/inventory-documents'
 export const SUPPLIER_URL = '/suppliers'
 export const ORGANIZATIONS_URL = '/organization'
 export const CLIENT_ORDERS = '/client-orders'
+export const DASHBOARD_URL = '/dashboard'
 export const RECEIPT_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/receipt`
 export const TRANSFER_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/transfer`
 
