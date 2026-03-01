@@ -3,13 +3,13 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import {
   getAllVehiclesListFn,
   getCarBrandsFn,
+  getCarHistoryFn,
   getCarModelsFn,
   getVehicleById,
 } from '@/features/cars/api/actions'
 import { carQueryKeys } from '@/features/cars/api/query-keys'
-import { ICarModel } from '@/features/cars/types'
-import { CarListParams } from '@/features/cars/types/params'
 
+import type { CarHistoryParams } from '@/features/cars/types'
 import type { ListParams } from '@/types/params'
 
 export const useVehiclesList = (params: ListParams) => {
@@ -42,5 +42,14 @@ export const useVehiclesModels = (brandId?: number) => {
     queryKey: carQueryKeys.model(brandId as number),
     queryFn: () => getCarModelsFn(brandId as number),
     enabled: !!brandId,
+  })
+}
+
+export const useCarHistory = (carId: number, params: CarHistoryParams) => {
+  return useQuery({
+    queryKey: carQueryKeys.history(carId, params),
+    queryFn: () => getCarHistoryFn(carId, params),
+    enabled: !!carId,
+    placeholderData: keepPreviousData,
   })
 }

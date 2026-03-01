@@ -1,7 +1,14 @@
 import apiClient from '@/lib/auth/client'
 import { BRANDS_URL, CAR_MODELS_URL, CARS_URL } from '@/lib/constants'
 
-import type { CarListParams, ICar, ICarBrand, ICarModel } from '@/features/cars/types'
+import type {
+  CarHistoryParams,
+  CarHistoryResponse,
+  CarListParams,
+  ICar,
+  ICarBrand,
+  ICarModel,
+} from '@/features/cars/types'
 import type { ListResponse } from '@/types/params'
 
 export const getAllVehiclesListFn = async (params: CarListParams): Promise<ListResponse<ICar>> => {
@@ -25,4 +32,12 @@ export const getCarModelsFn = async (brandId: number) => {
 export const getCarBrandsFn = async () => {
   const response = await apiClient.get<ICarBrand[]>(`${CARS_URL}${BRANDS_URL}`)
   return response.data
+}
+
+export const getCarHistoryFn = async (
+  carId: number,
+  params: CarHistoryParams
+): Promise<CarHistoryResponse> => {
+  const res = await apiClient.get<CarHistoryResponse>(`${CARS_URL}/${carId}/history`, { params })
+  return res.data
 }

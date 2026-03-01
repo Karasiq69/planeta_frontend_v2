@@ -1,93 +1,49 @@
-import { MoreVertical, Pencil, RefreshCw, Trash2, User, UserPlus, XCircle } from 'lucide-react'
-import React from 'react'
+import { ExternalLink, UserIcon } from 'lucide-react'
+import Link from 'next/link'
 
-import { Badge } from '@/components/ui/badge'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { formatPhone } from '@/lib/utils'
 
 import type { IClient } from '@/features/clients/types'
 
 interface CarOwnerCardProps {
   owner: IClient
-  onEdit: () => void
 }
 
-export default function CarOwnerCard({ owner, onEdit }: CarOwnerCardProps) {
-  const { firstName, lastName, phone, email } = owner
+export default function CarOwnerCard({ owner }: CarOwnerCardProps) {
+  const { firstName, lastName, phone, email, id } = owner
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className='flex items-center justify-between gap-2'>
-          <div className="flex items-center  gap-2">
-            <User className='w-5 h-5' />
-            Владелец и контакты
-          </div>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant='ghost' size='icon'>
-                <MoreVertical />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align='start' className='w-56'>
-              <DropdownMenuItem>
-                <Pencil className='mr-2 h-4 w-4' />
-                <span>Редактировать клиента</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RefreshCw className='mr-2 h-4 w-4' />
-                <span>Заменить клиента</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <XCircle className='mr-2 h-4 w-4' />
-                <span>Очистить клиента</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className='text-red-600'>
-                <Trash2 className='mr-2 h-4 w-4' />
-                <span>Удалить клиента</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className='grid gap-6 md:grid-cols-2'>
+    <Card className="h-full">
+      <CardHeader className="flex flex-row justify-between items-center">
+        <div className="flex flex-row flex-wrap gap-4 items-center">
+          <Avatar>
+            <AvatarImage src="" />
+            <AvatarFallback>
+              <UserIcon />
+            </AvatarFallback>
+          </Avatar>
           <div>
-            <div className='space-y-2 text-sm'>
-              <p>
-                <span className='text-gray-500'>ФИО:</span> {`${firstName} ${lastName}`}
-              </p>
-              <p>
-                <span className='text-gray-500'>Телефон:</span> {phone}
-              </p>
-              <p>
-                <span className='text-gray-500'>Email:</span> {email}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div className='space-y-2 text-sm'>
-              <p>
-                <span className='text-gray-500'>Предпочтительное время:</span> После 17:00
-              </p>
-              <p>
-                <span className='text-gray-500'>Дата регистрации:</span> 15.03.2023
-              </p>
-              <div>
-                <span className='text-gray-500'>Статус:</span> <Badge>VIP клиент</Badge>
-              </div>
-            </div>
+            <CardTitle>{`${firstName} ${lastName}`}</CardTitle>
+            <CardDescription>{email}</CardDescription>
           </div>
         </div>
+        <Button variant="ghost" size="sm" asChild>
+          <Link href={`/clients/${id}`}>
+            <ExternalLink className="size-4" />
+          </Link>
+        </Button>
+      </CardHeader>
+      <CardContent className="flex gap-3 justify-between items-center">
+        <span className="text-sm">{formatPhone(phone)}</span>
       </CardContent>
     </Card>
   )

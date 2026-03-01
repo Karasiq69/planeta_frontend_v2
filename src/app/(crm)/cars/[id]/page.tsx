@@ -1,8 +1,6 @@
-import { ChevronLeft, Printer, Trash2 } from 'lucide-react'
 import React from 'react'
 
-import GoBackButton from '@/components/common/GoBackButton'
-import { Button } from '@/components/ui/button'
+import PageHeader from '@/components/common/PageHeader'
 import CarContentWrapper from '@/features/cars/components/CarContentWrapper'
 
 type Props = {
@@ -13,13 +11,10 @@ type Props = {
 const Page = async (props: Props) => {
   const params = await props.params
   return (
-    <>
-      <section>
-        <div className="space-y-5">
-          <CarContentWrapper carId={params.id} />
-        </div>
-      </section>
-    </>
+    <div className="space-y-5">
+      <PageHeader title={`Автомобиль #${params.id}`} showBackButton />
+      <CarContentWrapper carId={params.id} />
+    </div>
   )
 }
 export default Page
