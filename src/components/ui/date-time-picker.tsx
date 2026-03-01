@@ -69,9 +69,7 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(
             <div className='flex flex-col sm:flex-row sm:h-[300px] divide-y sm:divide-y-0 sm:divide-x'>
               <ScrollArea className='w-64 sm:w-auto'>
                 <div className='flex sm:flex-col p-2'>
-                  {Array.from({ length: 24 }, (_, i) => i)
-                    .reverse()
-                    .map((hour) => (
+                  {Array.from({ length: 24 }, (_, i) => i).map((hour) => (
                       <Button
                         key={hour}
                         size='icon'

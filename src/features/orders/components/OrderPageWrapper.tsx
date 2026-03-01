@@ -8,7 +8,7 @@ import { useOrderById } from '@/features/orders/api/queries'
 import CommentsPopoverButton from '@/features/orders/comments/components/CommentsPopoverButton'
 import CarCard from '@/features/orders/components/car-card/CarCard'
 import ClientCard from '@/features/orders/components/client-card/ClientCard'
-import CreateOrderAppointment from '@/features/orders/components/CreateOrderAppointment'
+import OrderAppointment from '@/features/orders/components/OrderAppointment'
 import OrdersTabsWrapper from '@/features/orders/components/OrdersTabsWrapper'
 import OrderSummary from '@/features/orders/components/OrderSummary'
 import StatusBadge from '@/features/orders/components/StatusBadge'
@@ -33,7 +33,7 @@ const OrderPageWrapper = ({ orderId }: Props) => {
           </div>
 
           <div className='space-x-4'>
-            <CreateOrderAppointment orderId={orderId} />
+            <OrderAppointment orderId={orderId} />
             <CommentsPopoverButton orderId={orderId} />
 
             <Button variant='outline' disabled size="sm">

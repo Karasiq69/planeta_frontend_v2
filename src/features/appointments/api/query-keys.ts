@@ -7,4 +7,6 @@ export const appointmentsQueryKeys = {
 
   lists: () => [...appointmentsQueryKeys.all, 'list'] as const,
   list: (params: CarListParams) => [...appointmentsQueryKeys.lists(), { params }] as const,
+
+  byOrder: (orderId: number) => [...appointmentsQueryKeys.all, 'byOrder', orderId] as const,
 }

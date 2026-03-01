@@ -1,11 +1,9 @@
 'use client'
 import {
-  AudioWaveform,
   BookDashed,
   BriefcaseBusiness,
   Calendar,
   Car,
-  CarFront,
   Files,
   FileText,
   HelpCircle,
@@ -34,18 +32,7 @@ import {
 } from '@/components/ui/sidebar'
 
 
-const teams = [
-  {
-    name: 'Planeta Mercedes',
-    logo: CarFront,
-    plan: 'ИП Молдован Е.С.',
-  },
-  {
-    name: 'Попов Е.А.',
-    logo: AudioWaveform,
-    plan: '',
-  },
-]
+
 const data = {
   intro: [
     {
@@ -189,7 +176,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible='icon' {...props} variant="sidebar">
       <SidebarHeader>
-        <TeamSwitcher teams={teams} />
+        <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
         <NavIntro items={data.intro} />
