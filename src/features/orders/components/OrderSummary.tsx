@@ -2,7 +2,7 @@ import { Copy } from 'lucide-react'
 
 import OrderSummarySkeleton from '@/components/skeletons/order-summary-skeleton'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { useOrderById } from '@/features/orders/api/queries'
 import OrderTotals from '@/features/orders/components/order-summary/OrderTotals'
@@ -15,6 +15,7 @@ import { formatRelativeTime } from '@/lib/format-date'
 type Props = {
   orderId: number
 }
+
 const OrderSummary = ({ orderId }: Props) => {
   const { data: order, isLoading } = useOrderById(orderId)
   const { isApplication, titleText } = getStatusData(order?.status)
@@ -23,32 +24,29 @@ const OrderSummary = ({ orderId }: Props) => {
   if (!order) return 'no order or error'
   return (
     <>
-      <Card className="">
-        <CardHeader className='bg-background/80 rounded-t-lg border-b space-y-3'>
-          <div className='flex items-start justify-between'>
-            <div className='grid gap-0.5'>
-              <CardTitle className='group flex items-center gap-2 text-lg'>
-                {titleText} №{orderId}
-                <Button
-                  size='icon'
-                  variant='outline'
-                  className='h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100'
-                >
-                  <Copy className='h-3 w-3' />
-                  <span className='sr-only'>Copy Order ID</span>
-                </Button>
-              </CardTitle>
-              <CardDescription className='text-xs'>
-                <span className='flex gap-1 items-center'>Создал: {order?.creator?.username}</span>
-              </CardDescription>
-              <p className='text-xs text-muted-foreground'>Изменен {formatRelativeTime(order?.updatedAt)}</p>
-              <p className='text-xs text-muted-foreground'>Создан {formatRelativeTime(order?.createdAt)}</p>
+      <Card>
+        <CardHeader className='rounded-t-lg border-b p-4 space-y-3'>
+          <div className='flex items-start justify-between gap-4'>
+            <CardTitle className='group flex items-center gap-1.5 text-base font-semibold leading-none'>
+              {titleText} №{orderId}
+              <Button
+                size='icon'
+                variant='ghost'
+                className='size-6 opacity-0 transition-opacity group-hover:opacity-100'
+              >
+                <Copy className='size-3' />
+                <span className='sr-only'>Скопировать номер</span>
+              </Button>
+            </CardTitle>
+            <div className='text-right text-xs text-muted-foreground leading-relaxed'>
+              <p>{order?.creator?.username}</p>
+              <p>Изм. {formatRelativeTime(order?.updatedAt)}</p>
             </div>
           </div>
           <OrderStatusSelect order={order} />
         </CardHeader>
         {!isApplication ? (
-          <CardContent className="p-6">
+          <CardContent className='p-6'>
             <div className='grid gap-5'>
               <ReasonToApply order={order} />
               <Separator />
@@ -62,4 +60,5 @@ const OrderSummary = ({ orderId }: Props) => {
     </>
   )
 }
+
 export default OrderSummary
