@@ -1,3 +1,6 @@
+export const APP_NAME = 'Планета Мерседес'
+export const APP_SHORT_NAME = 'CRM'
+
 export const CLIENTS_URL = '/clients'
 export const CARS_URL = '/cars'
 export const CAR_MODELS_URL = '/models'

@@ -8,6 +8,10 @@ import CreateVehicleButton from '@/features/cars/components/CreateVehicleButton'
 import VehiclesDataTable from '@/features/cars/components/table/VehiclesDataTable'
 import { CARS_URL } from '@/lib/constants'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = { title: 'Автомобили' }
+
 const VehiclesPage = async ({
   searchParams,
 }: {
@@ -15,17 +19,17 @@ const VehiclesPage = async ({
 }) => {
   const newCarsUrl = `${CARS_URL}/new`
   return (
-    <section className="flex flex-col h-full">
-      <div className="space-y-5 shrink-0">
-        <PageHeader title="Автомобили" />
-        <div className="flex gap-3">
+    <section className='flex flex-col h-full'>
+      <div className='space-y-5 shrink-0'>
+        <PageHeader title='Автомобили' />
+        <div className='flex gap-3'>
           <CreateVehicleButton />
           <Button asChild>
             <Link href={newCarsUrl}>Новый автомобиль page</Link>
           </Button>
         </div>
       </div>
-      <Card className="mt-5 flex-1 min-h-0 flex flex-col">
+      <Card className='mt-5 flex-1 min-h-0 flex flex-col'>
         <Suspense>
           <VehiclesDataTable />
         </Suspense>

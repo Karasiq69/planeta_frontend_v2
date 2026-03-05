@@ -1,6 +1,10 @@
 import Logo from '@/components/common/Logo'
 import { LoginForm } from '@/components/login-form'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = { title: 'Вход' }
+
 export default function LoginPage() {
   return (
     <>
@@ -12,7 +16,7 @@ export default function LoginPage() {
             <div className='flex flex-col space-y-2 text-center items-center'>
               <Logo />
             </div>
-            <div className="sm:w-[350px] mx-auto">
+            <div className='sm:w-[350px] mx-auto'>
               <LoginForm />
             </div>
           </div>

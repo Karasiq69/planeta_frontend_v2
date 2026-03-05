@@ -13,6 +13,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getClientById } from '@/features/clients/api/actions'
 import ClientFormContainer from '@/features/clients/components/forms/ClientFormContainer'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = { title: 'Клиент' }
+
 type Props = {
   params: Promise<{
     id: string
@@ -24,7 +28,7 @@ const Page = async (props: Props) => {
   return (
     <>
       <section>
-        <div className="space-y-5">
+        <div className='space-y-5'>
           <h3>Клиент</h3>
           <Tabs defaultValue='account' className='space-y-5'>
             <TabsList className='grid grid-cols-4 w-[500px]'>
@@ -34,7 +38,7 @@ const Page = async (props: Props) => {
               <TabsTrigger value='password3'>Настройки</TabsTrigger>
             </TabsList>
             <TabsContent value='account'>
-              <Card className="w-96">
+              <Card className='w-96'>
                 <CardHeader>
                   <CardTitle>Профиль</CardTitle>
                   <CardDescription>
@@ -61,7 +65,7 @@ const Page = async (props: Props) => {
               </Card>
             </TabsContent>
             <TabsContent value='password2'>
-              <Card className="w-96">
+              <Card className='w-96'>
                 <CardHeader>
                   <CardTitle>Автомобили</CardTitle>
                   <CardDescription>

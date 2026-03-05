@@ -1,14 +1,24 @@
-import type { Metadata } from 'next'
+import { Toaster } from '@/components/ui/sonner'
+// eslint-disable-next-line import/order
+import { APP_NAME, APP_SHORT_NAME } from '@/lib/constants'
 
 import './globals.css'
 import { RootProvider } from '@/providers/RootProvider'
-import { Toaster } from '@/components/ui/sonner'
 
+import type { Metadata } from 'next'
+
+// eslint-disable-next-line import/order
 import NextTopLoader from 'nextjs-toploader'
 
 export const metadata: Metadata = {
-  title: 'Вход | CRM Планета Мерседес',
-  description: '',
+  title: {
+    template: `%s | ${APP_NAME}`,
+    default: `${APP_SHORT_NAME} | ${APP_NAME}`,
+  },
+  description: `${APP_SHORT_NAME} — система управления ${APP_NAME}`,
+  other: {
+    'apple-mobile-web-app-title': APP_SHORT_NAME,
+  },
 }
 
 export default function AppLayout({
@@ -28,7 +38,7 @@ export default function AppLayout({
         <NextTopLoader />
 
         <RootProvider>{children}</RootProvider>
-        <Toaster theme="light" richColors={true} />
+        <Toaster theme='light' richColors={true} />
       </body>
     </html>
   )

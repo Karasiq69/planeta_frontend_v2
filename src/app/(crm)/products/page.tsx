@@ -2,6 +2,10 @@ import React from 'react'
 
 import { Card } from '@/components/ui/card'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = { title: 'Товары и запчасти' }
+
 const Page = async () => {
   return (
     <section>

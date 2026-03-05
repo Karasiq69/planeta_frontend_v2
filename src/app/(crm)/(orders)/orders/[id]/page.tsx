@@ -1,5 +1,9 @@
 import OrderPageWrapper from '@/features/orders/components/OrderPageWrapper'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = { title: 'Заказ' }
+
 export default async function Page({
   params,
   searchParams,

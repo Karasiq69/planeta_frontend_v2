@@ -4,18 +4,22 @@ import { Card } from '@/components/ui/card'
 import CreateClientButton from '@/features/clients/components/CreateClientButton'
 import ClientsDataTable from '@/features/clients/components/table/ClientsDataTable'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = { title: 'Клиенты' }
+
 const Page = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
   return (
-    <section className="flex flex-col h-full">
-      <div className="space-y-5 shrink-0">
+    <section className='flex flex-col h-full'>
+      <div className='space-y-5 shrink-0'>
         <h3>Клиенты</h3>
         <CreateClientButton />
       </div>
-      <Card className="mt-5 flex-1 min-h-0 flex flex-col">
+      <Card className='mt-5 flex-1 min-h-0 flex flex-col'>
         <Suspense>
           <ClientsDataTable />
         </Suspense>

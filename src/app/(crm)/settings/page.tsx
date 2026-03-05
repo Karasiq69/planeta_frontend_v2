@@ -4,6 +4,10 @@ import PageHeader from '@/components/common/PageHeader'
 import OrganizationSection from '@/features/settings/components/OrganizationSection'
 import { cn } from '@/lib/utils'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = { title: 'Настройки' }
+
 const Page = () => {
   const navItems = [
     { label: 'Организация', href: '/settings', active: true },
