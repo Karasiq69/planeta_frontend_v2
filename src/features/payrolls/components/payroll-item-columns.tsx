@@ -9,9 +9,9 @@ import type { ColumnDef } from '@tanstack/react-table'
 
 export const payrollItemColumns: ColumnDef<PayrollItem>[] = [
   {
-    accessorKey: 'mechanicName',
+    accessorKey: 'employeeName',
     header: 'Механик',
-    cell: ({ row }) => <span className='font-medium'>{row.original.mechanicName}</span>,
+    cell: ({ row }) => <span className='font-medium'>{row.original.employeeName}</span>,
   },
   {
     accessorKey: 'orderId',

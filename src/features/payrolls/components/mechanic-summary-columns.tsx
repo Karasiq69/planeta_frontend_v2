@@ -5,9 +5,9 @@ import type { ColumnDef } from '@tanstack/react-table'
 
 export const mechanicSummaryColumns: ColumnDef<PayrollMechanicSummary>[] = [
   {
-    accessorKey: 'mechanicName',
+    accessorKey: 'employeeName',
     header: 'Механик',
-    cell: ({ row }) => <span className='font-medium'>{row.original.mechanicName}</span>,
+    cell: ({ row }) => <span className='font-medium'>{row.original.employeeName}</span>,
   },
   {
     accessorKey: 'servicesCount',

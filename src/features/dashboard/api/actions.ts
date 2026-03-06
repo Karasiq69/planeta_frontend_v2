@@ -1,5 +1,5 @@
 import apiClient from '@/lib/auth/client'
-import { DASHBOARD_URL } from '@/lib/constants'
+import { DASHBOARD_URL, EMPLOYEES_MECHANICS_URL } from '@/lib/constants'
 
 import type {
   AppointmentItem,
@@ -44,7 +44,7 @@ export const getOrdersByStatus = async (
 }
 
 export const getMechanicLoad = async (): Promise<MechanicLoadItem[]> => {
-  const response = await apiClient.get<MechanicLoadItem[]>(`${DASHBOARD_URL}/mechanic-load`)
+  const response = await apiClient.get<MechanicLoadItem[]>(`${EMPLOYEES_MECHANICS_URL}/load`)
   return response.data
 }
 

@@ -52,7 +52,7 @@ const OrderAppointment = ({ orderId }: Props) => {
   // Если есть запись — кнопка с датой, по клику форма редактирования
   if (appointment) {
     const appointmentData: AppointmentInput = {
-      id: appointment.id,
+      id: String(appointment.id),
       title: appointment.title,
       start: new Date(appointment.start),
       end: new Date(appointment.end),

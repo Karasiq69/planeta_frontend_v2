@@ -1,7 +1,7 @@
 'use client'
 
 import { useGetWarehouses } from '@/features/warehouse/api/queries'
-import { useAllMechanics } from '@/features/mechanics/api/queries'
+import { useMechanicEmployees } from '@/features/employees/api/queries'
 import type { Warehouse } from '@/features/warehouse/types/warehouse'
 import {
 	Select,
@@ -41,7 +41,7 @@ export function DashboardFilters({
 	showWarehouse = true,
 }: DashboardFiltersProps) {
 	const { data: warehouses } = useGetWarehouses() as { data: Warehouse[] | undefined }
-	const { data: mechanics } = useAllMechanics()
+	const { data: mechanics } = useMechanicEmployees()
 
 	return (
 		<div className='flex flex-wrap items-center gap-3'>
@@ -75,7 +75,7 @@ export function DashboardFilters({
 						<SelectItem value='all'>Все механики</SelectItem>
 						{mechanics?.map((m) => (
 							<SelectItem key={m.id} value={String(m.id)}>
-								{m.name}
+								{`${m.firstName} ${m.lastName}`}
 							</SelectItem>
 						))}
 					</SelectContent>

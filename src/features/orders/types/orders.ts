@@ -1,6 +1,6 @@
 import type { ICar } from '@/features/cars/types'
 import type { IClient } from '@/features/clients/types'
-import type { Mechanic } from '@/features/mechanics/types'
+import type { Employee } from '@/features/employees/types'
 import type { IService } from '@/features/services/types'
 import type { User } from '@/types'
 
@@ -82,15 +82,15 @@ export interface OrderService {
   startTime: string | null
   endTime: string | null
   service: IService
-  mechanics: OrderServiceMechanic[]
+  employees: OrderServiceEmployee[]
 }
 
-export interface OrderServiceMechanic {
+export interface OrderServiceEmployee {
   id: number
   orderServiceId: number
-  mechanicId: number
+  employeeId: number
   participationPercentage: number
   paymentType: 'percent' | 'fixed'
   paymentRate: number
-  mechanic: Mechanic
+  employee: Employee
 }

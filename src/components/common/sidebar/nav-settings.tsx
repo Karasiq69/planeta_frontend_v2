@@ -24,8 +24,8 @@ export const settingsMenuItems = [
     icon: Logs,
   },
   {
-    title: 'Механики',
-    url: '/mechanics',
+    title: 'Сотрудники',
+    url: '/settings/employees',
     icon: UserRoundCog,
   },
   {

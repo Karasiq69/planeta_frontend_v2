@@ -3,22 +3,23 @@ import * as React from 'react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import OrderMechanicTableActions from '@/features/orders/components/tables/order-mechanics/OrderMechanicTableActions'
 
-import type { OrderServiceMechanic } from '@/features/orders/types'
+import type { OrderServiceEmployee } from '@/features/orders/types'
 import type { ColumnDef } from '@tanstack/react-table'
 
-export const orderMechanicsColumnsDefs: ColumnDef<OrderServiceMechanic>[] = [
+export const orderMechanicsColumnsDefs: ColumnDef<OrderServiceEmployee>[] = [
   {
-    accessorKey: 'mechanic',
+    accessorKey: 'employee',
     header: () => <span>Механик</span>,
     cell: ({ row }) => {
-      const mechanic = row.original.mechanic
+      const employee = row.original.employee
+      const fullName = `${employee.firstName} ${employee.lastName}`
       return (
         <div className='flex items-center gap-3'>
           <Avatar className='size-7'>
-            <AvatarFallback>{mechanic.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+            <AvatarFallback>{fullName.slice(0, 2).toUpperCase()}</AvatarFallback>
           </Avatar>
           <div>
-            <span className='text-sm font-medium'>{mechanic.name}</span>
+            <span className='text-sm font-medium'>{fullName}</span>
           </div>
         </div>
       )

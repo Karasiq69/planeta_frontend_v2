@@ -12,29 +12,28 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { useDeleteMechanicOrderService } from '@/features/orders/api/mutations'
+import { useDeleteEmployeeOrderService } from '@/features/orders/api/mutations'
 import ServiceMechanicForm from '@/features/orders/components/forms/service-mechanic/ServiceMechanicForm'
 
-import type { OrderServiceMechanic } from '@/features/orders/types'
+import type { OrderServiceEmployee } from '@/features/orders/types'
 import type { Row } from '@tanstack/react-table'
 
 type Props = {
-  row: Row<OrderServiceMechanic>
+  row: Row<OrderServiceEmployee>
 }
 const OrderMechanicTableActions = ({ row }: Props) => {
   const { id } = useParams()
   const orderId = Number(id)
 
-  const mechanicId = row?.original.id
   const [popoverOpen, setPopoverOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
 
-  const { mutate: deleteEmployee, isPending } = useDeleteMechanicOrderService(orderId)
+  const { mutate: deleteEmployee, isPending } = useDeleteEmployeeOrderService(orderId)
 
   function handleDeleteClick() {
     deleteEmployee({
       orderServiceId: row.original.orderServiceId,
-      mechanicId: row.original.mechanicId,
+      employeeId: row.original.employeeId,
     })
   }
 

@@ -26,16 +26,16 @@ export interface PayrollDetail {
 }
 
 export interface PayrollMechanicSummary {
-  mechanicId: number
-  mechanicName: string
+  employeeId: number
+  employeeName: string
   totalAmount: number
   servicesCount: number
 }
 
 export interface PayrollItem {
   id: number
-  mechanicId: number
-  mechanicName: string
+  employeeId: number
+  employeeName: string
   orderId: number
   servicePrice: number
   paymentType: 'percent' | 'fixed'

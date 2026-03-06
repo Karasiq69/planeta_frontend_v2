@@ -2,19 +2,19 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 import {
-  addMechanicOrderServiceFn,
+  addEmployeeOrderServiceFn,
   addOrderServiceFn,
   changeOrderStatus,
-  deleteMechanicOrderServiceFn,
+  deleteEmployeeOrderServiceFn,
   deleteOrderServiceFn,
   editOrderServiceFn,
-  updateMechanicOrderServiceFn,
+  updateEmployeeOrderServiceFn,
 } from '@/features/orders/api/actions'
 import { ordersQueryKeys } from '@/features/orders/api/query-keys'
 import apiClient from '@/lib/auth/client'
 import { ORDERS_URL } from '@/lib/constants'
 
-import type { Order, OrderService, OrderServiceMechanic, OrderStatus } from '@/features/orders/types'
+import type { Order, OrderService, OrderServiceEmployee, OrderStatus } from '@/features/orders/types'
 
 export function useEditOrder(orderId: number) {
   // const {id} = useParams();
@@ -366,13 +366,13 @@ export function useDeleteOrderService(orderId: number) {
   })
 }
 
-export function useAddOrderServiceMechanic(orderId: number) {
+export function useAddOrderServiceEmployee(orderId: number) {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: ({ orderServiceId, mechanicId }: { orderServiceId: number; mechanicId: number }) =>
-      addMechanicOrderServiceFn(orderServiceId, mechanicId),
+    mutationFn: ({ orderServiceId, employeeId }: { orderServiceId: number; employeeId: number }) =>
+      addEmployeeOrderServiceFn(orderServiceId, employeeId),
     onSuccess: () => {
-      toast.success('Механик добавлен')
+      toast.success('Сотрудник добавлен')
     },
     onError: () => {
       toast.error('Произошла ошибка, повторите попытку')
@@ -412,20 +412,20 @@ export function useUpdateOrderService(orderId: number) {
   })
 }
 
-export function useUpdateMechanicOrderService(orderId?: number) {
+export function useUpdateEmployeeOrderService(orderId?: number) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({
       orderServiceId,
-      mechanicId,
+      employeeId,
       data,
     }: {
       orderServiceId: number
-      mechanicId: number
-      data: Partial<OrderServiceMechanic>
-    }) => updateMechanicOrderServiceFn(orderServiceId, mechanicId, data),
+      employeeId: number
+      data: Partial<OrderServiceEmployee>
+    }) => updateEmployeeOrderServiceFn(orderServiceId, employeeId, data),
     onSuccess: () => {
-      toast.success('Механик обновлен')
+      toast.success('Сотрудник обновлен')
     },
     onError: () => {
       toast.error('Произошла ошибка, повторите попытку')
@@ -443,14 +443,14 @@ export function useUpdateMechanicOrderService(orderId?: number) {
   })
 }
 
-export function useDeleteMechanicOrderService(orderId: number) {
+export function useDeleteEmployeeOrderService(orderId: number) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ orderServiceId, mechanicId }: { orderServiceId: number; mechanicId: number }) =>
-      deleteMechanicOrderServiceFn(orderServiceId, mechanicId),
+    mutationFn: ({ orderServiceId, employeeId }: { orderServiceId: number; employeeId: number }) =>
+      deleteEmployeeOrderServiceFn(orderServiceId, employeeId),
     onSuccess: () => {
-      toast.success('Механик удален')
+      toast.success('Сотрудник удален')
     },
     onError: () => {
       toast.error('Произошла ошибка, повторите попытку')

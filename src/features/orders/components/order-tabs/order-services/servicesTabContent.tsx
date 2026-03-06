@@ -18,15 +18,65 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import DataTableSimpleMech from '@/features/mechanics/components/table/DataTableSimpleMech'
 import { useOrderServicesById } from '@/features/orders/api/queries'
 import CreateOrderServiceButton from '@/features/orders/components/order-tabs/order-services/CreateOrderServiceButton'
 import ServicesCombobox from '@/features/orders/components/order-tabs/order-services/ServicesCombobox'
 import { orderMechanicsColumnsDefs } from '@/features/orders/components/tables/order-mechanics/columns'
 import { ServicesColumnDefs } from '@/features/orders/components/tables/order-services/columns'
 
-import type {
-  ExpandedState} from '@tanstack/react-table';
+import type { ColumnDef, ExpandedState } from '@tanstack/react-table'
+
+interface SimpleTableProps {
+  data: any[]
+  columns: ColumnDef<any>[]
+}
+
+const SimpleDataTable: React.FC<SimpleTableProps> = ({ data, columns }) => {
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  })
+
+  return (
+    <div className="bg-background rounded-sm">
+      <Table>
+        <TableHeader className="bg-muted">
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <TableHead key={header.id} className="p-0 px-3 h-8 text-xs text-muted-foreground">
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHead>
+              ))}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id} className="p-1 px-3">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                Ничего не найдено.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  )
+}
 
 type Props = {}
 const ServicesTabContent = (props: Props) => {
@@ -101,8 +151,8 @@ const ServicesTabContent = (props: Props) => {
                           <div
                             className="bg-linear-to-t from-gray-50 to-zinc-200 p-3 px-10 shadow-inner"
                           >
-                            <DataTableSimpleMech
-                              data={row.getValue('mechanics') || []}
+                            <SimpleDataTable
+                              data={row.getValue('employees') || []}
                               columns={mechanicsColumns}
                             />
                           </div>

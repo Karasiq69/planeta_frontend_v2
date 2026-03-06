@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useUpdateMechanicOrderService } from '@/features/orders/api/mutations'
+import { useUpdateEmployeeOrderService } from '@/features/orders/api/mutations'
 
 import {
   orderServiceMechanicSchema,
@@ -10,15 +10,15 @@ import {
 
 import type {
   OrderServiceMechanicFormData} from '../components/forms/service-mechanic/schema';
-import type { OrderServiceMechanic } from '../types'
+import type { OrderServiceEmployee } from '../types'
 
 // import { useCreateOrderServiceMechanic, useUpdateOrderServiceMechanic } from "../api/mutations";
 
 type Props = {
   orderServiceId: number
-  mechanicData?: OrderServiceMechanic
-  onUpdate?: (mechanicId: number) => OrderServiceMechanic
-  onCreate?: (data: OrderServiceMechanic) => void
+  mechanicData?: OrderServiceEmployee
+  onUpdate?: (employeeId: number) => OrderServiceEmployee
+  onCreate?: (data: OrderServiceEmployee) => void
 }
 
 export const useOrderServiceMechanicForm = ({
@@ -28,12 +28,12 @@ export const useOrderServiceMechanicForm = ({
   onCreate,
 }: Props) => {
   // const createServiceMechanic = useCreateOrderServiceMechanic();
-  const updateServiceMechanic = useUpdateMechanicOrderService()
+  const updateServiceMechanic = useUpdateEmployeeOrderService()
 
   const form = useForm<OrderServiceMechanicFormData>({
     resolver: zodResolver(orderServiceMechanicSchema),
     defaultValues: {
-      mechanicId: mechanicData?.mechanicId || 0,
+      employeeId: mechanicData?.employeeId || 0,
       participationPercentage: mechanicData?.participationPercentage || 100,
       paymentType: mechanicData?.paymentType || 'percent',
       paymentRate: mechanicData?.paymentRate || 0,
@@ -42,10 +42,10 @@ export const useOrderServiceMechanicForm = ({
 
   const onSubmit = async (data: OrderServiceMechanicFormData) => {
     if (!mechanicData?.id) return
-    const { mechanicId, ...restData } = data
+    const { employeeId, ...restData } = data
 
     updateServiceMechanic.mutateAsync({
-      mechanicId: mechanicData.id,
+      employeeId: mechanicData.id,
       orderServiceId: orderServiceId,
       data: {
         ...restData,

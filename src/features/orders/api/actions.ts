@@ -1,10 +1,10 @@
 import apiClient from '@/lib/auth/client'
-import { CLIENT_ORDERS, MECHANICS_URL, ORDERS_URL, SERVICES_URL } from '@/lib/constants'
+import { CLIENT_ORDERS, EMPLOYEES_URL, ORDERS_URL, SERVICES_URL } from '@/lib/constants'
 
 import type {
   Order,
   OrderService,
-  OrderServiceMechanic,
+  OrderServiceEmployee,
   OrdersListResponse,
   OrdersQueryParams,
   OrderStatus,
@@ -59,17 +59,17 @@ export const deleteOrderServiceFn = async (id: number) => {
   return response.data
 }
 
-export const addMechanicOrderServiceFn = async (orderServiceId: number, mechanicId: number) => {
+export const addEmployeeOrderServiceFn = async (orderServiceId: number, employeeId: number) => {
   const response = await apiClient.post(
-    `${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}`,
-    { mechanicId }
+    `${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${EMPLOYEES_URL}`,
+    { employeeId }
   )
   return response.data
 }
 
-export const deleteMechanicOrderServiceFn = async (orderServiceId: number, mechanicId: number) => {
+export const deleteEmployeeOrderServiceFn = async (orderServiceId: number, employeeId: number) => {
   const response = await apiClient.delete(
-    `${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}/${mechanicId}`
+    `${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${EMPLOYEES_URL}/${employeeId}`
   )
   return response.data
 }
@@ -85,13 +85,13 @@ export const editOrderServiceFn = async (orderServiceId: number, data: Partial<O
   const response = await apiClient.patch(`${ORDERS_URL}${SERVICES_URL}/${orderServiceId}`, data)
   return response.data
 }
-export const updateMechanicOrderServiceFn = async (
+export const updateEmployeeOrderServiceFn = async (
   orderServiceId: number,
-  mechanicId: number,
-  data: Partial<OrderServiceMechanic>
+  employeeId: number,
+  data: Partial<OrderServiceEmployee>
 ) => {
   const response = await apiClient.patch(
-    `${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${MECHANICS_URL}/${mechanicId}`,
+    `${ORDERS_URL}${SERVICES_URL}/${orderServiceId}${EMPLOYEES_URL}/${employeeId}`,
     data
   )
   return response.data

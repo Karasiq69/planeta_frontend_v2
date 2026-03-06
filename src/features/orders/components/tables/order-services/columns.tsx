@@ -58,7 +58,7 @@ export const ServicesColumnDefs: ColumnDef<OrderService>[] = [
   //     ),
   // },
   {
-    accessorKey: 'mechanics',
+    accessorKey: 'employees',
     header: ({ table }) => (
       <div>
         <Button

@@ -14,10 +14,6 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { useDeleteOrderProduct } from '@/features/order-products/api/mutations'
 import { OrderProductForm } from '@/features/order-products/components/forms/OrderProductForm'
-import { useDeleteMechanicOrderService } from '@/features/orders/api/mutations'
-import ServiceMechanicForm from '@/features/orders/components/forms/service-mechanic/ServiceMechanicForm'
-import { OrderServiceMechanic } from '@/features/orders/types'
-
 import type { OrderProduct } from '@/features/order-products/types'
 import type { Row } from '@tanstack/react-table'
 

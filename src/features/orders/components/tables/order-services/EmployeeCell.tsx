@@ -35,7 +35,7 @@ const EmployeesCell: React.FC<Props> = ({ row, table }) => {
       >
         {/*<AvatarStack id="employees" variant="stack" avatars={avatars}/>*/}
         <UsersRound />
-        <span className="text-xs text-muted-foreground">{row.original.mechanics.length}</span>
+        <span className="text-xs text-muted-foreground">{row.original.employees.length}</span>
       </Button>
     </>
   )

@@ -2,19 +2,15 @@ import * as React from 'react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
-import type { OrderServiceMechanic } from '@/features/orders/types'
+import type { OrderServiceEmployee } from '@/features/orders/types'
 
 interface MechanicCardProps {
-  mechanic: OrderServiceMechanic
-  onUpdate: (mechanicId: number, data: Partial<OrderServiceMechanic>) => void
+  employee: OrderServiceEmployee
 }
 
-interface MechanicCardProps {
-  mechanic: OrderServiceMechanic
-}
-
-export const MechanicCard = ({ mechanic }: MechanicCardProps) => {
-  const initials = mechanic.mechanic.name
+export const MechanicCard = ({ employee }: MechanicCardProps) => {
+  const fullName = `${employee.employee.firstName} ${employee.employee.lastName}`
+  const initials = fullName
     .split(' ')
     .map((n) => n[0])
     .join('')
@@ -33,18 +29,18 @@ export const MechanicCard = ({ mechanic }: MechanicCardProps) => {
         </Avatar>
 
         <div className='text-sm text-muted-foreground min-w-[120px] truncate'>
-          <p>{mechanic.mechanic.name}</p>
-          <p className='text-xs'>{mechanic.mechanic.specialization}</p>
+          <p>{fullName}</p>
+          <p className='text-xs'>{employee.employee.specialization}</p>
         </div>
       </div>
 
       <div className='text-sm text-muted-foreground'>
-        {getPaymentTypeText(mechanic.paymentType)}
+        {getPaymentTypeText(employee.paymentType)}
       </div>
 
-      <div className='text-sm text-muted-foreground'>{mechanic.participationPercentage}%</div>
+      <div className='text-sm text-muted-foreground'>{employee.participationPercentage}%</div>
 
-      <div className='text-sm text-muted-foreground'>{mechanic.paymentRate}</div>
+      <div className='text-sm text-muted-foreground'>{employee.paymentRate}</div>
     </div>
   )
 }

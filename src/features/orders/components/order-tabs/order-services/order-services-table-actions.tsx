@@ -23,17 +23,17 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { useAllMechanics } from '@/features/mechanics/api/queries'
+import { useMechanicEmployees } from '@/features/employees/api/queries'
 import {
-  useAddOrderServiceMechanic,
-  useDeleteMechanicOrderService,
+  useAddOrderServiceEmployee,
+  useDeleteEmployeeOrderService,
   useDeleteOrderService,
   useUpdateOrderService,
 } from '@/features/orders/api/mutations'
 import { OrderServiceForm } from '@/features/orders/components/forms/order-service/OrderServiceForm'
 import { cn } from '@/lib/utils'
 
-import type { Mechanic } from '@/features/mechanics/types'
+import type { Employee } from '@/features/employees/types'
 import type { OrderService } from '@/features/orders/types'
 import type { Row } from '@tanstack/react-table'
 
@@ -49,13 +49,13 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
   const [dialogOpen, setDialogOpen] = useState(false)
   const serviceId = rowInstance?.original?.id
 
-  const { data: mechanics, isLoading } = useAllMechanics()
+  const { data: mechanics, isLoading } = useMechanicEmployees()
 
   const { mutate: deleteService, isPending } = useDeleteOrderService(orderId)
   const { mutate: updateMutation, isPending: updatePending } = useUpdateOrderService(orderId)
-  const { mutate: addMechanic, isPending: isAdding } = useAddOrderServiceMechanic(orderId)
+  const { mutate: addMechanic, isPending: isAdding } = useAddOrderServiceEmployee(orderId)
 
-  const { mutate: deleteMechanic, isPending: isDeleting } = useDeleteMechanicOrderService(orderId)
+  const { mutate: deleteMechanic, isPending: isDeleting } = useDeleteEmployeeOrderService(orderId)
 
   function handleDeleteClick() {
     deleteService(serviceId, {
@@ -65,20 +65,20 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
     })
   }
 
-  function handleCheckedChange(mechanic: Mechanic, isChecked: boolean) {
+  function handleCheckedChange(employee: Employee, isChecked: boolean) {
     if (isChecked) {
       addMechanic({
         orderServiceId: serviceId,
-        mechanicId: mechanic.id,
+        employeeId: employee.id,
       })
     } else {
-      const orderServiceEmployee = rowInstance?.original?.mechanics?.some(
-        (m) => m.mechanic.id === mechanic.id
+      const orderServiceEmployee = rowInstance?.original?.employees?.some(
+        (m) => m.employee.id === employee.id
       )
       if (orderServiceEmployee) {
         deleteMechanic({
           orderServiceId: serviceId,
-          mechanicId: mechanic.id,
+          employeeId: employee.id,
         })
       }
     }
@@ -102,15 +102,15 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
               <CommandList>
                 <CommandEmpty>Не найдено.</CommandEmpty>
                 <CommandGroup>
-                  {mechanics?.map((mechanic: Mechanic) => (
+                  {mechanics?.map((mechanic: Employee) => (
                     <CommandItem
                       disabled={isAdding || isDeleting}
                       key={mechanic.id}
-                      value={mechanic.name}
+                      value={`${mechanic.firstName} ${mechanic.lastName}`}
                       className='cursor-pointer'
                       onSelect={() => {
-                        const isCurrentlySelected = rowInstance?.original?.mechanics.some(
-                          (m) => m.mechanic.id === mechanic.id
+                        const isCurrentlySelected = rowInstance?.original?.employees.some(
+                          (m) => m.employee.id === mechanic.id
                         )
                         handleCheckedChange(mechanic, !isCurrentlySelected)
                       }}
@@ -118,14 +118,14 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
                       <Check
                         className={cn(
                           'mr-2 h-4 w-4',
-                          rowInstance?.original?.mechanics?.some(
-                            (m) => m.mechanic.id === mechanic.id
+                          rowInstance?.original?.employees?.some(
+                            (m) => m.employee.id === mechanic.id
                           )
                             ? 'opacity-100'
                             : 'opacity-0'
                         )}
                       />
-                      {mechanic.name}
+                      {`${mechanic.firstName} ${mechanic.lastName}`}
                     </CommandItem>
                   ))}
                 </CommandGroup>

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const orderServiceMechanicSchema = z.object({
-  mechanicId: z.number({
+  employeeId: z.number({
     required_error: 'Выберите механика',
     invalid_type_error: 'Выберите механика',
   }),
