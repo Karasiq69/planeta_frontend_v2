@@ -19,6 +19,9 @@ export interface Employee {
   updatedAt: string
   organization?: Organization
   user?: User
+  specialization?: string
+  qualifications?: string
+  hourlyRate?: number
 }
 
 export type CreateEmployee = {

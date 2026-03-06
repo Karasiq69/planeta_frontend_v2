@@ -1,5 +1,5 @@
 import apiClient from '@/lib/auth/client'
-import { EMPLOYEES_URL } from '@/lib/constants'
+import { EMPLOYEES_MECHANICS_URL, EMPLOYEES_URL } from '@/lib/constants'
 
 import type { CreateEmployee, Employee, UpdateEmployee } from '@/features/employees/types'
 import type { ListParams, ListResponse } from '@/types/params'
@@ -33,4 +33,9 @@ export const updateEmployeeFn = async (id: number, data: UpdateEmployee): Promis
 
 export const deleteEmployeeFn = async (id: number): Promise<void> => {
   await apiClient.delete(`${EMPLOYEES_URL}/${id}`)
+}
+
+export const getMechanicEmployeesFn = async (): Promise<Employee[]> => {
+  const res = await apiClient.get<Employee[]>(EMPLOYEES_MECHANICS_URL)
+  return res.data
 }

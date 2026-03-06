@@ -1,6 +1,11 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
-import { getAllEmployeesFn, getEmployeeByIdFn, getEmployeesByOrganizationFn } from './actions'
+import {
+  getAllEmployeesFn,
+  getEmployeeByIdFn,
+  getEmployeesByOrganizationFn,
+  getMechanicEmployeesFn,
+} from './actions'
 import { employeesQueryKeys } from './query-keys'
 
 import type { ListParams } from '@/types/params'
@@ -27,5 +32,12 @@ export const useEmployeesByOrganization = (orgId: number) => {
     queryKey: employeesQueryKeys.byOrganization(orgId),
     queryFn: () => getEmployeesByOrganizationFn(orgId),
     enabled: !!orgId,
+  })
+}
+
+export const useMechanicEmployees = () => {
+  return useQuery({
+    queryKey: employeesQueryKeys.mechanics(),
+    queryFn: () => getMechanicEmployeesFn(),
   })
 }
