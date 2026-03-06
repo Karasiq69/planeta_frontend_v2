@@ -1,6 +1,8 @@
+export type UserRole = 'admin' | 'manager' | 'mechanic' | 'storekeeper'
+
 export interface User {
-  username: string
   userId: string
+  username: string
   email: string
-  role: string
+  role: UserRole
 }
