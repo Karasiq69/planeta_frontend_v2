@@ -24,6 +24,12 @@ export interface Employee {
   hourlyRate?: number
 }
 
+export type CreateEmployeeAccount = {
+  email: string
+  password?: string
+  role?: EmployeePosition
+}
+
 export type CreateEmployee = {
   organizationId: number
   firstName: string
@@ -31,8 +37,8 @@ export type CreateEmployee = {
   middleName?: string
   position: EmployeePosition
   phone?: string
-  userId?: number
   hiredAt?: string
+  account?: CreateEmployeeAccount
 }
 
 export type UpdateEmployee = Partial<CreateEmployee> & { isActive?: boolean; firedAt?: string }

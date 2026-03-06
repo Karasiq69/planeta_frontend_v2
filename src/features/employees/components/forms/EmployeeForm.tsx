@@ -1,9 +1,14 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { format, parseISO } from 'date-fns'
+import { Eye, EyeOff, RefreshCw } from 'lucide-react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { DatePicker } from '@/components/ui/date-picker'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -15,7 +20,8 @@ import {
 } from '@/components/ui/select'
 import { useCreateEmployee, useUpdateEmployee } from '@/features/employees/api/mutations'
 import { useAllOrganizations } from '@/features/organizations/api/queries'
-import { employeeFormSchema, POSITION_LABELS, type EmployeeFormValues } from './schema'
+
+import { employeeFormSchema, POSITION_LABELS, ROLE_LABELS, type EmployeeFormValues } from './schema'
 
 import type { Employee } from '@/features/employees/types'
 
@@ -24,12 +30,22 @@ interface EmployeeFormProps {
   onSuccess?: () => void
 }
 
+function generatePassword(length = 12): string {
+  const chars = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  return Array.from(crypto.getRandomValues(new Uint8Array(length)))
+    .map((b) => chars[b % chars.length])
+    .join('')
+}
+
 const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
   const isEditing = !!employee
+  const hasAccount = !!employee?.user
   const createMutation = useCreateEmployee()
   const updateMutation = useUpdateEmployee()
   const { data: orgsData } = useAllOrganizations()
   const isPending = createMutation.isPending || updateMutation.isPending
+
+  const [showPassword, setShowPassword] = useState(false)
 
   const organizations = orgsData?.data ?? []
 
@@ -37,6 +53,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<EmployeeFormValues>({
     resolver: zodResolver(employeeFormSchema),
@@ -49,17 +66,57 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
           organizationId: employee.organizationId,
           phone: employee.phone ?? '',
           hiredAt: employee.hiredAt ?? '',
+          createAccount: hasAccount,
+          account: hasAccount
+            ? { email: employee.user!.email, role: employee.user!.role, password: '' }
+            : undefined,
         }
-      : { lastName: '', firstName: '' },
+      : { lastName: '', firstName: '', createAccount: false },
   })
 
+  const createAccount = watch('createAccount')
+  const position = watch('position')
+
   const onSubmit = (data: EmployeeFormValues) => {
+    const { createAccount: _createAccount, ...payload } = data
+
+    if (!_createAccount) {
+      delete payload.account
+    } else if (payload.account && !payload.account.password) {
+      delete payload.account.password
+    }
+
     if (isEditing) {
-      updateMutation.mutate({ id: employee.id, data }, { onSuccess })
+      updateMutation.mutate({ id: employee.id, data: payload }, { onSuccess })
     } else {
-      createMutation.mutate(data, { onSuccess })
+      createMutation.mutate(payload, { onSuccess })
     }
   }
+
+  const handleGeneratePassword = () => {
+    const pwd = generatePassword()
+    setValue('account.password', pwd)
+  }
+
+  const handleCreateAccountChange = (checked: boolean) => {
+    setValue('createAccount', checked)
+    if (checked) {
+      setValue('account', { email: '', password: '', role: position || undefined })
+    } else {
+      setValue('account', undefined)
+    }
+  }
+
+  const handleHiredAtChange = (date: Date | undefined) => {
+    setValue('hiredAt', date ? format(date, 'yyyy-MM-dd') : undefined)
+  }
+
+  const hiredAt = watch('hiredAt')
+  const hiredAtDate = hiredAt ? parseISO(hiredAt) : undefined
+
+  const accountSectionTitle = hasAccount
+    ? 'Аккаунт для входа в систему'
+    : 'Создать аккаунт для входа в систему'
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
@@ -69,9 +126,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
             Фамилия <span className='text-destructive'>*</span>
           </Label>
           <Input id='lastName' {...register('lastName')} />
-          {errors.lastName && (
-            <p className='text-sm text-destructive'>{errors.lastName.message}</p>
-          )}
+          {errors.lastName && <p className='text-sm text-destructive'>{errors.lastName.message}</p>}
         </div>
 
         <div className='space-y-1.5'>
@@ -108,9 +163,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
               ))}
             </SelectContent>
           </Select>
-          {errors.position && (
-            <p className='text-sm text-destructive'>{errors.position.message}</p>
-          )}
+          {errors.position && <p className='text-sm text-destructive'>{errors.position.message}</p>}
         </div>
 
         <div className='space-y-1.5'>
@@ -143,9 +196,106 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
         </div>
 
         <div className='space-y-1.5'>
-          <Label htmlFor='hiredAt'>Дата приёма</Label>
-          <Input id='hiredAt' type='date' {...register('hiredAt')} />
+          <Label>Дата приёма</Label>
+          <DatePicker
+            value={hiredAtDate}
+            onChange={handleHiredAtChange}
+            placeholder='Выберите дату'
+            className='w-full'
+          />
         </div>
+      </div>
+
+      {/* Секция аккаунта */}
+      <div className='space-y-4 rounded-lg border p-4'>
+        {hasAccount ? (
+          <p className='text-sm font-medium'>{accountSectionTitle}</p>
+        ) : (
+          <div className='flex items-center gap-2'>
+            <Checkbox
+              id='createAccount'
+              checked={createAccount}
+              onCheckedChange={handleCreateAccountChange}
+            />
+            <Label htmlFor='createAccount' className='cursor-pointer font-medium'>
+              {accountSectionTitle}
+            </Label>
+          </div>
+        )}
+
+        {(createAccount || hasAccount) && (
+          <div className='grid gap-4 sm:grid-cols-2'>
+            <div className='space-y-1.5'>
+              <Label htmlFor='account.email'>
+                Email <span className='text-destructive'>*</span>
+              </Label>
+              <Input id='account.email' type='email' {...register('account.email')} />
+              {errors.account?.email && (
+                <p className='text-sm text-destructive'>{errors.account.email.message}</p>
+              )}
+            </div>
+
+            <div className='space-y-1.5'>
+              <Label htmlFor='account.password'>
+                {hasAccount ? 'Новый пароль' : 'Пароль'}{' '}
+                {!hasAccount && <span className='text-destructive'>*</span>}
+              </Label>
+              <div className='flex gap-1.5'>
+                <div className='relative flex-1'>
+                  <Input
+                    id='account.password'
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder={hasAccount ? 'Оставьте пустым, если не меняете' : ''}
+                    {...register('account.password')}
+                  />
+                  <Button
+                    type='button'
+                    variant='ghost'
+                    size='icon'
+                    className='absolute right-0 top-0 size-9'
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff className='size-4' /> : <Eye className='size-4' />}
+                  </Button>
+                </div>
+                <Button
+                  type='button'
+                  variant='outline'
+                  size='icon'
+                  className='size-9 shrink-0'
+                  onClick={handleGeneratePassword}
+                  title='Сгенерировать пароль'
+                >
+                  <RefreshCw className='size-4' />
+                </Button>
+              </div>
+              {errors.account?.password && (
+                <p className='text-sm text-destructive'>{errors.account.password.message}</p>
+              )}
+            </div>
+
+            <div className='space-y-1.5'>
+              <Label>Роль в системе</Label>
+              <Select
+                defaultValue={hasAccount ? employee.user!.role : position}
+                onValueChange={(v) =>
+                  setValue('account.role', v as EmployeeFormValues['position'])
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder='Совпадает с должностью' />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(ROLE_LABELS).map(([value, label]) => (
+                    <SelectItem key={value} value={value}>
+                      {label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        )}
       </div>
 
       <Button type='submit' disabled={isPending} className='w-full'>
