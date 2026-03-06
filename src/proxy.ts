@@ -1,99 +1,45 @@
-import { Mutex } from 'async-mutex'
 import { NextResponse } from 'next/server'
 
 import type { NextRequest } from 'next/server'
 
-const mutex = new Mutex()
-const baseURL = process.env.NEXT_PUBLIC_HOST || 'http://localhost:8000'
+const publicPaths = ['/', '/register', '/reset-password']
 
-// Технические страницы, доступные всем
-const publicPaths = [
-  '/', // главная страница с формой логина
-  '/register', // регистрация
-  '/reset-password', // восстановление пароля
-  '/verify-email', // подтверждение email
-]
-
-// Технические пути, которые не нужно проверять
-const ignoredPaths = ['/api', '/_next', '/favicon.ico', '/static', '/images']
-
-async function attemptTokenRefresh(request: NextRequest): Promise<boolean> {
-  const refreshToken = request.cookies.get('refresh')
-
-  if (!refreshToken) {
-    return false
-  }
-
+function parseJwtPayload(token: string): { exp?: number } | null {
   try {
-    await mutex.waitForUnlock()
-
-    if (!mutex.isLocked()) {
-      const release = await mutex.acquire()
-      try {
-        const response = await fetch(`${baseURL}/api/auth/jwt/refresh/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Cookie: `refresh=${refreshToken.value}`,
-          },
-          credentials: 'include',
-        })
-
-        return response.ok
-      } catch (error) {
-        return false
-      } finally {
-        release()
-      }
-    }
-    return false
-  } catch (error) {
-    return false
+    const base64Payload = token.split('.')[1]
+    if (!base64Payload) return null
+    const json = Buffer.from(base64Payload, 'base64').toString('utf-8')
+    return JSON.parse(json)
+  } catch {
+    return null
   }
 }
 
-export async function proxy(request: NextRequest) {
+function isTokenValid(request: NextRequest): boolean {
+  const accessCookie = request.cookies.get('access')
+  if (!accessCookie?.value) return false
+
+  const payload = parseJwtPayload(accessCookie.value)
+  if (!payload?.exp) return false
+
+  return payload.exp * 1000 > Date.now()
+}
+
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const isPublic = publicPaths.includes(pathname)
+  const isAuthenticated = isTokenValid(request)
 
-  // Пропускаем технические пути
-  if (ignoredPaths.some((path) => pathname.startsWith(path))) {
-    return NextResponse.next()
+  // Авторизованный пользователь на публичной странице → dashboard
+  if (isAuthenticated && isPublic) {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
-  const accessToken = request.cookies.get('access')
-  const refreshToken = request.cookies.get('refresh')
-
-  // Пользователь полностью авторизован
-  if (accessToken && refreshToken) {
-    // Если пользователь авторизован и пытается зайти на публичные страницы
-    if (publicPaths.includes(pathname)) {
-      return NextResponse.redirect(new URL('/dashboard', request.url))
-    }
-    return NextResponse.next()
-  }
-
-  // Есть только refresh токен, нет access токена
-  if (!accessToken && refreshToken) {
-    // Пробуем обновить токен в любом случае, независимо от запрашиваемого пути
-    const refreshSuccessful = await attemptTokenRefresh(request)
-
-    if (refreshSuccessful) {
-      // Если обновление успешно и пользователь на странице логина или других публичных,
-      // сразу перенаправляем на дашборд
-      if (publicPaths.includes(pathname)) {
-        return NextResponse.redirect(new URL('/dashboard', request.url))
-      }
-      // Иначе продолжаем запрос на запрашиваемую страницу
-      return NextResponse.next()
-    }
-  }
-
-  // Если пользователь не авторизован и пытается зайти на защищенные страницы
-  if (!publicPaths.includes(pathname)) {
-    const searchParams = new URLSearchParams({
-      returnUrl: pathname,
-    })
-    return NextResponse.redirect(new URL(`/?${searchParams}`, request.url))
+  // Неавторизованный пользователь на защищённой странице → логин
+  if (!isAuthenticated && !isPublic) {
+    const url = new URL('/', request.url)
+    url.searchParams.set('returnUrl', pathname)
+    return NextResponse.redirect(url)
   }
 
   return NextResponse.next()
