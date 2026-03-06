@@ -9,6 +9,7 @@ export const MILEAGES_URL = `${CARS_URL}/mileages`
 export const ORDERS_URL = '/orders'
 export const SERVICES_URL = '/services'
 export const PRODUCTS_URL = '/products'
+export const PRODUCT_CATEGORIES_URL = '/products/categories'
 export const COMMENTS_URL = '/orders/comments'
 export const ORDER_SERVICES_URL = '/order-services'
 

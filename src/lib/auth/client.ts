@@ -23,35 +23,31 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
 
-      await mutex.waitForUnlock()
-
-      try {
-        const response = await apiClient(originalRequest)
-        return response
-      } catch (retryError) {
-        if (!mutex.isLocked()) {
-          const release = await mutex.acquire()
-          try {
-            await apiClient.post(`/auth/jwt/refresh/`)
-            return apiClient(originalRequest)
-          } catch (refreshError) {
-            // document.cookie = 'access=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            // window.location.href = '/';
-            return Promise.reject(
-              new ApiError({
-                data: {
-                  message: 'Сессия истекла, необходимо войти заново',
-                  code: 'SESSION_EXPIRED',
-                  status: 401,
-                },
-                status: 401,
-              })
-            )
-          } finally {
-            release()
-          }
-        }
+      // Если другой запрос уже обновляет токен — ждём и ретраим
+      if (mutex.isLocked()) {
+        await mutex.waitForUnlock()
+        return apiClient(originalRequest)
       }
+
+      const release = await mutex.acquire()
+      try {
+        await apiClient.post('/auth/jwt/refresh/')
+      } catch {
+        return Promise.reject(
+          new ApiError({
+            data: {
+              message: 'Сессия истекла, необходимо войти заново',
+              code: 'SESSION_EXPIRED',
+              status: 401,
+            },
+            status: 401,
+          })
+        )
+      } finally {
+        release()
+      }
+
+      return apiClient(originalRequest)
     }
 
     // Преобразование ошибок в ApiError

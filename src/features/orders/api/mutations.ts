@@ -374,8 +374,8 @@ export function useAddOrderServiceEmployee(orderId: number) {
     onSuccess: () => {
       toast.success('Сотрудник добавлен')
     },
-    onError: () => {
-      toast.error('Произошла ошибка, повторите попытку')
+    onError: (error) => {
+      toast.error(error.message)
     },
     onSettled: () => {
       queryClient.invalidateQueries({

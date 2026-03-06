@@ -27,7 +27,7 @@ const OrganizationSection = () => {
           <Link
             key={section.href}
             href={section.href}
-            className='flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted'
+            className='flex items-center justify-between rounded-lg border border-border/60 bg-card p-4 shadow-sm transition-colors hover:bg-accent'
           >
             <div className='flex items-center gap-3'>
               <section.icon className='size-5 text-muted-foreground' />

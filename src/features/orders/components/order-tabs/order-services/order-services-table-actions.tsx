@@ -109,7 +109,7 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
                       value={`${mechanic.firstName} ${mechanic.lastName}`}
                       className='cursor-pointer'
                       onSelect={() => {
-                        const isCurrentlySelected = rowInstance?.original?.employees.some(
+                        const isCurrentlySelected = rowInstance?.original?.employees?.some(
                           (m) => m.employee.id === mechanic.id
                         )
                         handleCheckedChange(mechanic, !isCurrentlySelected)

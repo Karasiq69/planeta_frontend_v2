@@ -14,7 +14,8 @@ export interface ProductCategory {
   name: string
   slug: string
   description: string | null
-  createdAt: Date
+  createdAt: string
+  productCount?: number
 }
 
 export interface Product {
@@ -32,4 +33,5 @@ export interface Product {
   dimensions: string | null
   isActive: boolean
   brand: ProductBrand
+  createdAt: string
 }

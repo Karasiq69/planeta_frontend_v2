@@ -11,29 +11,20 @@ import type { IService } from '../../types'
 
 interface Props {
   serviceData?: IService
-  onUpdate?: (serviceId: number) => void
+  onSuccess?: () => void
   onCreate?: (data: IService) => void
 }
 
-export const ServiceForm = ({ serviceData, onUpdate, onCreate }: Props) => {
-  const { form, onSubmit, isLoading, isPending } = useServiceForm({
-    serviceData,
-    onUpdate,
-    onCreate,
-  })
+export const ServiceForm = ({ serviceData, onSuccess, onCreate }: Props) => {
+  const { form, onSubmit, isPending } = useServiceForm({ serviceData, onSuccess, onCreate })
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
         <ServiceFormFields form={form} />
-        <Button
-          disabled={isLoading || isPending}
-          variant='default'
-          className='w-full'
-          type='submit'
-        >
+        <Button disabled={isPending} variant='default' className='w-full' type='submit'>
           {serviceData ? 'Обновить' : 'Добавить услугу'}
-          {isLoading && <LoaderAnimated className='text-white' />}
+          {isPending && <LoaderAnimated className='text-white' />}
         </Button>
       </form>
     </Form>

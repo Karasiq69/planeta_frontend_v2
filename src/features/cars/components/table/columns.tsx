@@ -61,11 +61,14 @@ export const vehiclesColumns: ColumnDef<ICar>[] = [
     accessorKey: 'owner.name',
     header: 'Владелец',
     cell: ({ row }) => {
-      const owner = `${row.original?.owner?.firstName} ${row.original?.owner?.lastName}`
+      const owner = row.original?.owner
+      const ownerName = owner?.firstName || owner?.lastName
+        ? `${owner.firstName ?? ''} ${owner.lastName ?? ''}`.trim()
+        : null
       return (
         <div className='capitalize'>
-          <p>{owner || 'Владелец не указан'}</p>
-          <span>{row.original.owner?.phone}</span>
+          <p>{ownerName || 'Владелец не указан'}</p>
+          <span>{owner?.phone}</span>
         </div>
       )
     },

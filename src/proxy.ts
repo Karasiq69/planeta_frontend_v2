@@ -25,6 +25,10 @@ function isTokenValid(request: NextRequest): boolean {
   return payload.exp * 1000 > Date.now()
 }
 
+function hasRefreshToken(request: NextRequest): boolean {
+  return !!request.cookies.get('refresh')?.value
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const isPublic = publicPaths.includes(pathname)
@@ -35,8 +39,12 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
-  // Неавторизованный пользователь на защищённой странице → логин
+  // Неавторизованный пользователь на защищённой странице →
+  // если есть refresh token, пропускаем и даём клиенту обновить access
   if (!isAuthenticated && !isPublic) {
+    if (hasRefreshToken(request)) {
+      return NextResponse.next()
+    }
     const url = new URL('/', request.url)
     url.searchParams.set('returnUrl', pathname)
     return NextResponse.redirect(url)

@@ -7,8 +7,6 @@ import { cn } from '@/lib/utils'
 import type { OrderService } from '@/features/orders/types'
 import type { Row } from '@tanstack/react-table'
 
-
-
 interface Props {
   row: Row<OrderService>
   table: any
@@ -28,14 +26,16 @@ const EmployeesCell: React.FC<Props> = ({ row, table }) => {
     <>
       <Button
         variant='outline'
-        size="sm"
+        size='sm'
         // disabled={avatars.length < 1}
         onClick={() => row.toggleExpanded()}
         className={cn('cursor-pointer ', row.getIsExpanded() && ' bg-gray-200', '')}
       >
         {/*<AvatarStack id="employees" variant="stack" avatars={avatars}/>*/}
         <UsersRound />
-        <span className="text-xs text-muted-foreground">{row.original.employees.length}</span>
+        <span className='text-xs text-muted-foreground'>
+          {row.original?.employees?.length || 0}
+        </span>
       </Button>
     </>
   )

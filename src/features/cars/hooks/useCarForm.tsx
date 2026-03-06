@@ -56,7 +56,6 @@ export const useCarForm = ({ carData, onCreate, onUpdate }: CarFormProps) => {
       createCar(data, {
         onSuccess: (data) => {
           onCreate?.(data)
-          toast.info(JSON.stringify(data))
         },
         onError: (error) => {
           console.error('Ошибка при создании автомобиля:', error)

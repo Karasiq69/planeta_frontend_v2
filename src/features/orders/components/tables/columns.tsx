@@ -14,6 +14,7 @@ import type { ColumnDef } from '@tanstack/react-table'
 export const OrdersColumnDefs: ColumnDef<Order>[] = [
   {
     accessorKey: 'id',
+    meta: '№ Заказа',
     header: () => <div>№ Заказа</div>,
     size: 0,
     cell: ({ row }) => (
@@ -24,6 +25,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'status',
+    meta: 'Статус',
     header: () => <div>Статус</div>,
     size: 0,
     cell: ({ row }) => {
@@ -41,6 +43,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'client',
+    meta: 'Клиент',
     header: () => <div>Клиент</div>,
     cell: ({ row }) => {
       const client = row.original.client
@@ -56,6 +59,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'car',
+    meta: 'Автомобиль',
     header: () => <div>Автомобиль</div>,
     cell: ({ row }) => {
       const car = row.original?.car
@@ -81,12 +85,14 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'licencePlate',
+    meta: 'Госномер',
     header: () => <div>Госномер</div>,
     cell: ({ row }) => <LicensePlate licensePlate={row.original?.car?.licensePlate} />,
     size: 0,
   },
   {
     accessorKey: 'totalCost',
+    meta: 'Стоимость',
     header: () => <div>Стоимость</div>,
     cell: ({ row }) => {
       const totals = row.original.totalCost
@@ -95,6 +101,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'reasonToApply',
+    meta: 'Причина обращения',
     header: () => <div>Причина обращения</div>,
     cell: ({ row }) => (
       <div className='max-w-xs'>

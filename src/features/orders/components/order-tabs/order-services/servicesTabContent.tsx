@@ -39,13 +39,13 @@ const SimpleDataTable: React.FC<SimpleTableProps> = ({ data, columns }) => {
   })
 
   return (
-    <div className="bg-background rounded-sm">
+    <div className='bg-background rounded-sm'>
       <Table>
-        <TableHeader className="bg-muted">
+        <TableHeader className='bg-muted'>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id} className="p-0 px-3 h-8 text-xs text-muted-foreground">
+                <TableHead key={header.id} className='p-0 px-3 h-8 text-xs text-muted-foreground'>
                   {header.isPlaceholder
                     ? null
                     : flexRender(header.column.columnDef.header, header.getContext())}
@@ -59,7 +59,7 @@ const SimpleDataTable: React.FC<SimpleTableProps> = ({ data, columns }) => {
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className="p-1 px-3">
+                  <TableCell key={cell.id} className='p-1 px-3'>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -67,7 +67,7 @@ const SimpleDataTable: React.FC<SimpleTableProps> = ({ data, columns }) => {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length} className='h-24 text-center'>
                 Ничего не найдено.
               </TableCell>
             </TableRow>
@@ -100,76 +100,72 @@ const ServicesTabContent = (props: Props) => {
     },
   })
 
-  if (isLoading) return <LoaderSectionAnimated className="bg-background" text="Загружаем..." />
+  if (isLoading) return <LoaderSectionAnimated className='bg-background' text='Загружаем...' />
   return (
     <>
-      <Card className="">
-        <CardHeader
-          className="flex flex-row items-center space-y-0 justify-between     border-b rounded-lg rounded-b-none"
-        >
+      <Card className=''>
+        <CardHeader className='flex flex-row items-center space-y-0 justify-between     border-b rounded-lg rounded-b-none'>
           <ServicesCombobox orderId={orderId} />
           <CreateOrderServiceButton />
         </CardHeader>
-        <CardContent className="shadow-inner p-0">
-          <ScrollArea className="max-h-[500px]">
-          <Table className="table-auto">
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow
-                  key={headerGroup.id}
-                  className="*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r bg-muted/50"
-                >
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(header.column.columnDef.header, header.getContext())}
-                      </TableHead>
-                    )
-                  })}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <React.Fragment key={row.id}>
-                    <TableRow
-                      data-state={row.getIsSelected() && 'selected'}
-                      className="hover:bg-white *:border-border hover:bg-transparent [&>:not(:last-child)]:border-r"
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id} className='py-3'>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                    {row.getIsExpanded() && (
-                      <TableRow>
-                        <TableCell colSpan={row.getAllCells().length} className="bg-muted p-0">
-                          <div
-                            className="bg-linear-to-t from-gray-50 to-zinc-200 p-3 px-10 shadow-inner"
-                          >
-                            <SimpleDataTable
-                              data={row.getValue('employees') || []}
-                              columns={mechanicsColumns}
-                            />
-                          </div>
-                        </TableCell>
+        <CardContent className='shadow-inner p-0'>
+          <ScrollArea className='max-h-[500px]'>
+            <Table className='table-auto'>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow
+                    key={headerGroup.id}
+                    className='*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r bg-muted/50'
+                  >
+                    {headerGroup.headers.map((header) => {
+                      return (
+                        <TableHead key={header.id}>
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(header.column.columnDef.header, header.getContext())}
+                        </TableHead>
+                      )
+                    })}
+                  </TableRow>
+                ))}
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <React.Fragment key={row.id}>
+                      <TableRow
+                        data-state={row.getIsSelected() && 'selected'}
+                        className=' *:border-border hover:bg-transparent [&>:not(:last-child)]:border-r'
+                      >
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id} className='py-3'>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </TableCell>
+                        ))}
                       </TableRow>
-                    )}
-                  </React.Fragment>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={columns.length} className='h-24 text-center'>
-                    Ничего не найдено.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                      {row.getIsExpanded() && (
+                        <TableRow>
+                          <TableCell colSpan={row.getAllCells().length} className='bg-muted p-0'>
+                            <div className='bg-linear-to-t from-gray-50 to-zinc-200 p-3 px-10 shadow-inner'>
+                              <SimpleDataTable
+                                data={row.getValue('employees') || []}
+                                columns={mechanicsColumns}
+                              />
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </React.Fragment>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={columns.length} className='h-24 text-center'>
+                      Ничего не найдено.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
           </ScrollArea>
         </CardContent>
       </Card>
