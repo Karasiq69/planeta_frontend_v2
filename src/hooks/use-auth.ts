@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { authApi } from '@/lib/auth/auth'
+import type { UserRole } from '@/types/user'
 
 export function useUser() {
   return useQuery({
@@ -42,4 +43,9 @@ export function useLogout() {
       toast.success('Вы вышли из системы')
     },
   })
+}
+
+export function useRole(): UserRole | null {
+  const { data: user } = useUser()
+  return user?.role ?? null
 }
