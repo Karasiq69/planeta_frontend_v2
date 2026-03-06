@@ -66,7 +66,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
           organizationId: employee.organizationId,
           phone: employee.phone ?? '',
           hiredAt: employee.hiredAt ?? '',
-          createAccount: hasAccount,
+          createAccount: false,
           account: hasAccount
             ? { email: employee.user!.email, role: employee.user!.role, password: '' }
             : undefined,
@@ -80,10 +80,12 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
   const onSubmit = (data: EmployeeFormValues) => {
     const { createAccount: _createAccount, ...payload } = data
 
-    if (!_createAccount) {
+    const sendAccount = _createAccount || hasAccount
+    if (!sendAccount) {
       delete payload.account
-    } else if (payload.account && !payload.account.password) {
-      delete payload.account.password
+    } else if (payload.account) {
+      if (!payload.account.password) delete payload.account.password
+      if (!payload.account.role) delete payload.account.role
     }
 
     if (isEditing) {
@@ -126,7 +128,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
             Фамилия <span className='text-destructive'>*</span>
           </Label>
           <Input id='lastName' {...register('lastName')} />
-          {errors.lastName && <p className='text-sm text-destructive'>{errors.lastName.message}</p>}
+          {errors.lastName && <p className='text-xs text-red-500'>{errors.lastName.message}</p>}
         </div>
 
         <div className='space-y-1.5'>
@@ -134,9 +136,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
             Имя <span className='text-destructive'>*</span>
           </Label>
           <Input id='firstName' {...register('firstName')} />
-          {errors.firstName && (
-            <p className='text-sm text-destructive'>{errors.firstName.message}</p>
-          )}
+          {errors.firstName && <p className='text-xs text-red-500'>{errors.firstName.message}</p>}
         </div>
 
         <div className='space-y-1.5'>
@@ -163,7 +163,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
               ))}
             </SelectContent>
           </Select>
-          {errors.position && <p className='text-sm text-destructive'>{errors.position.message}</p>}
+          {errors.position && <p className='text-xs text-red-500'>{errors.position.message}</p>}
         </div>
 
         <div className='space-y-1.5'>
@@ -186,7 +186,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
             </SelectContent>
           </Select>
           {errors.organizationId && (
-            <p className='text-sm text-destructive'>{errors.organizationId.message}</p>
+            <p className='text-xs text-red-500'>{errors.organizationId.message}</p>
           )}
         </div>
 
@@ -231,7 +231,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
               </Label>
               <Input id='account.email' type='email' {...register('account.email')} />
               {errors.account?.email && (
-                <p className='text-sm text-destructive'>{errors.account.email.message}</p>
+                <p className='text-xs text-red-500'>{errors.account.email.message}</p>
               )}
             </div>
 
@@ -245,7 +245,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
                   <Input
                     id='account.password'
                     type={showPassword ? 'text' : 'password'}
-                    placeholder={hasAccount ? 'Оставьте пустым, если не меняете' : ''}
+                    placeholder=""
                     {...register('account.password')}
                   />
                   <Button
@@ -270,7 +270,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
                 </Button>
               </div>
               {errors.account?.password && (
-                <p className='text-sm text-destructive'>{errors.account.password.message}</p>
+                <p className='text-xs text-red-500'>{errors.account.password.message}</p>
               )}
             </div>
 
@@ -278,9 +278,7 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
               <Label>Роль в системе</Label>
               <Select
                 defaultValue={hasAccount ? employee.user!.role : position}
-                onValueChange={(v) =>
-                  setValue('account.role', v as EmployeeFormValues['position'])
-                }
+                onValueChange={(v) => setValue('account.role', v as EmployeeFormValues['position'])}
               >
                 <SelectTrigger>
                   <SelectValue placeholder='Совпадает с должностью' />
