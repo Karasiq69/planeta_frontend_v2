@@ -60,3 +60,8 @@ export const deleteDocumentItem = async (
 ): Promise<void> => {
 	await apiClient.delete(`${DOCUMENTS_URL}/${documentId}/items/${itemId}`)
 }
+
+export const confirmDocument = async (id: number): Promise<Document> => {
+	const response = await apiClient.post<Document>(`${DOCUMENTS_URL}/${id}/confirm`)
+	return response.data
+}

@@ -2,12 +2,11 @@ import apiClient from '@/lib/auth/client'
 import { STORAGE_LOCATIONS_URL, WAREHOUSE_URL } from '@/lib/constants'
 
 import type { StockMovements } from '@/features/stock-movements/types/stock-movements'
-import type { WarehouseItem } from '@/features/warehouse/types'
-import type { WarehouseItemsParams } from '@/features/warehouse/types'
-import type { ListParams, ListResponse } from '@/types/params'
+import type { TransactionParams, WarehouseItem, WarehouseItemsParams } from '@/features/warehouse/types'
+import type { ListResponse } from '@/types/params'
 
 export const getAllInventoryTransactionsListFn = async (
-  params: ListParams
+  params: TransactionParams
 ): Promise<ListResponse<StockMovements>> => {
   const response = await apiClient.get<ListResponse<StockMovements>>(
     `${WAREHOUSE_URL}/transactions`,

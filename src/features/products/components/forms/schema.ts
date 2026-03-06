@@ -12,7 +12,7 @@ export const productSchema = z.object({
     .optional()
     .transform((value) => (value ? value.trim() : undefined)),
 
-  price: z.number().min(0, 'Цена не может быть отрицательной'),
+  price: z.coerce.number().min(0, 'Цена не может быть отрицательной'),
 
   partNumber: z
     .string()

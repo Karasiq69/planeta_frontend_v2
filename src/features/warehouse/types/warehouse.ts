@@ -1,4 +1,5 @@
 import type { Product } from '@/features/products/types'
+import type { StorageLocation } from '@/features/warehouse/types/storage-locations'
 
 export const WarehouseTypeEnum = {
   MAIN: 'MAIN',
@@ -22,19 +23,33 @@ export interface WarehouseItem {
   id: number
   productId: number
   warehouseId: number
-  storageLocationId?: number | null
-  quantity: string | number
-  reservedQuantity: string | number
-  minimumQuantity: string | number
+  storageLocationId: number | null
+  supplierId: number | null
+  quantity: string
+  reservedQuantity: string
+  minimumQuantity: string
+  purchasePrice: string
+  retailPrice: string
+  markupPercentage: string
   updatedAt: string
+  receivedAt: string | null
 
   product?: Product
   warehouse?: Warehouse
+  storageLocation?: StorageLocation | null
 }
 
 export interface WarehouseItemsParams {
   page?: number
-  pageSize?: number
-  searchTerm?: string
+  limit?: number
   warehouseId?: number
+  searchTerm?: string
+}
+
+export interface TransactionParams {
+  page?: number
+  limit?: number
+  documentId?: number
+  userId?: number
+  warehouseItemId?: number
 }

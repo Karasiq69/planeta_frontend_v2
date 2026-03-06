@@ -8,16 +8,16 @@ import {
 } from '@/features/warehouse/api/actions'
 import { warehouseQueryKeys } from '@/features/warehouse/api/query-keys'
 
-import type { WarehouseItemsParams } from '@/features/warehouse/types'
-import type { ListParams } from '@/types/params'
+import type { TransactionParams, WarehouseItemsParams } from '@/features/warehouse/types'
 
-export const useAllInventoryTransactions = (params: ListParams) => {
+export const useAllInventoryTransactions = (params: TransactionParams, enabled = true) => {
   return useQuery({
     queryKey: warehouseQueryKeys.transaction_list(params),
     queryFn: () => getAllInventoryTransactionsListFn(params),
     gcTime: 1000 * 60 * 20,
     staleTime: 1000 * 60 * 5,
     placeholderData: keepPreviousData,
+    enabled,
   })
 }
 

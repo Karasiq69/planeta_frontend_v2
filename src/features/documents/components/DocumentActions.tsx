@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { useConfirmDocument } from '@/features/documents/api/mutations'
 import EditDocumentDialog from '@/features/documents/components/EditDocumentDialog'
 import { DocumentStatus } from '@/features/documents/types'
 
@@ -12,11 +13,14 @@ interface Props {
 
 const DocumentActions = ({ document }: Props) => {
   const isDraft = document.status === DocumentStatus.DRAFT
+  const { mutate: confirm, isPending } = useConfirmDocument(document.id)
 
   return (
     <>
       <EditDocumentDialog document={document} disabled={!isDraft} />
-      <Button disabled={!isDraft}>Провести</Button>
+      <Button disabled={!isDraft || isPending} onClick={() => confirm()}>
+        {isPending ? 'Проведение...' : 'Провести'}
+      </Button>
     </>
   )
 }

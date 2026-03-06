@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { addDocumentItem, createDocument, deleteDocumentItem, updateDocument, updateDocumentItem } from './actions'
+import { addDocumentItem, confirmDocument, createDocument, deleteDocumentItem, updateDocument, updateDocumentItem } from './actions'
 import { documentsQueryKeys } from './query-keys'
 
 import type { CreateDocumentDto, UpdateDocumentDto } from '@/features/documents/types'
@@ -80,6 +80,22 @@ export const useDeleteDocumentItem = (documentId: number) => {
     },
     onError: (error) => {
       toast.error(`Ошибка при удалении товара: ${error.message}`)
+    },
+  })
+}
+
+export const useConfirmDocument = (id: number) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: () => confirmDocument(id),
+    onSuccess: () => {
+      toast.success('Документ проведён')
+      queryClient.invalidateQueries({ queryKey: documentsQueryKeys.detail(id) })
+      queryClient.invalidateQueries({ queryKey: documentsQueryKeys.lists() })
+    },
+    onError: (error) => {
+      toast.error(`Ошибка при проведении документа: ${error.message}`)
     },
   })
 }
