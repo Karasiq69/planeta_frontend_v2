@@ -1,8 +1,11 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -16,7 +19,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useSignUpWithAuth } from '@/hooks/use-auth'
+import { authApi } from '@/lib/auth/auth'
 
 const formSchema = z
   .object({
@@ -39,7 +42,23 @@ const formSchema = z
   })
 
 export function SignUpForm() {
-  const { signUpAndLogin, isLoading } = useSignUpWithAuth()
+  const queryClient = useQueryClient()
+  const router = useRouter()
+
+  const mutation = useMutation({
+    mutationFn: async (data: z.infer<typeof formSchema>) => {
+      await authApi.register(data)
+      await authApi.login(data.email, data.password)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user'] })
+      router.push('/dashboard')
+      toast.success('Регистрация прошла успешно')
+    },
+    onError: () => {
+      toast.error('Ошибка регистрации')
+    },
+  })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,14 +70,6 @@ export function SignUpForm() {
     },
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      await signUpAndLogin(values)
-    } catch (error) {
-      console.error('Ошибка отправки формы:', error)
-    }
-  }
-
   return (
     <Card className='mx-auto max-w-md'>
       <CardHeader>
@@ -67,7 +78,7 @@ export function SignUpForm() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+          <form onSubmit={form.handleSubmit((v) => mutation.mutate(v))} className='space-y-6'>
             <FormField
               control={form.control}
               name='email'
@@ -94,7 +105,6 @@ export function SignUpForm() {
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name='password'
@@ -121,14 +131,14 @@ export function SignUpForm() {
                 </FormItem>
               )}
             />
-            <Button type='submit' disabled={isLoading} className='w-full h-11 text-lg'>
+            <Button type='submit' disabled={mutation.isPending} className='w-full h-11 text-lg'>
               Зарегистрироваться
             </Button>
           </form>
         </Form>
         <div className='mt-6 text-center text-sm'>
           Уже есть аккаунт?{' '}
-          <Link href='/' className='underline  '>
+          <Link href='/' className='underline'>
             Войти
           </Link>
         </div>
