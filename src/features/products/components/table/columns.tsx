@@ -31,6 +31,18 @@ export const productsColumnsDefs: ColumnDef<Product>[] = [
     cell: ({ row }) => <div className='font-medium'>{formatPrice(row.getValue('price'))}</div>,
   },
   {
+    accessorKey: 'totalStock',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='На складе' />,
+    cell: ({ row }) => {
+      const stock = parseFloat(row.getValue('totalStock') || '0')
+      return (
+        <div className={stock === 0 ? 'text-red-500' : ''}>
+          {stock}
+        </div>
+      )
+    },
+  },
+  {
     accessorKey: 'isOriginal',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Оригинал' />,
     cell: ({ row }) => <div>{row.getValue('isOriginal') ? 'Да' : 'Нет'}</div>,

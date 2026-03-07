@@ -36,12 +36,15 @@ const ProductsCombobox: React.FC<ProductsComboboxProps> = ({ onSelect, isPending
       onSelect={onSelect}
       getDisplayValue={(product) => product.name}
       renderItem={(product) => (
-        <div className='grid grid-cols-[120px_1fr_160px_80px] items-center gap-3 w-full'>
+        <div className='grid grid-cols-[120px_1fr_160px_60px_80px] items-center gap-3 w-full'>
           <span className='text-sm text-muted-foreground truncate'>{product.partNumber}</span>
           <span className='font-medium truncate'>{product.name}</span>
           <span className='text-xs text-muted-foreground truncate text-right'>{product.sku}</span>
+          <span className={`text-xs text-right ${parseFloat(product.totalStock || '0') === 0 ? 'text-red-500' : 'text-muted-foreground'}`}>
+            {parseFloat(product.totalStock || '0')} шт
+          </span>
           <Badge variant='outline' className='font-normal text-muted-foreground justify-center'>
-            {product.brand.name}
+            {product.brand?.name}
           </Badge>
         </div>
       )}

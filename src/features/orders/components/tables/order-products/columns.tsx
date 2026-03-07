@@ -2,6 +2,7 @@ import { Info } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { TruncatedText } from '@/components/ui/truncated-text'
 import OrderProductsTableActions from '@/features/orders/components/tables/order-products/order-products-table-actions'
 import { formatPrice } from '@/lib/utils'
 
@@ -13,17 +14,15 @@ export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
     accessorKey: 'product.name',
     header: () => <span className='text-xs text-nowrap'>Товар</span>,
     cell: ({ row }) => (
-      <div className='min-w-0'>
-        <div className='font-medium flex items-center gap-1.5'>
-          <span className='truncate'>{row.original.product.name}</span>
+      <div className='min-w-0 max-w-[320px]'>
+        <TruncatedText text={row.original.product.name} className='font-medium' />
+        <div className='text-xs text-muted-foreground flex items-center gap-2'>
           <Badge
             variant='outline'
             className='text-muted-foreground font-normal text-[10px] px-1 py-0 shrink-0'
           >
             {row.original.product.brand.name}
           </Badge>
-        </div>
-        <div className='text-xs text-muted-foreground flex gap-2'>
           {row.original.product.partNumber && <span>{row.original.product.partNumber}</span>}
           {row.original.product.sku && (
             <span className='text-muted-foreground/60'>арт. {row.original.product.sku}</span>
@@ -48,7 +47,7 @@ export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
     cell: ({ row }) => {
       const stock = row.original.stockQuantity
       if (stock === null) {
-        return <span className='text-xs text-destructive text-nowrap'>Нет в системе</span>
+        return <span className='text-xs text-muted-foreground'>—</span>
       }
       const qty = Number(stock)
       if (qty === 0) {

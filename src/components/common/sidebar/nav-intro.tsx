@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import * as React from 'react'
 
 import {
@@ -24,13 +25,15 @@ export function NavIntro({
     icon: LucideIcon
   }[]
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+  const pathname = usePathname()
+
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title} className="">
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild isActive={pathname.startsWith(item.url)}>
                 <Link href={item.url}>
                   <item.icon />
                   <span>{item.title}</span>

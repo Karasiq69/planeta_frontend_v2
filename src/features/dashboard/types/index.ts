@@ -114,11 +114,18 @@ export interface AppointmentItem {
 // API отдаёт массив AppointmentItem[] напрямую
 
 // === Warehouse Pending ===
+export interface WarehousePendingProduct {
+	name: string
+	quantity: number
+	sku?: string | null
+	totalStock?: string | null
+}
+
 export interface WarehousePendingItem {
 	orderId: number
 	clientName: string
 	vehicleName: string
-	products: Array<{ name: string; quantity: number }>
+	products: WarehousePendingProduct[]
 	mechanicName: string
 }
 

@@ -22,7 +22,6 @@ const OrderProductsCombobox = ({ orderId }: { orderId: number }) => {
     searchTerm: searchTerm || undefined,
   })
   const { mutate, isPending } = useCreateOrderProduct(orderId)
-  console.log(products)
   const handleSelectItem = (item: Product) => {
     mutate(item.id)
   }
@@ -37,19 +36,21 @@ const OrderProductsCombobox = ({ orderId }: { orderId: number }) => {
         onSearch={debouncedHandleSearch}
         onSelect={handleSelectItem}
         getDisplayValue={(product) => product.name}
-        renderItem={(product) => (
-          <div className='w-full'>
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center gap-5'>
-                <span className='grow'>{product.name}</span>
-                <span className='text-xs text-muted-foreground grow-0'>{product.sku}</span>
-              </div>
-              <Badge variant='outline' className='ml-auto font-normal text-muted-foreground'>
-                {product.brand.name}
+        renderItem={(product) => {
+          const stock = parseFloat(product.totalStock || '0')
+          return (
+            <div className='grid grid-cols-[1fr_auto_auto_auto] items-center gap-3 w-full'>
+              <span className='font-medium truncate'>{product.name}</span>
+              <span className='text-xs text-muted-foreground whitespace-nowrap'>{product.sku}</span>
+              <span className={`text-xs whitespace-nowrap ${stock === 0 ? 'text-red-500' : 'text-muted-foreground'}`}>
+                {stock} шт
+              </span>
+              <Badge variant='outline' className='font-normal text-muted-foreground whitespace-nowrap'>
+                {product.brand?.name}
               </Badge>
             </div>
-          </div>
-        )}
+          )
+        }}
         searchError={searchError}
         placeholder='Поиск товаров'
       />

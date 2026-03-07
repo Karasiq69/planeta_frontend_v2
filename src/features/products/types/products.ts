@@ -34,4 +34,5 @@ export interface Product {
   isActive: boolean
   brand: ProductBrand
   createdAt: string
+  totalStock: string
 }
