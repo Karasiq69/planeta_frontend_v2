@@ -1,7 +1,6 @@
-'use client'
-
 import { Loader2, Minus, Plus, Trash2 } from 'lucide-react'
 
+import { QuantityCell } from '@/components/common/table/cells/QuantityCell'
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
 import { Button } from '@/components/ui/button'
 import { ButtonGroup } from '@/components/ui/button-group'
@@ -17,7 +16,7 @@ export interface TransferItemTableMeta {
   onDeleteItem: (itemId: number) => void
 }
 
-function QuantityCell({ item, meta }: { item: DocumentItem; meta: TransferItemTableMeta }) {
+function QuantityEditor({ item, meta }: { item: DocumentItem; meta: TransferItemTableMeta }) {
   const qty = Number(item.quantity)
   const isUpdating = meta.updatingItemId === item.id
 
@@ -81,9 +80,26 @@ export const transferItemColumns: ColumnDef<DocumentItem>[] = [
     cell: ({ row, table }) => {
       const meta = table.options.meta as TransferItemTableMeta | undefined
       if (meta?.isDraft) {
-        return <QuantityCell item={row.original} meta={meta} />
+        return <QuantityEditor item={row.original} meta={meta} />
       }
       return <div className='text-sm tabular-nums'>{row.original.quantity}</div>
+    },
+    enableSorting: false,
+  },
+  {
+    id: 'stock',
+    size: 0,
+    header: ({ column }) => <DataTableColumnHeader column={column} title='На складе' />,
+    cell: ({ row }) => {
+      const stock = Number(row.original.product.totalStock ?? 0)
+      const qty = Number(row.original.quantity)
+      const insufficient = qty > stock
+      return (
+        <QuantityCell
+          value={stock}
+          className={insufficient ? 'text-destructive font-medium' : 'text-muted-foreground'}
+        />
+      )
     },
     enableSorting: false,
   },

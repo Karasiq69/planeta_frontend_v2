@@ -1,20 +1,14 @@
 import {
-  AlertTriangle,
-  ArrowRightLeft,
   BadgeCheck,
-  Building2,
   History,
-  WarehouseIcon,
-  Wrench,
 } from 'lucide-react'
 import * as React from 'react'
 
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { WarehouseBadge } from '@/features/warehouse/components/WarehouseBadge'
 import { formatPrice } from '@/lib/utils'
-
-import { WarehouseTypeEnum } from '@/features/warehouse/types'
 
 import type { WarehouseItem } from '@/features/warehouse/types'
 import type { ColumnDef, RowData } from '@tanstack/react-table'
@@ -23,21 +17,6 @@ declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface TableMeta<TData extends RowData> {
     onHistoryClick?: (item: WarehouseItem) => void
-  }
-}
-
-const getWarehouseIcon = (type?: WarehouseTypeEnum) => {
-  switch (type) {
-    case WarehouseTypeEnum.MAIN:
-      return <WarehouseIcon size={14} aria-hidden='true' />
-    case WarehouseTypeEnum.WORKSHOP:
-      return <Wrench size={14} aria-hidden='true' />
-    case WarehouseTypeEnum.TRANSIT:
-      return <ArrowRightLeft size={14} aria-hidden='true' />
-    case WarehouseTypeEnum.DEFECTIVE:
-      return <AlertTriangle size={14} aria-hidden='true' />
-    default:
-      return <Building2 size={14} aria-hidden='true' />
   }
 }
 
@@ -70,12 +49,10 @@ export const warehouseItemsColumnsDefs: ColumnDef<WarehouseItem>[] = [
   {
     id: 'warehouse',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Склад' />,
-    cell: ({ row }) => (
-      <Badge variant='secondary' className='gap-1.5 font-normal whitespace-nowrap'>
-        {getWarehouseIcon(row.original.warehouse?.type)}
-        {row.original.warehouse?.name || '-'}
-      </Badge>
-    ),
+    cell: ({ row }) => {
+      const w = row.original.warehouse
+      return w ? <WarehouseBadge name={w.name} type={w.type} /> : '-'
+    },
   },
   {
     id: 'quantities',

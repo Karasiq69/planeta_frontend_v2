@@ -1,13 +1,9 @@
 'use client'
 import { getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import {
-  AlertTriangle,
-  ArrowRightLeft,
   Building2,
   LoaderCircle,
   Search,
-  WarehouseIcon,
-  Wrench,
   X,
 } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -28,16 +24,9 @@ import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { useAllWarehouseItems, useGetWarehouses } from '@/features/warehouse/api/queries'
 import { WarehouseItemHistorySheet } from '@/features/warehouse/components/WarehouseItemHistorySheet'
 import { warehouseItemsColumnsDefs } from '@/features/warehouse/components/table/warehouse-items/columns'
-import { WarehouseTypeEnum } from '@/features/warehouse/types'
+import { warehouseTypeConfig } from '@/features/warehouse/types/config'
 
 import type { WarehouseItem } from '@/features/warehouse/types'
-
-const warehouseIconMap: Record<string, React.ReactNode> = {
-  [WarehouseTypeEnum.MAIN]: <WarehouseIcon size={16} aria-hidden='true' />,
-  [WarehouseTypeEnum.WORKSHOP]: <Wrench size={16} aria-hidden='true' />,
-  [WarehouseTypeEnum.TRANSIT]: <ArrowRightLeft size={16} aria-hidden='true' />,
-  [WarehouseTypeEnum.DEFECTIVE]: <AlertTriangle size={16} aria-hidden='true' />,
-}
 
 const WarehouseDataTable = () => {
   const columns = useMemo(() => warehouseItemsColumnsDefs, [])
@@ -146,12 +135,15 @@ const WarehouseDataTable = () => {
             </SelectTrigger>
             <SelectContent className='[&_*[role=option]>span>svg]:shrink-0 [&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2'>
               <SelectItem value='all'>Все склады</SelectItem>
-              {warehouses?.map((warehouse) => (
-                <SelectItem key={warehouse.id} value={warehouse.id.toString()}>
-                  {warehouseIconMap[warehouse.type] || <Building2 size={16} aria-hidden='true' />}
-                  {warehouse.name}
-                </SelectItem>
-              ))}
+              {warehouses?.map((warehouse) => {
+                const Icon = warehouseTypeConfig[warehouse.type]?.icon || Building2
+                return (
+                  <SelectItem key={warehouse.id} value={warehouse.id.toString()}>
+                    <Icon size={16} aria-hidden='true' />
+                    {warehouse.name}
+                  </SelectItem>
+                )
+              })}
             </SelectContent>
           </Select>
 

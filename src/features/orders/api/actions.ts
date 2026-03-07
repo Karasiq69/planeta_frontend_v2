@@ -104,6 +104,16 @@ export const changeOrderStatus = async (orderId: number, newStatus: OrderStatus)
   return response.data
 }
 
+export interface TransferToWorkshopPayload {
+  fromWarehouseId: number
+  targetWarehouseId: number
+}
+
+export const transferToWorkshop = async (orderId: number, data: TransferToWorkshopPayload) => {
+  const response = await apiClient.post(`${ORDERS_URL}/${orderId}/transfer-to-workshop`, data)
+  return response.data
+}
+
 export const getClientsOrders = async (clientId: number) => {
   const response = await apiClient.get<Order[]>(`${ORDERS_URL}${CLIENT_ORDERS}/${clientId}`)
   return response.data

@@ -1,6 +1,6 @@
 'use client'
 
-import { Banknote, Building2, ChevronRight } from 'lucide-react'
+import { Banknote, Building2, ChevronRight, Warehouse } from 'lucide-react'
 import Link from 'next/link'
 
 const sections = [
@@ -15,6 +15,12 @@ const sections = [
     description: 'Управление кассами организации',
     href: '/settings/cash-registers',
     icon: Banknote,
+  },
+  {
+    title: 'Склады',
+    description: 'Управление складами и цехами',
+    href: '/settings/warehouses',
+    icon: Warehouse,
   },
 ]
 

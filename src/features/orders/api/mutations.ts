@@ -8,12 +8,16 @@ import {
   deleteEmployeeOrderServiceFn,
   deleteOrderServiceFn,
   editOrderServiceFn,
+  transferToWorkshop,
   updateEmployeeOrderServiceFn,
 } from '@/features/orders/api/actions'
+import { dashboardQueryKeys } from '@/features/dashboard/api/query-keys'
+import { documentsQueryKeys } from '@/features/documents/api/query-keys'
 import { ordersQueryKeys } from '@/features/orders/api/query-keys'
 import apiClient from '@/lib/auth/client'
 import { ORDERS_URL } from '@/lib/constants'
 
+import type { TransferToWorkshopPayload } from '@/features/orders/api/actions'
 import type { Order, OrderService, OrderServiceEmployee, OrderStatus } from '@/features/orders/types'
 
 export function useEditOrder(orderId: number) {
@@ -504,6 +508,24 @@ export function useChangeOrderStatus(orderId: number) {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.all,
       })
+    },
+  })
+}
+
+export function useTransferToWorkshop() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ orderId, data }: { orderId: number; data: TransferToWorkshopPayload }) =>
+      transferToWorkshop(orderId, data),
+    onSuccess: () => {
+      toast.success('Документ перемещения создан')
+      queryClient.invalidateQueries({ queryKey: dashboardQueryKeys.all })
+      queryClient.invalidateQueries({ queryKey: documentsQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: ordersQueryKeys.all })
+    },
+    onError: (error) => {
+      toast.error(error.message)
     },
   })
 }

@@ -1,17 +1,12 @@
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
-import {
-  AlertTriangle,
-  ArrowRight,
-  ArrowRightLeft,
-  Building2,
-  CalendarDays,
-  WarehouseIcon,
-  Wrench,
-} from 'lucide-react'
+import { ArrowRight, Building2, CalendarDays } from 'lucide-react'
 
-import { getOperationIcon, getOperationLabel } from '@/features/documents/components/FormFieldSelectOperation'
-import { WarehouseTypeEnum } from '@/features/warehouse/types'
+import {
+  getOperationIcon,
+  getOperationLabel,
+} from '@/features/documents/components/FormFieldSelectOperation'
+import { warehouseTypeConfig } from '@/features/warehouse/types/config'
 
 import type { Document } from '@/features/documents/types'
 
@@ -19,19 +14,13 @@ interface Props {
   document: Document
 }
 
-const warehouseIcons: Record<string, typeof WarehouseIcon> = {
-  [WarehouseTypeEnum.MAIN]: WarehouseIcon,
-  [WarehouseTypeEnum.WORKSHOP]: Wrench,
-  [WarehouseTypeEnum.TRANSIT]: ArrowRightLeft,
-  [WarehouseTypeEnum.DEFECTIVE]: AlertTriangle,
-}
-
 const getWarehouseIcon = (type?: string) => {
-  const Icon = (type && warehouseIcons[type]) || Building2
+  const Icon = (type && warehouseTypeConfig[type]?.icon) || Building2
   return <Icon className='size-3.5' />
 }
 
 const TransferDocumentHeader = ({ document }: Props) => {
+  console.log(document)
   return (
     <div className='rounded-lg border bg-card p-4'>
       <div className='flex flex-wrap items-center gap-x-6 gap-y-2'>
@@ -48,9 +37,9 @@ const TransferDocumentHeader = ({ document }: Props) => {
         </div>
 
         {document.operationType && getOperationLabel(document.operationType) && (
-          <div className='flex items-center gap-1.5 text-sm'>
-            <span className='text-muted-foreground'>{getOperationIcon(document.operationType, 14)}</span>
-            <span className='font-medium'>{getOperationLabel(document.operationType)}</span>
+          <div className='inline-flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-sm font-medium'>
+            {getOperationIcon(document.operationType, 14)}
+            {getOperationLabel(document.operationType)}
           </div>
         )}
 

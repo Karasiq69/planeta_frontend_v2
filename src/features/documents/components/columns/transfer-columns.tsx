@@ -6,6 +6,7 @@ import { DataTableColumnHeader } from '@/components/common/table/data-table-colu
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { getStatusConfig } from '@/features/documents/lib/status-helper'
+import { WarehouseBadge } from '@/features/warehouse/components/WarehouseBadge'
 import { formatRelativeTime } from '@/lib/format-date'
 
 import type { Document } from '@/features/documents/types'
@@ -45,7 +46,10 @@ export const transferColumns: ColumnDef<Document>[] = [
     id: 'fromWarehouse',
     meta: 'Откуда',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Откуда' />,
-    cell: ({ row }) => <div>{row.original.fromWarehouse?.name || '—'}</div>,
+    cell: ({ row }) => {
+      const w = row.original.fromWarehouse
+      return w ? <WarehouseBadge name={w.name} type={w.type} /> : '—'
+    },
     enableSorting: false,
     size: 0,
   },
@@ -53,7 +57,10 @@ export const transferColumns: ColumnDef<Document>[] = [
     id: 'warehouse',
     meta: 'Куда',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Куда' />,
-    cell: ({ row }) => <div>{row.original.warehouse?.name || '—'}</div>,
+    cell: ({ row }) => {
+      const w = row.original.warehouse
+      return w ? <WarehouseBadge name={w.name} type={w.type} /> : '—'
+    },
     enableSorting: false,
     size: 0,
   },

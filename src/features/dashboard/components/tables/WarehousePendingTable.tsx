@@ -4,7 +4,7 @@ import {
 	getCoreRowModel,
 	useReactTable,
 } from '@tanstack/react-table'
-import { ExternalLink } from 'lucide-react'
+import { ArrowRightLeft, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 
 import DataTable from '@/components/common/table/data-table'
@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
+import TransferToWorkshopDialog from '@/features/dashboard/components/TransferToWorkshopDialog'
 import type { WarehousePendingItem, WarehousePendingProduct } from '@/features/dashboard/types'
 import type { ListResponse } from '@/types/params'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -87,6 +88,41 @@ const columns: ColumnDef<WarehousePendingItem>[] = [
 			<span className='text-sm text-muted-foreground'>{row.original.mechanicName}</span>
 		),
 		enableSorting: false,
+	},
+	{
+		id: 'actions',
+		header: ({ column }) => <DataTableColumnHeader column={column} title='Перемещение' />,
+		cell: ({ row }) => {
+			const doc = row.original.transferDocument
+			if (doc) {
+				return (
+					<div className='flex items-center gap-2'>
+						<Badge variant={doc.status === 'CONFIRMED' ? 'success' : 'secondary'} className='text-xs'>
+							{doc.status === 'CONFIRMED' ? 'Проведён' : 'Черновик'}
+						</Badge>
+						<Button variant='ghost' size='sm' asChild>
+							<Link href={`/documents/transfer/${doc.id}`}>
+								{doc.number}
+								<ExternalLink className='ml-1 h-3 w-3' />
+							</Link>
+						</Button>
+					</div>
+				)
+			}
+			return (
+				<TransferToWorkshopDialog
+					orderId={row.original.orderId}
+					trigger={
+						<Button variant='outline' size='sm'>
+							<ArrowRightLeft className='mr-1.5 h-4 w-4' />
+							Переместить
+						</Button>
+					}
+				/>
+			)
+		},
+		enableSorting: false,
+		size: 200,
 	},
 ]
 

@@ -121,12 +121,19 @@ export interface WarehousePendingProduct {
 	totalStock?: string | null
 }
 
+export interface WarehousePendingTransferDocument {
+	id: number
+	status: string
+	number: string
+}
+
 export interface WarehousePendingItem {
 	orderId: number
 	clientName: string
 	vehicleName: string
 	products: WarehousePendingProduct[]
 	mechanicName: string
+	transferDocument: WarehousePendingTransferDocument | null
 }
 
 // === Recent Receipts ===

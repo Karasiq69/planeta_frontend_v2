@@ -1,5 +1,4 @@
-// Пропсы компонента
-import { AlertTriangle, ArrowRightLeft, Building2, WarehouseIcon, Wrench } from 'lucide-react'
+import { Building2 } from 'lucide-react'
 
 import {
   Select,
@@ -9,9 +8,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useGetWarehouses } from '@/features/warehouse/api/queries'
-import { WarehouseTypeEnum } from '@/features/warehouse/types'
+import { warehouseTypeConfig } from '@/features/warehouse/types/config'
 
-import type { Warehouse } from '@/features/warehouse/types'
+import type { Warehouse, WarehouseTypeEnum } from '@/features/warehouse/types'
 import type { ControllerRenderProps } from 'react-hook-form'
 
 interface FormFieldSelectWarehouseProps {
@@ -60,18 +59,7 @@ const FormFieldSelectWarehouse: React.FC<FormFieldSelectWarehouseProps> = ({
 
 export default FormFieldSelectWarehouse
 
-// Функция для получения иконки по типу склада
 const getWarehouseIcon = (type: WarehouseTypeEnum) => {
-  switch (type) {
-    case WarehouseTypeEnum.MAIN:
-      return <WarehouseIcon size={16} aria-hidden='true' />
-    case WarehouseTypeEnum.WORKSHOP:
-      return <Wrench size={16} aria-hidden='true' />
-    case WarehouseTypeEnum.TRANSIT:
-      return <ArrowRightLeft size={16} aria-hidden='true' />
-    case WarehouseTypeEnum.DEFECTIVE:
-      return <AlertTriangle size={16} aria-hidden='true' />
-    default:
-      return <Building2 size={16} aria-hidden='true' />
-  }
+  const Icon = warehouseTypeConfig[type]?.icon || Building2
+  return <Icon size={16} aria-hidden='true' />
 }

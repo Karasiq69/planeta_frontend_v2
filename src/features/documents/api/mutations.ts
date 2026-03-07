@@ -30,6 +30,7 @@ export const useUpdateDocument = (id: number) => {
       toast.success('Документ обновлён')
       queryClient.invalidateQueries({ queryKey: documentsQueryKeys.detail(id) })
       queryClient.invalidateQueries({ queryKey: documentsQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: documentsQueryKeys.items(id) })
     },
     onError: (error) => {
       toast.error(`Ошибка при обновлении документа: ${error.message}`)
