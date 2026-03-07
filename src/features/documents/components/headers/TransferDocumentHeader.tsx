@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
-import { ArrowRight, Building2, CalendarDays } from 'lucide-react'
+import { ArrowRight, Building2, CalendarDays, ExternalLink } from 'lucide-react'
+import Link from 'next/link'
 
 import {
   getOperationIcon,
@@ -44,10 +45,14 @@ const TransferDocumentHeader = ({ document }: Props) => {
         )}
 
         {document.orderId && (
-          <div className='flex items-center gap-2 text-sm'>
+          <Link
+            href={`/orders/${document.orderId}`}
+            className='flex items-center gap-1.5 text-sm font-medium hover:underline'
+          >
             <span className='text-muted-foreground'>Заказ:</span>
-            <span className='font-medium'>#{document.orderId}</span>
-          </div>
+            #{document.orderId}
+            <ExternalLink size={12} className='text-muted-foreground' />
+          </Link>
         )}
 
         <div className='flex items-center gap-1.5 text-sm'>
