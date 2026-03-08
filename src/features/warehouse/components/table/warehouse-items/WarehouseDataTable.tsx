@@ -95,6 +95,7 @@ const WarehouseDataTable = () => {
     <>
       <DataTable columns={columns} table={table}>
         <DataTable.Toolbar>
+          <div className='flex items-center gap-3'>
           <div className='relative max-w-xs w-full'>
             {isFetching
               ? <LoaderCircle className='absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground animate-spin' />
@@ -145,6 +146,7 @@ const WarehouseDataTable = () => {
               })}
             </SelectContent>
           </Select>
+          </div>
         </DataTable.Toolbar>
         <DataTable.Table />
         <DataTable.Pagination totalCount={data?.meta?.total} />

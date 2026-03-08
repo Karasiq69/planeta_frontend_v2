@@ -15,7 +15,8 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useCreatePayment } from '@/features/payments/api/mutations'
-import { useCashRegisters } from '@/features/payments/api/queries'
+import { useOrgCashRegisters } from '@/features/payments/api/queries'
+import { useOrganizationStore } from '@/stores/organization-store'
 import { createPaymentSchema } from './schema'
 
 import type { CreatePaymentFormValues } from './schema'
@@ -27,7 +28,8 @@ interface CreatePaymentFormProps {
 
 const CreatePaymentForm = ({ orderId, onSuccess }: CreatePaymentFormProps) => {
   const { mutate, isPending } = useCreatePayment(orderId)
-  const { data: cashRegisters } = useCashRegisters()
+  const { organization } = useOrganizationStore()
+  const { data: cashRegisters } = useOrgCashRegisters(organization?.id ?? 0)
 
   const activeCashRegisters = cashRegisters?.filter((cr) => cr.isActive) ?? []
 

@@ -1,30 +1,21 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import {
-  getCashRegisterById,
-  getCashRegisters,
   getOrgCashRegisters,
   getOrderPayments,
   getOrderPaymentSummary,
   getPaymentById,
   getPayments,
 } from './actions'
-import { cashRegistersQueryKeys, orgCashRegistersQueryKeys, paymentsQueryKeys } from './query-keys'
+import { orgCashRegistersQueryKeys, paymentsQueryKeys } from './query-keys'
 
 import type { PaymentsQueryParams } from '@/features/payments/types'
 
-export const useCashRegisters = () => {
+export const useOrgCashRegisters = (orgId: number) => {
   return useQuery({
-    queryKey: cashRegistersQueryKeys.all,
-    queryFn: getCashRegisters,
-  })
-}
-
-export const useCashRegisterById = (id: number) => {
-  return useQuery({
-    queryKey: cashRegistersQueryKeys.detail(id),
-    queryFn: () => getCashRegisterById(id),
-    enabled: !!id,
+    queryKey: orgCashRegistersQueryKeys.all(orgId),
+    queryFn: () => getOrgCashRegisters(orgId),
+    enabled: !!orgId,
   })
 }
 
@@ -57,13 +48,5 @@ export const useOrderPaymentSummary = (orderId: number) => {
     queryKey: paymentsQueryKeys.orderSummary(orderId),
     queryFn: () => getOrderPaymentSummary(orderId),
     enabled: !!orderId,
-  })
-}
-
-export const useOrgCashRegisters = (orgId: number) => {
-  return useQuery({
-    queryKey: orgCashRegistersQueryKeys.all(orgId),
-    queryFn: () => getOrgCashRegisters(orgId),
-    enabled: !!orgId,
   })
 }

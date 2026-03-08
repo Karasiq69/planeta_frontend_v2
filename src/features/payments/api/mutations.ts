@@ -3,63 +3,14 @@ import { toast } from 'sonner'
 
 import {
   cancelPayment,
-  createCashRegister,
   createOrgCashRegister,
   createPayment,
-  deactivateCashRegister,
   deactivateOrgCashRegister,
-  updateCashRegister,
   updateOrgCashRegister,
 } from './actions'
-import { cashRegistersQueryKeys, orgCashRegistersQueryKeys, paymentsQueryKeys } from './query-keys'
+import { orgCashRegistersQueryKeys, paymentsQueryKeys } from './query-keys'
 
 import type { CreateCashRegisterDto, CreatePaymentDto, UpdateCashRegisterDto } from '@/features/payments/types'
-
-export const useCreateCashRegister = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: (data: CreateCashRegisterDto) => createCashRegister(data),
-    onSuccess: () => {
-      toast.success('Касса создана')
-      queryClient.invalidateQueries({ queryKey: cashRegistersQueryKeys.all })
-    },
-    onError: (error) => {
-      toast.error(error.message)
-    },
-  })
-}
-
-export const useUpdateCashRegister = (id: number) => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: (data: UpdateCashRegisterDto) => updateCashRegister(id, data),
-    onSuccess: () => {
-      toast.success('Касса обновлена')
-      queryClient.invalidateQueries({ queryKey: cashRegistersQueryKeys.all })
-      queryClient.invalidateQueries({ queryKey: cashRegistersQueryKeys.detail(id) })
-    },
-    onError: (error) => {
-      toast.error(error.message)
-    },
-  })
-}
-
-export const useDeactivateCashRegister = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: (id: number) => deactivateCashRegister(id),
-    onSuccess: () => {
-      toast.success('Касса деактивирована')
-      queryClient.invalidateQueries({ queryKey: cashRegistersQueryKeys.all })
-    },
-    onError: (error) => {
-      toast.error(error.message)
-    },
-  })
-}
 
 export const useCreateOrgCashRegister = (orgId: number) => {
   const queryClient = useQueryClient()

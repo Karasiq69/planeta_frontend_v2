@@ -9,10 +9,9 @@ import {
 } from 'lucide-react'
 import React, { Suspense } from 'react'
 
-import PageHeader from '@/components/common/PageHeader'
+import PageLayout from '@/components/common/PageLayout'
 import { DropdownMenuWithIcons } from '@/components/DropdownMenuWithIcons'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import StockMovementsDataTable from '@/features/stock-movements/components/table/stock-movements/StockMovementsDataTable'
 import { INVENTORY_DOCUMENTS_URL, WAREHOUSE_URL } from '@/lib/constants'
 
@@ -53,27 +52,29 @@ const dropdownItems: DropdownWithIconMenuItem[] = [
 
 const Page = () => {
   return (
-    <section className="flex flex-col h-full">
-      <div className="space-y-5 shrink-0">
-        <PageHeader title="Движение товаров" showBackButton={false} />
-        <div className="flex gap-5 items-center">
-          <DropdownMenuWithIcons items={dropdownItems}>
-            <Button variant='default'>
-              <SquarePlus size={16} strokeWidth={2} aria-hidden='true' />
-              Создать документ
+    <PageLayout>
+      <PageLayout.Header
+        title='Движение товаров'
+        actions={
+          <div className='flex gap-5 items-center'>
+            <DropdownMenuWithIcons items={dropdownItems}>
+              <Button variant='default' size='sm'>
+                <SquarePlus size={16} strokeWidth={2} aria-hidden='true' />
+                Создать документ
+              </Button>
+            </DropdownMenuWithIcons>
+            <Button variant='outline' size='sm' disabled>
+              Что-то еще сделать
             </Button>
-          </DropdownMenuWithIcons>
-          <Button variant="outline" disabled>
-            Что-то еще сделать
-          </Button>
-        </div>
-      </div>
-      <Card className="mt-5 flex-1 min-h-0 flex flex-col">
+          </div>
+        }
+      />
+      <PageLayout.Content>
         <Suspense>
           <StockMovementsDataTable />
         </Suspense>
-      </Card>
-    </section>
+      </PageLayout.Content>
+    </PageLayout>
   )
 }
 export default Page

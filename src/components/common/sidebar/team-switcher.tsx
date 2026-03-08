@@ -2,7 +2,7 @@
 
 import { ChevronsUpDown, Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import * as React from 'react'
+import { useEffect } from 'react'
 
 import {
   DropdownMenu,
@@ -20,16 +20,21 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { useAllOrganizations } from '@/features/organizations/api/queries'
+import { useOrganizationStore } from '@/stores/organization-store'
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar()
   const { data } = useAllOrganizations()
+  const { organization: activeOrg, setOrganization } = useOrganizationStore()
   const router = useRouter()
 
   const organizations = data?.data ?? []
-  const [activeIndex, setActiveIndex] = React.useState(0)
 
-  const activeOrg = organizations[activeIndex]
+  useEffect(() => {
+    if (!activeOrg && organizations.length) {
+      setOrganization(organizations[0])
+    }
+  }, [activeOrg, organizations, setOrganization])
 
   if (!activeOrg) {
     return (
@@ -80,7 +85,7 @@ export function TeamSwitcher() {
             {organizations.map((org, index) => (
               <DropdownMenuItem
                 key={org.id}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => setOrganization(org)}
                 className='gap-2 p-2'
               >
                 <div className='flex size-6 items-center justify-center rounded-sm border text-xs font-bold'>
