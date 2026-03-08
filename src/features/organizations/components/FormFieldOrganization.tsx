@@ -1,5 +1,5 @@
 import { Building2 } from 'lucide-react'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Label } from '@/components/ui/label'
@@ -34,8 +34,23 @@ const FormFieldOrganization: React.FC<OrganizationSelectFieldProps> = ({
 }) => {
   const { data: orgs, isLoading } = useAllOrganizations()
 
-  // Получаем текущую организацию из формы для отображения
   const currentOrgId = form.watch('organizationId')
+
+  const selectOptions = useMemo(() => {
+    if (!orgs?.data) return []
+    const active = orgs.data.filter((org) => org.isActive)
+    // Если текущая организация неактивна — добавляем её в список
+    if (currentOrgId) {
+      const currentOrg = orgs.data.find((org) => org.id === currentOrgId)
+      if (currentOrg && !currentOrg.isActive) {
+        return [...active, currentOrg]
+      }
+    }
+    return active
+  }, [orgs?.data, currentOrgId])
+
+  const getOrgLabel = (org: { id: number; name: string; isActive: boolean }) =>
+    org.isActive ? org.name : `${org.name} (отключена)`
 
   return (
     <div className={cn('flex flex-col lg:flex-row gap-3 items-center', className)}>
@@ -63,17 +78,19 @@ const FormFieldOrganization: React.FC<OrganizationSelectFieldProps> = ({
                   >
                     <SelectValue placeholder={placeholder}>
                       <Building2 size={16} aria-hidden='true' />
-                      {orgs?.data.find((org) => org.id === currentOrgId)?.name || placeholder}
+                      {selectOptions.find((org) => org.id === currentOrgId)
+                        ? getOrgLabel(selectOptions.find((org) => org.id === currentOrgId)!)
+                        : placeholder}
                     </SelectValue>
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent
                   className="[&_*[role=option]>span>svg]:shrink-0 [&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2 [&_*[role=option]]:pe-8 [&_*[role=option]]:ps-2"
                 >
-                  {orgs?.data?.map((org) => (
+                  {selectOptions.map((org) => (
                     <SelectItem key={org.id} value={org.id.toString()}>
                       <Building2 size={16} aria-hidden='true' />
-                      {org.name}
+                      {getOrgLabel(org)}
                     </SelectItem>
                   ))}
                 </SelectContent>

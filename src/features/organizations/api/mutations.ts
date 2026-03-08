@@ -2,7 +2,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 
-import { createOrganizationFn, updateOrganizationFn, deleteOrganizationFn } from './actions'
+import {
+  createOrganizationFn,
+  updateOrganizationFn,
+  deleteOrganizationFn,
+  toggleOrganizationActiveFn,
+} from './actions'
 import { organizationsQueryKeys } from './query-keys'
 
 import type { Organization } from '@/features/organizations/types'
@@ -61,11 +66,44 @@ export function useDeleteOrganization() {
       toast.success('Организация успешно удалена')
     },
     onError: (error: any) => {
-      toast.error(error.response?.data?.message || 'Произошла ошибка при удалении организации')
+      const message = error.response?.data?.message
+      if (error.response?.status === 400 && message) {
+        toast.error(message, {
+          description: 'Вы можете отключить организацию вместо удаления',
+        })
+      } else {
+        toast.error(message || 'Произошла ошибка при удалении организации')
+      }
     },
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: organizationsQueryKeys.all,
+      })
+    },
+  })
+}
+
+// Хук для переключения активности организации
+export function useToggleOrganizationActive() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, isActive }: { id: number; isActive: boolean }) =>
+      toggleOrganizationActiveFn(id, isActive),
+    onSuccess: (_, variables) => {
+      toast.success(variables.isActive ? 'Организация включена' : 'Организация отключена')
+      queryClient.invalidateQueries({
+        queryKey: organizationsQueryKeys.detail(variables.id),
+      })
+    },
+    onError: (error: any) => {
+      toast.error(
+        error.response?.data?.message || 'Произошла ошибка при изменении статуса организации'
+      )
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: organizationsQueryKeys.lists(),
       })
     },
   })

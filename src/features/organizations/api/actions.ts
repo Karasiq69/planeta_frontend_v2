@@ -21,8 +21,8 @@ export const getAllOrganizationsListFn = async (
 
 // Получить организацию по ID
 export const getOrganizationByIdFn = async (id: number): Promise<Organization> => {
-  const response = await apiClient.get<Organization>(`${ORGANIZATIONS_URL}/${id}`)
-  return response.data
+  const response = await apiClient.get<{ data: Organization }>(`${ORGANIZATIONS_URL}/${id}`)
+  return response.data.data
 }
 
 // Создать новую организацию
@@ -43,4 +43,16 @@ export const updateOrganizationFn = async (
 // Удалить организацию
 export const deleteOrganizationFn = async (id: number): Promise<void> => {
   await apiClient.delete(`${ORGANIZATIONS_URL}/${id}`)
+}
+
+// Переключить активность организации
+export const toggleOrganizationActiveFn = async (
+  id: number,
+  isActive: boolean
+): Promise<Organization> => {
+  const response = await apiClient.patch<{ data: Organization }>(
+    `${ORGANIZATIONS_URL}/${id}/active`,
+    { isActive }
+  )
+  return response.data.data
 }

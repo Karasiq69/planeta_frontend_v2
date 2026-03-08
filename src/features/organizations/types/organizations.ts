@@ -12,6 +12,7 @@ export interface Organization {
   bankBik?: string
   bankAccount?: string
   logo?: string
+  isActive: boolean
   createdAt: Date
   updatedAt: Date
 }
