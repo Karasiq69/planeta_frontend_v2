@@ -29,7 +29,7 @@ const EmployeesCell: React.FC<Props> = ({ row, table }) => {
         size='sm'
         // disabled={avatars.length < 1}
         onClick={() => row.toggleExpanded()}
-        className={cn('cursor-pointer ', row.getIsExpanded() && ' bg-gray-200', '')}
+        className={cn('cursor-pointer', row.getIsExpanded() && 'bg-muted')}
       >
         {/*<AvatarStack id="employees" variant="stack" avatars={avatars}/>*/}
         <UsersRound />

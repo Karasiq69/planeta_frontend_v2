@@ -21,7 +21,6 @@ const getWarehouseIcon = (type?: string) => {
 }
 
 const TransferDocumentHeader = ({ document }: Props) => {
-  console.log(document)
   return (
     <div className='rounded-lg border bg-card p-4'>
       <div className='flex flex-wrap items-center gap-x-6 gap-y-2'>
@@ -49,8 +48,7 @@ const TransferDocumentHeader = ({ document }: Props) => {
             href={`/orders/${document.orderId}`}
             className='flex items-center gap-1.5 text-sm font-medium hover:underline'
           >
-            <span className='text-muted-foreground'>Заказ:</span>
-            #{document.orderId}
+            <span className='text-muted-foreground'>Заказ:</span>#{document.orderId}
             <ExternalLink size={12} className='text-muted-foreground' />
           </Link>
         )}

@@ -9,7 +9,6 @@ import React, { useMemo } from 'react'
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Table,
   TableBody,
@@ -39,42 +38,40 @@ const SimpleDataTable: React.FC<SimpleTableProps> = ({ data, columns }) => {
   })
 
   return (
-    <div className='bg-background rounded-sm'>
-      <Table>
-        <TableHeader className='bg-muted'>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead key={header.id} className='p-0 px-3 h-8 text-xs text-muted-foreground'>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHead>
+    <Table>
+      <TableHeader>
+        {table.getHeaderGroups().map((headerGroup) => (
+          <TableRow key={headerGroup.id} className='hover:bg-transparent border-b-0'>
+            {headerGroup.headers.map((header) => (
+              <TableHead key={header.id} className='p-0 px-3 h-7 text-[11px] font-normal text-muted-foreground'>
+                {header.isPlaceholder
+                  ? null
+                  : flexRender(header.column.columnDef.header, header.getContext())}
+              </TableHead>
+            ))}
+          </TableRow>
+        ))}
+      </TableHeader>
+      <TableBody>
+        {table.getRowModel().rows?.length ? (
+          table.getRowModel().rows.map((row) => (
+            <TableRow key={row.id} className='border-b-0 hover:bg-muted/30'>
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id} className='py-1 px-3'>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
               ))}
             </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className='p-1 px-3'>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
-                Ничего не найдено.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+          ))
+        ) : (
+          <TableRow className='hover:bg-transparent'>
+            <TableCell colSpan={columns.length} className='h-12 text-center text-xs text-muted-foreground'>
+              Нет механиков
+            </TableCell>
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
   )
 }
 
@@ -109,7 +106,7 @@ const ServicesTabContent = (props: Props) => {
           <CreateOrderServiceButton />
         </CardHeader>
         <CardContent className='shadow-inner p-0'>
-          <ScrollArea className='max-h-[500px]'>
+          <div>
             <Table className='table-auto'>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -144,9 +141,9 @@ const ServicesTabContent = (props: Props) => {
                         ))}
                       </TableRow>
                       {row.getIsExpanded() && (
-                        <TableRow>
-                          <TableCell colSpan={row.getAllCells().length} className='bg-muted p-0'>
-                            <div className='bg-linear-to-t from-gray-50 to-zinc-200 p-3 px-10 shadow-inner'>
+                        <TableRow className='hover:bg-transparent border-b'>
+                          <TableCell colSpan={row.getAllCells().length} className='bg-muted/40 shadow-[inset_0_4px_6px_-2px_rgba(0,0,0,0.06)] p-0 pl-6'>
+                            <div className='border-l-2 border-primary/40'>
                               <SimpleDataTable
                                 data={row.getValue('employees') || []}
                                 columns={mechanicsColumns}
@@ -166,7 +163,7 @@ const ServicesTabContent = (props: Props) => {
                 )}
               </TableBody>
             </Table>
-          </ScrollArea>
+          </div>
         </CardContent>
       </Card>
     </>

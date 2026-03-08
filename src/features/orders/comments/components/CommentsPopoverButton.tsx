@@ -3,16 +3,16 @@
 import { MessageSquare, Trash2 } from 'lucide-react'
 import React, { useState } from 'react'
 
+import PopoverPanel from '@/components/common/PopoverPanel'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import InputWithIcon from '@/components/ui/input-with-icon'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { useCreateComment, useDeleteComment } from '@/features/orders/comments/api/mutations'
 import { useCommentsByOrderId } from '@/features/orders/comments/api/queries'
 import { useUser } from '@/hooks/use-auth'
 import { formatRelativeTime } from '@/lib/format-date'
+import { pluralize, words } from '@/lib/pluralize'
 import { cn } from '@/lib/utils'
 
 import type { TComment } from '@/features/orders/comments/types'
@@ -20,77 +20,68 @@ import type { TComment } from '@/features/orders/comments/types'
 type Props = {
   orderId: number
 }
+
 const CommentsPopoverButton = ({ orderId }: Props) => {
+  const [isOpen, setIsOpen] = useState(false)
   const { data: user } = useUser()
   const { data: comments, isLoading } = useCommentsByOrderId(orderId)
   const { mutate, isPending } = useCreateComment(orderId)
   const { mutate: deleteComment, isPending: isDeletingPending } = useDeleteComment(orderId)
   const [commentText, setCommentText] = useState('')
 
+  const count = comments?.length ?? 0
+
   const handleSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey && commentText.trim()) {
       mutate(
-        {
-          content: commentText,
-          orderId,
-        },
-        {
-          onSuccess: () => {
-            setCommentText('')
-          },
-        }
+        { content: commentText, orderId },
+        { onSuccess: () => setCommentText('') }
       )
     }
   }
-  const handleDeleteClick = (commentId: number) => {
-    deleteComment(commentId)
-  }
+
   return (
-    <>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button variant='outline' size="sm">
-            <MessageSquare size={16} /> {comments && comments?.length >= 1 && comments.length}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className='p-0 md:w-[400px]' align="end">
-          <div className='flex items-baseline justify-between gap-1 px-3 py-2 bg-muted rounded-t-md'>
-            <div className=' font-semibold'>Комментарии</div>
-          </div>
-          <div className="p-2 bg-muted">
-            <InputWithIcon
-              disabled={isPending || isLoading}
-              onKeyDown={handleSubmit}
-              value={commentText}
-              onChange={(e) => setCommentText(e.target.value)}
-              variant="textarea-autosize"
-              placeholder="Напишите комментарий и нажмите Enter"
-            />
-          </div>
-
-          <Separator />
-
-          <ScrollArea type="scroll" className='flex max-h-[500px] flex-col overflow-y-auto'>
-            <div className='flex-1'>
-              {comments &&
-                comments.map((comment) => (
-                  <div key={comment.id} className="group  ">
-                    <CommentItem
-                      userId={Number(user?.userId)}
-                      isPending={isDeletingPending}
-                      onDelete={handleDeleteClick}
-                      key={comment.id}
-                      comment={comment}
-                    />
-                  </div>
-                ))}
-            </div>
-          </ScrollArea>
-        </PopoverContent>
-      </Popover>
-    </>
+    <PopoverPanel
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      title="Комментарии"
+      subtitle={count > 0 ? pluralize(count, words.record) : undefined}
+      middle={
+        <InputWithIcon
+          disabled={isPending || isLoading}
+          onKeyDown={handleSubmit}
+          value={commentText}
+          onChange={(e) => setCommentText(e.target.value)}
+          variant="textarea-autosize"
+          placeholder="Напишите комментарий и нажмите Enter"
+        />
+      }
+      trigger={
+        <Button
+          variant="outline"
+          size="sm"
+          className={cn(isOpen && 'bg-accent text-accent-foreground')}
+        >
+          <MessageSquare size={16} />
+          {count > 0 && count}
+        </Button>
+      }
+    >
+      {comments?.map((comment, idx) => (
+        <React.Fragment key={comment.id}>
+          {idx > 0 && <Separator />}
+          <CommentItem
+            userId={Number(user?.userId)}
+            isPending={isDeletingPending}
+            onDelete={(id) => deleteComment(id)}
+            comment={comment}
+          />
+        </React.Fragment>
+      ))}
+    </PopoverPanel>
   )
 }
+
 export default CommentsPopoverButton
 
 type CommentItemProps = {
@@ -102,46 +93,34 @@ type CommentItemProps = {
 
 const CommentItem = ({ comment, isPending, onDelete, userId }: CommentItemProps) => {
   return (
-    <div key={comment.id} className='flex items-start gap-2 group-hover:bg-muted p-3 rounded-md'>
-      <Avatar className="size-8">
-        <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
-        <AvatarFallback>CN</AvatarFallback>
+    <div className="group flex items-start gap-2.5 py-2.5 px-3">
+      <Avatar className="size-7 shrink-0 mt-0.5">
+        <AvatarImage src="" />
+        <AvatarFallback className="text-[10px]">
+          {comment.user?.username?.slice(0, 2).toUpperCase() ?? 'U'}
+        </AvatarFallback>
       </Avatar>
-
-      <div className='flex-1 min-w-0'>
-        <div className='flex items-center justify-between gap-2'>
-          <div className="flex gap-2 items-center">
-            <span className="font-bold">{comment.user?.username}</span>
-
-            <span className={cn('text-xs text-muted-foreground')}>
-              {formatRelativeTime(comment?.createdAt as string)}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold">{comment.user?.username}</span>
+            <span className="text-[11px] text-muted-foreground">
+              {formatRelativeTime(comment.createdAt as string)}
             </span>
           </div>
-          {comment?.userId === userId ? ( // Показываем кнопку удаления только для владельца комментария
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="opacity-0 group-hover:opacity-100"
-                >
-                  <Trash2 size={16} className="text-destructive" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto">
-                <Button
-                  onClick={() => onDelete(comment.id)}
-                  disabled={isPending}
-                  variant="destructive"
-                  size="sm"
-                >
-                  Удалить
-                </Button>
-              </PopoverContent>
-            </Popover>
-          ) : null}
+          {comment.userId === userId && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="shrink-0 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={() => onDelete(comment.id)}
+              disabled={isPending}
+            >
+              <Trash2 className="size-3 text-destructive" />
+            </Button>
+          )}
         </div>
-        <p className="break-all">{comment.content}</p>
+        <p className="text-sm break-all mt-0.5">{comment.content}</p>
       </div>
     </div>
   )
