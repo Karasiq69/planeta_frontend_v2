@@ -85,7 +85,7 @@ const OrderTotals = ({ orderId }: Props) => {
   return (
     <>
       <Card>
-        <CardContent className='p-6 text-sm'>
+        <CardContent className='pt-4 text-sm'>
           {/* --- Работы --- */}
           <div className='grid gap-3'>
             <div className='font-semibold'>Работы</div>
@@ -318,7 +318,7 @@ const PaymentItem = ({
 
 export const OrderTotalsSkeleton = () => (
   <Card>
-    <CardContent className='p-6'>
+    <CardContent className='pt-4'>
       {[1, 2, 3].map((section) => (
         <div key={section} className='mb-4'>
           <Skeleton className='h-6 w-24 mb-3' />

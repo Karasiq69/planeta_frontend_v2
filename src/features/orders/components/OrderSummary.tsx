@@ -46,8 +46,8 @@ const OrderSummary = ({ orderId }: Props) => {
           <OrderStatusSelect order={order} />
         </CardHeader>
         {!isApplication ? (
-          <CardContent className='p-6'>
-            <div className='grid gap-5'>
+          <CardContent className='pt-4'>
+            <div className='grid gap-4'>
               <ReasonToApply order={order} />
               <Separator />
               <Recommendation order={order} />

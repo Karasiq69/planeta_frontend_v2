@@ -101,7 +101,7 @@ const ServicesTabContent = (props: Props) => {
   return (
     <>
       <Card className=''>
-        <CardHeader className='flex flex-row items-center space-y-0 justify-between     border-b rounded-lg rounded-b-none'>
+        <CardHeader className='flex flex-row items-center space-y-0 justify-between border-b rounded-lg rounded-b-none p-3'>
           <ServicesCombobox orderId={orderId} />
           <CreateOrderServiceButton />
         </CardHeader>

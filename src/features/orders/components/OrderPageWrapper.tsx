@@ -21,10 +21,10 @@ const OrderPageWrapper = ({ orderId }: Props) => {
   const { data: order } = useOrderById(orderId)
   const { titleText } = getStatusData(order?.status)
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       <section>
         <div className="flex justify-between items-center">
-          <div className="flex flex-wrap gap-5 items-center">
+          <div className="flex flex-wrap gap-4 items-center">
             <PageHeader
               title={`${titleText} №${orderId}`}
               showBackButton={true}
@@ -32,7 +32,7 @@ const OrderPageWrapper = ({ orderId }: Props) => {
             />
           </div>
 
-          <div className='space-x-4'>
+          <div className='space-x-2'>
             <OrderAppointment orderId={orderId} />
             <CommentsPopoverButton orderId={orderId} />
 
@@ -46,10 +46,10 @@ const OrderPageWrapper = ({ orderId }: Props) => {
         </div>
       </section>
 
-      <section className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3  gap-5'>
+      <section className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4'>
         {/* left section*/}
-        <div className='md:col-span-2 space-y-5'>
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 drop-shadow-xs'>
+        <div className='md:col-span-2 space-y-4'>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
             <ClientCard />
             <CarCard />
           </div>
@@ -60,7 +60,7 @@ const OrderPageWrapper = ({ orderId }: Props) => {
         </div>
 
         {/* right section*/}
-        <div className='md:col-span-1 space-y-5'>
+        <div className='md:col-span-1 space-y-4'>
           <OrderSummary orderId={orderId} />
         </div>
       </section>

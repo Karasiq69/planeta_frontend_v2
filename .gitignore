@@ -133,3 +133,5 @@ fabric.properties
 /CLAUDE.md
 /.idea/
 /docs/
+/.playwright-mcp/
+/.mcp.json
