@@ -1,27 +1,18 @@
-import { Gauge } from 'lucide-react'
+import { CarFront } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React from 'react'
 
 import LicensePlate from '@/components/cars/LicensePlate'
 import OrderSkeletonCard from '@/components/skeletons/order-card-skeleton'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import { getBrandLogo } from '@/features/cars/utils'
 import { useOrderById } from '@/features/orders/api/queries'
 import AddOrderCarButton from '@/features/orders/components/car-card/AddOrderCarButton'
 import CarCardDropdownMenu from '@/features/orders/components/car-card/CarCardDropdownMenu'
 import MileageButton from '@/features/orders/components/car-card/MileageButton'
 
-type Props = {}
-const CarCard = (props: Props) => {
+const CarCard = () => {
   const params = useParams()
   const orderId = Number(params.id)
   const { data, isLoading } = useOrderById(orderId)
@@ -31,42 +22,45 @@ const CarCard = (props: Props) => {
 
   const car = data.car
   if (!car) return <EmptyCarCard />
-  //todo add button for create car inside order
-  return (
-    <>
-      <Card>
-        <CardHeader className="flex flex-row justify-between items-center">
-          <div className="flex flex-row flex-wrap gap-4 items-center">
-            <div>
-              <Avatar>
-                <AvatarImage src={getBrandLogo(car.brand)} />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-            <div>
-              <CardTitle className="flex items-center gap-2">
-                {`${car?.model?.name} ${car?.model?.series}${car?.model?.engine?.name} `}
 
-                <span className="font-normal text-sm"> {car?.year}</span>
-              </CardTitle>
-              <CardDescription>{car?.vin}</CardDescription>
-            </div>
+  return (
+    <Card className="p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <Avatar className="size-9 shrink-0">
+            <AvatarImage src={getBrandLogo(car.brand)} />
+            <AvatarFallback className="text-xs">
+              <CarFront className="size-4" />
+            </AvatarFallback>
+          </Avatar>
+          <div className="min-w-0">
+            <p className="text-sm font-semibold truncate">
+              {car.model?.name} {car.model?.series}
+              {car.model?.engine?.name}
+              {car.year && (
+                <span className="font-normal text-muted-foreground ml-1.5">{car.year}</span>
+              )}
+            </p>
+            <p className="text-xs text-muted-foreground font-mono mt-0.5 truncate">
+              {car.vin}
+            </p>
           </div>
-          <CarCardDropdownMenu />
-        </CardHeader>
-        <CardFooter className="flex gap-2  justify-between items-end">
-          <LicensePlate licensePlate={car.licensePlate} />
-          <MileageButton orderId={orderId} carId={car.id} />
-        </CardFooter>
-      </Card>
-    </>
+        </div>
+        <CarCardDropdownMenu />
+      </div>
+      <div className="flex items-center justify-between mt-3 pt-3 border-t">
+        <LicensePlate licensePlate={car.licensePlate} />
+        <MileageButton orderId={orderId} carId={car.id} />
+      </div>
+    </Card>
   )
 }
+
 export default CarCard
 
 const EmptyCarCard = () => {
   return (
-    <Card className='h-[150px] border  border-dashed border-gray-200  flex items-center justify-center'>
+    <Card className="border border-dashed border-gray-200 flex items-center justify-center p-8">
       <AddOrderCarButton />
     </Card>
   )

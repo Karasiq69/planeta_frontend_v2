@@ -30,20 +30,20 @@ export const AppointmentFormFields = ({ form }: Props) => {
                 onValueChange={field.onChange}
                 className='w-full'
               >
-                <TabsList className='grid w-full grid-cols-6'>
+                <TabsList className='flex w-full flex-wrap'>
                   {STATION_RESOURCES.map((station) => (
                     <TabsTrigger
                       key={station.id}
                       value={station.id}
-                      className='flex gap-2 font-bold text-xs h-full'
+                      className='flex items-center gap-1.5 text-xs font-bold'
                     >
                       {station.title}
                       <span
-                        className="size-3 rounded-full"
+                        className="size-2.5 shrink-0 rounded-full"
                         style={{
                           background: station.eventColor,
                         }}
-                      ></span>
+                      />
                     </TabsTrigger>
                   ))}
                 </TabsList>

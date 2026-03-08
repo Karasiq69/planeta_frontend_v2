@@ -77,7 +77,7 @@ const OrderStatusSelect = ({ order }: Props) => {
           <DropdownMenuTrigger asChild>
             <button
               className={cn(
-                'inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-colors',
+                'inline-flex items-center gap-1.5 rounded-md border-transparent px-3 py-1.5 text-sm font-medium transition-colors',
                 currentData.color
               )}
             >
@@ -87,7 +87,7 @@ const OrderStatusSelect = ({ order }: Props) => {
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='center' className='min-w-44'>
-            {statuses.map((status, index) => {
+            {statuses.map((status) => {
               const isActive = status.value.toUpperCase() === currentData.value
               const isCancelled = status.value === OrderStatus.CANCELLED
               return (
@@ -96,19 +96,19 @@ const OrderStatusSelect = ({ order }: Props) => {
                   <DropdownMenuItem
                     disabled={isActive}
                     onClick={() => setConfirmStatus(status.value)}
-                    className='gap-2 text-xs'
+                    className='gap-2'
                   >
                     <span
                       className={cn(
-                        'inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 text-xs font-medium',
-                        isActive ? status.color : ''
+                        'inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 text-sm',
+                        isActive ? cn(status.color, 'font-medium') : ''
                       )}
                     >
-                      <status.icon className='size-3' />
+                      <status.icon className='size-3.5' />
                       {status.label}
                     </span>
                     {isActive && (
-                      <span className='ml-auto text-[10px] text-muted-foreground'>текущий</span>
+                      <span className='ml-auto text-xs text-muted-foreground'>текущий</span>
                     )}
                   </DropdownMenuItem>
                 </div>

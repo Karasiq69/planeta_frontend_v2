@@ -1,11 +1,10 @@
-import { ClipboardList, UserIcon } from 'lucide-react'
+import { Mail, Phone, UserIcon } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React from 'react'
 
 import OrderSkeletonCard from '@/components/skeletons/order-card-skeleton'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import { useOrderById } from '@/features/orders/api/queries'
 import AddOrderClientButton from '@/features/orders/components/client-card/AddOrderClientButton'
 import ClientCardDropdownMenu from '@/features/orders/components/client-card/ClientCardDropdownMenu'
@@ -13,8 +12,7 @@ import { formatPhone } from '@/lib/utils'
 
 import ClientOrdersDropdownMenu from './ClientOrdersDropdownMenu'
 
-type Props = {}
-const ClientCard = (props: Props) => {
+const ClientCard = () => {
   const params = useParams()
 
   if (!params.id || typeof params.id !== 'string') {
@@ -25,42 +23,51 @@ const ClientCard = (props: Props) => {
 
   if (isLoading) return <OrderSkeletonCard />
   if (!order?.client) return <EmptyClientCard />
+
+  const { client } = order
+
   return (
-    <>
-      <Card>
-        <CardHeader className="flex flex-row justify-between items-center">
-          <div className="flex flex-row flex-wrap gap-4 items-center">
-            <div>
-              <Avatar>
-                <AvatarImage src="" />
-                <AvatarFallback>
-                  <UserIcon />
-                </AvatarFallback>
-              </Avatar>
-            </div>
-            <div>
-              <CardTitle className="flex items-center gap-2">
-                {order.client.firstName + ' ' + order.client.lastName}
-                <span className="font-normal text-sm"> VIP</span>
-              </CardTitle>
-              <CardDescription>{order.client.email}</CardDescription>
+    <Card className="p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <Avatar className="size-9 shrink-0">
+            <AvatarImage src="" />
+            <AvatarFallback className="text-xs">
+              <UserIcon className="size-4" />
+            </AvatarFallback>
+          </Avatar>
+          <div className="min-w-0">
+            <p className="text-sm font-semibold truncate">
+              {client.firstName} {client.lastName}
+            </p>
+            <div className="flex items-center gap-3 mt-0.5">
+              {client.email && (
+                <span className="flex items-center gap-1 text-xs text-muted-foreground truncate">
+                  <Mail className="size-3 shrink-0" />
+                  {client.email}
+                </span>
+              )}
             </div>
           </div>
-          <ClientCardDropdownMenu />
-        </CardHeader>
-        <CardContent className="flex gap-3  justify-between items-center">
-          <span>{formatPhone(order.client?.phone)}</span>
-          {order.clientId && <ClientOrdersDropdownMenu clientId={order.clientId} />}
-        </CardContent>
-      </Card>
-    </>
+        </div>
+        <ClientCardDropdownMenu />
+      </div>
+      <div className="flex items-center justify-between mt-3 pt-3 border-t">
+        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <Phone className="size-3" />
+          {formatPhone(client.phone)}
+        </span>
+        {order.clientId && <ClientOrdersDropdownMenu clientId={order.clientId} />}
+      </div>
+    </Card>
   )
 }
+
 export default ClientCard
 
 const EmptyClientCard = () => {
   return (
-    <Card className='h-[150px] border  border-dashed border-gray-200  flex items-center justify-center'>
+    <Card className="border border-dashed border-gray-200 flex items-center justify-center p-8">
       <AddOrderClientButton />
     </Card>
   )

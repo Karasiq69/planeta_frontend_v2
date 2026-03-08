@@ -10,7 +10,7 @@ const StatusBadge = ({ status }: { status?: OrderStatus }) => {
   const { icon: StatusIcon, color, label } = getStatusData(status)
 
   return (
-    <Badge variant="outline" className={cn(color, 'h-9 min-w-20 rounded-md')}>
+    <Badge variant="outline" className={cn(color, 'h-9 min-w-20 rounded-md border-transparent')}>
       {StatusIcon && <StatusIcon className='w-4 h-4 mr-2' />}
       {label}
     </Badge>
