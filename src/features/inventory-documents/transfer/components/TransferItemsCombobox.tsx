@@ -23,7 +23,7 @@ const TransferItemsCombobox = ({ onSelectProduct, isPending, warehouseId }: Tran
     isFetching,
   } = useAllWarehouseItems({
     page: 1,
-    pageSize: 50,
+    limit: 50,
     searchTerm: searchTerm || undefined,
     warehouseId,
   })

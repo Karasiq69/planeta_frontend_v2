@@ -22,8 +22,7 @@ const StockMovementsDataTable = (props: Props) => {
 
   const { data, isLoading, isFetching } = useAllInventoryTransactions({
     page: pagination.pageIndex + 1,
-    pageSize: pagination.pageSize,
-    searchTerm: searchTerm || undefined,
+    limit: pagination.pageSize,
   })
 
   const table = useReactTable({

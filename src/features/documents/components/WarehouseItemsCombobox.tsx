@@ -22,19 +22,19 @@ const WarehouseItemsCombobox: React.FC<WarehouseItemsComboboxProps> = ({
   const { searchTerm, searchError, debouncedHandleSearch } = useDebouncedSearch()
 
   const {
-    data: warehouseItems,
+    data: warehouseItemsResponse,
     isLoading,
     isFetching,
   } = useAllWarehouseItems({
     page: 1,
-    pageSize: 50,
+    limit: 50,
     searchTerm: searchTerm || undefined,
     warehouseId,
   })
 
   return (
     <ComboboxSearch<WarehouseItem>
-      data={warehouseItems}
+      data={warehouseItemsResponse}
       isLoading={isLoading || isFetching}
       isPending={isPending}
       width='w-auto'

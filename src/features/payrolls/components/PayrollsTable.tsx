@@ -30,7 +30,18 @@ interface PayrollsTableProps {
 const PayrollsTable = ({ filters }: PayrollsTableProps) => {
   const [deleteId, setDeleteId] = useState<number | null>(null)
 
-  const { data, isLoading } = usePayrollsList(filters)
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  })
+
+  const params: PayrollQuery = {
+    ...filters,
+    page: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  }
+
+  const { data, isLoading } = usePayrollsList(params)
   const { mutate: remove, isPending: isDeleting } = useDeletePayroll()
 
   const columns = useMemo(() => createPayrollColumns((id) => setDeleteId(id)), [])
@@ -40,6 +51,10 @@ const PayrollsTable = ({ filters }: PayrollsTableProps) => {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    pageCount: data?.meta.totalPages ?? -1,
+    manualPagination: true,
+    state: { pagination },
   })
 
   if (isLoading) return <LoaderSectionAnimated className='rounded p-10' />
@@ -49,6 +64,7 @@ const PayrollsTable = ({ filters }: PayrollsTableProps) => {
     <>
       <DataTable table={table} columns={columns} variant="compact">
         <DataTable.Table />
+        <DataTable.Pagination totalCount={data.meta.total} />
       </DataTable>
 
       <AlertDialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>

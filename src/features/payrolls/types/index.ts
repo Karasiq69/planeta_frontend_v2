@@ -50,6 +50,8 @@ export interface CreatePayrollDto {
 }
 
 export interface PayrollQuery {
+  page?: number
+  pageSize?: number
   year?: number
 }
 

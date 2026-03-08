@@ -9,9 +9,10 @@ import type {
   PayrollListItem,
   PayrollQuery,
 } from '@/features/payrolls/types'
+import type { ListResponse } from '@/types/params'
 
-export const getPayrolls = async (params: PayrollQuery): Promise<{ data: PayrollListItem[] }> => {
-  const response = await apiClient.get<{ data: PayrollListItem[] }>(PAYROLLS_URL, { params })
+export const getPayrolls = async (params: PayrollQuery): Promise<ListResponse<PayrollListItem>> => {
+  const response = await apiClient.get<ListResponse<PayrollListItem>>(PAYROLLS_URL, { params })
   return response.data
 }
 

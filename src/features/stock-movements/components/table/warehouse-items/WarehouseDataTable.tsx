@@ -22,7 +22,7 @@ const WarehouseDataTable = (props: Props) => {
 
   const { data, isLoading, isFetching } = useAllWarehouseItems({
     page: pagination.pageIndex + 1,
-    pageSize: pagination.pageSize,
+    limit: pagination.pageSize,
     searchTerm: searchTerm || undefined,
   })
 
