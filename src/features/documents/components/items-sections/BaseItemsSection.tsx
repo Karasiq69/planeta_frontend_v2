@@ -7,16 +7,13 @@ import { toast } from 'sonner'
 
 import DataTableBasic from '@/components/common/table/data-table-basic'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import {
-  useDeleteDocumentItem,
-  useUpdateDocumentItem,
-} from '@/features/documents/api/mutations'
+import { useDeleteDocumentItem, useUpdateDocumentItem } from '@/features/documents/api/mutations'
 import { useDocumentItems } from '@/features/documents/api/queries'
 import { DocumentStatus } from '@/features/documents/types'
 
-import type { ReactNode } from 'react'
 import type { DocumentItem } from '@/features/documents/types'
 import type { ColumnDef } from '@tanstack/react-table'
+import type { ReactNode } from 'react'
 
 export interface ItemsSectionTableMeta {
   isDraft: boolean
@@ -55,10 +52,7 @@ const BaseItemsSection = ({ documentId, status, columns, combobox }: BaseItemsSe
       updatingItemId: isUpdating ? (updateVariables?.itemId ?? null) : null,
       deletingItemId: isDeleting ? (deleteVariables ?? null) : null,
       onUpdateItem: (itemId, data) =>
-        updateItem(
-          { itemId, ...data },
-          { onSuccess: () => toast.success('Товар обновлён') }
-        ),
+        updateItem({ itemId, ...data }, { onSuccess: () => toast.success('Товар обновлён') }),
       onDeleteItem: (itemId) => deleteItem(itemId),
     }),
     [isDraft, isUpdating, updateVariables, isDeleting, deleteVariables, updateItem, deleteItem]
@@ -68,16 +62,13 @@ const BaseItemsSection = ({ documentId, status, columns, combobox }: BaseItemsSe
     data: items ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
+    // @ts-expect-error api
     meta: tableMeta,
   })
 
   return (
     <div className='flex flex-col h-full rounded-lg border bg-card'>
-      {isDraft && combobox && (
-        <div className='p-4 border-b shrink-0'>
-          {combobox}
-        </div>
-      )}
+      {isDraft && combobox && <div className='p-4 border-b shrink-0'>{combobox}</div>}
 
       {isLoading ? (
         <div className='p-4'>

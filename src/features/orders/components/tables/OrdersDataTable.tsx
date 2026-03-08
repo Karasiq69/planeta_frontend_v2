@@ -12,7 +12,6 @@ import React, { useMemo } from 'react'
 
 import DataTable from '@/components/common/table/data-table'
 import { DataTableToolbar } from '@/components/tables/data-table-toolbar'
-import { CardHeader } from '@/components/ui/card'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { useOrdersList } from '@/features/orders/api/queries'
 import { OrdersColumnDefs } from '@/features/orders/components/tables/columns'
@@ -124,13 +123,13 @@ const OrdersDataTable = () => {
   if (!data) return <div className='p-4'>No data available</div>
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="px-4 pt-5 shrink-0">
+    <DataTable table={table} columns={columns}>
+      <DataTable.Toolbar>
         <DataTableToolbar table={table} isLoading={isFetching} />
-      </div>
-
-      <DataTable columns={columns} table={table} totalCount={data.meta.total} />
-    </div>
+      </DataTable.Toolbar>
+      <DataTable.Table />
+      <DataTable.Pagination totalCount={data.meta.total} />
+    </DataTable>
   )
 }
 

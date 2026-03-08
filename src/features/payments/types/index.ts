@@ -2,6 +2,7 @@ import type { ListParams } from '@/types/params'
 
 export interface CashRegister {
   id: number
+  organizationId: number
   name: string
   type: 'physical' | 'online' | 'api'
   isActive: boolean
@@ -66,5 +67,5 @@ export interface CreateCashRegisterDto {
 
 export interface UpdateCashRegisterDto {
   name?: string
-  type?: CashRegister['type']
+  isActive?: boolean
 }

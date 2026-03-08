@@ -44,7 +44,7 @@ const CashRegistersPage = () => {
               {formatAmount(data.reduce((sum, cr) => sum + cr.balance, 0))}
             </span>
           </div>
-          <CashRegistersTable data={data} />
+          <CashRegistersTable orgId={data[0]?.organizationId ?? 0} data={data} />
         </>
       ) : (
         <div className='p-4'>Данные недоступны</div>

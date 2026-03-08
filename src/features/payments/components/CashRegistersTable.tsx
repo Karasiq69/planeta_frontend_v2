@@ -15,6 +15,12 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import {
   Table,
   TableBody,
   TableCell,
@@ -22,20 +28,23 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { useDeactivateCashRegister } from '@/features/payments/api/mutations'
+import { useDeactivateOrgCashRegister } from '@/features/payments/api/mutations'
 
 import { cashRegisterColumns } from './cash-register-columns'
+import CashRegisterForm from './forms/CashRegisterForm'
 
 import type { CashRegister } from '@/features/payments/types'
 
 
 interface CashRegistersTableProps {
+  orgId: number
   data: CashRegister[]
 }
 
-const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
+const CashRegistersTable = ({ orgId, data }: CashRegistersTableProps) => {
   const [deactivateId, setDeactivateId] = useState<number | null>(null)
-  const { mutate: deactivate, isPending } = useDeactivateCashRegister()
+  const [editCashRegister, setEditCashRegister] = useState<CashRegister | null>(null)
+  const { mutate: deactivate, isPending } = useDeactivateOrgCashRegister(orgId)
 
   const columns = [
     ...cashRegisterColumns,
@@ -43,11 +52,17 @@ const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
       id: 'actions',
       header: '',
       cell: ({ row }: { row: { original: CashRegister } }) => {
-        if (!row.original.isActive) return null
         return (
-          <Button variant='ghost' size='sm' onClick={() => setDeactivateId(row.original.id)}>
-            Деактивировать
-          </Button>
+          <div className='flex gap-1'>
+            <Button variant='ghost' size='sm' onClick={() => setEditCashRegister(row.original)}>
+              Редактировать
+            </Button>
+            {row.original.isActive && (
+              <Button variant='ghost' size='sm' onClick={() => setDeactivateId(row.original.id)}>
+                Деактивировать
+              </Button>
+            )}
+          </div>
         )
       },
     },
@@ -121,6 +136,21 @@ const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <Dialog open={editCashRegister !== null} onOpenChange={(open) => !open && setEditCashRegister(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Редактирование кассы</DialogTitle>
+          </DialogHeader>
+          {editCashRegister && (
+            <CashRegisterForm
+              orgId={orgId}
+              cashRegister={editCashRegister}
+              onSuccess={() => setEditCashRegister(null)}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

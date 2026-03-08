@@ -39,7 +39,7 @@ const CreatePayrollDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
+        <Button size="sm">
           <SquarePlus />
           Создать ведомость
         </Button>

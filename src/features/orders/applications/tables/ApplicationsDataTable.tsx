@@ -44,14 +44,16 @@ const ApplicationsDataTable = () => {
   if (!data) return <div className='p-4'>No data available</div>
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex gap-3 shrink-0">
-        <OrdersSearchBox searchParams={searchParams} />
-        {isFetching && <LoaderAnimated />}
-      </div>
-
-      <DataTable columns={columns} table={table} totalCount={data.meta.total} />
-    </div>
+    <DataTable table={table} columns={columns}>
+      <DataTable.Toolbar>
+        <div className="flex gap-3">
+          <OrdersSearchBox searchParams={searchParams} />
+          {isFetching && <LoaderAnimated />}
+        </div>
+      </DataTable.Toolbar>
+      <DataTable.Table />
+      <DataTable.Pagination totalCount={data.meta.total} />
+    </DataTable>
   )
 }
 

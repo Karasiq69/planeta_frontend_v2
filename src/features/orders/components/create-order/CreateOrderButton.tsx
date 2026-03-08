@@ -23,7 +23,7 @@ import type { IClient } from '@/features/clients/types'
 
 
 
-const CreateOrderButton = () => {
+const CreateOrderButton = ({ label = 'Новый заказ' }: { label?: string }) => {
   const router = useRouter()
   const { mutate: createOrder, isPending } = useCreateOrder()
 
@@ -40,9 +40,9 @@ const CreateOrderButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='default'>
+        <Button variant='default' size='sm'>
           <PlusCircle className='mr-2 h-4 w-4' />
-          Новый заказ
+          {label}
         </Button>
       </DialogTrigger>
       <DialogContent className='w-full max-w-4xl h-auto bg-muted'>

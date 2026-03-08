@@ -60,7 +60,10 @@ const PaymentsTable = ({ filters }: PaymentsTableProps) => {
 
   return (
     <>
-      <DataTable columns={columns} table={table} totalCount={data.meta.total} />
+      <DataTable table={table} columns={columns} variant="compact">
+        <DataTable.Table />
+        <DataTable.Pagination totalCount={data.meta.total} />
+      </DataTable>
 
       <AlertDialog open={cancelId !== null} onOpenChange={() => setCancelId(null)}>
         <AlertDialogContent>

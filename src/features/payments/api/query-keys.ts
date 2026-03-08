@@ -15,3 +15,8 @@ export const cashRegistersQueryKeys = {
   details: () => [...cashRegistersQueryKeys.all, 'detail'] as const,
   detail: (id: number) => [...cashRegistersQueryKeys.details(), id] as const,
 }
+
+export const orgCashRegistersQueryKeys = {
+  all: (orgId: number) => ['org-cash-registers', orgId] as const,
+  detail: (orgId: number, id: number) => [...orgCashRegistersQueryKeys.all(orgId), 'detail', id] as const,
+}

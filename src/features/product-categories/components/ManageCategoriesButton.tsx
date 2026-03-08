@@ -11,7 +11,7 @@ export const ManageCategoriesButton = () => {
 
   return (
     <>
-      <Button variant='outline' onClick={() => setOpen(true)}>
+      <Button variant='outline' size='sm' onClick={() => setOpen(true)}>
         <Tags className='mr-1.5 size-4' />
         Категории
       </Button>

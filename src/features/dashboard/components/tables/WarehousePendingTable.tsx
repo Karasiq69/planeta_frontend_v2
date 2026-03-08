@@ -161,7 +161,10 @@ export function WarehousePendingTable({ data, isLoading, page, pageSize, onPageC
 						<Skeleton className='h-[200px] w-full' />
 					</div>
 				) : (
-					<DataTable table={table} columns={columns} totalCount={data?.meta.total} />
+					<DataTable table={table} columns={columns} variant="compact">
+						<DataTable.Table />
+						<DataTable.Pagination totalCount={data?.meta.total} />
+					</DataTable>
 				)}
 			</CardContent>
 		</Card>

@@ -19,12 +19,15 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import {
   useDeleteOrganization,
   useToggleOrganizationActive,
 } from '@/features/organizations/api/mutations'
 import { useOrganization } from '@/features/organizations/api/queries'
+
+import OrgCashRegistersTab from '@/features/payments/components/OrgCashRegistersTab'
 
 import OrganizationForm from './forms/OrganizationForm'
 
@@ -58,69 +61,83 @@ const OrganizationDetailPage = ({ id }: OrganizationDetailPageProps) => {
   if (!organization) return <div className='p-4'>Организация не найдена</div>
 
   return (
-    <div className='space-y-6'>
-      <PageHeader title={organization.name} showBackButton />
-
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-        <div className='lg:col-span-2'>
-          <Card>
-            <CardHeader>
-              <CardTitle>Реквизиты</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <OrganizationForm
-                organization={organization}
-                onSuccess={() => router.push('/settings/organizations')}
-              />
-            </CardContent>
-          </Card>
+    <Tabs defaultValue='general'>
+      <div className='space-y-6'>
+        <div className='flex items-center justify-between'>
+          <PageHeader title={organization.name} showBackButton />
+          <TabsList>
+            <TabsTrigger value='general'>Основное</TabsTrigger>
+            <TabsTrigger value='cash-registers'>Кассы</TabsTrigger>
+          </TabsList>
         </div>
 
-        <div className='space-y-4'>
-          <Card>
-            <CardHeader>
-              <CardTitle className='text-base'>Статус</CardTitle>
-            </CardHeader>
-            <CardContent className='space-y-4'>
-              <div className='flex items-center justify-between'>
-                <span className='text-sm text-muted-foreground'>Состояние</span>
-                <Badge variant={organization.isActive ? 'success' : 'light'}>
-                  {organization.isActive ? 'Активна' : 'Отключена'}
-                </Badge>
-              </div>
-              <Separator />
-              <Button
-                variant='outline'
-                size='sm'
-                className='w-full'
-                onClick={() => setToggleDialogOpen(true)}
-              >
-                <Power className='mr-1.5 size-4' />
-                {organization.isActive ? 'Отключить' : 'Включить'}
-              </Button>
-            </CardContent>
-          </Card>
+        <TabsContent value='general' className='space-y-0'>
+          <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+            <div className='lg:col-span-2'>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Реквизиты</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <OrganizationForm
+                    organization={organization}
+                    onSuccess={() => router.push('/settings/organizations')}
+                  />
+                </CardContent>
+              </Card>
+            </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className='text-base'>Опасная зона</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className='text-sm text-muted-foreground mb-3'>
-                Удаление возможно только для организаций без документов.
-              </p>
-              <Button
-                variant='destructive'
-                size='sm'
-                className='w-full'
-                onClick={() => setDeleteDialogOpen(true)}
-              >
-                <Trash2 className='mr-1.5 size-4' />
-                Удалить организацию
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+            <div className='space-y-4'>
+              <Card>
+                <CardHeader>
+                  <CardTitle className='text-base'>Статус</CardTitle>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                  <div className='flex items-center justify-between'>
+                    <span className='text-sm text-muted-foreground'>Состояние</span>
+                    <Badge variant={organization.isActive ? 'success' : 'light'}>
+                      {organization.isActive ? 'Активна' : 'Отключена'}
+                    </Badge>
+                  </div>
+                  <Separator />
+                  <Button
+                    variant='outline'
+                    size='sm'
+                    className='w-full'
+                    onClick={() => setToggleDialogOpen(true)}
+                  >
+                    <Power className='mr-1.5 size-4' />
+                    {organization.isActive ? 'Отключить' : 'Включить'}
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className='text-base'>Опасная зона</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className='text-sm text-muted-foreground mb-3'>
+                    Удаление возможно только для организаций без документов.
+                  </p>
+                  <Button
+                    variant='destructive'
+                    size='sm'
+                    className='w-full'
+                    onClick={() => setDeleteDialogOpen(true)}
+                  >
+                    <Trash2 className='mr-1.5 size-4' />
+                    Удалить организацию
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value='cash-registers'>
+          <OrgCashRegistersTab orgId={id} />
+        </TabsContent>
       </div>
 
       <AlertDialog open={toggleDialogOpen} onOpenChange={setToggleDialogOpen}>
@@ -167,7 +184,7 @@ const OrganizationDetailPage = ({ id }: OrganizationDetailPageProps) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </Tabs>
   )
 }
 

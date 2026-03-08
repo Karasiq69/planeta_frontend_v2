@@ -3,12 +3,13 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import {
   getCashRegisterById,
   getCashRegisters,
+  getOrgCashRegisters,
   getOrderPayments,
   getOrderPaymentSummary,
   getPaymentById,
   getPayments,
 } from './actions'
-import { cashRegistersQueryKeys, paymentsQueryKeys } from './query-keys'
+import { cashRegistersQueryKeys, orgCashRegistersQueryKeys, paymentsQueryKeys } from './query-keys'
 
 import type { PaymentsQueryParams } from '@/features/payments/types'
 
@@ -56,5 +57,13 @@ export const useOrderPaymentSummary = (orderId: number) => {
     queryKey: paymentsQueryKeys.orderSummary(orderId),
     queryFn: () => getOrderPaymentSummary(orderId),
     enabled: !!orderId,
+  })
+}
+
+export const useOrgCashRegisters = (orgId: number) => {
+  return useQuery({
+    queryKey: orgCashRegistersQueryKeys.all(orgId),
+    queryFn: () => getOrgCashRegisters(orgId),
+    enabled: !!orgId,
   })
 }

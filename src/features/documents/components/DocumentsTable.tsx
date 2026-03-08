@@ -42,7 +42,12 @@ const DocumentsTable = ({ type }: DocumentsTableProps) => {
   if (isLoading) return <LoaderSectionAnimated className='rounded p-10' />
   if (!data) return <div className='p-4'>Данные недоступны</div>
 
-  return <DataTable columns={columns} table={table} totalCount={data.meta.total} />
+  return (
+    <DataTable columns={columns} table={table}>
+      <DataTable.Table />
+      <DataTable.Pagination totalCount={data.meta.total} />
+    </DataTable>
+  )
 }
 
 export default DocumentsTable

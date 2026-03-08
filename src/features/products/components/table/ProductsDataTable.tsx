@@ -10,8 +10,7 @@ import { useProductsList } from '@/features/products/api/queries'
 import { productsColumnsDefs } from '@/features/products/components/table/columns'
 import ProductsSearchBox from '@/features/products/components/table/ProductsSearchBox'
 
-type Props = {}
-const ProductsDataTable = (props: Props) => {
+const ProductsDataTable = () => {
   const columns = useMemo(() => productsColumnsDefs, [])
   const searchParams = useSearchParams()
   const searchTerm = searchParams.get('search')
@@ -44,18 +43,16 @@ const ProductsDataTable = (props: Props) => {
   if (!data) return <div className='p-4'>No data available</div>
 
   return (
-    <div className=''>
-      <div className='flex gap-3'>
-        <ProductsSearchBox searchParams={searchParams} />
-        {isFetching && <LoaderAnimated />}
-      </div>
-
-      <DataTable
-        columns={columns}
-        table={table}
-        totalCount={data.meta.total} // Используем общее количество из метаданных
-      />
-    </div>
+    <DataTable table={table} columns={columns} variant="compact">
+      <DataTable.Toolbar>
+        <div className='flex gap-3'>
+          <ProductsSearchBox searchParams={searchParams} />
+          {isFetching && <LoaderAnimated />}
+        </div>
+      </DataTable.Toolbar>
+      <DataTable.Table />
+      <DataTable.Pagination totalCount={data.meta.total} />
+    </DataTable>
   )
 }
 export default ProductsDataTable

@@ -1,5 +1,5 @@
 import apiClient from '@/lib/auth/client'
-import { CASH_REGISTERS_URL, PAYMENTS_URL } from '@/lib/constants'
+import { CASH_REGISTERS_URL, getOrgCashRegistersUrl, PAYMENTS_URL } from '@/lib/constants'
 
 import type {
   CashRegister,
@@ -39,6 +39,28 @@ export const updateCashRegister = async (
 
 export const deactivateCashRegister = async (id: number): Promise<CashRegister> => {
   const response = await apiClient.patch<CashRegister>(`${CASH_REGISTERS_URL}/${id}/deactivate`)
+  return response.data
+}
+
+// ── Org Cash Registers ─────────────────────────────────────
+
+export const getOrgCashRegisters = async (orgId: number): Promise<CashRegister[]> => {
+  const response = await apiClient.get<CashRegister[]>(getOrgCashRegistersUrl(orgId))
+  return response.data
+}
+
+export const createOrgCashRegister = async (orgId: number, data: CreateCashRegisterDto): Promise<CashRegister> => {
+  const response = await apiClient.post<CashRegister>(getOrgCashRegistersUrl(orgId), data)
+  return response.data
+}
+
+export const updateOrgCashRegister = async (orgId: number, id: number, data: UpdateCashRegisterDto): Promise<CashRegister> => {
+  const response = await apiClient.patch<CashRegister>(`${getOrgCashRegistersUrl(orgId)}/${id}`, data)
+  return response.data
+}
+
+export const deactivateOrgCashRegister = async (orgId: number, id: number): Promise<CashRegister> => {
+  const response = await apiClient.post<CashRegister>(`${getOrgCashRegistersUrl(orgId)}/${id}/deactivate`)
   return response.data
 }
 

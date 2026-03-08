@@ -4,11 +4,14 @@ import { toast } from 'sonner'
 import {
   cancelPayment,
   createCashRegister,
+  createOrgCashRegister,
   createPayment,
   deactivateCashRegister,
+  deactivateOrgCashRegister,
   updateCashRegister,
+  updateOrgCashRegister,
 } from './actions'
-import { cashRegistersQueryKeys, paymentsQueryKeys } from './query-keys'
+import { cashRegistersQueryKeys, orgCashRegistersQueryKeys, paymentsQueryKeys } from './query-keys'
 
 import type { CreateCashRegisterDto, CreatePaymentDto, UpdateCashRegisterDto } from '@/features/payments/types'
 
@@ -51,6 +54,48 @@ export const useDeactivateCashRegister = () => {
     onSuccess: () => {
       toast.success('Касса деактивирована')
       queryClient.invalidateQueries({ queryKey: cashRegistersQueryKeys.all })
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
+  })
+}
+
+export const useCreateOrgCashRegister = (orgId: number) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (data: CreateCashRegisterDto) => createOrgCashRegister(orgId, data),
+    onSuccess: () => {
+      toast.success('Касса создана')
+      queryClient.invalidateQueries({ queryKey: orgCashRegistersQueryKeys.all(orgId) })
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
+  })
+}
+
+export const useUpdateOrgCashRegister = (orgId: number, id: number) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (data: UpdateCashRegisterDto) => updateOrgCashRegister(orgId, id, data),
+    onSuccess: () => {
+      toast.success('Касса обновлена')
+      queryClient.invalidateQueries({ queryKey: orgCashRegistersQueryKeys.all(orgId) })
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
+  })
+}
+
+export const useDeactivateOrgCashRegister = (orgId: number) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) => deactivateOrgCashRegister(orgId, id),
+    onSuccess: () => {
+      toast.success('Касса деактивирована')
+      queryClient.invalidateQueries({ queryKey: orgCashRegistersQueryKeys.all(orgId) })
     },
     onError: (error) => {
       toast.error(error.message)

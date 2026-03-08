@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react'
 
-import PageHeader from '@/components/common/PageHeader'
-import { Card } from '@/components/ui/card'
+import PageLayout from '@/components/common/PageLayout'
 import ApplicationsDataTable from '@/features/orders/applications/tables/ApplicationsDataTable'
 import CreateOrderButton from '@/features/orders/components/create-order/CreateOrderButton'
 
@@ -11,17 +10,14 @@ export const metadata: Metadata = { title: 'Заявки на ремонт' }
 
 const Page = async () => {
   return (
-    <section className='flex flex-col h-full'>
-      <div className='space-y-5 shrink-0'>
-        <PageHeader title='Заявки на ремонт' showBackButton={false} />
-        <CreateOrderButton />
-      </div>
-      <Card className='mt-5 flex-1 min-h-0 flex flex-col'>
+    <PageLayout>
+      <PageLayout.Header title='Заявки на ремонт' actions={<CreateOrderButton label='Новая заявка' />} />
+      <PageLayout.Content>
         <Suspense>
           <ApplicationsDataTable />
         </Suspense>
-      </Card>
-    </section>
+      </PageLayout.Content>
+    </PageLayout>
   )
 }
 export default Page

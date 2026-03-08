@@ -93,9 +93,8 @@ const WarehouseDataTable = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full">
-        {/* Toolbar */}
-        <div className="flex flex-wrap items-center gap-2 px-4 pt-5 shrink-0">
+      <DataTable columns={columns} table={table}>
+        <DataTable.Toolbar>
           <div className='relative max-w-xs w-full'>
             {isFetching
               ? <LoaderCircle className='absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground animate-spin' />
@@ -146,15 +145,10 @@ const WarehouseDataTable = () => {
               })}
             </SelectContent>
           </Select>
-
-        </div>
-
-        <DataTable
-          columns={columns}
-          table={table}
-          totalCount={data?.meta?.total}
-        />
-      </div>
+        </DataTable.Toolbar>
+        <DataTable.Table />
+        <DataTable.Pagination totalCount={data?.meta?.total} />
+      </DataTable>
 
       <WarehouseItemHistorySheet
         item={historyItem}

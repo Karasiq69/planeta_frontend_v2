@@ -32,6 +32,8 @@ export const DASHBOARD_URL = '/dashboard'
 export const RECEIPT_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/receipt`
 export const TRANSFER_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/transfer`
 
+export const getOrgCashRegistersUrl = (orgId: number) => `${ORGANIZATIONS_URL}/${orgId}/cash-registers`
+
 export const BRAND_LOGOS: Record<string, string> = {
   Porsche: 'porsche-logo.svg',
   'Mercedes-Benz': 'mercedes-logo.svg',

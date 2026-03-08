@@ -10,7 +10,6 @@ import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { useVehiclesList } from '@/features/cars/api/queries'
 import { vehiclesColumns } from '@/features/cars/components/table/columns'
 import VehiclesSearchBox from '@/features/cars/components/table/VehiclesSearchBox'
-import ClientsSearchBox from '@/features/clients/components/table/ClientsSearchBox'
 
 const VehiclesDataTable = () => {
   const columns = useMemo(() => vehiclesColumns, [])
@@ -45,18 +44,16 @@ const VehiclesDataTable = () => {
   if (!data) return <div className='p-4'>No data available</div>
 
   return (
-    <div className='flex flex-col h-full'>
-      <div className='flex gap-3 shrink-0'>
-        <VehiclesSearchBox searchParams={searchParams} />
-        {isFetching && <LoaderAnimated />}
-      </div>
-
-      <DataTable
-        columns={columns}
-        table={table}
-        totalCount={data?.meta?.total} // Используем общее количество из метаданных
-      />
-    </div>
+    <DataTable table={table} columns={columns} variant="compact">
+      <DataTable.Toolbar>
+        <div className='flex gap-3'>
+          <VehiclesSearchBox searchParams={searchParams} />
+          {isFetching && <LoaderAnimated />}
+        </div>
+      </DataTable.Toolbar>
+      <DataTable.Table />
+      <DataTable.Pagination totalCount={data?.meta?.total} />
+    </DataTable>
   )
 }
 

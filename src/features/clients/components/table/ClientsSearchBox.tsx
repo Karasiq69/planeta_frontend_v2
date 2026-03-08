@@ -23,7 +23,7 @@ const ClientsSearchBox = ({ searchParams }: { searchParams: any }) => {
   }, 300)
 
   return (
-    <div className="p-4">
+    <div>
       <Input
         className='w-96'
         placeholder="Искать клиентов..."

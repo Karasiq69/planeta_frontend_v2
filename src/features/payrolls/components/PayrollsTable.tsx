@@ -47,7 +47,9 @@ const PayrollsTable = ({ filters }: PayrollsTableProps) => {
 
   return (
     <>
-      <DataTable columns={columns} table={table} />
+      <DataTable table={table} columns={columns} variant="compact">
+        <DataTable.Table />
+      </DataTable>
 
       <AlertDialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>

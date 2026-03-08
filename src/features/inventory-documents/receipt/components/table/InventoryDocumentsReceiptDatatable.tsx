@@ -42,14 +42,10 @@ const InventoryDocumentsReceiptDatatable = () => {
   if (!data) return <div className='p-4'>Данные недоступны</div>
 
   return (
-    <div className='flex flex-col'>
-      {/*<div className="flex gap-3 mb-4">*/}
-      {/*    <InventoryDocumentsSearchBox searchParams={searchParams} />*/}
-      {/*    {isFetching && <LoaderAnimated />}*/}
-      {/*</div>*/}
-
-      <DataTable columns={columns} table={table} totalCount={data.meta.total} />
-    </div>
+    <DataTable columns={columns} table={table}>
+      <DataTable.Table />
+      <DataTable.Pagination totalCount={data.meta.total} />
+    </DataTable>
   )
 }
 

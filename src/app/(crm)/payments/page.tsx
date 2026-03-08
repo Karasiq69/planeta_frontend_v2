@@ -2,8 +2,7 @@
 
 import { useState } from 'react'
 
-import PageHeader from '@/components/common/PageHeader'
-import { Card } from '@/components/ui/card'
+import PageLayout from '@/components/common/PageLayout'
 import PaymentsFilters from '@/features/payments/components/PaymentsFilters'
 import PaymentsTable from '@/features/payments/components/PaymentsTable'
 
@@ -13,17 +12,15 @@ const Page = () => {
   const [filters, setFilters] = useState<PaymentsQueryParams>({})
 
   return (
-    <section className="flex flex-col h-full">
-      <div className='space-y-5 shrink-0'>
-        <PageHeader title='Платежи' showBackButton={false} />
-        <div className='flex gap-3'>
-          <PaymentsFilters filters={filters} onChange={setFilters} />
-        </div>
-      </div>
-      <Card className="mt-5 flex-1 min-h-0 flex flex-col">
+    <PageLayout>
+      <PageLayout.Header
+        title='Платежи'
+        actions={<PaymentsFilters filters={filters} onChange={setFilters} />}
+      />
+      <PageLayout.Content>
         <PaymentsTable filters={filters} />
-      </Card>
-    </section>
+      </PageLayout.Content>
+    </PageLayout>
   )
 }
 
