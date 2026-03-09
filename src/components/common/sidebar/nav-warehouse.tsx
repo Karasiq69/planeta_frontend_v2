@@ -2,7 +2,6 @@
 
 import { ChevronRight, type LucideIcon } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
@@ -14,6 +13,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
+import { useIsActivePath } from '@/hooks/use-is-active-path'
 
 export function NavWarehouse({
   items,
@@ -29,13 +29,13 @@ export function NavWarehouse({
     }[]
   }[]
 }) {
-  const pathname = usePathname()
+  const isActive = useIsActivePath(items)
 
   return (
     <SidebarGroup>
       <SidebarMenu>
         {items.map((item) => {
-          const hasActiveChild = item.items?.some((sub) => pathname.startsWith(sub.url))
+          const hasActiveChild = item.items?.some((sub) => isActive(sub.url))
           return (
             <Collapsible
               key={item.title}
@@ -55,7 +55,7 @@ export function NavWarehouse({
                   <SidebarMenuSub>
                     {item.items?.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild isActive={pathname.startsWith(subItem.url)}>
+                        <SidebarMenuSubButton asChild isActive={isActive(subItem.url)}>
                           <Link href={subItem.url}>
                             <span>{subItem.title}</span>
                           </Link>
