@@ -1,21 +1,24 @@
-import { Card, CardHeader } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
 const OrderSkeletonCard = () => {
   return (
-    <>
-      <Card className="h-[150px]">
-        <CardHeader>
-          <div className='flex flex-col space-y-5'>
-            <Skeleton className='h-10 w-10 rounded-full' />
-            <div className='space-y-3'>
-              <Skeleton className='h-4 w-[222px]' />
-              <Skeleton className='h-4 w-[211px]' />
-            </div>
+    <Card className='p-4 pb-2'>
+      <div className='flex items-start justify-between gap-3'>
+        <div className='flex items-center gap-3 min-w-0'>
+          <Skeleton className='size-9 rounded-full shrink-0' />
+          <div className='space-y-2'>
+            <Skeleton className='h-4 w-40' />
+            <Skeleton className='h-3.5 w-52' />
           </div>
-        </CardHeader>
-      </Card>
-    </>
+        </div>
+        <Skeleton className='size-8 rounded-md' />
+      </div>
+      <div className='flex items-center justify-between mt-2 pt-2 border-t'>
+        <Skeleton className='h-4 w-32' />
+        <Skeleton className='h-4 w-20' />
+      </div>
+    </Card>
   )
 }
 export default OrderSkeletonCard

@@ -27,23 +27,23 @@ const ClientCard = () => {
   const { client } = order
 
   return (
-    <Card className="p-4">
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <Avatar className="size-9 shrink-0">
-            <AvatarImage src="" />
-            <AvatarFallback className="text-xs">
-              <UserIcon className="size-4" />
+    <Card className='p-4 pb-2'>
+      <div className='flex items-start justify-between gap-3'>
+        <div className='flex items-center gap-3 min-w-0'>
+          <Avatar className='size-9 shrink-0'>
+            <AvatarImage src='' />
+            <AvatarFallback className='text-xs'>
+              <UserIcon className='size-4' />
             </AvatarFallback>
           </Avatar>
-          <div className="min-w-0">
-            <p className="text-sm font-semibold truncate">
+          <div className='min-w-0'>
+            <p className='text-sm font-semibold truncate'>
               {client.firstName} {client.lastName}
             </p>
-            <div className="flex items-center gap-3 mt-0.5">
+            <div className='flex items-center gap-3 mt-0.5'>
               {client.email && (
-                <span className="flex items-center gap-1 text-xs text-muted-foreground truncate">
-                  <Mail className="size-3 shrink-0" />
+                <span className='flex items-center gap-1 text-xs text-muted-foreground truncate'>
+                  <Mail className='size-3 shrink-0' />
                   {client.email}
                 </span>
               )}
@@ -52,9 +52,9 @@ const ClientCard = () => {
         </div>
         <ClientCardDropdownMenu />
       </div>
-      <div className="flex items-center justify-between mt-3 pt-3 border-t">
-        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Phone className="size-3" />
+      <div className='flex items-center justify-between mt-2 pt-2 border-t'>
+        <span className='flex items-center gap-1.5 text-xs text-muted-foreground'>
+          <Phone className='size-3' />
           {formatPhone(client.phone)}
         </span>
         {order.clientId && <ClientOrdersDropdownMenu clientId={order.clientId} />}
@@ -67,7 +67,7 @@ export default ClientCard
 
 const EmptyClientCard = () => {
   return (
-    <Card className="border border-dashed border-gray-200 flex items-center justify-center p-8">
+    <Card className='border border-dashed border-gray-200 flex items-center justify-center p-8'>
       <AddOrderClientButton />
     </Card>
   )

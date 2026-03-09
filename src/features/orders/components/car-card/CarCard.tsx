@@ -24,31 +24,29 @@ const CarCard = () => {
   if (!car) return <EmptyCarCard />
 
   return (
-    <Card className="p-4">
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <Avatar className="size-9 shrink-0">
+    <Card className='p-4 pb-2'>
+      <div className='flex items-start justify-between gap-3'>
+        <div className='flex items-center gap-3 min-w-0'>
+          <Avatar className='size-9 shrink-0'>
             <AvatarImage src={getBrandLogo(car.brand)} />
-            <AvatarFallback className="text-xs">
-              <CarFront className="size-4" />
+            <AvatarFallback className='text-xs'>
+              <CarFront className='size-4' />
             </AvatarFallback>
           </Avatar>
-          <div className="min-w-0">
-            <p className="text-sm font-semibold truncate">
+          <div className='min-w-0'>
+            <p className='text-sm font-semibold truncate'>
               {car.model?.name} {car.model?.series}
               {car.model?.engine?.name}
               {car.year && (
-                <span className="font-normal text-muted-foreground ml-1.5">{car.year}</span>
+                <span className='font-normal text-muted-foreground ml-1.5'>{car.year}</span>
               )}
             </p>
-            <p className="text-xs text-muted-foreground font-mono mt-0.5 truncate">
-              {car.vin}
-            </p>
+            <p className='text-xs text-muted-foreground font-mono mt-0.5 truncate'>{car.vin}</p>
           </div>
         </div>
         <CarCardDropdownMenu />
       </div>
-      <div className="flex items-center justify-between mt-3 pt-3 border-t">
+      <div className='flex items-center justify-between mt-2 pt-2 border-t'>
         <LicensePlate licensePlate={car.licensePlate} />
         <MileageButton orderId={orderId} carId={car.id} />
       </div>
@@ -60,7 +58,7 @@ export default CarCard
 
 const EmptyCarCard = () => {
   return (
-    <Card className="border border-dashed border-gray-200 flex items-center justify-center p-8">
+    <Card className='border border-dashed border-gray-200 flex items-center justify-center p-8'>
       <AddOrderCarButton />
     </Card>
   )

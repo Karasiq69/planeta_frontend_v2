@@ -1,5 +1,5 @@
 'use client'
-import { Printer, Trash2 } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import React from 'react'
 
 import PageHeader from '@/components/common/PageHeader'
@@ -9,6 +9,7 @@ import CommentsPopoverButton from '@/features/orders/comments/components/Comment
 import CarCard from '@/features/orders/components/car-card/CarCard'
 import ClientCard from '@/features/orders/components/client-card/ClientCard'
 import OrderAppointment from '@/features/orders/components/OrderAppointment'
+import OrderPrintButton from '@/features/orders/components/OrderPrintButton'
 import OrdersTabsWrapper from '@/features/orders/components/OrdersTabsWrapper'
 import OrderSummary from '@/features/orders/components/OrderSummary'
 import StatusBadge from '@/features/orders/components/StatusBadge'
@@ -36,9 +37,7 @@ const OrderPageWrapper = ({ orderId }: Props) => {
             <OrderAppointment orderId={orderId} />
             <CommentsPopoverButton orderId={orderId} />
 
-            <Button variant='outline' disabled size="sm">
-              <Printer size={16} />
-            </Button>
+            <OrderPrintButton orderId={orderId} />
             <Button variant='ghost' disabled size="sm">
               <Trash2 size={16} /> Удалить заказ
             </Button>
