@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { useOrderById } from '@/features/orders/api/queries'
+import OrderSettingsPopover from '@/features/orders/components/order-summary/OrderSettingsPopover'
+import OrderSettingsSummary from '@/features/orders/components/order-summary/OrderSettingsSummary'
 import OrderTotals from '@/features/orders/components/order-summary/OrderTotals'
 import ReasonToApply from '@/features/orders/components/order-summary/reason-to-apply'
 import Recommendation from '@/features/orders/components/order-summary/recommendation'
@@ -29,6 +31,7 @@ const OrderSummary = ({ orderId }: Props) => {
           <div className='flex items-start justify-between gap-4'>
             <CardTitle className='group flex items-center gap-1.5 text-base font-semibold leading-none'>
               {titleText} №{orderId}
+              {!isApplication && <OrderSettingsPopover order={order} />}
               <Button
                 size='icon'
                 variant='ghost'
@@ -43,6 +46,7 @@ const OrderSummary = ({ orderId }: Props) => {
               <p>Изм. {formatRelativeTime(order?.updatedAt)}</p>
             </div>
           </div>
+          {!isApplication && <OrderSettingsSummary order={order} />}
           <OrderStatusSelect order={order} />
         </CardHeader>
         {!isApplication ? (
