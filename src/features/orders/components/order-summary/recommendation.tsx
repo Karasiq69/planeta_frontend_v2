@@ -1,3 +1,4 @@
+import { MessageSquareText } from 'lucide-react'
 import { useParams } from 'next/navigation'
 
 import EditableTextArea from '@/components/ui/editable-textarea'
@@ -23,7 +24,7 @@ const Recommendation = ({ order }: Props) => {
   return (
     <div className="grid gap-3">
       <div className='font-semibold flex gap-2 items-center'>
-        {/*<ListTodo size={16} className={'text-muted-foreground'}/>*/}
+        <MessageSquareText size={16} className="text-muted-foreground" />
         Рекомендация {isPending && <LoaderAnimated size={14} />}
       </div>
       <EditableTextArea initialText={order.recommendation || ''} onSubmit={onSubmit} />

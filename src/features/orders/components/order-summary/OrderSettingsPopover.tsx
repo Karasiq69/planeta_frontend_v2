@@ -64,14 +64,14 @@ export default function OrderSettingsPopover({ order }: Props) {
         <Button
           variant="ghost"
           size="icon"
-          className="size-6 opacity-0 transition-opacity group-hover:opacity-100"
+          className="size-6 text-muted-foreground"
         >
           <Settings className="size-3.5" />
           <span className="sr-only">Настройки заказа</span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 space-y-4" align="start">
-        <div className="space-y-2">
+      <PopoverContent className="w-80 space-y-3" align="start">
+        <div className="space-y-1.5">
           <Label>Вид ремонта</Label>
           <Select
             value={order.repairType ?? ''}
@@ -90,7 +90,7 @@ export default function OrderSettingsPopover({ order }: Props) {
           </Select>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <Label>Диспетчер</Label>
           <EmployeeCombobox
             employees={employees}
@@ -101,7 +101,7 @@ export default function OrderSettingsPopover({ order }: Props) {
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <Label>Мастер-приемщик</Label>
           <EmployeeCombobox
             employees={employees}
@@ -112,7 +112,7 @@ export default function OrderSettingsPopover({ order }: Props) {
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <Label>Текст гарантии</Label>
           <Textarea
             value={guaranteeText}

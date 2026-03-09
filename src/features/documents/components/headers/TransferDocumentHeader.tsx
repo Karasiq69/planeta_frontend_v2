@@ -1,23 +1,18 @@
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
-import { ArrowRight, Building2, CalendarDays, ExternalLink } from 'lucide-react'
+import { ArrowRight, CalendarDays, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 
 import {
   getOperationIcon,
   getOperationLabel,
 } from '@/features/documents/components/FormFieldSelectOperation'
-import { warehouseTypeConfig } from '@/features/warehouse/types/config'
+import { getWarehouseIcon } from '@/features/warehouse/lib/get-warehouse-icon'
 
 import type { Document } from '@/features/documents/types'
 
 interface Props {
   document: Document
-}
-
-const getWarehouseIcon = (type?: string) => {
-  const Icon = (type && warehouseTypeConfig[type]?.icon) || Building2
-  return <Icon className='size-3.5' />
 }
 
 const TransferDocumentHeader = ({ document }: Props) => {

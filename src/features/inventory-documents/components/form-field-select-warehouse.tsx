@@ -1,5 +1,3 @@
-import { Building2 } from 'lucide-react'
-
 import {
   Select,
   SelectContent,
@@ -8,9 +6,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useGetWarehouses } from '@/features/warehouse/api/queries'
-import { warehouseTypeConfig } from '@/features/warehouse/types/config'
+import { getWarehouseIcon } from '@/features/warehouse/lib/get-warehouse-icon'
 
-import type { Warehouse, WarehouseTypeEnum } from '@/features/warehouse/types'
+import type { Warehouse } from '@/features/warehouse/types'
 import type { ControllerRenderProps } from 'react-hook-form'
 
 interface FormFieldSelectWarehouseProps {
@@ -46,7 +44,7 @@ const FormFieldSelectWarehouse: React.FC<FormFieldSelectWarehouseProps> = ({
       <SelectContent className='[&_*[role=option]>span>svg]:shrink-0 [&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2 [&_*[role=option]]:pe-8 [&_*[role=option]]:ps-2'>
         {warehouses?.map((warehouse: Warehouse) => (
           <SelectItem key={warehouse.id} value={warehouse.id.toString()} className='flex gap-2'>
-            {getWarehouseIcon(warehouse.type)}
+            {getWarehouseIcon(warehouse.type, 'size-4')}
             <span className='flex flex-col'>
               <span>{warehouse.name}</span>
             </span>
@@ -58,8 +56,3 @@ const FormFieldSelectWarehouse: React.FC<FormFieldSelectWarehouseProps> = ({
 }
 
 export default FormFieldSelectWarehouse
-
-const getWarehouseIcon = (type: WarehouseTypeEnum) => {
-  const Icon = warehouseTypeConfig[type]?.icon || Building2
-  return <Icon size={16} aria-hidden='true' />
-}

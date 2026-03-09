@@ -1,4 +1,5 @@
 import { Copy } from 'lucide-react'
+import { toast } from 'sonner'
 
 import OrderSummarySkeleton from '@/components/skeletons/order-summary-skeleton'
 import { Button } from '@/components/ui/button'
@@ -35,7 +36,11 @@ const OrderSummary = ({ orderId }: Props) => {
               <Button
                 size='icon'
                 variant='ghost'
-                className='size-6 opacity-0 transition-opacity group-hover:opacity-100'
+                className='size-6 text-muted-foreground'
+                onClick={() => {
+                  navigator.clipboard.writeText(String(orderId))
+                  toast.success('Номер скопирован')
+                }}
               >
                 <Copy className='size-3' />
                 <span className='sr-only'>Скопировать номер</span>
