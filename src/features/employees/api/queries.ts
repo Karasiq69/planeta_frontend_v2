@@ -41,3 +41,11 @@ export const useMechanicEmployees = () => {
     queryFn: () => getMechanicEmployeesFn(),
   })
 }
+
+export const useActiveEmployees = () => {
+  return useQuery({
+    queryKey: employeesQueryKeys.list({ pageSize: 100 }),
+    queryFn: () => getAllEmployeesFn({ pageSize: 100 } as ListParams),
+    staleTime: 5 * 60 * 1000,
+  })
+}

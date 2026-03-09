@@ -28,6 +28,14 @@ export const statusOptions: { value: OrderStatus; label: string }[] = [
   { value: OrderStatus.CANCELLED, label: 'Отменен' },
 ]
 
+export const REPAIR_TYPE_OPTIONS = [
+  { value: 'Текущий ремонт', label: 'Текущий ремонт' },
+  { value: 'Капитальный ремонт', label: 'Капитальный ремонт' },
+  { value: 'Слесарный ремонт', label: 'Слесарный ремонт' },
+  { value: 'Кузовной ремонт', label: 'Кузовной ремонт' },
+  { value: 'Техническое обслуживание', label: 'Техническое обслуживание' },
+] as const
+
 export interface Order {
   id: number
   clientId?: number
@@ -38,6 +46,10 @@ export interface Order {
   totalCost: number
   recommendation?: string
   reasonToApply?: string
+  repairType?: string | null
+  dispatcherId?: number | null
+  masterId?: number | null
+  guaranteeText?: string | null
   createdAt: string
   updatedAt: string
   services: OrderService[]
