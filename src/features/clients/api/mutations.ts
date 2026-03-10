@@ -59,3 +59,26 @@ export function useEditClient(clientId: number) {
     onSettled: () => {},
   })
 }
+
+export function useDeleteClient(clientId: number) {
+  const queryClient = useQueryClient()
+
+  const deleteClientFn = async () => {
+    const response = await apiClient.delete(`${CLIENTS_URL}/${clientId}`)
+    return response.data
+  }
+
+  return useMutation({
+    mutationFn: deleteClientFn,
+    onSuccess: () => {
+      toast.success('Клиент удален')
+      queryClient.invalidateQueries({
+        queryKey: clientQueryKeys.all,
+      })
+    },
+    onError: (error: ApiError) => {
+      const errorMessage = error.response?.data?.message || 'Произошла ошибка при удалении клиента'
+      toast.error(errorMessage)
+    },
+  })
+}
