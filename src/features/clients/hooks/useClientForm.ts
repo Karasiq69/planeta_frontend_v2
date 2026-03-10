@@ -1,18 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 
 import { useCreateClient, useEditClient } from '@/features/clients/api/mutations'
 import { clientSchema } from '@/features/clients/components/forms/schema'
 
-import type { ClientFormData} from '@/features/clients/components/forms/schema';
+import type { ClientFormData } from '@/features/clients/components/forms/schema'
 import type { IClient } from '@/features/clients/types'
 
 export type ClientFormProps = {
   clientData?: IClient
-  onCreate?: (data: IClient) => void // дополнительная функция при создании клиента
-  onUpdate?: (cliendId: number) => IClient // доп функция при обновлении
+  onCreate?: (data: IClient) => void
+  onUpdate?: (clientId: number) => void
 }
 
 export const useClientForm = ({ clientData, onCreate, onUpdate }: ClientFormProps) => {
@@ -21,44 +20,49 @@ export const useClientForm = ({ clientData, onCreate, onUpdate }: ClientFormProp
 
   const defaultValues = useMemo(() => {
     return {
+      type: clientData?.type ?? ('individual' as const),
       firstName: clientData?.firstName ?? '',
       lastName: clientData?.lastName ?? '',
       email: clientData?.email ?? '',
       phone: clientData?.phone ?? '',
+      companyName: clientData?.companyName ?? '',
+      inn: clientData?.inn ?? '',
+      kpp: clientData?.kpp ?? '',
+      address: clientData?.address ?? '',
     }
   }, [clientData])
 
   const form = useForm<ClientFormData>({
     resolver: zodResolver(clientSchema),
     mode: 'onSubmit',
-    defaultValues: defaultValues,
+    defaultValues,
   })
 
   const onSubmit = (data: ClientFormData) => {
+    const payload = {
+      type: data.type,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: data.phone,
+      ...(data.type === 'legal_entity'
+        ? {
+            companyName: data.companyName || undefined,
+            inn: data.inn || undefined,
+            kpp: data.kpp || undefined,
+            address: data.address || undefined,
+          }
+        : {}),
+    }
+
     if (clientData) {
-      updateClient(
-        {
-          firstName: data.firstName,
-          lastName: data?.lastName,
-          email: data?.email,
-          phone: data?.phone,
-        },
-        {
-          onSuccess: (data) => onUpdate && onUpdate(data.id),
-        }
-      )
+      updateClient(payload, {
+        onSuccess: (data) => onUpdate?.(data.id),
+      })
     } else {
-      createClient(
-        {
-          firstName: data?.firstName,
-          lastName: data?.lastName,
-          email: data?.email,
-          phone: data?.phone,
-        },
-        {
-          onSuccess: (data) => onCreate && onCreate(data),
-        }
-      )
+      createClient(payload, {
+        onSuccess: (data) => onCreate?.(data),
+      })
     }
   }
 
