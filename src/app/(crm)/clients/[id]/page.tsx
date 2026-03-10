@@ -42,7 +42,7 @@ const Page = async (props: Props) => {
                 <CardHeader>
                   <CardTitle>Профиль</CardTitle>
                   <CardDescription>
-                    Make changes to your account here. Click save when you're done.
+                    Редактирование данных клиента
                   </CardDescription>
                 </CardHeader>
                 <CardContent className='space-y-2 '>
@@ -55,7 +55,7 @@ const Page = async (props: Props) => {
                 <CardHeader>
                   <CardTitle>Заказы</CardTitle>
                   <CardDescription>
-                    Change your password here. After saving, you'll be logged out.
+                    Заказы клиента
                   </CardDescription>
                 </CardHeader>
                 <CardContent className='space-y-2'></CardContent>
@@ -69,7 +69,7 @@ const Page = async (props: Props) => {
                 <CardHeader>
                   <CardTitle>Автомобили</CardTitle>
                   <CardDescription>
-                    Make changes to your account here. Click save when you're done.
+                    Автомобили клиента
                   </CardDescription>
                 </CardHeader>
                 <CardContent className='space-y-2 '>

@@ -37,9 +37,18 @@ const ClientCard = () => {
             </AvatarFallback>
           </Avatar>
           <div className='min-w-0'>
-            <p className='text-sm font-semibold truncate'>
-              {client.firstName} {client.lastName}
-            </p>
+            {client.type === 'legal_entity' && client.companyName ? (
+              <>
+                <p className='text-sm font-semibold truncate'>{client.companyName}</p>
+                <p className='text-xs text-muted-foreground truncate'>
+                  {client.firstName} {client.lastName}
+                </p>
+              </>
+            ) : (
+              <p className='text-sm font-semibold truncate'>
+                {client.firstName} {client.lastName}
+              </p>
+            )}
             <div className='flex items-center gap-3 mt-0.5'>
               {client.email && (
                 <span className='flex items-center gap-1 text-xs text-muted-foreground truncate'>

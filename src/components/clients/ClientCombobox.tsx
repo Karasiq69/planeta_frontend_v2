@@ -40,13 +40,19 @@ const ClientCombobox = ({ handleSelect }: Props) => {
           isLoading={isLoading || isFetching}
           onSearch={debouncedHandleSearch}
           onSelect={handleSelect}
-          getDisplayValue={(client) => client.firstName}
+          getDisplayValue={(client) =>
+            client.type === 'legal_entity' && client.companyName
+              ? client.companyName
+              : `${client.lastName} ${client.firstName}`
+          }
           renderItem={(client) => (
             <div className='flex flex-col'>
-              <span className='font-semibold'>{formatPhone(client.phone)}</span>
-              {client.firstName && (
-                <span className='text-xs text-muted-foreground'>{client.firstName}</span>
-              )}
+              <span className='font-semibold'>
+                {client.type === 'legal_entity' && client.companyName
+                  ? client.companyName
+                  : `${client.lastName} ${client.firstName}`}
+              </span>
+              <span className='text-xs text-muted-foreground'>{formatPhone(client.phone)}</span>
             </div>
           )}
           searchError={searchError}
