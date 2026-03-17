@@ -1,6 +1,7 @@
 import { Mutex } from 'async-mutex'
 import axios from 'axios'
 
+import { useOrganizationStore } from '@/stores/organization-store'
 import { ApiError } from '@/types/api-error'
 
 const mutex = new Mutex()
@@ -12,6 +13,14 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true,
+})
+
+apiClient.interceptors.request.use((config) => {
+  const { organization } = useOrganizationStore.getState()
+  if (organization) {
+    config.headers['x-organization-id'] = organization.id
+  }
+  return config
 })
 
 apiClient.interceptors.response.use(
@@ -31,7 +40,7 @@ apiClient.interceptors.response.use(
 
       const release = await mutex.acquire()
       try {
-        await apiClient.post('/auth/jwt/refresh/')
+        await axios.post(`${baseURL}/api/auth/jwt/refresh/`, null, { withCredentials: true })
       } catch {
         return Promise.reject(
           new ApiError({

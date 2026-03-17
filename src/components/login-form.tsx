@@ -4,6 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -16,6 +19,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useLogin } from '@/hooks/use-auth'
+import { useAuth } from '@/providers/AuthProvider'
 
 const formSchema = z.object({
   email: z.string().email({
@@ -27,7 +31,15 @@ const formSchema = z.object({
 })
 
 export function LoginForm() {
+  const { user, isLoading } = useAuth()
+  const router = useRouter()
   const { mutate, isPending } = useLogin()
+
+  useEffect(() => {
+    if (user) {
+      router.replace('/dashboard')
+    }
+  }, [user, router])
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,6 +52,8 @@ export function LoginForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await mutate(values)
   }
+
+  if (isLoading || user) return null
 
   return (
     <Card className=' '>

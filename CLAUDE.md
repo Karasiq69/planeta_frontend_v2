@@ -7,7 +7,9 @@
 - [Conventions & Rules](.claude/about/conventions.md) — YAGNI/KISS, code style, formatting, patterns
 - [Stack & Libraries](.claude/about/stack.md) — Next.js 14, shadcn/ui, TanStack, key dependencies
 
-Feature specs go in `.claude/features/`.
+Feature specs and tasks are tracked in Obsidian vault: `~/Documents/my-tasks/planeta-crm/frontend/`.
+Cross-service specs (API contracts, shared types): `~/Documents/my-tasks/planeta-crm/shared/specs/`.
+Backend features and tasks: `~/Documents/my-tasks/planeta-crm/backend/`.
 
 ## Rules
 
@@ -16,4 +18,3 @@ Feature specs go in `.claude/features/`.
 - **No excessive comments** — only comment non-obvious "why"
 - **No redundant code** — don't add error handling or validation for impossible scenarios
 - Russian for all UI text and messages
-- Use Serena MCP tools for file search and manipulation

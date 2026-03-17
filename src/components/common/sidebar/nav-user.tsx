@@ -26,11 +26,14 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
-import { useUser } from '@/hooks/use-auth'
+import { useLogout, useUser } from '@/hooks/use-auth'
+import { useOrganizationStore } from '@/stores/organization-store'
 
 export function NavUser() {
   const { isMobile } = useSidebar()
   const { data: user } = useUser()
+  const { mutate: logout } = useLogout()
+  const clearOrganization = useOrganizationStore((s) => s.clearOrganization)
 
   if (!user) return null
   return (
@@ -92,7 +95,7 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => { clearOrganization(); logout() }}>
               <LogOut />
               Выйти
             </DropdownMenuItem>

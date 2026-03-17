@@ -13,6 +13,7 @@ const Page = () => {
     { label: 'Организация', href: '/settings', active: true },
     { label: 'Сотрудники', href: '/settings/employees' },
     { label: 'Услуги', href: '/settings/services' },
+    { label: 'Шаблоны документов', href: '/settings/templates' },
   ]
 
   return (

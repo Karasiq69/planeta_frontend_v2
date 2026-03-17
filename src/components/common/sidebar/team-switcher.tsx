@@ -24,17 +24,22 @@ import { useOrganizationStore } from '@/stores/organization-store'
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar()
-  const { data } = useAllOrganizations()
-  const { organization: activeOrg, setOrganization } = useOrganizationStore()
+  const { data, isFetched } = useAllOrganizations()
+  const { organization: activeOrg, setOrganization, clearOrganization } = useOrganizationStore()
   const router = useRouter()
 
   const organizations = data?.data ?? []
 
   useEffect(() => {
-    if (!activeOrg && organizations.length) {
+    if (!isFetched) return
+    if (!organizations.length) {
+      if (activeOrg) clearOrganization()
+      return
+    }
+    if (!activeOrg || !organizations.some((o) => o.id === activeOrg.id)) {
       setOrganization(organizations[0])
     }
-  }, [activeOrg, organizations, setOrganization])
+  }, [isFetched, activeOrg, organizations, setOrganization, clearOrganization])
 
   if (!activeOrg) {
     return (

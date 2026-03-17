@@ -103,9 +103,10 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
     accessorKey: 'reasonToApply',
     meta: 'Причина обращения',
     header: () => <div>Причина обращения</div>,
+    size: 200,
     cell: ({ row }) => (
-      <div className='max-w-xs'>
-        <p className='m-0 truncate'>{row.original.reasonToApply || '—'}</p>
+      <div className='max-w-[200px]'>
+        <p className='m-0 line-clamp-2 text-xs text-muted-foreground'>{row.original.reasonToApply || '—'}</p>
       </div>
     ),
   },

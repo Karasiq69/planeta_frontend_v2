@@ -5,7 +5,7 @@ import { SearchX } from 'lucide-react'
 import * as React from 'react'
 
 import { DataTablePagination } from '@/components/common/table/data-table-pagination'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import {
   Table,
   TableBody,
@@ -116,6 +116,7 @@ function DataTableTable() {
             )}
           </TableBody>
         </Table>
+        <ScrollBar orientation='horizontal' />
       </ScrollArea>
     </div>
   )

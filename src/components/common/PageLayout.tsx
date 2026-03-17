@@ -16,7 +16,7 @@ function Header(props: PageHeaderProps) {
 
 function Content({ children }: { children: React.ReactNode }) {
   return (
-    <Card className='mt-5 flex-1 min-h-0 flex flex-col'>
+    <Card className='mt-5 flex-1 min-h-0 flex flex-col overflow-hidden'>
       {children}
     </Card>
   )

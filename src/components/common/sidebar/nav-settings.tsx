@@ -1,6 +1,6 @@
 'use client'
 
-import { Logs, Settings, UserRoundCog, Wrench } from 'lucide-react'
+import { FileText, Logs, Settings, UserRoundCog, Wrench } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -32,6 +32,11 @@ export const settingsMenuItems = [
     title: 'Запчасти и товары',
     url: '/products',
     icon: Wrench,
+  },
+  {
+    title: 'Шаблоны документов',
+    url: '/settings/templates',
+    icon: FileText,
   },
 ]
 
