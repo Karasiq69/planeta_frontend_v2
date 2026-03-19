@@ -4,7 +4,6 @@ import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-tabl
 import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
-import PageHeader from '@/components/common/PageHeader'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,6 +15,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
@@ -120,22 +120,19 @@ const VatRatesPage = () => {
   }
 
   return (
-    <div className='space-y-6'>
-      <PageHeader
-        title='Ставки НДС'
-        showBackButton
-        elements={[
-          <Button key='add' size='sm' onClick={() => setCreateOpen(true)}>
-            <Plus className='mr-1.5 size-4' />
-            Добавить ставку
-          </Button>,
-        ]}
-      />
+    <div className='space-y-4'>
+      <div className='flex items-center justify-between'>
+        <h3 className='text-lg font-medium'>Ставки НДС</h3>
+        <Button size='sm' onClick={() => setCreateOpen(true)}>
+          <Plus className='mr-1.5 size-4' />
+          Добавить ставку
+        </Button>
+      </div>
 
-      {isLoading ? (
-        <LoaderSectionAnimated className='rounded p-10' />
-      ) : vatRates.length > 0 ? (
-        <div className='rounded-lg border'>
+      <Card>
+        {isLoading ? (
+          <LoaderSectionAnimated className='p-10' />
+        ) : vatRates.length > 0 ? (
           <Table>
             <TableHeader className='bg-muted border-b'>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -162,14 +159,11 @@ const VatRatesPage = () => {
               ))}
             </TableBody>
           </Table>
-        </div>
-      ) : (
-        <div className='rounded-lg border p-8 text-center text-muted-foreground'>
-          Нет ставок НДС
-        </div>
-      )}
+        ) : (
+          <div className='p-8 text-center text-muted-foreground'>Нет ставок НДС</div>
+        )}
+      </Card>
 
-      {/* Диалог создания */}
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
         <DialogContent className='max-w-lg'>
           <DialogHeader>
@@ -179,7 +173,6 @@ const VatRatesPage = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Диалог редактирования */}
       <Dialog open={!!editRate} onOpenChange={(open) => !open && setEditRate(null)}>
         <DialogContent className='max-w-lg'>
           <DialogHeader>
@@ -191,7 +184,6 @@ const VatRatesPage = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Подтверждение удаления */}
       <AlertDialog open={!!deleteRate} onOpenChange={(open) => !open && setDeleteRate(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>

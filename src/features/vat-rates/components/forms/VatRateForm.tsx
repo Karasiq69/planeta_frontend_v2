@@ -52,6 +52,7 @@ const VatRateForm = ({ initialData, onSuccess }: VatRateFormProps) => {
     }
   }
 
+  const isArchived = isEditing && !initialData.isActive
   const showDefaultWarning = isEditing && initialData.isDefault && !isDefault
   const showDefaultInfo = isDefault && (!isEditing || !initialData.isDefault)
 
@@ -78,11 +79,20 @@ const VatRateForm = ({ initialData, onSuccess }: VatRateFormProps) => {
           id='isDefault'
           checked={isDefault}
           onCheckedChange={(checked) => setValue('isDefault', !!checked)}
+          disabled={isArchived}
         />
         <Label htmlFor='isDefault' className='cursor-pointer'>
           Ставка по умолчанию
         </Label>
       </div>
+
+      {isArchived && (
+        <Alert>
+          <AlertDescription>
+            Ставка в архиве. Нельзя назначить по умолчанию.
+          </AlertDescription>
+        </Alert>
+      )}
 
       {showDefaultWarning && (
         <Alert variant='destructive'>

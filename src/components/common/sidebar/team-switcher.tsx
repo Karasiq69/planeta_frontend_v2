@@ -90,7 +90,10 @@ export function TeamSwitcher() {
             {organizations.map((org, index) => (
               <DropdownMenuItem
                 key={org.id}
-                onClick={() => setOrganization(org)}
+                onClick={() => {
+                  setOrganization(org)
+                  window.location.reload()
+                }}
                 className='gap-2 p-2'
               >
                 <div className='flex size-6 items-center justify-center rounded-sm border text-xs font-bold'>
