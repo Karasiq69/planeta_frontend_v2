@@ -11,6 +11,7 @@ export interface Organization {
   bankName?: string
   bankBik?: string
   bankAccount?: string
+  hourlyRate: number
   logo?: string
   isActive: boolean
   createdAt: Date

@@ -14,6 +14,7 @@ export const organizationSchema = z
     bankName: z.string().optional(),
     bankBik: z.string().optional(),
     bankAccount: z.string().optional(),
+    hourlyRate: z.number().optional(),
     logo: z.string().optional(),
     createdAt: z.string().optional(),
     updatedAt: z.string().optional(),

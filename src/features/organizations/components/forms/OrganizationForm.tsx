@@ -38,6 +38,7 @@ const OrganizationForm = ({ organization, onSuccess }: OrganizationFormProps) =>
           actualAddress: organization.actualAddress ?? '',
           phone: organization.phone ?? '',
           email: organization.email ?? '',
+          hourlyRate: organization.hourlyRate ?? undefined,
           bankName: organization.bankName ?? '',
           bankBik: organization.bankBik ?? '',
           bankAccount: organization.bankAccount ?? '',
@@ -82,6 +83,19 @@ const OrganizationForm = ({ organization, onSuccess }: OrganizationFormProps) =>
             )}
           </div>
         ))}
+      </div>
+
+      <div className='space-y-1.5'>
+        <Label htmlFor='hourlyRate'>Нормо-час, ₽/час</Label>
+        <Input
+          id='hourlyRate'
+          type='number'
+          placeholder='4900'
+          {...register('hourlyRate')}
+        />
+        {errors.hourlyRate && (
+          <p className='text-sm text-destructive'>{errors.hourlyRate.message}</p>
+        )}
       </div>
 
       <Button type='submit' disabled={isPending} className='w-full'>
