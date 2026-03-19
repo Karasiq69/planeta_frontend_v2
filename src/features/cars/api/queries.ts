@@ -10,7 +10,7 @@ import {
 } from '@/features/cars/api/actions'
 import { carQueryKeys } from '@/features/cars/api/query-keys'
 
-import type { CarHistoryParams } from '@/features/cars/types'
+import type { CarHistoryParams, EngineListParams, ModelListParams } from '@/features/cars/types'
 import type { ListParams } from '@/types/params'
 
 export const useVehiclesList = (params: ListParams) => {
@@ -38,17 +38,19 @@ export const useVehiclesBrands = () => {
   })
 }
 
-export const useVehiclesModels = (brandId?: number) => {
+export const useVehiclesModels = (params: ModelListParams) => {
   return useQuery({
-    queryKey: carQueryKeys.model(brandId),
-    queryFn: () => getCarModelsFn(brandId),
+    queryKey: carQueryKeys.model(params),
+    queryFn: () => getCarModelsFn(params),
+    placeholderData: keepPreviousData,
   })
 }
 
-export const useCarEngines = (brandId?: number) => {
+export const useCarEngines = (params: EngineListParams) => {
   return useQuery({
-    queryKey: carQueryKeys.engine(brandId),
-    queryFn: () => getEnginesFn(brandId),
+    queryKey: carQueryKeys.engine(params),
+    queryFn: () => getEnginesFn(params),
+    placeholderData: keepPreviousData,
   })
 }
 

@@ -10,7 +10,7 @@ export const paymentsQueryKeys = {
   orderSummary: (orderId: number) => [...paymentsQueryKeys.all, 'order-summary', orderId] as const,
 }
 
-export const orgCashRegistersQueryKeys = {
-  all: (orgId: number) => ['org-cash-registers', orgId] as const,
-  detail: (orgId: number, id: number) => [...orgCashRegistersQueryKeys.all(orgId), 'detail', id] as const,
+export const cashRegistersQueryKeys = {
+  all: ['cash-registers'] as const,
+  detail: (id: number) => [...cashRegistersQueryKeys.all, 'detail', id] as const,
 }

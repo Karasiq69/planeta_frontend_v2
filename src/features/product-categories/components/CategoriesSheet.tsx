@@ -3,6 +3,7 @@
 import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
+import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -144,9 +145,7 @@ export const CategoriesSheet = ({ open, onOpenChange }: Props) => {
                   <Plus className='mr-1.5 size-4' />
                   Добавить категорию
                 </Button>
-                <div className='rounded-lg border p-8 text-center text-muted-foreground'>
-                  Нет категорий
-                </div>
+                <AppEmptyState title='Нет категорий' />
               </div>
             )}
           </div>

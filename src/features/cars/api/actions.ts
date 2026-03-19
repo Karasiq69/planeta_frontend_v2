@@ -8,10 +8,12 @@ import type {
   CreateCarBrand,
   CreateCarModel,
   CreateEngine,
+  EngineListParams,
   ICar,
   ICarBrand,
   ICarModel,
   IEngine,
+  ModelListParams,
   UpdateCarBrand,
   UpdateCarModel,
   UpdateEngine,
@@ -62,10 +64,10 @@ export const deleteBrandFn = async (id: number) => {
 
 // --- Models ---
 
-export const getCarModelsFn = async (brandId?: number) => {
-  const response = await apiClient.get<ICarModel[]>(
+export const getCarModelsFn = async (params: ModelListParams) => {
+  const response = await apiClient.get<ListResponse<ICarModel>>(
     `${CARS_URL}${CAR_MODELS_URL}`,
-    { params: brandId ? { brandId } : undefined }
+    { params }
   )
   return response.data
 }
@@ -86,10 +88,10 @@ export const deleteModelFn = async (id: number) => {
 
 // --- Engines ---
 
-export const getEnginesFn = async (brandId?: number) => {
-  const response = await apiClient.get<IEngine[]>(
+export const getEnginesFn = async (params: EngineListParams) => {
+  const response = await apiClient.get<ListResponse<IEngine>>(
     `${CARS_URL}${ENGINES_URL}`,
-    { params: brandId ? { brandId } : undefined }
+    { params }
   )
   return response.data
 }

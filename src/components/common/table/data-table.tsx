@@ -66,18 +66,42 @@ function Toolbar({ children }: { children: React.ReactNode }) {
   return <div className='px-4 pt-4 shrink-0'>{children}</div>
 }
 
+function useColumnWidths(headerRef: React.RefObject<HTMLTableElement | null>) {
+  const [widths, setWidths] = React.useState<number[]>([])
+
+  React.useLayoutEffect(() => {
+    const headerEl = headerRef.current
+    if (!headerEl) return
+
+    const measure = () => {
+      const ths = headerEl.querySelectorAll('th')
+      setWidths(Array.from(ths).map((th) => th.getBoundingClientRect().width))
+    }
+
+    measure()
+
+    const observer = new ResizeObserver(measure)
+    observer.observe(headerEl)
+    return () => observer.disconnect()
+  }, [headerRef])
+
+  return widths
+}
+
 function DataTableTable() {
   const { table, columns, variant } = useDataTableContext()
+  const headerRef = React.useRef<HTMLTableElement>(null)
+  const colWidths = useColumnWidths(headerRef)
 
   return (
-    <div className='flex-1 min-h-0 p-4'>
-      <ScrollArea className='h-full border rounded-md'>
-        <Table className='table-auto'>
-          <TableHeader className='bg-muted border-b'>
+    <div className='flex-1 min-h-0 p-4 flex flex-col'>
+      <div className='border rounded-md flex flex-col min-h-0 flex-1'>
+        <Table ref={headerRef} className='border-b shrink-0'>
+          <TableHeader className='bg-muted'>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} style={{ width: `${header.getSize()}px` }}>
+                  <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
@@ -86,38 +110,49 @@ function DataTableTable() {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  className='group'
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      className={variant === 'compact' ? 'py-0.5' : 'py-1.5'}
-                    >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className='h-48'>
-                  <div className='flex flex-col items-center justify-center gap-2 text-muted-foreground'>
-                    <SearchX className='size-10 stroke-1' />
-                    <span className='text-sm'>Ничего не найдено</span>
-                  </div>
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
         </Table>
-        <ScrollBar orientation='horizontal' />
-      </ScrollArea>
+        <ScrollArea className='flex-1 min-h-0'>
+          <Table className='table-fixed'>
+            {colWidths.length > 0 && (
+              <colgroup>
+                {colWidths.map((w, i) => (
+                  <col key={i} style={{ width: w }} />
+                ))}
+              </colgroup>
+            )}
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    className='group'
+                    key={row.id}
+                    data-state={row.getIsSelected() && 'selected'}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell
+                        key={cell.id}
+                        className={variant === 'compact' ? 'py-0.5' : 'py-1.5'}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className='h-48'>
+                    <div className='flex flex-col items-center justify-center gap-2 text-muted-foreground'>
+                      <SearchX className='size-10 stroke-1' />
+                      <span className='text-sm'>Ничего не найдено</span>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          <ScrollBar orientation='horizontal' />
+        </ScrollArea>
+      </div>
     </div>
   )
 }

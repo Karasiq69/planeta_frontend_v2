@@ -1,6 +1,6 @@
 'use client'
 
-import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import { MoreHorizontal, Pencil, Plus, Trash2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
@@ -31,6 +31,7 @@ import { useCarEngines, useVehiclesBrands } from '@/features/cars/api/queries'
 import { DeleteReferenceAlert } from '@/features/cars/components/references/DeleteReferenceAlert'
 import { EngineForm } from '@/features/cars/components/references/EngineForm'
 import { ENGINE_TYPE_LABELS } from '@/features/cars/utils'
+import { useDebounce } from '@/hooks/use-debounce'
 
 import type { ColumnDef } from '@tanstack/react-table'
 import type { ICarBrand, IEngine } from '@/features/cars/types'
@@ -80,21 +81,19 @@ export function EnginesTab() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editEngine, setEditEngine] = useState<IEngine | null>(null)
   const [deleteEngine, setDeleteEngine] = useState<IEngine | null>(null)
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 20 })
+
+  const debouncedSearch = useDebounce(search, 300)
+  const filterBrandId = brandFilter === 'all' ? undefined : Number(brandFilter)
 
   const { data: brands = [] } = useVehiclesBrands()
-  const filterBrandId = brandFilter === 'all' ? undefined : Number(brandFilter)
-  const { data: engines = [] } = useCarEngines(filterBrandId)
+  const { data: enginesData } = useCarEngines({
+    page: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+    searchTerm: debouncedSearch || undefined,
+    brandId: filterBrandId,
+  })
   const deleteMutation = useDeleteEngine()
-
-  const filteredEngines = useMemo(() => {
-    if (!search) return engines
-    const term = search.toLowerCase()
-    return engines.filter(
-      (e) =>
-        e.name.toLowerCase().includes(term) ||
-        e.series?.toLowerCase().includes(term),
-    )
-  }, [engines, search])
 
   const columns = useMemo((): ColumnDef<IEngine>[] => {
     const base = getColumns(brands)
@@ -134,10 +133,25 @@ export function EnginesTab() {
   }, [brands])
 
   const table = useReactTable({
-    data: filteredEngines,
+    data: enginesData?.data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    pageCount: enginesData?.meta.totalPages ?? -1,
+    manualPagination: true,
+    state: { pagination },
   })
+
+  const handleBrandChange = (value: string) => {
+    setBrandFilter(value)
+    setPagination((prev) => ({ ...prev, pageIndex: 0 }))
+  }
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value)
+    setPagination((prev) => ({ ...prev, pageIndex: 0 }))
+  }
 
   const handleDelete = () => {
     if (!deleteEngine) return
@@ -154,10 +168,10 @@ export function EnginesTab() {
             <Input
               placeholder='Поиск...'
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={handleSearchChange}
               className='h-8 max-w-[200px]'
             />
-            <Select value={brandFilter} onValueChange={setBrandFilter}>
+            <Select value={brandFilter} onValueChange={handleBrandChange}>
               <SelectTrigger className='h-8 w-[180px]'>
                 <SelectValue placeholder='Все бренды' />
               </SelectTrigger>
@@ -177,6 +191,7 @@ export function EnginesTab() {
           </div>
         </DataTable.Toolbar>
         <DataTable.Table />
+        <DataTable.Pagination totalCount={enginesData?.meta.total} />
       </DataTable>
 
       <Dialog

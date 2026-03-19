@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 import PageHeader from '@/components/common/PageHeader'
 import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -21,6 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import { useGetWarehouses } from '@/features/warehouse/api/queries'
 import WarehouseForm from '@/features/warehouse/components/forms/WarehouseForm'
 import { warehouseTypeConfig } from '@/features/warehouse/types/config'
@@ -50,7 +52,7 @@ const WarehousesPage = () => {
       {isLoading ? (
         <LoaderSectionAnimated className='rounded p-10' />
       ) : warehouses.length > 0 ? (
-        <div className='rounded-lg border'>
+        <Card>
           <Table>
             <TableHeader>
               <TableRow>
@@ -102,11 +104,11 @@ const WarehousesPage = () => {
               })}
             </TableBody>
           </Table>
-        </div>
+        </Card>
       ) : (
-        <div className='rounded-lg border p-8 text-center text-muted-foreground'>
-          Нет складов
-        </div>
+        <Card>
+          <AppEmptyState title='Нет складов' />
+        </Card>
       )}
 
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>

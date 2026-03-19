@@ -22,7 +22,7 @@ export default function RootLayout({
         <SidebarInset className='flex flex-col overflow-hidden'>
           <Navbar />
           <main
-            className={`flex flex-1 flex-col gap-4 p-4 bg-muted/40 min-h-0 overflow-auto  ${font.className}`}
+            className={`flex flex-1 flex-col gap-4 p-4 bg-muted/40 min-h-0 overflow-auto ${font.className}`}
           >
             {children}
           </main>

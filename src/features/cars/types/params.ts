@@ -15,3 +15,17 @@ export interface CarListResponse {
     totalPages: number
   }
 }
+
+export type ModelListParams = {
+  page?: number
+  pageSize?: number
+  searchTerm?: string
+  brandId?: number
+}
+
+export type EngineListParams = {
+  page?: number
+  pageSize?: number
+  searchTerm?: string
+  brandId?: number
+}

@@ -1,6 +1,6 @@
 'use client'
 import { Check, ChevronsUpDown, Plus } from 'lucide-react'
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -22,6 +22,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { useVehiclesModels } from '@/features/cars/api/queries'
 import { ModelForm } from '@/features/cars/components/references/ModelForm'
 import { getModelFullName } from '@/features/cars/utils'
+import { useDebounce } from '@/hooks/use-debounce'
 import { cn } from '@/lib/utils'
 
 import type { ICarModel } from '@/features/cars/types'
@@ -36,18 +37,14 @@ const CarFormFieldModelSelect = ({ form }: ModelSelectProps) => {
   const [open, setOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
   const brandWatch = form.watch('brandId')
-  const { data: models = [], isLoading } = useVehiclesModels(brandWatch)
 
-  const filteredModels = useMemo(
-    () =>
-      models.filter(
-        (model) =>
-          model.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (model.series && model.series.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (model.code && model.code.toLowerCase().includes(searchTerm.toLowerCase()))
-      ),
-    [models, searchTerm]
-  )
+  const debouncedSearch = useDebounce(searchTerm, 300)
+  const { data: modelsData } = useVehiclesModels({
+    brandId: brandWatch,
+    searchTerm: debouncedSearch || undefined,
+    pageSize: 50,
+  })
+  const models = modelsData?.data ?? []
 
   return (
     <>
@@ -57,7 +54,7 @@ const CarFormFieldModelSelect = ({ form }: ModelSelectProps) => {
       render={({ field }) => (
         <FormItem className='flex flex-col'>
           <FormLabel>Модель</FormLabel>
-          <div className='flex items-center gap-1'>
+          <div className='flex items-center gap-2'>
             <Popover open={open} onOpenChange={setOpen} modal={true}>
               <PopoverTrigger asChild>
                 <FormControl>
@@ -79,7 +76,7 @@ const CarFormFieldModelSelect = ({ form }: ModelSelectProps) => {
                 </FormControl>
               </PopoverTrigger>
               <PopoverContent className=' p-0'>
-                <Command>
+                <Command shouldFilter={false}>
                   <CommandInput
                     className=" w-[1200px] "
                     placeholder='Поиск модели...'
@@ -89,10 +86,10 @@ const CarFormFieldModelSelect = ({ form }: ModelSelectProps) => {
                   <CommandEmpty>Модель не найдена.</CommandEmpty>
                   <CommandList>
                     <CommandGroup>
-                      {filteredModels.map((model) => (
+                      {models.map((model) => (
                         <CommandItem
                           key={model.id}
-                          value={`${model.name} ${model.series || ''} ${model.code || ''}`}
+                          value={String(model.id)}
                           onSelect={() => {
                             form.setValue('modelId', model.id)
                             setOpen(false)
@@ -101,7 +98,7 @@ const CarFormFieldModelSelect = ({ form }: ModelSelectProps) => {
                           <Check
                             className={cn(
                               'mr-2 h-4 w-4',
-                              field.value === String(model.id) ? 'opacity-100' : 'opacity-0'
+                              field.value === model.id ? 'opacity-100' : 'opacity-0'
                             )}
                           />
                           {getModelFullName(model)}
@@ -114,12 +111,12 @@ const CarFormFieldModelSelect = ({ form }: ModelSelectProps) => {
             </Popover>
             <Button
               type='button'
-              variant='ghost'
+              variant='outline'
               size='icon'
-              className='h-8 w-8 shrink-0'
+              className='size-9 shrink-0'
               onClick={() => setDialogOpen(true)}
             >
-              <Plus className='h-4 w-4' />
+              <Plus className='size-4' />
             </Button>
           </div>
           <FormMessage />

@@ -61,7 +61,7 @@ export const CarFormFieldBrandSelect: React.FC<BrandSelectProps> = ({ form }) =>
       render={({ field }) => (
         <FormItem>
           <FormLabel>Марка</FormLabel>
-          <div className='flex items-center gap-1'>
+          <div className='flex items-center gap-2'>
             <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
               <FormControl>
                 <SelectTrigger>
@@ -82,12 +82,12 @@ export const CarFormFieldBrandSelect: React.FC<BrandSelectProps> = ({ form }) =>
             </Select>
             <Button
               type='button'
-              variant='ghost'
+              variant='outline'
               size='icon'
-              className='h-8 w-8 shrink-0'
+              className='size-9 shrink-0'
               onClick={() => setDialogOpen(true)}
             >
-              <Plus className='h-4 w-4' />
+              <Plus className='size-4' />
             </Button>
           </div>
           <FormMessage />

@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import PageHeader from '@/components/common/PageHeader'
+import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -113,9 +114,7 @@ const OrganizationsPage = () => {
           </Table>
         </div>
       ) : (
-        <div className='rounded-lg border p-8 text-center text-muted-foreground'>
-          Нет организаций
-        </div>
+        <AppEmptyState title='Нет организаций' />
       )}
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

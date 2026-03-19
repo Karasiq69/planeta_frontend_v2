@@ -15,6 +15,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -40,6 +41,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import {
   useDeleteTemplate,
   usePreviewTemplate,
@@ -340,7 +342,7 @@ const TemplatesPage = () => {
       {isLoading ? (
         <LoaderSectionAnimated className='rounded p-10' />
       ) : items.length > 0 ? (
-        <div className='rounded-lg border'>
+        <Card>
           <Table>
             <TableHeader>
               <TableRow>
@@ -397,11 +399,14 @@ const TemplatesPage = () => {
               ))}
             </TableBody>
           </Table>
-        </div>
+        </Card>
       ) : (
-        <div className='rounded-lg border p-8 text-center text-muted-foreground'>
-          Шаблонов пока нет — загрузите первый шаблон выше
-        </div>
+        <Card>
+          <AppEmptyState
+            title='Шаблонов пока нет'
+            description='Загрузите первый шаблон выше'
+          />
+        </Card>
       )}
 
       {/* Edit dialog */}

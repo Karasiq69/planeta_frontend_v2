@@ -1,5 +1,65 @@
-type Props = {}
-const ServicesDataTable = (props: Props) => {
-  return <div>EmployeeDataTable</div>
+'use client'
+
+import { getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
+import { useSearchParams } from 'next/navigation'
+import { useMemo, useState } from 'react'
+
+import DataTable from '@/components/common/table/data-table'
+import LoaderAnimated from '@/components/ui/LoaderAnimated'
+import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
+import { useAllServices } from '@/features/services/api/queries'
+import { getServiceColumns } from './columns'
+import ServicesSearchBox from './ServicesSearchBox'
+
+import type { IService } from '@/features/services/types'
+
+interface ServicesDataTableProps {
+  onEdit: (service: IService) => void
 }
+
+const ServicesDataTable = ({ onEdit }: ServicesDataTableProps) => {
+  const columns = useMemo(() => getServiceColumns(onEdit), [onEdit])
+  const searchParams = useSearchParams()
+  const searchTerm = searchParams.get('search')
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  })
+
+  const { data, isLoading, isFetching } = useAllServices({
+    page: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+    searchTerm: searchTerm || undefined,
+  })
+
+  const table = useReactTable({
+    data: data?.data || [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    pageCount: data?.meta.totalPages || -1,
+    manualPagination: true,
+    state: {
+      pagination,
+    },
+  })
+
+  if (isLoading) return <LoaderSectionAnimated className='rounded p-10' />
+  if (!data) return null
+
+  return (
+    <DataTable table={table} columns={columns} variant='compact'>
+      <DataTable.Toolbar>
+        <div className='flex gap-3'>
+          <ServicesSearchBox />
+          {isFetching && <LoaderAnimated />}
+        </div>
+      </DataTable.Toolbar>
+      <DataTable.Table />
+      <DataTable.Pagination totalCount={data.meta.total} />
+    </DataTable>
+  )
+}
+
 export default ServicesDataTable

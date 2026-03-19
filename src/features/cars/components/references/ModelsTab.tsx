@@ -1,6 +1,6 @@
 'use client'
 
-import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import { MoreHorizontal, Pencil, Plus, Trash2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
@@ -30,6 +30,7 @@ import { useDeleteModel } from '@/features/cars/api/mutations'
 import { useVehiclesBrands, useVehiclesModels } from '@/features/cars/api/queries'
 import { DeleteReferenceAlert } from '@/features/cars/components/references/DeleteReferenceAlert'
 import { ModelForm } from '@/features/cars/components/references/ModelForm'
+import { useDebounce } from '@/hooks/use-debounce'
 
 import type { ColumnDef } from '@tanstack/react-table'
 import type { ICarBrand, ICarModel } from '@/features/cars/types'
@@ -67,22 +68,19 @@ export function ModelsTab() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editModel, setEditModel] = useState<ICarModel | null>(null)
   const [deleteModel, setDeleteModel] = useState<ICarModel | null>(null)
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 20 })
+
+  const debouncedSearch = useDebounce(search, 300)
+  const filterBrandId = brandFilter === 'all' ? undefined : Number(brandFilter)
 
   const { data: brands = [] } = useVehiclesBrands()
-  const filterBrandId = brandFilter === 'all' ? undefined : Number(brandFilter)
-  const { data: models = [] } = useVehiclesModels(filterBrandId)
+  const { data: modelsData } = useVehiclesModels({
+    page: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+    searchTerm: debouncedSearch || undefined,
+    brandId: filterBrandId,
+  })
   const deleteMutation = useDeleteModel()
-
-  const filteredModels = useMemo(() => {
-    if (!search) return models
-    const term = search.toLowerCase()
-    return models.filter(
-      (m) =>
-        m.name.toLowerCase().includes(term) ||
-        m.series?.toLowerCase().includes(term) ||
-        m.code?.toLowerCase().includes(term),
-    )
-  }, [models, search])
 
   const columns = useMemo((): ColumnDef<ICarModel>[] => {
     const base = getColumns(brands)
@@ -122,10 +120,25 @@ export function ModelsTab() {
   }, [brands])
 
   const table = useReactTable({
-    data: filteredModels,
+    data: modelsData?.data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    pageCount: modelsData?.meta.totalPages ?? -1,
+    manualPagination: true,
+    state: { pagination },
   })
+
+  const handleBrandChange = (value: string) => {
+    setBrandFilter(value)
+    setPagination((prev) => ({ ...prev, pageIndex: 0 }))
+  }
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value)
+    setPagination((prev) => ({ ...prev, pageIndex: 0 }))
+  }
 
   const handleDelete = () => {
     if (!deleteModel) return
@@ -142,10 +155,10 @@ export function ModelsTab() {
             <Input
               placeholder='Поиск...'
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={handleSearchChange}
               className='h-8 max-w-[200px]'
             />
-            <Select value={brandFilter} onValueChange={setBrandFilter}>
+            <Select value={brandFilter} onValueChange={handleBrandChange}>
               <SelectTrigger className='h-8 w-[180px]'>
                 <SelectValue placeholder='Все бренды' />
               </SelectTrigger>
@@ -165,6 +178,7 @@ export function ModelsTab() {
           </div>
         </DataTable.Toolbar>
         <DataTable.Table />
+        <DataTable.Pagination totalCount={modelsData?.meta.total} />
       </DataTable>
 
       <Dialog

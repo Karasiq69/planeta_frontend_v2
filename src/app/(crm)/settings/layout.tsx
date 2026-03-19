@@ -7,11 +7,11 @@ export const metadata: Metadata = { title: 'Настройки' }
 
 export default function SettingsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className='space-y-6'>
+    <div className='flex flex-col h-full gap-6'>
       <PageHeader title='Настройки' />
-      <div className='flex gap-8'>
+      <div className='flex gap-8 flex-1 min-h-0'>
         <SettingsNav />
-        <div className='flex-1 min-w-0'>{children}</div>
+        <div className='flex-1 min-w-0 flex flex-col'>{children}</div>
       </div>
     </div>
   )

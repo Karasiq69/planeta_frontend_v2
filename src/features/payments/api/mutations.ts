@@ -3,53 +3,53 @@ import { toast } from 'sonner'
 
 import {
   cancelPayment,
-  createOrgCashRegister,
+  createCashRegister,
   createPayment,
-  deactivateOrgCashRegister,
-  updateOrgCashRegister,
+  deactivateCashRegister,
+  updateCashRegister,
 } from './actions'
-import { orgCashRegistersQueryKeys, paymentsQueryKeys } from './query-keys'
+import { cashRegistersQueryKeys, paymentsQueryKeys } from './query-keys'
 
 import type { CreateCashRegisterDto, CreatePaymentDto, UpdateCashRegisterDto } from '@/features/payments/types'
 
-export const useCreateOrgCashRegister = (orgId: number) => {
+export const useCreateCashRegister = () => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (data: CreateCashRegisterDto) => createOrgCashRegister(orgId, data),
+    mutationFn: (data: CreateCashRegisterDto) => createCashRegister(data),
     onSuccess: () => {
       toast.success('Касса создана')
-      queryClient.invalidateQueries({ queryKey: orgCashRegistersQueryKeys.all(orgId) })
+      queryClient.invalidateQueries({ queryKey: cashRegistersQueryKeys.all })
     },
-    onError: (error) => {
-      toast.error(error.message)
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Ошибка создания кассы')
     },
   })
 }
 
-export const useUpdateOrgCashRegister = (orgId: number, id: number) => {
+export const useUpdateCashRegister = () => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (data: UpdateCashRegisterDto) => updateOrgCashRegister(orgId, id, data),
+    mutationFn: ({ id, data }: { id: number; data: UpdateCashRegisterDto }) => updateCashRegister(id, data),
     onSuccess: () => {
       toast.success('Касса обновлена')
-      queryClient.invalidateQueries({ queryKey: orgCashRegistersQueryKeys.all(orgId) })
+      queryClient.invalidateQueries({ queryKey: cashRegistersQueryKeys.all })
     },
-    onError: (error) => {
-      toast.error(error.message)
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Ошибка обновления кассы')
     },
   })
 }
 
-export const useDeactivateOrgCashRegister = (orgId: number) => {
+export const useDeactivateCashRegister = () => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => deactivateOrgCashRegister(orgId, id),
+    mutationFn: (id: number) => deactivateCashRegister(id),
     onSuccess: () => {
       toast.success('Касса деактивирована')
-      queryClient.invalidateQueries({ queryKey: orgCashRegistersQueryKeys.all(orgId) })
+      queryClient.invalidateQueries({ queryKey: cashRegistersQueryKeys.all })
     },
-    onError: (error) => {
-      toast.error(error.message)
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Ошибка деактивации кассы')
     },
   })
 }

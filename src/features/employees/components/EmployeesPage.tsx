@@ -22,6 +22,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { Card } from '@/components/ui/card'
 import {
   Select,
   SelectContent,
@@ -38,6 +39,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import { useDeleteEmployee } from '@/features/employees/api/mutations'
 import { useEmployees } from '@/features/employees/api/queries'
 import { POSITION_LABELS } from './forms/schema'
@@ -98,7 +100,7 @@ const EmployeesPage = () => {
         <LoaderSectionAnimated className='rounded p-10' />
       ) : employees.length > 0 ? (
         <>
-          <div className='rounded-lg border'>
+          <Card>
             <Table>
               <TableHeader>
                 <TableRow>
@@ -150,7 +152,7 @@ const EmployeesPage = () => {
                 ))}
               </TableBody>
             </Table>
-          </div>
+          </Card>
 
           {meta && meta.totalPages > 1 && (
             <div className='flex items-center justify-center gap-2'>
@@ -177,9 +179,9 @@ const EmployeesPage = () => {
           )}
         </>
       ) : (
-        <div className='rounded-lg border p-8 text-center text-muted-foreground'>
-          Нет сотрудников
-        </div>
+        <Card>
+          <AppEmptyState title='Нет сотрудников' />
+        </Card>
       )}
 
       {/* Диалог создания */}

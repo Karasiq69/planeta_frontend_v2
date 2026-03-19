@@ -4,6 +4,7 @@ import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-tabl
 import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
+import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -160,7 +161,7 @@ const VatRatesPage = () => {
             </TableBody>
           </Table>
         ) : (
-          <div className='p-8 text-center text-muted-foreground'>Нет ставок НДС</div>
+          <AppEmptyState title='Нет ставок НДС' />
         )}
       </Card>
 

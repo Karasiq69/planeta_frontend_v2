@@ -1,4 +1,9 @@
-import type { CarHistoryParams, CarListParams } from '@/features/cars/types'
+import type {
+  CarHistoryParams,
+  CarListParams,
+  EngineListParams,
+  ModelListParams,
+} from '@/features/cars/types'
 
 export const carQueryKeys = {
   all: ['cars'] as const,
@@ -8,9 +13,9 @@ export const carQueryKeys = {
   list: (params: CarListParams) => [...carQueryKeys.lists(), { params }] as const,
   brands: () => [...carQueryKeys.all, 'brand'] as const,
   models: () => [...carQueryKeys.all, 'model'] as const,
-  model: (brandId?: number) => [...carQueryKeys.models(), brandId] as const,
+  model: (params: ModelListParams) => [...carQueryKeys.models(), { params }] as const,
   engines: () => [...carQueryKeys.all, 'engine'] as const,
-  engine: (brandId?: number) => [...carQueryKeys.engines(), brandId] as const,
+  engine: (params: EngineListParams) => [...carQueryKeys.engines(), { params }] as const,
   histories: () => [...carQueryKeys.all, 'history'] as const,
   history: (id: number, params: CarHistoryParams) =>
     [...carQueryKeys.histories(), id, { params }] as const,

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import {
@@ -74,7 +74,11 @@ export default function TaxSettingsForm({ organization }: Props) {
 
   return (
     <Card>
-      <CardContent className='pt-6'>
+      <CardHeader>
+        <CardTitle>Налоги</CardTitle>
+        <CardDescription>Налоговые настройки организации — режим налогообложения и параметры НДС</CardDescription>
+      </CardHeader>
+      <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
           <div className='space-y-1.5'>
             <Label htmlFor='taxRegime'>Налоговый режим</Label>

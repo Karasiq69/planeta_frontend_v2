@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react'
 import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
@@ -23,7 +24,7 @@ const OrgCashRegistersTab = () => {
   if (isLoading) return <LoaderSectionAnimated className='rounded p-10' />
 
   return (
-    <div className='space-y-4'>
+    <Card className='space-y-4 p-4'>
       <div className='flex items-center justify-between'>
         <div className='rounded-lg border bg-muted/50 px-4 py-3 text-sm'>
           <span className='text-muted-foreground'>Общий баланс: </span>
@@ -47,7 +48,7 @@ const OrgCashRegistersTab = () => {
           <CashRegisterForm onSuccess={() => setDialogOpen(false)} />
         </DialogContent>
       </Dialog>
-    </div>
+    </Card>
   )
 }
 

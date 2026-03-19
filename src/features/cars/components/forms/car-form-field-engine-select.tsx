@@ -1,6 +1,6 @@
 'use client'
 import { Check, ChevronsUpDown, Plus } from 'lucide-react'
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -22,6 +22,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { useCarEngines } from '@/features/cars/api/queries'
 import { EngineForm } from '@/features/cars/components/references/EngineForm'
 import { ENGINE_TYPE_LABELS } from '@/features/cars/utils'
+import { useDebounce } from '@/hooks/use-debounce'
 import { cn } from '@/lib/utils'
 
 import type { IEngine } from '@/features/cars/types'
@@ -43,17 +44,14 @@ const CarFormFieldEngineSelect = ({ form }: EngineSelectProps) => {
   const [open, setOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
   const brandWatch = form.watch('brandId')
-  const { data: engines = [] } = useCarEngines(brandWatch)
 
-  const filteredEngines = useMemo(
-    () =>
-      engines.filter(
-        (engine) =>
-          engine.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (engine.series && engine.series.toLowerCase().includes(searchTerm.toLowerCase()))
-      ),
-    [engines, searchTerm]
-  )
+  const debouncedSearch = useDebounce(searchTerm, 300)
+  const { data: enginesData } = useCarEngines({
+    brandId: brandWatch,
+    searchTerm: debouncedSearch || undefined,
+    pageSize: 50,
+  })
+  const engines = enginesData?.data ?? []
 
   return (
     <>
@@ -63,7 +61,7 @@ const CarFormFieldEngineSelect = ({ form }: EngineSelectProps) => {
         render={({ field }) => (
           <FormItem className='flex flex-col'>
             <FormLabel>Двигатель</FormLabel>
-            <div className='flex items-center gap-1'>
+            <div className='flex items-center gap-2'>
               <Popover open={open} onOpenChange={setOpen} modal={true}>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -85,7 +83,7 @@ const CarFormFieldEngineSelect = ({ form }: EngineSelectProps) => {
                   </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className='p-0'>
-                  <Command>
+                  <Command shouldFilter={false}>
                     <CommandInput
                       placeholder='Поиск двигателя...'
                       value={searchTerm}
@@ -94,10 +92,10 @@ const CarFormFieldEngineSelect = ({ form }: EngineSelectProps) => {
                     <CommandEmpty>Двигатель не найден.</CommandEmpty>
                     <CommandList>
                       <CommandGroup>
-                        {filteredEngines.map((engine) => (
+                        {engines.map((engine) => (
                           <CommandItem
                             key={engine.id}
-                            value={`${engine.name} ${engine.series || ''}`}
+                            value={String(engine.id)}
                             onSelect={() => {
                               form.setValue('engineId', engine.id)
                               setOpen(false)
@@ -119,12 +117,12 @@ const CarFormFieldEngineSelect = ({ form }: EngineSelectProps) => {
               </Popover>
               <Button
                 type='button'
-                variant='ghost'
+                variant='outline'
                 size='icon'
-                className='h-8 w-8 shrink-0'
+                className='size-9 shrink-0'
                 onClick={() => setDialogOpen(true)}
               >
-                <Plus className='h-4 w-4' />
+                <Plus className='size-4' />
               </Button>
             </div>
             <FormMessage />

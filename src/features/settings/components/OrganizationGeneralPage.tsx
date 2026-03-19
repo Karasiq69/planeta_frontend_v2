@@ -1,7 +1,7 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useOrganization } from '@/features/organizations/api/queries'
 import OrganizationForm from '@/features/organizations/components/forms/OrganizationForm'
 import { useOrganizationStore } from '@/stores/organization-store'
@@ -34,7 +34,11 @@ export default function OrganizationGeneralPage() {
       </TabsList>
       <TabsContent value='details' className='mt-4'>
         <Card>
-          <CardContent className='pt-6'>
+          <CardHeader>
+            <CardTitle>Реквизиты</CardTitle>
+            <CardDescription>Основные реквизиты и контактные данные организации</CardDescription>
+          </CardHeader>
+          <CardContent>
             <OrganizationForm organization={org} />
           </CardContent>
         </Card>
