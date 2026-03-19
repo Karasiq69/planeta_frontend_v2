@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 
 import PageLayout from '@/components/common/PageLayout'
-import CreateVehicleButton from '@/features/cars/components/CreateVehicleButton'
+import { CarsPageActions } from '@/features/cars/components/CarsPageActions'
 import VehiclesDataTable from '@/features/cars/components/table/VehiclesDataTable'
 
 import type { Metadata } from 'next'
@@ -15,7 +15,7 @@ const VehiclesPage = async ({
 }) => {
   return (
     <PageLayout>
-      <PageLayout.Header title='Автомобили' actions={<CreateVehicleButton />} />
+      <PageLayout.Header title='Автомобили' actions={<CarsPageActions />} />
       <PageLayout.Content>
         <Suspense>
           <VehiclesDataTable />
