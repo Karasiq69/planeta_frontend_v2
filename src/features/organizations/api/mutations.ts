@@ -7,10 +7,11 @@ import {
   updateOrganizationFn,
   deleteOrganizationFn,
   toggleOrganizationActiveFn,
+  updateTaxSettingsFn,
 } from './actions'
 import { organizationsQueryKeys } from './query-keys'
 
-import type { Organization } from '@/features/organizations/types'
+import type { Organization, UpdateTaxSettingsPayload } from '@/features/organizations/types'
 
 // Хук для создания новой организации
 export function useCreateOrganization() {
@@ -78,6 +79,32 @@ export function useDeleteOrganization() {
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: organizationsQueryKeys.all,
+      })
+    },
+  })
+}
+
+// Хук для обновления налоговых настроек
+export function useUpdateTaxSettings() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, data }: { id: number; data: UpdateTaxSettingsPayload }) =>
+      updateTaxSettingsFn(id, data),
+    onSuccess: (_, variables) => {
+      toast.success('Налоговые настройки обновлены')
+      queryClient.invalidateQueries({
+        queryKey: organizationsQueryKeys.detail(variables.id),
+      })
+    },
+    onError: (error: any) => {
+      toast.error(
+        error.response?.data?.message || 'Произошла ошибка при обновлении налоговых настроек'
+      )
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: organizationsQueryKeys.lists(),
       })
     },
   })

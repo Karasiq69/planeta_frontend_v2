@@ -1,7 +1,7 @@
 import apiClient from '@/lib/auth/client'
 import { ORGANIZATIONS_URL } from '@/lib/constants'
 
-import type { Organization } from '@/features/organizations/types'
+import type { Organization, UpdateTaxSettingsPayload } from '@/features/organizations/types'
 import type { ListParams, ListResponse } from '@/types/params'
 
 // Получить список всех организаций
@@ -43,6 +43,18 @@ export const updateOrganizationFn = async (
 // Удалить организацию
 export const deleteOrganizationFn = async (id: number): Promise<void> => {
   await apiClient.delete(`${ORGANIZATIONS_URL}/${id}`)
+}
+
+// Обновить налоговые настройки организации
+export const updateTaxSettingsFn = async (
+  id: number,
+  data: UpdateTaxSettingsPayload
+): Promise<Organization> => {
+  const response = await apiClient.put<{ data: Organization }>(
+    `${ORGANIZATIONS_URL}/${id}/tax-settings`,
+    data
+  )
+  return response.data.data
 }
 
 // Переключить активность организации
