@@ -5,6 +5,7 @@ import {
   getCarBrandsFn,
   getCarHistoryFn,
   getCarModelsFn,
+  getEnginesFn,
   getVehicleById,
 } from '@/features/cars/api/actions'
 import { carQueryKeys } from '@/features/cars/api/query-keys'
@@ -39,9 +40,15 @@ export const useVehiclesBrands = () => {
 
 export const useVehiclesModels = (brandId?: number) => {
   return useQuery({
-    queryKey: carQueryKeys.model(brandId as number),
-    queryFn: () => getCarModelsFn(brandId as number),
-    enabled: !!brandId,
+    queryKey: carQueryKeys.model(brandId),
+    queryFn: () => getCarModelsFn(brandId),
+  })
+}
+
+export const useCarEngines = (brandId?: number) => {
+  return useQuery({
+    queryKey: carQueryKeys.engine(brandId),
+    queryFn: () => getEnginesFn(brandId),
   })
 }
 
