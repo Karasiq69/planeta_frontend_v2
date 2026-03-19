@@ -136,7 +136,7 @@ const OrganizationDetailPage = ({ id }: OrganizationDetailPageProps) => {
         </TabsContent>
 
         <TabsContent value='cash-registers'>
-          <OrgCashRegistersTab orgId={id} />
+          <OrgCashRegistersTab />
         </TabsContent>
       </div>
 

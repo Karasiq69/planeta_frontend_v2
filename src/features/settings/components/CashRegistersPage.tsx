@@ -17,5 +17,5 @@ export default function CashRegistersPage() {
     )
   }
 
-  return <OrgCashRegistersTab orgId={organization.id} />
+  return <OrgCashRegistersTab />
 }

@@ -11,18 +11,14 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import { useOrgCashRegisters } from '@/features/payments/api/queries'
+import { useCashRegisters } from '@/features/payments/api/queries'
 import { formatAmount } from './columns'
 import CashRegistersTable from './CashRegistersTable'
 import CashRegisterForm from './forms/CashRegisterForm'
 
-interface OrgCashRegistersTabProps {
-  orgId: number
-}
-
-const OrgCashRegistersTab = ({ orgId }: OrgCashRegistersTabProps) => {
+const OrgCashRegistersTab = () => {
   const [dialogOpen, setDialogOpen] = useState(false)
-  const { data, isLoading } = useOrgCashRegisters(orgId)
+  const { data, isLoading } = useCashRegisters()
 
   if (isLoading) return <LoaderSectionAnimated className='rounded p-10' />
 
@@ -41,14 +37,14 @@ const OrgCashRegistersTab = ({ orgId }: OrgCashRegistersTabProps) => {
         </Button>
       </div>
 
-      {data && <CashRegistersTable orgId={orgId} data={data} />}
+      {data && <CashRegistersTable data={data} />}
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Новая касса</DialogTitle>
           </DialogHeader>
-          <CashRegisterForm orgId={orgId} onSuccess={() => setDialogOpen(false)} />
+          <CashRegisterForm onSuccess={() => setDialogOpen(false)} />
         </DialogContent>
       </Dialog>
     </div>

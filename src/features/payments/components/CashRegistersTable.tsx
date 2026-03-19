@@ -28,7 +28,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { useDeactivateOrgCashRegister } from '@/features/payments/api/mutations'
+import { useDeactivateCashRegister } from '@/features/payments/api/mutations'
 
 import { cashRegisterColumns } from './cash-register-columns'
 import CashRegisterForm from './forms/CashRegisterForm'
@@ -37,14 +37,13 @@ import type { CashRegister } from '@/features/payments/types'
 
 
 interface CashRegistersTableProps {
-  orgId: number
   data: CashRegister[]
 }
 
-const CashRegistersTable = ({ orgId, data }: CashRegistersTableProps) => {
+const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
   const [deactivateId, setDeactivateId] = useState<number | null>(null)
   const [editCashRegister, setEditCashRegister] = useState<CashRegister | null>(null)
-  const { mutate: deactivate, isPending } = useDeactivateOrgCashRegister(orgId)
+  const { mutate: deactivate, isPending } = useDeactivateCashRegister()
 
   const columns = [
     ...cashRegisterColumns,
@@ -144,7 +143,6 @@ const CashRegistersTable = ({ orgId, data }: CashRegistersTableProps) => {
           </DialogHeader>
           {editCashRegister && (
             <CashRegisterForm
-              orgId={orgId}
               cashRegister={editCashRegister}
               onSuccess={() => setEditCashRegister(null)}
             />

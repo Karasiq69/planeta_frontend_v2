@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
-import { useCreateOrgCashRegister, useUpdateOrgCashRegister } from '@/features/payments/api/mutations'
+import { useCreateCashRegister, useUpdateCashRegister } from '@/features/payments/api/mutations'
 
 import type { CashRegister } from '@/features/payments/types'
 
@@ -28,15 +28,14 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>
 
 interface CashRegisterFormProps {
-  orgId: number
   cashRegister?: CashRegister
   onSuccess?: () => void
 }
 
-const CashRegisterForm = ({ orgId, cashRegister, onSuccess }: CashRegisterFormProps) => {
+const CashRegisterForm = ({ cashRegister, onSuccess }: CashRegisterFormProps) => {
   const isEdit = !!cashRegister
-  const { mutate: create, isPending: isCreating } = useCreateOrgCashRegister(orgId)
-  const { mutate: update, isPending: isUpdating } = useUpdateOrgCashRegister(orgId, cashRegister?.id ?? 0)
+  const { mutate: create, isPending: isCreating } = useCreateCashRegister()
+  const { mutate: update, isPending: isUpdating } = useUpdateCashRegister()
   const isPending = isCreating || isUpdating
 
   const {
@@ -56,7 +55,7 @@ const CashRegisterForm = ({ orgId, cashRegister, onSuccess }: CashRegisterFormPr
 
   const onSubmit = (data: FormValues) => {
     if (isEdit) {
-      update({ name: data.name, isActive: data.isActive }, { onSuccess })
+      update({ id: cashRegister!.id, data: { name: data.name, isActive: data.isActive } }, { onSuccess })
     } else {
       create({ name: data.name, type: data.type }, { onSuccess })
     }

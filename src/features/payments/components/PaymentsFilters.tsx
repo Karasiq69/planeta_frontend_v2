@@ -8,8 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useOrgCashRegisters } from '@/features/payments/api/queries'
-import { useOrganizationStore } from '@/stores/organization-store'
+import { useCashRegisters } from '@/features/payments/api/queries'
 
 import type { PaymentsQueryParams } from '@/features/payments/types'
 
@@ -27,8 +26,7 @@ const fromISODate = (str: string | undefined) =>
   str ? new Date(str + 'T00:00:00') : undefined
 
 const PaymentsFilters = ({ filters, onChange }: PaymentsFiltersProps) => {
-  const { organization } = useOrganizationStore()
-  const { data: cashRegisters } = useOrgCashRegisters(organization?.id ?? 0)
+  const { data: cashRegisters } = useCashRegisters()
 
   return (
     <>
