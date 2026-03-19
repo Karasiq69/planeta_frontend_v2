@@ -1,6 +1,13 @@
 import { BRAND_LOGOS } from '@/lib/constants'
 
-import type { ICarBrand, ICarModel } from '@/features/cars/types'
+import type { EngineType, ICarBrand, ICarModel } from '@/features/cars/types'
+
+export const ENGINE_TYPE_LABELS: Record<EngineType, string> = {
+  diesel: 'Дизель',
+  gasoline: 'Бензин',
+  electric: 'Электро',
+  hybrid: 'Гибрид',
+}
 
 export const getFullModelName = (model: ICarModel | undefined) => {
   if (!model) return ''
