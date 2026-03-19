@@ -31,8 +31,9 @@ type Props = {
 const VehicleDetails = ({ car }: Props) => {
   const { brand, model, year, vin, licensePlate } = car
 
-  const engineInfo = model?.engine
-    ? `${model.engine.name} ${model.engine.series} ${model.engine.displacement}л.`
+  const engine = car.engine
+  const engineInfo = engine
+    ? `${engine.name} ${engine.series ?? ''} ${engine.displacement ? `${engine.displacement}л.` : ''}`.trim()
     : null
 
   return (

@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import LicencePlateBadge from '@/features/cars/components/LicencePlateBadge'
-import { getBrandLogo, getFullModelName, getFullSubModelName } from '@/features/cars/utils'
+import { getBrandLogo, getFullModelName, getFullModelDisplayName } from '@/features/cars/utils'
 import { IClient } from '@/features/clients/types'
 import { BRAND_LOGOS, CARS_URL } from '@/lib/constants'
 
@@ -41,10 +41,12 @@ export const vehiclesColumns: ColumnDef<ICar>[] = [
     id: 'model',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Модель' />,
     cell: ({ row }) => {
-      const model = getFullSubModelName(row.original?.model)
+      const car = row.original
+      const engineName = car?.engine?.name || ''
+      const modelCode = car?.model?.code || ''
       return (
         <p className='text-xs'>
-          {model} {row.original?.model?.name}
+          {engineName} {modelCode}
         </p>
       )
     },

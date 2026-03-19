@@ -1,20 +1,12 @@
 import { BRAND_LOGOS } from '@/lib/constants'
 
-import type { ICarBrand, ICarModel, ICarModelWithRelations } from '@/features/cars/types'
+import type { ICarBrand, ICarModel } from '@/features/cars/types'
 
 export const getFullModelName = (model: ICarModel | undefined) => {
   if (!model) return ''
   const series = model.series || ''
   const modelName = model.name || ''
   return `${series} ${modelName}`.trim()
-}
-
-export const getFullSubModelName = (model: ICarModelWithRelations | undefined) => {
-  if (!model) return ''
-  const engineName = model.engine?.name || ''
-  const engineSeries = model.engine?.series || ''
-  const modelCode = model.code || ''
-  return `${engineName}.${engineSeries} ${modelCode}`.trim()
 }
 
 export const getFullModelDisplayName = (model?: ICarModel) => {
@@ -26,9 +18,7 @@ export const getFullModelDisplayName = (model?: ICarModel) => {
 
 export const getModelFullName = (model: ICarModel) => {
   if (!model) return 'Модель не выбрана'
-  const fullModelName = getFullModelName(model)
-  const fullSubModelName = getFullSubModelName(model)
-  return `${fullModelName} ${fullSubModelName}`.trim()
+  return getFullModelDisplayName(model)
 }
 
 const DEFAULT_LOGO = '/img/brands/default-logo.svg'

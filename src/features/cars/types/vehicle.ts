@@ -12,12 +12,12 @@ export interface ICarBrand {
 
 export interface IEngine {
   id: number
-  brandId: number // Сделано обязательным
-  engineType: EngineType // Сделано обязательным
-  name: string // Сделано обязательным
-  series: string // Сделано обязательным
-  displacement: number // Сделано обязательным
-  power: number // Сделано обязательным
+  brandId: number
+  engineType: EngineType
+  name: string
+  series?: string
+  displacement?: number
+  power?: number
   createdAt: string | Date
   updatedAt: string | Date
 }
@@ -28,10 +28,8 @@ export interface ICarModel {
   name: string
   series?: string
   code?: string
-  engineId?: number
-  createdAt: string | Date // Раскомментировано
-  updatedAt: string | Date // Раскомментировано
-  engine?: IEngine // Добавлено для вложенной связи
+  createdAt: string | Date
+  updatedAt: string | Date
 }
 export interface IMileage {
   id: number
@@ -42,18 +40,13 @@ export interface IMileage {
   updatedAt: Date
 }
 
-// Расширенные интерфейсы с отношениями
-export interface ICarModelWithRelations extends ICarModel {
-  engine?: IEngine
-}
-
-// Базовый интерфейс для автомобиля
 export interface ICar {
   id: number
   ownerId: number
   owner?: IClient
-  brandId: number // Добавлено
-  modelId: number // Добавлено
+  brandId: number
+  modelId: number
+  engineId?: number
   year: number
   vin: string
   licensePlate: string
@@ -61,6 +54,7 @@ export interface ICar {
   updatedAt: string | Date
   brand?: ICarBrand
   model?: ICarModel
+  engine?: IEngine
   mileages: IMileage[]
 }
 

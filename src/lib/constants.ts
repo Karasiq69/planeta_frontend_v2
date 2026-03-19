@@ -5,6 +5,7 @@ export const CLIENTS_URL = '/clients'
 export const CARS_URL = '/cars'
 export const CAR_MODELS_URL = '/models'
 export const BRANDS_URL = '/brands'
+export const ENGINES_URL = '/engines'
 export const MILEAGES_URL = `${CARS_URL}/mileages`
 export const ORDERS_URL = '/orders'
 export const SERVICES_URL = '/services'
@@ -32,7 +33,7 @@ export const VAT_RATES_URL = '/vat-rates'
 export const RECEIPT_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/receipt`
 export const TRANSFER_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/transfer`
 
-export const getOrgCashRegistersUrl = (orgId: number) => `${ORGANIZATIONS_URL}/${orgId}/cash-registers`
+export const CASH_REGISTERS_URL = `${PAYMENTS_URL}/cash-registers`
 
 export const BRAND_LOGOS: Record<string, string> = {
   Porsche: 'porsche-logo.svg',

@@ -36,7 +36,7 @@ const CarCard = () => {
           <div className='min-w-0'>
             <p className='text-sm font-semibold truncate'>
               {car.model?.name} {car.model?.series}
-              {car.model?.engine?.name}
+              {car.engine?.name}
               {car.year && (
                 <span className='font-normal text-muted-foreground ml-1.5'>{car.year}</span>
               )}
