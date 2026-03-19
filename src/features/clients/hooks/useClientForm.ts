@@ -23,6 +23,7 @@ export const useClientForm = ({ clientData, onCreate, onUpdate }: ClientFormProp
       type: clientData?.type ?? ('individual' as const),
       firstName: clientData?.firstName ?? '',
       lastName: clientData?.lastName ?? '',
+      middleName: clientData?.middleName ?? '',
       email: clientData?.email ?? '',
       phone: clientData?.phone ?? '',
       companyName: clientData?.companyName ?? '',
@@ -39,13 +40,19 @@ export const useClientForm = ({ clientData, onCreate, onUpdate }: ClientFormProp
   })
 
   const onSubmit = (data: ClientFormData) => {
+    const isOrg =
+      data.type === 'legal_entity' ||
+      data.type === 'individual_entrepreneur' ||
+      data.type === 'government'
+
     const payload = {
       type: data.type,
       firstName: data.firstName,
       lastName: data.lastName,
-      email: data.email,
+      middleName: data.middleName || undefined,
+      email: data.email || undefined,
       phone: data.phone,
-      ...(data.type === 'legal_entity'
+      ...(isOrg
         ? {
             companyName: data.companyName || undefined,
             inn: data.inn || undefined,

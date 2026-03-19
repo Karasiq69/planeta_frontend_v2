@@ -8,7 +8,7 @@ import OrderTableActions from '@/features/orders/components/tables/OrderTableAct
 import { getStatusData } from '@/features/orders/lib/statuses'
 import { formatPrice } from '@/lib/utils'
 
-import type { Order } from '@/features/orders/types'
+import type { Order, PaymentStatus } from '@/features/orders/types'
 import type { ColumnDef } from '@tanstack/react-table'
 
 export const OrdersColumnDefs: ColumnDef<Order>[] = [
@@ -17,11 +17,17 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
     meta: '№ Заказа',
     header: () => <div>№ Заказа</div>,
     size: 0,
-    cell: ({ row }) => (
-      <div>
-        <p className='font-medium m-0'>{String(row.original.id).padStart(6, '0')}</p>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const order = row.original
+      return (
+        <div>
+          <p className='font-medium m-0'>{String(order.id).padStart(6, '0')}</p>
+          {order.legacyNumber && (
+            <span className='text-xs text-muted-foreground'>1С: {order.legacyNumber}</span>
+          )}
+        </div>
+      )
+    },
   },
   {
     accessorKey: 'status',
@@ -109,6 +115,24 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
         <p className='m-0 line-clamp-2 text-xs text-muted-foreground'>{row.original.reasonToApply || '—'}</p>
       </div>
     ),
+  },
+  {
+    accessorKey: 'paymentStatus',
+    meta: 'Оплата',
+    header: () => <div>Оплата</div>,
+    size: 0,
+    cell: ({ row }) => {
+      const status = row.original.paymentStatus as PaymentStatus | null | undefined
+      if (!status) return <span className='text-muted-foreground'>—</span>
+      const config: Record<PaymentStatus, { label: string; className: string }> = {
+        UNPAID: { label: 'Не оплачен', className: 'text-rose-600 bg-rose-50' },
+        PAID: { label: 'Оплачен', className: 'text-green-600 bg-green-50' },
+        PARTIAL: { label: 'Частично', className: 'text-amber-600 bg-amber-50' },
+      }
+      const entry = config[status]
+      if (!entry) return <span className='text-muted-foreground'>{status}</span>
+      return <span className={`${entry.className} px-2 py-1 rounded-md text-xs`}>{entry.label}</span>
+    },
   },
   {
     id: 'actions',

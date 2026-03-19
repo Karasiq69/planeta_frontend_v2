@@ -36,6 +36,14 @@ export const REPAIR_TYPE_OPTIONS = [
   { value: 'Техническое обслуживание', label: 'Техническое обслуживание' },
 ] as const
 
+export type PaymentStatus = 'UNPAID' | 'PAID' | 'PARTIAL'
+
+export const PAYMENT_STATUS_LABELS: Record<PaymentStatus, string> = {
+  UNPAID: 'Не оплачен',
+  PAID: 'Оплачен',
+  PARTIAL: 'Частично',
+}
+
 export interface Order {
   id: number
   clientId?: number
@@ -55,6 +63,13 @@ export interface Order {
   services: OrderService[]
   createdById: number
   creator: User
+  legacyNumber?: string | null
+  completedAt?: string | null
+  paymentStatus?: PaymentStatus | null
+  serviceCost?: number | null
+  partsCost?: number | null
+  workshopId?: number | null
+  contract?: string | null
 }
 
 // Query параметры для списка заказов

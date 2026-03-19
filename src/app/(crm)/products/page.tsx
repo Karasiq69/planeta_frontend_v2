@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import PageLayout from '@/components/common/PageLayout'
 import { ManageCategoriesButton } from '@/features/product-categories/components/ManageCategoriesButton'
@@ -22,7 +22,9 @@ const Page = async () => {
         }
       />
       <PageLayout.Content>
-        <ProductsDataTable />
+        <Suspense>
+          <ProductsDataTable />
+        </Suspense>
       </PageLayout.Content>
     </PageLayout>
   )

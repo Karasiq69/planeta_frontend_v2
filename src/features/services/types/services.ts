@@ -4,6 +4,7 @@ export interface IService {
   description: string
   defaultDuration: number
   requiredQualifications: string
+  unit: string
   createdAt: string
   updatedAt: string
 }

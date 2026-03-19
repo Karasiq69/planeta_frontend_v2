@@ -1,13 +1,15 @@
 export interface Supplier {
   id: number
-  name: string // Название компании-поставщика
-  contactPerson: string // ФИО контактного лица
-  phone: string // Телефон
-  email: string // Email
-  address?: string | null // Адрес (опционально)
-  inn?: string | null // ИНН (опционально)
-  kpp?: string | null // КПП (опционально)
-  isActive: boolean // Активен ли поставщик
-  createdAt: string // Дата создания
-  updatedAt: string // Дата обновления
+  name: string
+  contactPerson?: string | null
+  phone?: string | null
+  email?: string | null
+  address?: string | null
+  inn?: string | null
+  kpp?: string | null
+  type?: string | null
+  legalName?: string | null
+  isActive: boolean
+  createdAt: string
+  updatedAt: string
 }

@@ -1,7 +1,9 @@
 import { z } from 'zod'
 
 export const clientSchema = z.object({
-  type: z.enum(['individual', 'legal_entity']).default('individual'),
+  type: z
+    .enum(['individual', 'legal_entity', 'individual_entrepreneur', 'government'])
+    .default('individual'),
 
   firstName: z
     .string()
@@ -15,12 +17,19 @@ export const clientSchema = z.object({
     .max(100, 'Фамилия не должна превышать 100 символов')
     .transform((value) => value.trim()),
 
+  middleName: z
+    .string()
+    .max(100, 'Отчество не должно превышать 100 символов')
+    .transform((value) => value.trim())
+    .optional()
+    .or(z.literal('')),
+
   email: z
     .string()
-    .min(1, 'Email обязателен для заполнения')
     .max(255, 'Email не должен превышать 255 символов')
     .email('Неверный формат email адреса')
-    .transform((value) => value.toLowerCase().trim()),
+    .optional()
+    .or(z.literal('')),
 
   phone: z
     .string()

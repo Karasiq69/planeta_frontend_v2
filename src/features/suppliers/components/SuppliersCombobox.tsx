@@ -56,7 +56,7 @@ const SuppliersCombobox: React.FC<SuppliersComboboxProps> = ({
         <div className='flex flex-col w-full'>
           <div className='font-bold'>{supplier.name}</div>
           <div className='flex items-center justify-between w-full'>
-            <div className='text-xs text-muted-foreground'>{supplier.contactPerson}</div>
+            <div className='text-xs text-muted-foreground'>{supplier.contactPerson || 'Не указано'}</div>
             {supplier.inn && (
               <div className='text-xs text-muted-foreground'>ИНН: {supplier.inn}</div>
             )}

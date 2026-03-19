@@ -2,9 +2,11 @@ import { z } from 'zod'
 
 export const supplierFormSchema = z.object({
   name: z.string().min(1, { message: 'Название компании обязательно' }).max(100),
-  contactPerson: z.string().min(1, { message: 'Контактное лицо обязательно' }).max(100),
-  phone: z.string().min(5, { message: 'Телефон должен содержать минимум 5 символов' }).max(20),
-  email: z.string().email({ message: 'Некорректный email' }).max(100),
+  contactPerson: z.string().max(100).optional().or(z.literal('')),
+  phone: z.string().max(20).optional().or(z.literal('')),
+  email: z.string().email({ message: 'Некорректный email' }).max(100).optional().or(z.literal('')),
+  type: z.string().max(30).optional().or(z.literal('')),
+  legalName: z.string().max(255).optional().or(z.literal('')),
   address: z.string().optional(),
   inn: z
     .string()

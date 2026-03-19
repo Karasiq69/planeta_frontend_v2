@@ -2,8 +2,17 @@
 
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
+import { CLIENT_TYPE_LABELS } from '@/features/clients/types'
+
+import type { ClientType } from '@/features/clients/types'
 import type { ClientFormData } from '@/features/clients/components/forms/schema'
 import type { UseFormReturn } from 'react-hook-form'
 
@@ -11,29 +20,49 @@ type Props = {
   form: UseFormReturn<ClientFormData>
 }
 
+const isOrganizationType = (type: ClientType) =>
+  type === 'legal_entity' || type === 'individual_entrepreneur' || type === 'government'
+
 const ClientFormFields = ({ form }: Props) => {
   const clientType = form.watch('type')
 
   return (
     <div className='flex flex-col gap-5'>
-      <Tabs
-        value={clientType}
-        onValueChange={(value) => form.setValue('type', value as 'individual' | 'legal_entity')}
-      >
-        <TabsList className='grid w-full grid-cols-2'>
-          <TabsTrigger value='individual'>Физлицо</TabsTrigger>
-          <TabsTrigger value='legal_entity'>Юрлицо</TabsTrigger>
-        </TabsList>
-      </Tabs>
+      <FormField
+        control={form.control}
+        name='type'
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Тип клиента</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder='Выберите тип' />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {(Object.entries(CLIENT_TYPE_LABELS) as [ClientType, string][]).map(
+                  ([value, label]) => (
+                    <SelectItem key={value} value={value}>
+                      {label}
+                    </SelectItem>
+                  ),
+                )}
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-      {clientType === 'legal_entity' && (
+      {isOrganizationType(clientType) && (
         <>
           <FormField
             control={form.control}
             name='companyName'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Название компании</FormLabel>
+                <FormLabel>Название организации</FormLabel>
                 <FormControl>
                   <Input placeholder='ООО "Ромашка"' {...field} />
                 </FormControl>
@@ -90,7 +119,9 @@ const ClientFormFields = ({ form }: Props) => {
         name='lastName'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{clientType === 'legal_entity' ? 'Фамилия контактного лица' : 'Фамилия'}</FormLabel>
+            <FormLabel>
+              {isOrganizationType(clientType) ? 'Фамилия контактного лица' : 'Фамилия'}
+            </FormLabel>
             <FormControl>
               <Input placeholder='Иванов' {...field} />
             </FormControl>
@@ -103,9 +134,26 @@ const ClientFormFields = ({ form }: Props) => {
         name='firstName'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{clientType === 'legal_entity' ? 'Имя контактного лица' : 'Имя'}</FormLabel>
+            <FormLabel>
+              {isOrganizationType(clientType) ? 'Имя контактного лица' : 'Имя'}
+            </FormLabel>
             <FormControl>
               <Input placeholder='Иван' {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name='middleName'
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>
+              {isOrganizationType(clientType) ? 'Отчество контактного лица' : 'Отчество'}
+            </FormLabel>
+            <FormControl>
+              <Input placeholder='Иванович' {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

@@ -38,6 +38,12 @@ export const organizationFormSchema = z.object({
       message: 'Номер счета должен содержать 20 цифр',
     })
     .optional(),
+  hourlyRate: z.coerce
+    .number({ invalid_type_error: 'Нормо-час должен быть числом' })
+    .int({ message: 'Нормо-час должен быть целым числом' })
+    .min(0, { message: 'Нормо-час не может быть отрицательным' })
+    .max(1_000_000, { message: 'Нормо-час не должен превышать 1 000 000' })
+    .optional(),
   logo: z.string().optional(),
 })
 

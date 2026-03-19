@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dialog'
 import LoaderAnimated from '@/components/ui/LoaderAnimated'
 import { useDeleteClient } from '@/features/clients/api/mutations'
+import { CLIENT_TYPE_LABELS } from '@/features/clients/types'
 
 import type { IClient } from '@/features/clients/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -72,10 +73,11 @@ export const clientColumns: ColumnDef<IClient>[] = [
     meta: 'Тип',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Тип' />,
     cell: ({ row }) => {
-      const isLegal = row.original.type === 'legal_entity'
+      const type = row.original.type
+      const isOrg = type !== 'individual'
       return (
-        <Badge variant={isLegal ? 'default' : 'secondary'}>
-          {isLegal ? 'Юрлицо' : 'Физлицо'}
+        <Badge variant={isOrg ? 'default' : 'secondary'}>
+          {CLIENT_TYPE_LABELS[type] ?? type}
         </Badge>
       )
     },
@@ -85,7 +87,7 @@ export const clientColumns: ColumnDef<IClient>[] = [
     accessorKey: 'name',
     meta: 'Имя',
     accessorFn: (row) => {
-      if (row.type === 'legal_entity' && row.companyName) {
+      if (row.type !== 'individual' && row.companyName) {
         return row.companyName
       }
       return `${row.lastName} ${row.firstName}`
@@ -93,7 +95,7 @@ export const clientColumns: ColumnDef<IClient>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title='Имя' />,
     cell: ({ row }) => {
       const client = row.original
-      if (client.type === 'legal_entity' && client.companyName) {
+      if (client.type !== 'individual' && client.companyName) {
         return (
           <div>
             <div>{client.companyName}</div>
