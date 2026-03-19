@@ -47,7 +47,7 @@ export function TeamSwitcher() {
         <SidebarMenuItem>
           <SidebarMenuButton
             size='lg'
-            onClick={() => router.push('/settings/organizations')}
+            onClick={() => router.push('/settings/general')}
           >
             <div className='flex aspect-square size-8 items-center justify-center rounded-lg border bg-background'>
               <Plus className='size-4' />
@@ -103,7 +103,7 @@ export function TeamSwitcher() {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className='gap-2 p-2'
-              onClick={() => router.push('/settings/organizations')}
+              onClick={() => router.push('/settings/general')}
             >
               <div className='flex size-6 items-center justify-center rounded-md border bg-background'>
                 <Plus className='size-4' />
