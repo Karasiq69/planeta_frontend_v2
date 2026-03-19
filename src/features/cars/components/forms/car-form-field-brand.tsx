@@ -1,7 +1,14 @@
+import { Plus } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 
-
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import {
   Select,
@@ -11,6 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useVehiclesBrands } from '@/features/cars/api/queries'
+import { BrandForm } from '@/features/cars/components/references/BrandForm'
 import { getBrandLogo } from '@/features/cars/utils'
 
 import type { ICarBrand } from '@/features/cars/types'
@@ -21,6 +29,7 @@ interface BrandSelectProps {
 }
 
 export const CarFormFieldBrandSelect: React.FC<BrandSelectProps> = ({ form }) => {
+  const [dialogOpen, setDialogOpen] = useState(false)
   const { data: brands = [], isLoading } = useVehiclesBrands()
 
   const renderBrandOption = (brand: ICarBrand) => (
@@ -45,33 +54,59 @@ export const CarFormFieldBrandSelect: React.FC<BrandSelectProps> = ({ form }) =>
   if (!brands.length) return 'no brands'
 
   return (
+    <>
     <FormField
       control={form.control}
       name='brandId'
       render={({ field }) => (
         <FormItem>
           <FormLabel>Марка</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
-            <FormControl>
-              <SelectTrigger>
-                <SelectValue placeholder='Выберите бренд'>
-                  {field.value && brands?.length > 0
-                    ? renderBrandOption(brands.find((b) => b.id === Number(field.value))!)
-                    : 'Выберите бренд'}
-                </SelectValue>
-              </SelectTrigger>
-            </FormControl>
-            <SelectContent>
-              {brands.map((brand) => (
-                <SelectItem value={String(brand.id)} key={brand.id} className='py-2'>
-                  {renderBrandOption(brand)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className='flex items-center gap-1'>
+            <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder='Выберите бренд'>
+                    {field.value && brands?.length > 0
+                      ? renderBrandOption(brands.find((b) => b.id === Number(field.value))!)
+                      : 'Выберите бренд'}
+                  </SelectValue>
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {brands.map((brand) => (
+                  <SelectItem value={String(brand.id)} key={brand.id} className='py-2'>
+                    {renderBrandOption(brand)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button
+              type='button'
+              variant='ghost'
+              size='icon'
+              className='h-8 w-8 shrink-0'
+              onClick={() => setDialogOpen(true)}
+            >
+              <Plus className='h-4 w-4' />
+            </Button>
+          </div>
           <FormMessage />
         </FormItem>
       )}
     />
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Новый бренд</DialogTitle>
+        </DialogHeader>
+        <BrandForm
+          onSuccess={(brand) => {
+            form.setValue('brandId', brand.id)
+            setDialogOpen(false)
+          }}
+        />
+      </DialogContent>
+    </Dialog>
+    </>
   )
 }

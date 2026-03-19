@@ -3,6 +3,7 @@ import { z } from 'zod'
 export const carFormSchema = z.object({
   brandId: z.coerce.number(),
   modelId: z.coerce.number(),
+  engineId: z.coerce.number().optional(),
   year: z.coerce
     .number()
     .transform((val) => Number(val))

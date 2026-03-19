@@ -24,6 +24,7 @@ export const useCarForm = ({ carData, onCreate, onUpdate }: CarFormProps) => {
     () => ({
       brandId: carData?.brand?.id as unknown as number,
       modelId: carData?.model?.id as unknown as number,
+      engineId: carData?.engineId ?? undefined,
       year: carData?.year || ('' as unknown as number),
       vin: carData?.vin || '',
       licensePlate: carData?.licensePlate || '',

@@ -4,6 +4,7 @@ import React from 'react'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { CarFormFieldBrandSelect } from '@/features/cars/components/forms/car-form-field-brand'
+import CarFormFieldEngineSelect from '@/features/cars/components/forms/car-form-field-engine-select'
 import CarFormFieldModelSelect from '@/features/cars/components/forms/car-form-field-model-select'
 
 import type { CarFormData } from '@/features/cars/components/forms/schema'
@@ -17,6 +18,7 @@ const CarFormFields = ({ form }: Props) => {
     <div className="space-y-5">
       <CarFormFieldBrandSelect form={form} />
       <CarFormFieldModelSelect form={form} />
+      <CarFormFieldEngineSelect form={form} />
 
       <FormField
         control={form.control}
