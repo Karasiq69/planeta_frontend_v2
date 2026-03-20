@@ -5,10 +5,8 @@ import { useOrganizationStore } from '@/stores/organization-store'
 import { ApiError } from '@/types/api-error'
 
 const mutex = new Mutex()
-const baseURL = process.env.NEXT_PUBLIC_HOST || 'http://localhost:8000'
-
 const apiClient = axios.create({
-  baseURL: `${baseURL}/api`,
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -40,7 +38,7 @@ apiClient.interceptors.response.use(
 
       const release = await mutex.acquire()
       try {
-        await axios.post(`${baseURL}/api/auth/jwt/refresh/`, null, { withCredentials: true })
+        await axios.post('/api/auth/jwt/refresh/', null, { withCredentials: true })
       } catch {
         return Promise.reject(
           new ApiError({
