@@ -2,15 +2,24 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format, parseISO } from 'date-fns'
-import { Eye, EyeOff, RefreshCw } from 'lucide-react'
+import { Check, ChevronsUpDown, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { AppButton, AppDialog } from '@/components/ds'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
 import { DatePicker } from '@/components/ui/date-picker'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import {
   Select,
   SelectContent,
@@ -20,34 +29,32 @@ import {
 } from '@/components/ui/select'
 import { useCreateEmployee, useUpdateEmployee } from '@/features/employees/api/mutations'
 import { useAllOrganizations } from '@/features/organizations/api/queries'
-
+import { useUnlinkedUsers } from '@/features/users/api/queries'
+import { UserForm } from '@/features/users/components/UserForm'
+import { cn } from '@/lib/utils'
 import { ROLE_LABELS } from '@/types/user'
 
-import { employeeFormSchema, POSITION_LABELS, type EmployeeFormValues } from './schema'
+import { employeeFormSchema, POSITION_LABELS } from './schema'
 
-import type { Employee } from '@/features/employees/types'
+import type { EmployeeFormValues } from './schema'
+import type { Employee, UpdateEmployee } from '@/features/employees/types'
 
 interface EmployeeFormProps {
   employee?: Employee
   onSuccess?: () => void
 }
 
-function generatePassword(length = 12): string {
-  const chars = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'
-  return Array.from(crypto.getRandomValues(new Uint8Array(length)))
-    .map((b) => chars[b % chars.length])
-    .join('')
-}
-
 const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
   const isEditing = !!employee
-  const hasAccount = !!employee?.user
   const createMutation = useCreateEmployee()
   const updateMutation = useUpdateEmployee()
   const { data: orgsData } = useAllOrganizations()
+  const { data: unlinkedUsers = [] } = useUnlinkedUsers()
   const isPending = createMutation.isPending || updateMutation.isPending
 
-  const [showPassword, setShowPassword] = useState(false)
+  const [comboboxOpen, setComboboxOpen] = useState(false)
+  const [userDialogOpen, setUserDialogOpen] = useState(false)
+  const [userSearch, setUserSearch] = useState('')
 
   const organizations = orgsData?.data ?? []
 
@@ -68,47 +75,48 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
           organizationId: employee.organizationId,
           phone: employee.phone ?? '',
           hiredAt: employee.hiredAt ?? '',
-          createAccount: false,
-          account: hasAccount
-            ? { email: employee.user!.email, role: employee.user!.role, password: '' }
-            : undefined,
+          userId: employee.userId ?? undefined,
         }
-      : { lastName: '', firstName: '', createAccount: false },
+      : { lastName: '', firstName: '' },
   })
 
-  const createAccount = watch('createAccount')
-  const position = watch('position')
+  const selectedUserId = watch('userId')
+
+  const filteredUsers = unlinkedUsers.filter(
+    (u) =>
+      u.username.toLowerCase().includes(userSearch.toLowerCase()) ||
+      u.email.toLowerCase().includes(userSearch.toLowerCase())
+  )
+
+  const selectedUser = unlinkedUsers.find((u) => u.id === selectedUserId)
+  const selectedUserDisplay = selectedUser
+    ? `${selectedUser.username} (${selectedUser.email})`
+    : ''
 
   const onSubmit = (data: EmployeeFormValues) => {
-    const { createAccount: _createAccount, ...payload } = data
-
-    const sendAccount = _createAccount || hasAccount
-    if (!sendAccount) {
-      delete payload.account
-    } else if (payload.account) {
-      if (!payload.account.password) delete payload.account.password
-      if (!payload.account.role) delete payload.account.role
-    }
+    const { userId, ...rest } = data
+    if (!rest.middleName) delete rest.middleName
+    if (!rest.phone) delete rest.phone
 
     if (isEditing) {
-      updateMutation.mutate({ id: employee.id, data: payload }, { onSuccess })
+      updateMutation.mutate(
+        { id: employee.id, data: { ...rest, userId: userId ?? undefined } },
+        { onSuccess }
+      )
     } else {
-      createMutation.mutate(payload, { onSuccess })
+      createMutation.mutate(
+        { ...rest, userId: userId ?? undefined },
+        { onSuccess }
+      )
     }
   }
 
-  const handleGeneratePassword = () => {
-    const pwd = generatePassword()
-    setValue('account.password', pwd)
-  }
-
-  const handleCreateAccountChange = (checked: boolean) => {
-    setValue('createAccount', checked)
-    if (checked) {
-      setValue('account', { email: '', password: '', role: position || undefined })
-    } else {
-      setValue('account', undefined)
-    }
+  const handleUnlinkUser = () => {
+    if (!employee) return
+    updateMutation.mutate(
+      { id: employee.id, data: { userId: null } as UpdateEmployee },
+      { onSuccess }
+    )
   }
 
   const handleHiredAtChange = (date: Date | undefined) => {
@@ -117,10 +125,6 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
 
   const hiredAt = watch('hiredAt')
   const hiredAtDate = hiredAt ? parseISO(hiredAt) : undefined
-
-  const accountSectionTitle = hasAccount
-    ? 'Аккаунт для входа в систему'
-    : 'Создать аккаунт для входа в систему'
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
@@ -209,98 +213,117 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
       </div>
 
       {/* Секция аккаунта */}
-      <div className='space-y-4 rounded-lg border p-4'>
-        {hasAccount ? (
-          <p className='text-sm font-medium'>{accountSectionTitle}</p>
-        ) : (
+      {isEditing && employee?.user ? (
+        <div className='space-y-3 rounded-lg border p-4'>
+          <p className='text-sm font-medium'>Привязанный аккаунт</p>
+          <div className='flex items-center justify-between'>
+            <div className='text-sm'>
+              <p>{employee.user!.email}</p>
+              <p className='text-muted-foreground'>{ROLE_LABELS[employee.user!.role]}</p>
+            </div>
+            <AppButton
+              variant='outline'
+              size='sm'
+              onClick={handleUnlinkUser}
+            >
+              Отвязать
+            </AppButton>
+          </div>
+        </div>
+      ) : (
+        <div className='space-y-3 rounded-lg border p-4'>
+          <p className='text-sm font-medium'>Аккаунт для входа в систему</p>
           <div className='flex items-center gap-2'>
-            <Checkbox
-              id='createAccount'
-              checked={createAccount}
-              onCheckedChange={handleCreateAccountChange}
-            />
-            <Label htmlFor='createAccount' className='cursor-pointer font-medium'>
-              {accountSectionTitle}
-            </Label>
-          </div>
-        )}
-
-        {(createAccount || hasAccount) && (
-          <div className='grid gap-4 sm:grid-cols-2'>
-            <div className='space-y-1.5'>
-              <Label htmlFor='account.email'>
-                Email <span className='text-destructive'>*</span>
-              </Label>
-              <Input id='account.email' type='email' {...register('account.email')} />
-              {errors.account?.email && (
-                <p className='text-xs text-red-500'>{errors.account.email.message}</p>
-              )}
-            </div>
-
-            <div className='space-y-1.5'>
-              <Label htmlFor='account.password'>
-                {hasAccount ? 'Новый пароль' : 'Пароль'}{' '}
-                {!hasAccount && <span className='text-destructive'>*</span>}
-              </Label>
-              <div className='flex gap-1.5'>
-                <div className='relative flex-1'>
-                  <Input
-                    id='account.password'
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder=""
-                    {...register('account.password')}
-                  />
-                  <Button
-                    type='button'
-                    variant='ghost'
-                    size='icon'
-                    className='absolute right-0 top-0 size-9'
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff className='size-4' /> : <Eye className='size-4' />}
-                  </Button>
-                </div>
+            <Popover open={comboboxOpen} onOpenChange={setComboboxOpen} modal>
+              <PopoverTrigger asChild>
                 <Button
-                  type='button'
                   variant='outline'
-                  size='icon'
-                  className='size-9 shrink-0'
-                  onClick={handleGeneratePassword}
-                  title='Сгенерировать пароль'
+                  role='combobox'
+                  className={cn(
+                    'flex-1 justify-between hover:bg-white',
+                    !selectedUserId && 'text-muted-foreground'
+                  )}
                 >
-                  <RefreshCw className='size-4' />
+                  {selectedUserId ? selectedUserDisplay : 'Выберите пользователя'}
+                  <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
                 </Button>
-              </div>
-              {errors.account?.password && (
-                <p className='text-xs text-red-500'>{errors.account.password.message}</p>
-              )}
-            </div>
-
-            <div className='space-y-1.5'>
-              <Label>Роль в системе</Label>
-              <Select
-                defaultValue={hasAccount ? employee.user!.role : position}
-                onValueChange={(v) => setValue('account.role', v as EmployeeFormValues['position'])}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder='Совпадает с должностью' />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(ROLE_LABELS).map(([value, label]) => (
-                    <SelectItem key={value} value={value}>
-                      {label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+              </PopoverTrigger>
+              <PopoverContent className='p-0'>
+                <Command shouldFilter={false}>
+                  <CommandInput
+                    placeholder='Поиск пользователя...'
+                    value={userSearch}
+                    onValueChange={setUserSearch}
+                  />
+                  <CommandEmpty>Пользователь не найден.</CommandEmpty>
+                  <CommandList>
+                    <CommandGroup>
+                      {filteredUsers.map((u) => (
+                        <CommandItem
+                          key={u.id}
+                          value={String(u.id)}
+                          onSelect={() => {
+                            setValue('userId', u.id)
+                            setComboboxOpen(false)
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              'mr-2 h-4 w-4',
+                              selectedUserId === u.id ? 'opacity-100' : 'opacity-0'
+                            )}
+                          />
+                          <div>
+                            <span>{u.username}</span>
+                            <span className='ml-2 text-muted-foreground'>{u.email}</span>
+                          </div>
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            <Button
+              type='button'
+              variant='outline'
+              size='icon'
+              className='size-9 shrink-0'
+              onClick={() => setUserDialogOpen(true)}
+            >
+              <Plus className='size-4' />
+            </Button>
           </div>
-        )}
-      </div>
+          {selectedUserId && (
+            <Button
+              type='button'
+              variant='ghost'
+              size='sm'
+              className='text-muted-foreground'
+              onClick={() => setValue('userId', undefined)}
+            >
+              Очистить выбор
+            </Button>
+          )}
+        </div>
+      )}
 
       <Button type='submit' disabled={isPending} className='w-full'>
         {isPending ? 'Сохранение...' : isEditing ? 'Сохранить' : 'Создать'}
       </Button>
+
+      <AppDialog
+        open={userDialogOpen}
+        onOpenChange={setUserDialogOpen}
+        title='Новый пользователь'
+      >
+        <UserForm
+          onSuccess={(user) => {
+            setValue('userId', user.id)
+            setUserDialogOpen(false)
+          }}
+        />
+      </AppDialog>
     </form>
   )
 }
