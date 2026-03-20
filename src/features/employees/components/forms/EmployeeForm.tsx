@@ -21,7 +21,9 @@ import {
 import { useCreateEmployee, useUpdateEmployee } from '@/features/employees/api/mutations'
 import { useAllOrganizations } from '@/features/organizations/api/queries'
 
-import { employeeFormSchema, POSITION_LABELS, ROLE_LABELS, type EmployeeFormValues } from './schema'
+import { ROLE_LABELS } from '@/types/user'
+
+import { employeeFormSchema, POSITION_LABELS, type EmployeeFormValues } from './schema'
 
 import type { Employee } from '@/features/employees/types'
 

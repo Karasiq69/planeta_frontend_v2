@@ -71,7 +71,7 @@ const CommentsPopoverButton = ({ orderId }: Props) => {
         <React.Fragment key={comment.id}>
           {idx > 0 && <Separator />}
           <CommentItem
-            userId={Number(user?.userId)}
+            userId={user?.id ?? 0}
             isPending={isDeletingPending}
             onDelete={(id) => deleteComment(id)}
             comment={comment}

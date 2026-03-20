@@ -126,7 +126,7 @@ const MainCalendar = () => {
       allDay: selected.allDay,
       resource: selected.resource ? selected.resource.id : 'A',
       description: '',
-      createdBy: userData?.userId,
+      createdBy: userData?.id,
     })
 
     setDialogTitle('Новая запись')

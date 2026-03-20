@@ -47,4 +47,3 @@ export const POSITION_LABELS: Record<string, string> = {
   admin: 'Администратор',
 }
 
-export const ROLE_LABELS = POSITION_LABELS
