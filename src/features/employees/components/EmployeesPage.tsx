@@ -1,35 +1,18 @@
 'use client'
 
-import { Pencil, Plus, Trash2 } from 'lucide-react'
+import { Pencil, Plus, UserX } from 'lucide-react'
 import { useState } from 'react'
 
-import PageHeader from '@/components/common/PageHeader'
+import PageLayout from '@/components/common/PageLayout'
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Card } from '@/components/ui/card'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+  AppButton,
+  AppConfirmDialog,
+  AppDialog,
+  AppFilterBar,
+  AppStatusBadge,
+  type StatusConfig,
+} from '@/components/ds'
+import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import {
   Table,
@@ -39,68 +22,70 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
-import { useDeleteEmployee } from '@/features/employees/api/mutations'
+import { useUpdateEmployee } from '@/features/employees/api/mutations'
 import { useEmployees } from '@/features/employees/api/queries'
 import { POSITION_LABELS } from './forms/schema'
 import EmployeeForm from './forms/EmployeeForm'
 
 import type { Employee } from '@/features/employees/types'
 
+const EMPLOYEE_STATUS_MAP: Record<string, StatusConfig> = {
+  active: { label: 'Активен', colorVariant: 'success' },
+  fired: { label: 'Уволен', colorVariant: 'neutral' },
+}
+
 const EmployeesPage = () => {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
 
   const { data, isLoading } = useEmployees({ page, pageSize: 20, searchTerm: search || undefined })
-  const deleteMutation = useDeleteEmployee()
+  const updateMutation = useUpdateEmployee()
 
   const [createOpen, setCreateOpen] = useState(false)
   const [editEmployee, setEditEmployee] = useState<Employee | null>(null)
-  const [deleteEmployee, setDeleteEmployee] = useState<Employee | null>(null)
+  const [fireEmployee, setFireEmployee] = useState<Employee | null>(null)
 
   const employees = data?.data ?? []
   const meta = data?.meta
 
-  const handleDelete = () => {
-    if (!deleteEmployee) return
-    deleteMutation.mutate(deleteEmployee.id, {
-      onSuccess: () => setDeleteEmployee(null),
-    })
-  }
-
   const fullName = (e: Employee) =>
     [e.lastName, e.firstName, e.middleName].filter(Boolean).join(' ')
 
+  const handleFire = () => {
+    if (!fireEmployee) return
+    updateMutation.mutate(
+      { id: fireEmployee.id, data: { isActive: false, firedAt: new Date().toISOString() } },
+      { onSuccess: () => setFireEmployee(null) },
+    )
+  }
+
   return (
-    <div className='space-y-6'>
-      <PageHeader
+    <PageLayout>
+      <PageLayout.Header
         title='Сотрудники'
         showBackButton
-        elements={[
-          <Button key='add' size='sm' onClick={() => setCreateOpen(true)}>
-            <Plus className='mr-1.5 size-4' />
+        actions={
+          <AppButton size='sm' icon={Plus} onClick={() => setCreateOpen(true)}>
             Добавить сотрудника
-          </Button>,
-        ]}
+          </AppButton>
+        }
       />
-
-      <div className='flex gap-3'>
-        <Input
-          placeholder='Поиск по имени...'
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value)
-            setPage(1)
+      <PageLayout.Content>
+        <AppFilterBar
+          search={{
+            value: search,
+            onChange: (v) => {
+              setSearch(v)
+              setPage(1)
+            },
+            placeholder: 'Поиск по имени...',
           }}
-          className='max-w-xs'
         />
-      </div>
 
-      {isLoading ? (
-        <LoaderSectionAnimated className='rounded p-10' />
-      ) : employees.length > 0 ? (
-        <>
-          <Card>
+        {isLoading ? (
+          <LoaderSectionAnimated className='rounded p-10' />
+        ) : employees.length > 0 ? (
+          <>
             <Table>
               <TableHeader>
                 <TableRow>
@@ -108,6 +93,7 @@ const EmployeesPage = () => {
                   <TableHead>Должность</TableHead>
                   <TableHead>Организация</TableHead>
                   <TableHead>Телефон</TableHead>
+                  <TableHead>Аккаунт</TableHead>
                   <TableHead>Статус</TableHead>
                   <TableHead className='w-20' />
                 </TableRow>
@@ -121,113 +107,102 @@ const EmployeesPage = () => {
                       {emp.organization?.name ?? '—'}
                     </TableCell>
                     <TableCell className='text-muted-foreground'>{emp.phone || '—'}</TableCell>
+                    <TableCell className='text-muted-foreground'>
+                      {emp.user?.email ?? '—'}
+                    </TableCell>
                     <TableCell>
-                      {emp.isActive ? (
-                        <span className='text-green-600'>Активен</span>
-                      ) : (
-                        <span className='text-muted-foreground'>Уволен</span>
-                      )}
+                      <AppStatusBadge
+                        status={emp.isActive ? 'active' : 'fired'}
+                        statusMap={EMPLOYEE_STATUS_MAP}
+                      />
                     </TableCell>
                     <TableCell>
                       <div className='flex gap-1'>
-                        <Button
+                        <AppButton
                           variant='ghost'
                           size='icon'
                           className='size-8'
                           onClick={() => setEditEmployee(emp)}
                         >
                           <Pencil className='size-4' />
-                        </Button>
-                        <Button
+                        </AppButton>
+                        <AppButton
                           variant='ghost'
                           size='icon'
                           className='size-8 text-destructive hover:text-destructive'
-                          onClick={() => setDeleteEmployee(emp)}
+                          onClick={() => setFireEmployee(emp)}
+                          disabled={!emp.isActive}
                         >
-                          <Trash2 className='size-4' />
-                        </Button>
+                          <UserX className='size-4' />
+                        </AppButton>
                       </div>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
-          </Card>
 
-          {meta && meta.totalPages > 1 && (
-            <div className='flex items-center justify-center gap-2'>
-              <Button
-                variant='outline'
-                size='sm'
-                disabled={page <= 1}
-                onClick={() => setPage((p) => p - 1)}
-              >
-                Назад
-              </Button>
-              <span className='text-sm text-muted-foreground'>
-                {page} / {meta.totalPages}
-              </span>
-              <Button
-                variant='outline'
-                size='sm'
-                disabled={page >= meta.totalPages}
-                onClick={() => setPage((p) => p + 1)}
-              >
-                Вперёд
-              </Button>
-            </div>
-          )}
-        </>
-      ) : (
-        <Card>
+            {meta && meta.totalPages > 1 && (
+              <div className='flex items-center justify-center gap-2 py-4'>
+                <AppButton
+                  variant='outline'
+                  size='sm'
+                  disabled={page <= 1}
+                  onClick={() => setPage((p) => p - 1)}
+                >
+                  Назад
+                </AppButton>
+                <span className='text-sm text-muted-foreground'>
+                  {page} / {meta.totalPages}
+                </span>
+                <AppButton
+                  variant='outline'
+                  size='sm'
+                  disabled={page >= meta.totalPages}
+                  onClick={() => setPage((p) => p + 1)}
+                >
+                  Вперёд
+                </AppButton>
+              </div>
+            )}
+          </>
+        ) : (
           <AppEmptyState title='Нет сотрудников' />
-        </Card>
-      )}
+        )}
+      </PageLayout.Content>
 
-      {/* Диалог создания */}
-      <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-        <DialogContent className='max-w-lg'>
-          <DialogHeader>
-            <DialogTitle>Новый сотрудник</DialogTitle>
-          </DialogHeader>
-          <EmployeeForm onSuccess={() => setCreateOpen(false)} />
-        </DialogContent>
-      </Dialog>
+      <AppDialog
+        open={createOpen}
+        onOpenChange={setCreateOpen}
+        title='Новый сотрудник'
+      >
+        <EmployeeForm onSuccess={() => setCreateOpen(false)} />
+      </AppDialog>
 
-      {/* Диалог редактирования */}
-      <Dialog open={!!editEmployee} onOpenChange={(open) => !open && setEditEmployee(null)}>
-        <DialogContent className='max-w-lg'>
-          <DialogHeader>
-            <DialogTitle>Редактирование сотрудника</DialogTitle>
-          </DialogHeader>
-          {editEmployee && (
-            <EmployeeForm
-              employee={editEmployee}
-              onSuccess={() => setEditEmployee(null)}
-            />
-          )}
-        </DialogContent>
-      </Dialog>
+      <AppDialog
+        open={!!editEmployee}
+        onOpenChange={(open) => !open && setEditEmployee(null)}
+        title='Редактирование сотрудника'
+      >
+        {editEmployee && (
+          <EmployeeForm
+            employee={editEmployee}
+            onSuccess={() => setEditEmployee(null)}
+          />
+        )}
+      </AppDialog>
 
-      {/* Подтверждение удаления */}
-      <AlertDialog open={!!deleteEmployee} onOpenChange={(open) => !open && setDeleteEmployee(null)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Удалить сотрудника?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Сотрудник «{deleteEmployee && fullName(deleteEmployee)}» будет удалён. Это действие
-              нельзя отменить.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Отмена</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete} disabled={deleteMutation.isPending}>
-              {deleteMutation.isPending ? 'Удаление...' : 'Удалить'}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </div>
+      <AppConfirmDialog
+        open={!!fireEmployee}
+        onOpenChange={(open) => !open && setFireEmployee(null)}
+        title='Уволить сотрудника?'
+        description={`Сотрудник «${fireEmployee ? fullName(fireEmployee) : ''}» будет отмечен как уволенный.`}
+        onConfirm={handleFire}
+        confirmText='Уволить'
+        variant='danger'
+        loading={updateMutation.isPending}
+      />
+    </PageLayout>
   )
 }
 
