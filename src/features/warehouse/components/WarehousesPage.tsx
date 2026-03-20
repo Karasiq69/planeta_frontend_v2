@@ -1,11 +1,12 @@
 'use client'
 
 import { Pencil, Plus } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 
-import PageHeader from '@/components/common/PageHeader'
+import PageLayout from '@/components/common/PageLayout'
+import DataTable from '@/components/common/table/data-table'
 import { Badge } from '@/components/ui/badge'
-import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -14,20 +15,13 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
 import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import { useGetWarehouses } from '@/features/warehouse/api/queries'
 import WarehouseForm from '@/features/warehouse/components/forms/WarehouseForm'
 import { warehouseTypeConfig } from '@/features/warehouse/types/config'
 
 import type { Warehouse } from '@/features/warehouse/types'
+import type { ColumnDef } from '@tanstack/react-table'
 
 const WarehousesPage = () => {
   const [createOpen, setCreateOpen] = useState(false)
@@ -36,80 +30,98 @@ const WarehousesPage = () => {
 
   const warehouses = (data ?? []) as Warehouse[]
 
+  const columns = useMemo<ColumnDef<Warehouse>[]>(
+    () => [
+      {
+        accessorKey: 'name',
+        header: () => <div>Название</div>,
+        cell: ({ row }) => {
+          const typeConfig = warehouseTypeConfig[row.original.type]
+          const Icon = typeConfig?.icon
+          return (
+            <div className='flex items-center gap-2'>
+              {Icon && <Icon className='size-4 text-muted-foreground' />}
+              <span className='font-medium'>{row.original.name}</span>
+            </div>
+          )
+        },
+      },
+      {
+        accessorKey: 'type',
+        header: () => <div>Тип</div>,
+        cell: ({ row }) => {
+          const typeConfig = warehouseTypeConfig[row.original.type]
+          const Icon = typeConfig?.icon
+          return (
+            <Badge variant={(typeConfig?.variant as 'default') ?? 'default'} className='gap-1.5'>
+              {Icon && <Icon className='size-3' />}
+              {typeConfig?.label ?? row.original.type}
+            </Badge>
+          )
+        },
+      },
+      {
+        accessorKey: 'description',
+        header: () => <div>Описание</div>,
+        cell: ({ row }) => (
+          <span className='text-muted-foreground'>{row.original.description || '—'}</span>
+        ),
+      },
+      {
+        accessorKey: 'isActive',
+        header: () => <div>Статус</div>,
+        cell: ({ row }) => (
+          <Badge variant={row.original.isActive ? 'success' : 'secondary'}>
+            {row.original.isActive ? 'Активен' : 'Неактивен'}
+          </Badge>
+        ),
+      },
+      {
+        id: 'actions',
+        cell: ({ row }) => (
+          <Button
+            variant='ghost'
+            size='icon'
+            className='h-8 w-8'
+            onClick={() => setEditWarehouse(row.original)}
+          >
+            <Pencil className='size-4' />
+          </Button>
+        ),
+      },
+    ],
+    [],
+  )
+
+  const table = useReactTable({
+    data: warehouses,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  })
+
   return (
-    <div className='space-y-6'>
-      <PageHeader
+    <PageLayout>
+      <PageLayout.Header
         title='Склады'
         showBackButton
-        elements={[
-          <Button key='add' size='sm' onClick={() => setCreateOpen(true)}>
+        actions={
+          <Button size='sm' onClick={() => setCreateOpen(true)}>
             <Plus className='mr-1.5 size-4' />
             Добавить склад
-          </Button>,
-        ]}
+          </Button>
+        }
       />
-
-      {isLoading ? (
-        <LoaderSectionAnimated className='rounded p-10' />
-      ) : warehouses.length > 0 ? (
-        <Card>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Название</TableHead>
-                <TableHead>Тип</TableHead>
-                <TableHead>Описание</TableHead>
-                <TableHead>Статус</TableHead>
-                <TableHead className='w-[60px]' />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {warehouses.map((warehouse) => {
-                const typeConfig = warehouseTypeConfig[warehouse.type]
-                const Icon = typeConfig?.icon
-                return (
-                  <TableRow key={warehouse.id}>
-                    <TableCell>
-                      <div className='flex items-center gap-2'>
-                        {Icon && <Icon className='size-4 text-muted-foreground' />}
-                        <span className='font-medium'>{warehouse.name}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={typeConfig?.variant as 'default' ?? 'default'} className='gap-1.5'>
-                        {Icon && <Icon className='size-3' />}
-                        {typeConfig?.label ?? warehouse.type}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className='text-muted-foreground'>
-                      {warehouse.description || '—'}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={warehouse.isActive ? 'success' : 'secondary'}>
-                        {warehouse.isActive ? 'Активен' : 'Неактивен'}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        variant='ghost'
-                        size='icon'
-                        className='h-8 w-8'
-                        onClick={() => setEditWarehouse(warehouse)}
-                      >
-                        <Pencil className='size-4' />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
-        </Card>
-      ) : (
-        <Card>
+      <PageLayout.Content>
+        {isLoading ? (
+          <LoaderSectionAnimated className='rounded p-10' />
+        ) : warehouses.length > 0 ? (
+          <DataTable table={table} columns={columns}>
+            <DataTable.Table />
+          </DataTable>
+        ) : (
           <AppEmptyState title='Нет складов' />
-        </Card>
-      )}
+        )}
+      </PageLayout.Content>
 
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
         <DialogContent className='max-w-md'>
@@ -133,7 +145,7 @@ const WarehousesPage = () => {
           )}
         </DialogContent>
       </Dialog>
-    </div>
+    </PageLayout>
   )
 }
 

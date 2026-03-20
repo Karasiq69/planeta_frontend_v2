@@ -16,15 +16,11 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
     accessorKey: 'id',
     meta: '№ Заказа',
     header: () => <div>№ Заказа</div>,
-    size: 0,
     cell: ({ row }) => {
       const order = row.original
       return (
         <div>
           <p className='font-medium m-0'>{String(order.id).padStart(6, '0')}</p>
-          {order.legacyNumber && (
-            <span className='text-xs text-muted-foreground'>1С: {order.legacyNumber}</span>
-          )}
         </div>
       )
     },
@@ -33,7 +29,6 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
     accessorKey: 'status',
     meta: 'Статус',
     header: () => <div>Статус</div>,
-    size: 0,
     cell: ({ row }) => {
       const { icon: StatusIcon, color, label } = getStatusData(row.original.status)
 
@@ -71,7 +66,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
       const car = row.original?.car
       return (
         <div className="flex flex-row gap-2 items-center">
-          <Avatar className="size-8">
+          <Avatar className="size-8 shrink-0">
             <AvatarImage src={getBrandLogo(car?.brand)} />
             <AvatarFallback>{car?.brand?.name?.charAt(0) || 'B'}</AvatarFallback>
           </Avatar>
@@ -94,7 +89,6 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
     meta: 'Госномер',
     header: () => <div>Госномер</div>,
     cell: ({ row }) => <LicensePlate licensePlate={row.original?.car?.licensePlate} />,
-    size: 0,
   },
   {
     accessorKey: 'totalCost',
@@ -120,7 +114,6 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
     accessorKey: 'paymentStatus',
     meta: 'Оплата',
     header: () => <div>Оплата</div>,
-    size: 0,
     cell: ({ row }) => {
       const status = row.original.paymentStatus as PaymentStatus | null | undefined
       if (!status) return <span className='text-muted-foreground'>—</span>

@@ -6,8 +6,8 @@ type Props = {
 const LicensePlate = ({ licensePlate }: Props) => {
   if (!licensePlate) return '' // TODO change number to cyr??
   return (
-    <div className='flex items-center gap-8'>
-      <div className='flex items-center gap-2'>
+    <div className='flex items-center'>
+      <div className='flex items-center'>
         <div className='flex items-center bg-background border-2 border-foreground/70 rounded px-1'>
           <span>{licensePlate?.slice(0, 1)}</span>
           <span className='mx-1 font-mono'>{licensePlate?.slice(1, 4)}</span>
