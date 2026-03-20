@@ -19,7 +19,7 @@ interface AppFilterBarProps {
 
 function AppFilterBar({ search, filters, onReset, className }: AppFilterBarProps) {
   return (
-    <div className={`flex items-center gap-3 px-4 pt-4 shrink-0 ${className ?? ''}`}>
+    <div className={`flex items-center gap-3 shrink-0 ${className ?? ''}`}>
       {search && (
         <AppInput
           icon={Search}
