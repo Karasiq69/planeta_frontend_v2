@@ -14,13 +14,14 @@ import type { Employee } from '@/features/employees/types'
 interface EmployeesDataTableProps {
   onEdit: (employee: Employee) => void
   onFire: (employee: Employee) => void
+  onTransfer: (employee: Employee) => void
 }
 
-export default function EmployeesDataTable({ onEdit, onFire }: EmployeesDataTableProps) {
+export default function EmployeesDataTable({ onEdit, onFire, onTransfer }: EmployeesDataTableProps) {
   const [search, setSearch] = useState('')
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 20 })
 
-  const columns = useMemo(() => getEmployeeColumns(onEdit, onFire), [onEdit, onFire])
+  const columns = useMemo(() => getEmployeeColumns(onEdit, onFire, onTransfer), [onEdit, onFire, onTransfer])
 
   const { data, isLoading } = useEmployees({
     page: pagination.pageIndex + 1,

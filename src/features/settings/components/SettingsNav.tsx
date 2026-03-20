@@ -59,7 +59,9 @@ export default function SettingsNav() {
               {group.title}
             </h4>
             {group.subtitle && (
-              <p className='mt-0.5 truncate text-sm font-medium'>{group.subtitle}</p>
+              <p className='mt-1.5 truncate rounded-md bg-primary/10 px-2 py-1 text-sm font-semibold text-primary'>
+                {group.subtitle}
+              </p>
             )}
           </div>
           {group.items.map((item) =>

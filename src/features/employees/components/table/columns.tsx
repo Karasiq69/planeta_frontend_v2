@@ -1,6 +1,6 @@
 'use client'
 
-import { Pencil, UserX } from 'lucide-react'
+import { ArrowRightLeft, Pencil, UserX } from 'lucide-react'
 
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
 import { AppButton, AppStatusBadge } from '@/components/ds'
@@ -21,6 +21,7 @@ const fullName = (e: Employee) =>
 export const getEmployeeColumns = (
   onEdit: (employee: Employee) => void,
   onFire: (employee: Employee) => void,
+  onTransfer: (employee: Employee) => void,
 ): ColumnDef<Employee>[] => [
   {
     id: 'fullName',
@@ -90,6 +91,15 @@ export const getEmployeeColumns = (
             onClick={() => onEdit(emp)}
           >
             <Pencil className='size-4' />
+          </AppButton>
+          <AppButton
+            variant='ghost'
+            size='icon'
+            className='size-8'
+            onClick={() => onTransfer(emp)}
+            disabled={!emp.isActive}
+          >
+            <ArrowRightLeft className='size-4' />
           </AppButton>
           <AppButton
             variant='ghost'

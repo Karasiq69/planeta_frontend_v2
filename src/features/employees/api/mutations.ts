@@ -1,10 +1,29 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { createEmployeeFn, deleteEmployeeFn, updateEmployeeFn } from './actions'
+import { createEmployeeFn, deleteEmployeeFn, transferEmployeeFn, updateEmployeeFn } from './actions'
 import { employeesQueryKeys } from './query-keys'
 
 import type { CreateEmployee, UpdateEmployee } from '@/features/employees/types'
+
+export function useTransferEmployee() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, targetOrganizationId }: { id: number; targetOrganizationId: number }) =>
+      transferEmployeeFn(id, { targetOrganizationId }),
+    onSuccess: () => {
+      toast.success('Сотрудник успешно переведён')
+    },
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Ошибка при переводе сотрудника')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: employeesQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: employeesQueryKeys.details() })
+    },
+  })
+}
 
 export function useCreateEmployee() {
   const queryClient = useQueryClient()

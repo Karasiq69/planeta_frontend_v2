@@ -42,9 +42,10 @@ import type { Employee, UpdateEmployee } from '@/features/employees/types'
 interface EmployeeFormProps {
   employee?: Employee
   onSuccess?: () => void
+  onTransfer?: (employee: Employee) => void
 }
 
-const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
+const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) => {
   const isEditing = !!employee
   const createMutation = useCreateEmployee()
   const updateMutation = useUpdateEmployee()
@@ -311,6 +312,17 @@ const EmployeeForm = ({ employee, onSuccess }: EmployeeFormProps) => {
       <Button type='submit' disabled={isPending} className='w-full'>
         {isPending ? 'Сохранение...' : isEditing ? 'Сохранить' : 'Создать'}
       </Button>
+
+      {isEditing && employee.isActive && onTransfer && (
+        <Button
+          type='button'
+          variant='outline'
+          className='w-full'
+          onClick={() => onTransfer(employee)}
+        >
+          Перевести в другую организацию
+        </Button>
+      )}
 
       <AppDialog
         open={userDialogOpen}

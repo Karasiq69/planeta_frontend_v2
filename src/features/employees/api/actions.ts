@@ -35,6 +35,14 @@ export const deleteEmployeeFn = async (id: number): Promise<void> => {
   await apiClient.delete(`${EMPLOYEES_URL}/${id}`)
 }
 
+export const transferEmployeeFn = async (
+  id: number,
+  data: { targetOrganizationId: number },
+): Promise<Employee> => {
+  const res = await apiClient.post<Employee>(`${EMPLOYEES_URL}/${id}/transfer`, data)
+  return res.data
+}
+
 export const getMechanicEmployeesFn = async (): Promise<Employee[]> => {
   const res = await apiClient.get<Employee[]>(EMPLOYEES_MECHANICS_URL)
   return res.data
