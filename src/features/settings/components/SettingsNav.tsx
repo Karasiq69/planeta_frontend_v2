@@ -42,6 +42,7 @@ export default function SettingsNav() {
         { label: 'Услуги', href: '/settings/services' },
         { label: 'Шаблоны документов', href: '/settings/templates' },
         { label: 'Ставки НДС', href: '/settings/vat-rates' },
+        { label: 'Пользователи', href: '/settings/users' },
         { label: 'Статусы заказов', disabled: true },
         { label: 'Роли и права', disabled: true },
         { label: 'Интеграции', disabled: true },
