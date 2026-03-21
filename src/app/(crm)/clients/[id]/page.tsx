@@ -23,8 +23,6 @@ type Props = {
   }>
 }
 const Page = async (props: Props) => {
-  const params = await props.params
-  const client = await getClientById(+params.id)
   return (
     <>
       <section>
@@ -41,9 +39,7 @@ const Page = async (props: Props) => {
               <Card className='w-96'>
                 <CardHeader>
                   <CardTitle>Профиль</CardTitle>
-                  <CardDescription>
-                    Редактирование данных клиента
-                  </CardDescription>
+                  <CardDescription>Редактирование данных клиента</CardDescription>
                 </CardHeader>
                 <CardContent className='space-y-2 '>
                   <ClientFormContainer />
@@ -54,9 +50,7 @@ const Page = async (props: Props) => {
               <Card>
                 <CardHeader>
                   <CardTitle>Заказы</CardTitle>
-                  <CardDescription>
-                    Заказы клиента
-                  </CardDescription>
+                  <CardDescription>Заказы клиента</CardDescription>
                 </CardHeader>
                 <CardContent className='space-y-2'></CardContent>
                 <CardFooter>
@@ -68,9 +62,7 @@ const Page = async (props: Props) => {
               <Card className='w-96'>
                 <CardHeader>
                   <CardTitle>Автомобили</CardTitle>
-                  <CardDescription>
-                    Автомобили клиента
-                  </CardDescription>
+                  <CardDescription>Автомобили клиента</CardDescription>
                 </CardHeader>
                 <CardContent className='space-y-2 '>
                   <ClientFormContainer />
