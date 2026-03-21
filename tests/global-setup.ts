@@ -1,8 +1,10 @@
-import { chromium, type FullConfig } from '@playwright/test'
-import { API_URL, TEST_USER } from './e2e/fixtures/test-constants'
-import { RECORD_MODE, readGlobalMocks, writeGlobalMocks } from './e2e/fixtures/mock-config'
 import fs from 'fs'
 import path from 'path'
+
+import { chromium, type FullConfig } from '@playwright/test'
+
+import { readGlobalMocks, RECORD_MODE, writeGlobalMocks } from './e2e/fixtures/mock-config'
+import { API_URL, TEST_USER } from './e2e/fixtures/test-constants'
 
 async function globalSetup(config: FullConfig) {
   const frontendURL = config.projects[0].use.baseURL || 'http://localhost:3000'
@@ -11,10 +13,18 @@ async function globalSetup(config: FullConfig) {
     const mocks = readGlobalMocks()
     if (!mocks) throw new Error('No global mocks found. Run with RECORD_MODE=true first.')
 
+    // Frontend server is still needed to serve HTML/JS (only backend is offline)
+    console.log(`Waiting for frontend (${frontendURL})...`)
+    await waitForService(frontendURL, 30_000)
+    console.log('Frontend is ready')
+
     const authDir = path.join(__dirname, '.auth')
     if (!fs.existsSync(authDir)) fs.mkdirSync(authDir, { recursive: true })
 
-    fs.writeFileSync(path.join(authDir, 'seeded-data.json'), JSON.stringify(mocks.seededData, null, 2))
+    fs.writeFileSync(
+      path.join(authDir, 'seeded-data.json'),
+      JSON.stringify(mocks.seededData, null, 2)
+    )
     fs.writeFileSync(path.join(authDir, 'user.json'), JSON.stringify(mocks.storageState, null, 2))
 
     console.log('Global setup complete (replay mode)')
@@ -85,15 +95,30 @@ async function globalSetup(config: FullConfig) {
 
   const services = extractItems(servicesData, ['id', 'name', 'defaultDuration', 'unit'])
   const products = extractItems(productsData, ['id', 'name', 'price', 'sku', 'partNumber', 'unit'])
-  const employees = extractItems(employeesData, ['id', 'firstName', 'lastName', 'position', 'hourlyRate'])
-  const clients = extractItems(clientsData, ['id', 'firstName', 'lastName', 'phone', 'type', 'companyName'])
+  const employees = extractItems(employeesData, [
+    'id',
+    'firstName',
+    'lastName',
+    'position',
+    'hourlyRate',
+  ])
+  const clients = extractItems(clientsData, [
+    'id',
+    'firstName',
+    'lastName',
+    'phone',
+    'type',
+    'companyName',
+  ])
 
   const serviceIds = services.map((s: any) => s.id)
   const productIds = products.map((p: any) => p.id)
   const mechanicIds = employees.filter((e: any) => e.position === 'mechanic').map((e: any) => e.id)
   const clientIds = clients.map((c: any) => c.id)
 
-  console.log(`Services: ${services.length}, Products: ${products.length}, Employees: ${employees.length}, Clients: ${clients.length}`)
+  console.log(
+    `Services: ${services.length}, Products: ${products.length}, Employees: ${employees.length}, Clients: ${clients.length}`
+  )
 
   // 6. Save auth state via browser
   const browser = await chromium.launch()
@@ -156,14 +181,13 @@ async function fetchJson(url: string, headers: Record<string, string>): Promise<
 
 function extractItems(data: unknown, fields: string[]): Record<string, unknown>[] {
   if (!data) return []
-  const items =
-    Array.isArray(data)
-      ? data
-      : Array.isArray((data as any)?.data)
-        ? (data as any).data
-        : Array.isArray((data as any)?.data?.data)
-          ? (data as any).data.data
-          : []
+  const items = Array.isArray(data)
+    ? data
+    : Array.isArray((data as any)?.data)
+      ? (data as any).data
+      : Array.isArray((data as any)?.data?.data)
+        ? (data as any).data.data
+        : []
   return items.map((item: any) => {
     const result: Record<string, unknown> = {}
     for (const field of fields) {

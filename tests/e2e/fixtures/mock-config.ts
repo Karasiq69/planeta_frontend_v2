@@ -1,6 +1,7 @@
-import { type Page } from '@playwright/test'
 import fs from 'fs'
 import path from 'path'
+
+import { type Page } from '@playwright/test'
 
 /** Toggle: true = record from real backend, false = replay from .mocks.json */
 export const RECORD_MODE = false
@@ -62,8 +63,12 @@ export class MockManager {
             body: JSON.stringify(entry.body),
           })
         } else {
-          console.warn(`[MockManager] No mock for: ${key}`)
-          route.abort()
+          // Return empty response for background requests not captured during recording
+          route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({ data: [] }),
+          })
         }
       })
     }
