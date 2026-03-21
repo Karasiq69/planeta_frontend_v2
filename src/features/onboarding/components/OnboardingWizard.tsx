@@ -5,6 +5,11 @@ import Stepper from '@/components/common/Stepper'
 import { useOnboarding } from '../hooks/useOnboarding'
 import { ONBOARDING_STEPS } from '../types'
 import { StepNavigation } from './StepNavigation'
+import { OrganizationStep } from './steps/OrganizationStep'
+import { EmployeesStep } from './steps/EmployeesStep'
+import { ServicesStep } from './steps/ServicesStep'
+import { WarehouseStep } from './steps/WarehouseStep'
+import { ScheduleStep } from './steps/ScheduleStep'
 
 const STEP_ICONS = [Building2, Users, Wrench, Warehouse, Clock, PartyPopper]
 
@@ -28,10 +33,41 @@ export function OnboardingWizard() {
       </Stepper>
 
       <div className="mt-8">
-        {/* Step content rendered here — placeholder until steps built */}
-        <div className="rounded-lg border bg-card p-6 text-center text-muted-foreground">
-          Шаг {currentStep + 1}: {ONBOARDING_STEPS[currentStep].label}
-        </div>
+        {currentStep === 0 && (
+          <OrganizationStep
+            defaultValues={onboarding.data.organization}
+            onSubmit={(data) => { onboarding.setStepData(0, data); onboarding.nextStep() }}
+          />
+        )}
+        {currentStep === 1 && (
+          <EmployeesStep
+            defaultValues={onboarding.data.employees}
+            onSave={(data) => onboarding.setStepData(1, data)}
+          />
+        )}
+        {currentStep === 2 && (
+          <ServicesStep
+            defaultValues={onboarding.data.services}
+            onSave={(data) => onboarding.setStepData(2, data)}
+          />
+        )}
+        {currentStep === 3 && (
+          <WarehouseStep
+            defaultValues={onboarding.data.warehouse}
+            onSubmit={(data) => { onboarding.setStepData(3, data); onboarding.nextStep() }}
+          />
+        )}
+        {currentStep === 4 && (
+          <ScheduleStep
+            defaultValues={onboarding.data.schedule}
+            onSave={(data) => onboarding.setStepData(4, data)}
+          />
+        )}
+        {currentStep === 5 && (
+          <div className="rounded-lg border bg-card p-6 text-center text-muted-foreground">
+            Завершение настройки
+          </div>
+        )}
       </div>
 
       {currentStep < 5 && (
