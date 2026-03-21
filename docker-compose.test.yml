@@ -1,0 +1,49 @@
+services:
+  postgres-test:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: crm_test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d crm_test"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: ../crm_backend_express
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      PORT: 8001
+      NODE_ENV: development
+      DATABASE_URL: postgresql://test_user:test_password@postgres-test:5432/crm_test
+      JWT_TOKEN_SECRET: test-jwt-secret-for-e2e
+      JWT_REFRESH_TOKEN_SECRET: test-jwt-refresh-secret-for-e2e
+      JWT_ACCESS_EXPIRY: 24h
+      ALLOWED_ORIGINS: http://localhost:3001,http://frontend:3001
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8001/ || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    ports:
+      - "3001:3001"
+    environment:
+      BACKEND_URL: http://backend:8001
+    depends_on:
+      backend:
+        condition: service_healthy
