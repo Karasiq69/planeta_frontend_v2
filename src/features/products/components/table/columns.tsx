@@ -9,7 +9,7 @@ import { formatPrice } from '@/lib/utils'
 import type { Product } from '@/features/products/types'
 import type { ColumnDef } from '@tanstack/react-table'
 
-export const productsColumnsDefs: ColumnDef<Product>[] = [
+export const getProductsColumns = (vatLabel?: string): ColumnDef<Product>[] => [
   {
     accessorKey: 'name',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Название' />,
@@ -27,7 +27,9 @@ export const productsColumnsDefs: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'price',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Цена' />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title={vatLabel ? `Цена (${vatLabel})` : 'Цена'} />
+    ),
     cell: ({ row }) => <div className='font-medium'>{formatPrice(row.getValue('price'))}</div>,
   },
   {
