@@ -8,7 +8,11 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "test:e2e": "playwright test --config=tests/playwright.config.ts",
+    "test:e2e:ui": "playwright test --config=tests/playwright.config.ts --ui",
+    "test:e2e:debug": "playwright test --config=tests/playwright.config.ts --debug",
+    "test:e2e:codegen": "playwright codegen http://localhost:3001"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.15",
@@ -77,6 +81,7 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^20",
     "@types/react": "^18",
