@@ -4,13 +4,17 @@ import { isServer, QueryClient, QueryClientProvider } from '@tanstack/react-quer
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import React from 'react'
 
+import { ApiError } from '@/types/api-error'
+
 function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        // With SSR, we usually want to set some default staleTime
-        // above 0 to avoid refetching immediately on the client
         staleTime: 60 * 1000,
+        retry: (failureCount, error) => {
+          if (error instanceof ApiError && error.response.status === 404) return false
+          return failureCount < 3
+        },
       },
     },
   })

@@ -92,7 +92,7 @@ export function TeamSwitcher() {
                 key={org.id}
                 onClick={() => {
                   setOrganization(org)
-                  window.location.reload()
+                  window.location.href = '/'
                 }}
                 className='gap-2 p-2'
               >

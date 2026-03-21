@@ -9,6 +9,7 @@ import CommentsPopoverButton from '@/features/orders/comments/components/Comment
 import CarCard from '@/features/orders/components/car-card/CarCard'
 import ClientCard from '@/features/orders/components/client-card/ClientCard'
 import OrderAppointment from '@/features/orders/components/OrderAppointment'
+import OrderNotFound from '@/features/orders/components/OrderNotFound'
 import OrderPrintButton from '@/features/orders/components/OrderPrintButton'
 import OrdersTabsWrapper from '@/features/orders/components/OrdersTabsWrapper'
 import OrderSummary from '@/features/orders/components/OrderSummary'
@@ -19,7 +20,9 @@ type Props = {
   orderId: number
 }
 const OrderPageWrapper = ({ orderId }: Props) => {
-  const { data: order } = useOrderById(orderId)
+  const { data: order, isError } = useOrderById(orderId)
+
+  if (isError) return <OrderNotFound />
   const { titleText } = getStatusData(order?.status)
   return (
     <div className="space-y-4">
