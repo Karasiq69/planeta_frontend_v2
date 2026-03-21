@@ -59,17 +59,19 @@ async function globalSetup(config: FullConfig) {
     'Content-Type': 'application/json',
   }
 
-  // 4. Get organization ID
+  // 4. Get organization ID and hourly rate
   let organizationId: number | null = null
+  let organizationHourlyRate: number | null = null
   const orgRes = await fetch(`${API_URL}/api/organization`, { headers: authHeaders })
   if (orgRes.ok) {
     const orgData = await orgRes.json()
     const orgs = Array.isArray(orgData?.data) ? orgData.data : orgData?.data?.data
     if (orgs && orgs.length > 0) {
       organizationId = orgs[0].id
+      organizationHourlyRate = orgs[0].hourlyRate ?? null
     }
   }
-  console.log(`Organization ID: ${organizationId}`)
+  console.log(`Organization ID: ${organizationId}, Hourly Rate: ${organizationHourlyRate}`)
 
   const orgHeaders = { ...authHeaders, 'x-organization-id': String(organizationId) }
 
@@ -120,6 +122,7 @@ async function globalSetup(config: FullConfig) {
       {
         cookies,
         organizationId,
+        organizationHourlyRate,
         services,
         products,
         employees,
