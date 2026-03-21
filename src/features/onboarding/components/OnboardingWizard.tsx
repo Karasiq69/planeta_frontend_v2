@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { Building2, Users, Wrench, Warehouse, Clock, PartyPopper } from 'lucide-react'
 import Stepper from '@/components/common/Stepper'
 import { useOnboarding } from '../hooks/useOnboarding'
@@ -10,6 +11,7 @@ import { EmployeesStep } from './steps/EmployeesStep'
 import { ServicesStep } from './steps/ServicesStep'
 import { WarehouseStep } from './steps/WarehouseStep'
 import { ScheduleStep } from './steps/ScheduleStep'
+import { CompletionStep } from './steps/CompletionStep'
 
 const STEP_ICONS = [Building2, Users, Wrench, Warehouse, Clock, PartyPopper]
 
@@ -18,6 +20,12 @@ const stepHasForm = (step: number) => [0, 3].includes(step)
 export function OnboardingWizard() {
   const onboarding = useOnboarding()
   const { currentStep, completedSteps, skippedSteps } = onboarding
+
+  useEffect(() => {
+    if (currentStep === 5) {
+      onboarding.complete()
+    }
+  }, [currentStep])
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 pt-20">
@@ -64,9 +72,10 @@ export function OnboardingWizard() {
           />
         )}
         {currentStep === 5 && (
-          <div className="rounded-lg border bg-card p-6 text-center text-muted-foreground">
-            Завершение настройки
-          </div>
+          <CompletionStep
+            completedSteps={completedSteps}
+            skippedSteps={skippedSteps}
+          />
         )}
       </div>
 
