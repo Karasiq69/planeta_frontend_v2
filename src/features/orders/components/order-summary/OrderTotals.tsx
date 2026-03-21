@@ -68,6 +68,7 @@ const OrderTotals = ({ orderId }: Props) => {
   const { data: orderProducts, isLoading: isProductsLoading } = useOrderProductsByOrderId(orderId)
   const { data: payments, isLoading: isPaymentsLoading } = useOrderPayments(orderId)
   const { data: paymentSummary } = useOrderPaymentSummary(orderId)
+  const { calculateVat } = useVat(order?.organizationId)
 
   const [dialogOpen, setDialogOpen] = useState(false)
   const [cancelId, setCancelId] = useState<number | null>(null)
@@ -78,7 +79,6 @@ const OrderTotals = ({ orderId }: Props) => {
   }
 
   const summary = getOrderSummary(orderServices || [], orderProducts || [])
-  const { calculateVat } = useVat(order?.organizationId)
   const vat = calculateVat(summary.subtotal)
   const totalCost = order?.totalCost ?? 0
 
