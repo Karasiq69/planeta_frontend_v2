@@ -1,9 +1,10 @@
-export const API_URL = 'http://localhost:8001'
+const isDocker = process.env.TEST_ENV === 'docker'
+
+export const API_URL = isDocker ? 'http://localhost:8001' : 'http://localhost:8000'
 
 export const TEST_USER = {
-  email: 'e2e-test@planeta.test',
-  password: 'TestPassword123!',
-  username: 'e2e-tester',
+  email: 'hedgehogly@yandex.ru',
+  password: 'hedgehogly@yandex.ru',
 }
 
 export const TEST_CLIENTS = {

@@ -9,10 +9,38 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+
+    "------- E2E Environment -------": "",
+    "test:build": "docker compose -f docker-compose.test.yml build",
+    "test:start": "docker compose -f docker-compose.test.yml up -d",
+    "test:stop": "docker compose -f docker-compose.test.yml down",
+    "test:clean": "docker compose -f docker-compose.test.yml down -v",
+    "test:logs": "docker compose -f docker-compose.test.yml logs -f",
+    "test:logs:backend": "docker compose -f docker-compose.test.yml logs -f backend",
+
+    "------- E2E One-liner (build + test + cleanup) -------": "",
+    "test:e2e:full": "bash scripts/run-e2e.sh",
+    "test:e2e:full:headed": "bash scripts/run-e2e.sh --headed",
+    "test:e2e:full:create": "bash scripts/run-e2e.sh tests/e2e/orders/order-create.spec.ts",
+
+    "------- E2E Run (env must be running) -------": "",
     "test:e2e": "playwright test --config=tests/playwright.config.ts",
     "test:e2e:ui": "playwright test --config=tests/playwright.config.ts --ui",
     "test:e2e:debug": "playwright test --config=tests/playwright.config.ts --debug",
-    "test:e2e:codegen": "playwright codegen http://localhost:3001"
+    "test:e2e:headed": "playwright test --config=tests/playwright.config.ts --headed",
+    "test:e2e:codegen": "playwright codegen http://localhost:3001",
+    "test:e2e:report": "playwright show-report",
+
+    "------- E2E by feature -------": "",
+    "test:e2e:orders": "playwright test --config=tests/playwright.config.ts tests/e2e/orders/",
+    "test:e2e:create": "playwright test --config=tests/playwright.config.ts tests/e2e/orders/order-create.spec.ts",
+    "test:e2e:services": "playwright test --config=tests/playwright.config.ts tests/e2e/orders/order-services.spec.ts",
+    "test:e2e:products": "playwright test --config=tests/playwright.config.ts tests/e2e/orders/order-products.spec.ts",
+    "test:e2e:mechanics": "playwright test --config=tests/playwright.config.ts tests/e2e/orders/order-mechanics.spec.ts",
+    "test:e2e:totals": "playwright test --config=tests/playwright.config.ts tests/e2e/orders/order-totals.spec.ts",
+    "test:e2e:status": "playwright test --config=tests/playwright.config.ts tests/e2e/orders/order-status-flow.spec.ts",
+    "test:e2e:payment": "playwright test --config=tests/playwright.config.ts tests/e2e/orders/order-payment.spec.ts",
+    "test:e2e:warehouse": "playwright test --config=tests/playwright.config.ts tests/e2e/orders/order-warehouse.spec.ts"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.15",

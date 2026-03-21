@@ -1,0 +1,788 @@
+{
+  "seededData": {
+    "cookies": [
+      {
+        "name": "access",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAzIiwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiLQmtCw0YDQv9C-0LIg0JjQu9GM0Y8iLCJlbWFpbCI6ImhlZGdlaG9nbHlAeWFuZGV4LnJ1IiwiaWF0IjoxNzc0MTI1NTQxLCJleHAiOjE3NzQxMjY0NDF9.b-Za587JWtV1yZ9A8QzoYHejT_IOSbhQrHEb_5tEhRE",
+        "domain": "localhost",
+        "path": "/"
+      },
+      {
+        "name": "refresh",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAzIiwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiLQmtCw0YDQv9C-0LIg0JjQu9GM0Y8iLCJlbWFpbCI6ImhlZGdlaG9nbHlAeWFuZGV4LnJ1IiwiaWF0IjoxNzc0MTI1NTQxLCJleHAiOjE3NzY3MTc1NDF9.RhGsvHytzAc_GQMdFx4uYGz4_OlssCe38ARBFF3H0uI",
+        "domain": "localhost",
+        "path": "/"
+      }
+    ],
+    "organizationId": 1,
+    "organizationHourlyRate": 4900,
+    "services": [
+      {
+        "id": 2,
+        "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 3,
+        "name": "Плафон подсветки правого зеркала заменить",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 4,
+        "name": "Плафон подсветки левого зеркала заменить",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 5,
+        "name": "Проверка фазовращателей левой ГБЦ",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 6,
+        "name": "Двигатель с/п (АКПП снята)",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 7,
+        "name": "Обновление ПО заднего SAM",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 8,
+        "name": "Крышку системы вентиляции картера с\\п уплотнить",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 9,
+        "name": "Трубку низкого давления ГУР заменить",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 10,
+        "name": "Мойка радиаторов *",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 11,
+        "name": "Муфту карданного вала со стороны заднего редуктора, заменить",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 12,
+        "name": "Промежуточную опору кард вала заменить ( кард вал снят )",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 13,
+        "name": "Сход развальные тяги ( 2шт ) з\\моста заменить ( колеса сняты )",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 14,
+        "name": "Карданный вал с\\п заменить",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 15,
+        "name": "Муфты ( 2шт ) кард вала заменить ( Кард вал снят )",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 16,
+        "name": "Тяги ( 8 шт ) з\\моста заменить ( колеса сняты )",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 17,
+        "name": "Нижнюю поперечную тягу L з\\моста заменить( колесо снято )",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 18,
+        "name": "Нижнюю поперечную тягу R з\\моста заменить ( колесо снято )",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 19,
+        "name": "Нижние поперечные тяги ( 2 шт ) з\\моста заменить ( колеса сняты )",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 20,
+        "name": "Верхнюю поперечную тягу L з\\моста заменить ( колесо снято )",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      },
+      {
+        "id": 1,
+        "name": "Амортизатор передний правый  с/п заменить",
+        "defaultDuration": 60,
+        "unit": "н/ч"
+      }
+    ],
+    "products": [
+      {
+        "id": 1,
+        "name": "Золотник CH-9520C",
+        "price": "80.00",
+        "sku": "CH-9520C",
+        "partNumber": "CH-9520C",
+        "unit": "шт"
+      },
+      {
+        "id": 2,
+        "name": "Золотник CH-9800",
+        "price": "80.00",
+        "sku": "CH-9800",
+        "partNumber": "CH-9800",
+        "unit": "шт"
+      },
+      {
+        "id": 3,
+        "name": "Золотник CH-GMH",
+        "price": "100.00",
+        "sku": "CH-GMH",
+        "partNumber": "CH-GMH",
+        "unit": "шт"
+      },
+      {
+        "id": 4,
+        "name": "Золотник CH-H10",
+        "price": "100.00",
+        "sku": "CH-H10",
+        "partNumber": "CH-H10",
+        "unit": "шт"
+      },
+      {
+        "id": 5,
+        "name": "Золотник CH-L08",
+        "price": "100.00",
+        "sku": "CH-L08",
+        "partNumber": "CH-L08",
+        "unit": "шт"
+      },
+      {
+        "id": 6,
+        "name": "Золотник CH-V066",
+        "price": "100.00",
+        "sku": "CH-V066",
+        "partNumber": "CH-V066",
+        "unit": "шт"
+      },
+      {
+        "id": 7,
+        "name": "Шайба медная  d 6 mm",
+        "price": "50.00",
+        "sku": "2009",
+        "partNumber": "2009",
+        "unit": "шт"
+      },
+      {
+        "id": 8,
+        "name": "Шайба медная d 10 mm",
+        "price": "50.00",
+        "sku": "2011",
+        "partNumber": "2011",
+        "unit": "шт"
+      },
+      {
+        "id": 9,
+        "name": "Шайба медная d 12 mm`",
+        "price": "50.00",
+        "sku": "2012",
+        "partNumber": "2012",
+        "unit": "шт"
+      },
+      {
+        "id": 10,
+        "name": "Шайба медная d 13 mm",
+        "price": "50.00",
+        "sku": "2013",
+        "partNumber": "2013",
+        "unit": "шт"
+      },
+      {
+        "id": 11,
+        "name": "Шайба медная d 14 mm",
+        "price": "50.00",
+        "sku": "2014",
+        "partNumber": "2014",
+        "unit": "шт"
+      },
+      {
+        "id": 12,
+        "name": "Шайба медная d 15 mm",
+        "price": "50.00",
+        "sku": "2015",
+        "partNumber": "2015",
+        "unit": "шт"
+      },
+      {
+        "id": 13,
+        "name": "Шайба медная d 16 mm",
+        "price": "50.00",
+        "sku": "2016",
+        "partNumber": "2016",
+        "unit": "шт"
+      },
+      {
+        "id": 14,
+        "name": "Шайба медная d 18 mm",
+        "price": "50.00",
+        "sku": "2017",
+        "partNumber": "2017",
+        "unit": "шт"
+      },
+      {
+        "id": 15,
+        "name": "Шайба медная d 20 mm",
+        "price": "50.00",
+        "sku": "2018",
+        "partNumber": "2018",
+        "unit": "шт"
+      },
+      {
+        "id": 16,
+        "name": "Шайба медная d 8 mm",
+        "price": "50.00",
+        "sku": "2010",
+        "partNumber": "2010",
+        "unit": "шт"
+      },
+      {
+        "id": 17,
+        "name": "0001802609 Фильтр масл",
+        "price": "650.00",
+        "sku": "OE6402",
+        "partNumber": "OE6402",
+        "unit": "шт"
+      },
+      {
+        "id": 18,
+        "name": "0049903512 Болт поддона АКПП",
+        "price": "130.00",
+        "sku": "46389",
+        "partNumber": "46389",
+        "unit": "шт"
+      },
+      {
+        "id": 19,
+        "name": "Смазка крестовин кардана 400 ml",
+        "price": "550.00",
+        "sku": "7562",
+        "partNumber": "7562",
+        "unit": "шт"
+      },
+      {
+        "id": 20,
+        "name": "2115401717 Датчик колодок",
+        "price": "350.00",
+        "sku": "1397300500",
+        "partNumber": "1397300500",
+        "unit": "шт"
+      }
+    ],
+    "employees": [
+      {
+        "id": 3,
+        "firstName": "Татьяна",
+        "lastName": "Глинская",
+        "position": "admin",
+        "hourlyRate": null
+      },
+      {
+        "id": 4,
+        "firstName": "Илья",
+        "lastName": "Карпов",
+        "position": "admin",
+        "hourlyRate": null
+      },
+      {
+        "id": 8,
+        "firstName": "Михаил",
+        "lastName": "Серегин",
+        "position": "manager",
+        "hourlyRate": null
+      },
+      {
+        "id": 12,
+        "firstName": "Алексей",
+        "lastName": "Безалтынных",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 13,
+        "firstName": "Дмитрий",
+        "lastName": "Садонин",
+        "position": "warehouse_worker",
+        "hourlyRate": null
+      },
+      {
+        "id": 14,
+        "firstName": "Павел",
+        "lastName": "Скрипник",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 15,
+        "firstName": "Алексей",
+        "lastName": "Точилин",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 16,
+        "firstName": "Антон",
+        "lastName": "Иноземцев",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 17,
+        "firstName": "Алексей",
+        "lastName": "Леонов",
+        "position": "manager",
+        "hourlyRate": null
+      },
+      {
+        "id": 18,
+        "firstName": "Дмитрий",
+        "lastName": "Анчуткин",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 19,
+        "firstName": "Левон",
+        "lastName": "Бадоян",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 20,
+        "firstName": "Олег",
+        "lastName": "Захаров",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 21,
+        "firstName": "Андрей",
+        "lastName": "Гурин",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 22,
+        "firstName": "Олег",
+        "lastName": "Шиян",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 23,
+        "firstName": "Артем",
+        "lastName": "Маринин",
+        "position": "manager",
+        "hourlyRate": null
+      },
+      {
+        "id": 24,
+        "firstName": "Никита",
+        "lastName": "Юдин",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 25,
+        "firstName": "Александр",
+        "lastName": "Жилинский",
+        "position": "warehouse_worker",
+        "hourlyRate": null
+      },
+      {
+        "id": 26,
+        "firstName": "Петр",
+        "lastName": "Дубов",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 27,
+        "firstName": "Андрей",
+        "lastName": "Соломатов",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 28,
+        "firstName": "Максим",
+        "lastName": "Андрушевский",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 29,
+        "firstName": "Артур",
+        "lastName": "Артыков",
+        "position": "mechanic",
+        "hourlyRate": null
+      },
+      {
+        "id": 1,
+        "firstName": "Евгений",
+        "lastName": "Седельников",
+        "position": "mechanic",
+        "hourlyRate": 5500
+      },
+      {
+        "id": 2,
+        "firstName": "Андрей",
+        "lastName": "Верглинский",
+        "position": "mechanic",
+        "hourlyRate": 4900
+      },
+      {
+        "id": 5,
+        "firstName": "Андрей",
+        "lastName": "Соловьев",
+        "position": "mechanic",
+        "hourlyRate": 4000
+      },
+      {
+        "id": 6,
+        "firstName": "Николай",
+        "lastName": "Краюшкин",
+        "position": "mechanic",
+        "hourlyRate": 5200
+      },
+      {
+        "id": 7,
+        "firstName": "Сергей",
+        "lastName": "Лобанов",
+        "position": "mechanic",
+        "hourlyRate": 5000
+      },
+      {
+        "id": 9,
+        "firstName": "Владимир",
+        "lastName": "Мусаев",
+        "position": "mechanic",
+        "hourlyRate": 4800
+      },
+      {
+        "id": 10,
+        "firstName": "Дмитрий",
+        "lastName": "Крылов",
+        "position": "mechanic",
+        "hourlyRate": 4500
+      },
+      {
+        "id": 11,
+        "firstName": "Алексей",
+        "lastName": "Петраков",
+        "position": "mechanic",
+        "hourlyRate": 5300
+      }
+    ],
+    "clients": [
+      {
+        "id": 2,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": null,
+        "type": "legal_entity",
+        "companyName": "ООО \" СТАРТ ИНВЕСТ\""
+      },
+      {
+        "id": 3,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": "+79296406252",
+        "type": "legal_entity",
+        "companyName": "ЗАО \" ЮНИДЕНТ\""
+      },
+      {
+        "id": 4,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": null,
+        "type": "legal_entity",
+        "companyName": "Общество с ограниченной ответственностью «АМЕТ»"
+      },
+      {
+        "id": 5,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": null,
+        "type": "legal_entity",
+        "companyName": "ООО «Биотекфарм-М»"
+      },
+      {
+        "id": 6,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": null,
+        "type": "legal_entity",
+        "companyName": "ООО «Норвеста»"
+      },
+      {
+        "id": 7,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": null,
+        "type": "legal_entity",
+        "companyName": "ООО «РЕТЕЛ»"
+      },
+      {
+        "id": 8,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": "+79037991392",
+        "type": "legal_entity",
+        "companyName": "ООО «СМА Лтд»"
+      },
+      {
+        "id": 9,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": null,
+        "type": "legal_entity",
+        "companyName": "ООО «СТРОНГТЕХНИК »"
+      },
+      {
+        "id": 10,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": "+79060321764",
+        "type": "legal_entity",
+        "companyName": "ООО «ТЕХНОТОН-МСК»"
+      },
+      {
+        "id": 11,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": null,
+        "type": "legal_entity",
+        "companyName": "ООО «Туроператор Легенда»"
+      },
+      {
+        "id": 12,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": null,
+        "type": "legal_entity",
+        "companyName": "ООО «Фавордрайв»"
+      },
+      {
+        "id": 13,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": null,
+        "type": "legal_entity",
+        "companyName": "ООО «Хостел  Полет»"
+      },
+      {
+        "id": 14,
+        "firstName": "904",
+        "lastName": "+7",
+        "phone": null,
+        "type": "individual",
+        "companyName": null
+      },
+      {
+        "id": 15,
+        "firstName": "915",
+        "lastName": "+7",
+        "phone": null,
+        "type": "individual",
+        "companyName": null
+      },
+      {
+        "id": 16,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": null,
+        "type": "legal_entity",
+        "companyName": "+7 916 591-68-87 Евгений"
+      },
+      {
+        "id": 17,
+        "firstName": "925",
+        "lastName": "+7",
+        "phone": null,
+        "type": "individual",
+        "companyName": null
+      },
+      {
+        "id": 18,
+        "firstName": "965",
+        "lastName": "+7",
+        "phone": null,
+        "type": "individual",
+        "companyName": null
+      },
+      {
+        "id": 19,
+        "firstName": "977",
+        "lastName": "+7",
+        "phone": null,
+        "type": "individual",
+        "companyName": null
+      },
+      {
+        "id": 20,
+        "firstName": "985",
+        "lastName": "+7",
+        "phone": null,
+        "type": "individual",
+        "companyName": null
+      },
+      {
+        "id": 1,
+        "firstName": "Не указано",
+        "lastName": null,
+        "phone": "+79859970737",
+        "type": "legal_entity",
+        "companyName": "Общество с ограниченной ответственностью \" Билора \""
+      }
+    ],
+    "serviceIds": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      1
+    ],
+    "productIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "mechanicIds": [
+      12,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      21,
+      22,
+      24,
+      26,
+      27,
+      28,
+      29,
+      1,
+      2,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11
+    ],
+    "clientIds": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      1
+    ],
+    "warehouseId": null,
+    "cashRegisterId": null
+  },
+  "storageState": {
+    "cookies": [
+      {
+        "name": "access",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAzIiwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiLQmtCw0YDQv9C-0LIg0JjQu9GM0Y8iLCJlbWFpbCI6ImhlZGdlaG9nbHlAeWFuZGV4LnJ1IiwiaWF0IjoxNzc0MTI1NTQxLCJleHAiOjE3NzQxMjY0NDF9.b-Za587JWtV1yZ9A8QzoYHejT_IOSbhQrHEb_5tEhRE",
+        "domain": "localhost",
+        "path": "/",
+        "expires": -1,
+        "httpOnly": false,
+        "secure": false,
+        "sameSite": "Lax"
+      },
+      {
+        "name": "refresh",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAzIiwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiLQmtCw0YDQv9C-0LIg0JjQu9GM0Y8iLCJlbWFpbCI6ImhlZGdlaG9nbHlAeWFuZGV4LnJ1IiwiaWF0IjoxNzc0MTI1NTQxLCJleHAiOjE3NzY3MTc1NDF9.RhGsvHytzAc_GQMdFx4uYGz4_OlssCe38ARBFF3H0uI",
+        "domain": "localhost",
+        "path": "/",
+        "expires": -1,
+        "httpOnly": false,
+        "secure": false,
+        "sameSite": "Lax"
+      }
+    ],
+    "origins": []
+  }
+}

@@ -4,7 +4,7 @@ import path from 'path'
 import { type Page } from '@playwright/test'
 
 /** Toggle: true = record from real backend, false = replay from .mocks.json */
-export const RECORD_MODE = false
+export const RECORD_MODE = true
 
 const MOCKS_DIR = path.join(__dirname, 'mocks')
 

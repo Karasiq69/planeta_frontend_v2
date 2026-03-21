@@ -1,0 +1,4524 @@
+{
+  "POST /api/orders": {
+    "status": 201,
+    "body": {
+      "id": 19622,
+      "organizationId": 1,
+      "clientId": null,
+      "carId": null,
+      "status": "APPLICATION",
+      "totalCost": null,
+      "reasonToApply": null,
+      "recommendation": null,
+      "receivedDate": null,
+      "repairType": null,
+      "dispatcherId": null,
+      "masterId": null,
+      "guaranteeText": null,
+      "equipmentNotes": null,
+      "preliminaryCost": null,
+      "estimatedCompletionDate": null,
+      "payerId": null,
+      "legacyNumber": null,
+      "completedAt": null,
+      "paymentStatus": "UNPAID",
+      "serviceCost": null,
+      "partsCost": null,
+      "workshopId": null,
+      "contract": null,
+      "createdById": 1003,
+      "createdAt": "2026-03-21T20:39:12.877Z",
+      "updatedAt": "2026-03-21T20:39:12.877Z"
+    }
+  },
+  "GET /api/auth/me/": [
+    {
+      "status": 308,
+      "body": null
+    },
+    {
+      "status": 308,
+      "body": null
+    },
+    {
+      "status": 308,
+      "body": null
+    }
+  ],
+  "GET /api/orders/19622": [
+    {
+      "status": 500,
+      "body": {
+        "message": "Ошибка при получении заказа"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "id": 19622,
+        "organizationId": 1,
+        "clientId": null,
+        "carId": null,
+        "status": "APPLICATION",
+        "totalCost": null,
+        "reasonToApply": null,
+        "recommendation": null,
+        "receivedDate": null,
+        "repairType": null,
+        "dispatcherId": null,
+        "masterId": null,
+        "guaranteeText": null,
+        "equipmentNotes": null,
+        "preliminaryCost": null,
+        "estimatedCompletionDate": null,
+        "payerId": null,
+        "legacyNumber": null,
+        "completedAt": null,
+        "paymentStatus": "UNPAID",
+        "serviceCost": null,
+        "partsCost": null,
+        "workshopId": null,
+        "contract": null,
+        "createdById": 1003,
+        "createdAt": "2026-03-21T20:39:12.877Z",
+        "updatedAt": "2026-03-21T20:39:12.877Z",
+        "creator": {
+          "id": 1003,
+          "username": "Карпов Илья",
+          "role": "admin",
+          "email": "hedgehogly@yandex.ru",
+          "isActive": true
+        },
+        "client": null,
+        "car": null,
+        "products": []
+      }
+    },
+    {
+      "status": 500,
+      "body": {
+        "message": "Ошибка при получении заказа"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "id": 19622,
+        "organizationId": 1,
+        "clientId": null,
+        "carId": null,
+        "status": "APPLICATION",
+        "totalCost": 4900,
+        "reasonToApply": null,
+        "recommendation": null,
+        "receivedDate": null,
+        "repairType": null,
+        "dispatcherId": null,
+        "masterId": null,
+        "guaranteeText": null,
+        "equipmentNotes": null,
+        "preliminaryCost": null,
+        "estimatedCompletionDate": null,
+        "payerId": null,
+        "legacyNumber": null,
+        "completedAt": null,
+        "paymentStatus": "UNPAID",
+        "serviceCost": null,
+        "partsCost": null,
+        "workshopId": null,
+        "contract": null,
+        "createdById": 1003,
+        "createdAt": "2026-03-21T20:39:12.877Z",
+        "updatedAt": "2026-03-21T20:39:15.591Z",
+        "creator": {
+          "id": 1003,
+          "username": "Карпов Илья",
+          "role": "admin",
+          "email": "hedgehogly@yandex.ru",
+          "isActive": true
+        },
+        "client": null,
+        "car": null,
+        "products": []
+      }
+    },
+    {
+      "status": 500,
+      "body": {
+        "message": "Ошибка при получении заказа"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "id": 19622,
+        "organizationId": 1,
+        "clientId": null,
+        "carId": null,
+        "status": "APPLICATION",
+        "totalCost": 9800,
+        "reasonToApply": null,
+        "recommendation": null,
+        "receivedDate": null,
+        "repairType": null,
+        "dispatcherId": null,
+        "masterId": null,
+        "guaranteeText": null,
+        "equipmentNotes": null,
+        "preliminaryCost": null,
+        "estimatedCompletionDate": null,
+        "payerId": null,
+        "legacyNumber": null,
+        "completedAt": null,
+        "paymentStatus": "UNPAID",
+        "serviceCost": null,
+        "partsCost": null,
+        "workshopId": null,
+        "contract": null,
+        "createdById": 1003,
+        "createdAt": "2026-03-21T20:39:12.877Z",
+        "updatedAt": "2026-03-21T20:39:18.634Z",
+        "creator": {
+          "id": 1003,
+          "username": "Карпов Илья",
+          "role": "admin",
+          "email": "hedgehogly@yandex.ru",
+          "isActive": true
+        },
+        "client": null,
+        "car": null,
+        "products": []
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "id": 19622,
+        "organizationId": 1,
+        "clientId": null,
+        "carId": null,
+        "status": "APPLICATION",
+        "totalCost": 4900,
+        "reasonToApply": null,
+        "recommendation": null,
+        "receivedDate": null,
+        "repairType": null,
+        "dispatcherId": null,
+        "masterId": null,
+        "guaranteeText": null,
+        "equipmentNotes": null,
+        "preliminaryCost": null,
+        "estimatedCompletionDate": null,
+        "payerId": null,
+        "legacyNumber": null,
+        "completedAt": null,
+        "paymentStatus": "UNPAID",
+        "serviceCost": null,
+        "partsCost": null,
+        "workshopId": null,
+        "contract": null,
+        "createdById": 1003,
+        "createdAt": "2026-03-21T20:39:12.877Z",
+        "updatedAt": "2026-03-21T20:39:21.549Z",
+        "creator": {
+          "id": 1003,
+          "username": "Карпов Илья",
+          "role": "admin",
+          "email": "hedgehogly@yandex.ru",
+          "isActive": true
+        },
+        "client": null,
+        "car": null,
+        "products": []
+      }
+    }
+  ],
+  "GET /api/orders/19622/services": [
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:29.631Z",
+        "path": "/api/orders/19622/services"
+      }
+    },
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 200,
+      "body": [
+        {
+          "id": 13,
+          "orderId": 19622,
+          "serviceId": 2,
+          "defaultDuration": 60,
+          "appliedRate": 4900,
+          "appliedPrice": 4900,
+          "discountPercent": 0,
+          "startTime": null,
+          "endTime": null,
+          "service": {
+            "id": 2,
+            "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          "employees": []
+        }
+      ]
+    },
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:32.729Z",
+        "path": "/api/orders/19622/services"
+      }
+    },
+    {
+      "status": 200,
+      "body": [
+        {
+          "id": 13,
+          "orderId": 19622,
+          "serviceId": 2,
+          "defaultDuration": 60,
+          "appliedRate": 4900,
+          "appliedPrice": 4900,
+          "discountPercent": 0,
+          "startTime": null,
+          "endTime": null,
+          "service": {
+            "id": 2,
+            "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          "employees": []
+        }
+      ]
+    },
+    {
+      "status": 200,
+      "body": [
+        {
+          "id": 13,
+          "orderId": 19622,
+          "serviceId": 2,
+          "defaultDuration": 60,
+          "appliedRate": 4900,
+          "appliedPrice": 4900,
+          "discountPercent": 0,
+          "startTime": null,
+          "endTime": null,
+          "service": {
+            "id": 2,
+            "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          "employees": []
+        },
+        {
+          "id": 14,
+          "orderId": 19622,
+          "serviceId": 3,
+          "defaultDuration": 60,
+          "appliedRate": 4900,
+          "appliedPrice": 4900,
+          "discountPercent": 0,
+          "startTime": null,
+          "endTime": null,
+          "service": {
+            "id": 3,
+            "name": "Плафон подсветки правого зеркала заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          "employees": []
+        }
+      ]
+    },
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:35.795Z",
+        "path": "/api/orders/19622/services"
+      }
+    },
+    {
+      "status": 200,
+      "body": [
+        {
+          "id": 13,
+          "orderId": 19622,
+          "serviceId": 2,
+          "defaultDuration": 60,
+          "appliedRate": 4900,
+          "appliedPrice": 4900,
+          "discountPercent": 0,
+          "startTime": null,
+          "endTime": null,
+          "service": {
+            "id": 2,
+            "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          "employees": []
+        },
+        {
+          "id": 14,
+          "orderId": 19622,
+          "serviceId": 3,
+          "defaultDuration": 60,
+          "appliedRate": 4900,
+          "appliedPrice": 4900,
+          "discountPercent": 0,
+          "startTime": null,
+          "endTime": null,
+          "service": {
+            "id": 3,
+            "name": "Плафон подсветки правого зеркала заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          "employees": []
+        }
+      ]
+    },
+    {
+      "status": 200,
+      "body": [
+        {
+          "id": 13,
+          "orderId": 19622,
+          "serviceId": 2,
+          "defaultDuration": 60,
+          "appliedRate": 4900,
+          "appliedPrice": 4900,
+          "discountPercent": 0,
+          "startTime": null,
+          "endTime": null,
+          "service": {
+            "id": 2,
+            "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          "employees": []
+        }
+      ]
+    },
+    {
+      "status": 200,
+      "body": [
+        {
+          "id": 13,
+          "orderId": 19622,
+          "serviceId": 2,
+          "defaultDuration": 60,
+          "appliedRate": 4900,
+          "appliedPrice": 4900,
+          "discountPercent": 0,
+          "startTime": null,
+          "endTime": null,
+          "service": {
+            "id": 2,
+            "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          "employees": []
+        }
+      ]
+    }
+  ],
+  "GET /api/order-products/order/19622": [
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:29.634Z",
+        "path": "/api/order-products/order/19622"
+      }
+    },
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:32.734Z",
+        "path": "/api/order-products/order/19622"
+      }
+    },
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:35.798Z",
+        "path": "/api/order-products/order/19622"
+      }
+    },
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 200,
+      "body": []
+    }
+  ],
+  "GET /api/documents?orderId=19622": [
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:29.635Z",
+        "path": "/api/documents?orderId=19622"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": [],
+        "meta": {
+          "total": 0,
+          "page": 1,
+          "pageSize": 20,
+          "totalPages": 0
+        }
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:32.733Z",
+        "path": "/api/documents?orderId=19622"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": [],
+        "meta": {
+          "total": 0,
+          "page": 1,
+          "pageSize": 20,
+          "totalPages": 0
+        }
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:35.798Z",
+        "path": "/api/documents?orderId=19622"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": [],
+        "meta": {
+          "total": 0,
+          "page": 1,
+          "pageSize": 20,
+          "totalPages": 0
+        }
+      }
+    }
+  ],
+  "GET /api/auth/me": [
+    {
+      "status": 200,
+      "body": {
+        "userId": "1003",
+        "role": "admin",
+        "username": "Карпов Илья",
+        "email": "hedgehogly@yandex.ru",
+        "iat": 1774125541,
+        "exp": 1774126441
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "userId": "1003",
+        "role": "admin",
+        "username": "Карпов Илья",
+        "email": "hedgehogly@yandex.ru",
+        "iat": 1774125541,
+        "exp": 1774126441
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "userId": "1003",
+        "role": "admin",
+        "username": "Карпов Илья",
+        "email": "hedgehogly@yandex.ru",
+        "iat": 1774125541,
+        "exp": 1774126441
+      }
+    }
+  ],
+  "GET /api/organization": [
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 1,
+            "name": "ООО Планета Мерседес",
+            "inn": "7715825469",
+            "kpp": "771501001",
+            "ogrn": "1097746782901",
+            "legalAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+            "actualAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+            "phone": "+7 (495) 123-45-67",
+            "email": "info@planetamercedes.ru",
+            "bankName": "ПАО Сбербанк",
+            "bankBik": "044525225",
+            "bankAccount": "40702810638000123456",
+            "corrAccount": null,
+            "logo": "/logos/planet-mercedes.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          },
+          {
+            "id": 2,
+            "name": "ИП Маринин",
+            "inn": "773146825791",
+            "kpp": null,
+            "ogrn": "316774600358719",
+            "legalAddress": "г. Москва, ул. Большая Очаковская, д. 17, кв. 82",
+            "actualAddress": "г. Москва, ул. Автозаводская, д. 23, павильон 12",
+            "phone": "+7 (903) 789-56-34",
+            "email": "marinin.auto@gmail.com",
+            "bankName": "АО \"Альфа-Банк\"",
+            "bankBik": "044525593",
+            "bankAccount": "40802810702200001234",
+            "corrAccount": null,
+            "logo": "/logos/marinin-auto.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          },
+          {
+            "id": 3,
+            "name": "ИП Молдован",
+            "inn": "500118732588",
+            "kpp": null,
+            "ogrn": "318502900076142",
+            "legalAddress": "Московская область, г. Мытищи, ул. Карла Маркса, д. 4, кв. 15",
+            "actualAddress": "Московская область, г. Мытищи, Олимпийский проспект, д. 29",
+            "phone": "+7 (916) 456-78-90",
+            "email": "moldovan.parts@yandex.ru",
+            "bankName": "ПАО \"ВТБ\"",
+            "bankBik": "044525187",
+            "bankAccount": "40802810400000987654",
+            "corrAccount": null,
+            "logo": "/logos/moldovan-auto.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          }
+        ],
+        "meta": {
+          "total": 3,
+          "page": 1,
+          "pageSize": 50,
+          "totalPages": 1
+        }
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 1,
+            "name": "ООО Планета Мерседес",
+            "inn": "7715825469",
+            "kpp": "771501001",
+            "ogrn": "1097746782901",
+            "legalAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+            "actualAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+            "phone": "+7 (495) 123-45-67",
+            "email": "info@planetamercedes.ru",
+            "bankName": "ПАО Сбербанк",
+            "bankBik": "044525225",
+            "bankAccount": "40702810638000123456",
+            "corrAccount": null,
+            "logo": "/logos/planet-mercedes.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          },
+          {
+            "id": 2,
+            "name": "ИП Маринин",
+            "inn": "773146825791",
+            "kpp": null,
+            "ogrn": "316774600358719",
+            "legalAddress": "г. Москва, ул. Большая Очаковская, д. 17, кв. 82",
+            "actualAddress": "г. Москва, ул. Автозаводская, д. 23, павильон 12",
+            "phone": "+7 (903) 789-56-34",
+            "email": "marinin.auto@gmail.com",
+            "bankName": "АО \"Альфа-Банк\"",
+            "bankBik": "044525593",
+            "bankAccount": "40802810702200001234",
+            "corrAccount": null,
+            "logo": "/logos/marinin-auto.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          },
+          {
+            "id": 3,
+            "name": "ИП Молдован",
+            "inn": "500118732588",
+            "kpp": null,
+            "ogrn": "318502900076142",
+            "legalAddress": "Московская область, г. Мытищи, ул. Карла Маркса, д. 4, кв. 15",
+            "actualAddress": "Московская область, г. Мытищи, Олимпийский проспект, д. 29",
+            "phone": "+7 (916) 456-78-90",
+            "email": "moldovan.parts@yandex.ru",
+            "bankName": "ПАО \"ВТБ\"",
+            "bankBik": "044525187",
+            "bankAccount": "40802810400000987654",
+            "corrAccount": null,
+            "logo": "/logos/moldovan-auto.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          }
+        ],
+        "meta": {
+          "total": 3,
+          "page": 1,
+          "pageSize": 50,
+          "totalPages": 1
+        }
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 1,
+            "name": "ООО Планета Мерседес",
+            "inn": "7715825469",
+            "kpp": "771501001",
+            "ogrn": "1097746782901",
+            "legalAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+            "actualAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+            "phone": "+7 (495) 123-45-67",
+            "email": "info@planetamercedes.ru",
+            "bankName": "ПАО Сбербанк",
+            "bankBik": "044525225",
+            "bankAccount": "40702810638000123456",
+            "corrAccount": null,
+            "logo": "/logos/planet-mercedes.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          },
+          {
+            "id": 2,
+            "name": "ИП Маринин",
+            "inn": "773146825791",
+            "kpp": null,
+            "ogrn": "316774600358719",
+            "legalAddress": "г. Москва, ул. Большая Очаковская, д. 17, кв. 82",
+            "actualAddress": "г. Москва, ул. Автозаводская, д. 23, павильон 12",
+            "phone": "+7 (903) 789-56-34",
+            "email": "marinin.auto@gmail.com",
+            "bankName": "АО \"Альфа-Банк\"",
+            "bankBik": "044525593",
+            "bankAccount": "40802810702200001234",
+            "corrAccount": null,
+            "logo": "/logos/marinin-auto.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          },
+          {
+            "id": 3,
+            "name": "ИП Молдован",
+            "inn": "500118732588",
+            "kpp": null,
+            "ogrn": "318502900076142",
+            "legalAddress": "Московская область, г. Мытищи, ул. Карла Маркса, д. 4, кв. 15",
+            "actualAddress": "Московская область, г. Мытищи, Олимпийский проспект, д. 29",
+            "phone": "+7 (916) 456-78-90",
+            "email": "moldovan.parts@yandex.ru",
+            "bankName": "ПАО \"ВТБ\"",
+            "bankBik": "044525187",
+            "bankAccount": "40802810400000987654",
+            "corrAccount": null,
+            "logo": "/logos/moldovan-auto.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          }
+        ],
+        "meta": {
+          "total": 3,
+          "page": 1,
+          "pageSize": 50,
+          "totalPages": 1
+        }
+      }
+    }
+  ],
+  "GET /api/appointments/order/19622": [
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 200,
+      "body": []
+    }
+  ],
+  "GET /api/templates": [
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 200,
+      "body": []
+    }
+  ],
+  "GET /api/orders/comments/order/19622": [
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 200,
+      "body": []
+    }
+  ],
+  "GET /api/vat-rates?active=true": [
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 1,
+            "name": "НДС 22%",
+            "rate": "22.00",
+            "isDefault": true,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 2,
+            "name": "НДС 10%",
+            "rate": "10.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 3,
+            "name": "НДС 0%",
+            "rate": "0.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 4,
+            "name": "НДС 5% (УСН)",
+            "rate": "5.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 5,
+            "name": "НДС 7% (УСН)",
+            "rate": "7.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 1,
+            "name": "НДС 22%",
+            "rate": "22.00",
+            "isDefault": true,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 2,
+            "name": "НДС 10%",
+            "rate": "10.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 3,
+            "name": "НДС 0%",
+            "rate": "0.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 4,
+            "name": "НДС 5% (УСН)",
+            "rate": "5.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 5,
+            "name": "НДС 7% (УСН)",
+            "rate": "7.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 1,
+            "name": "НДС 22%",
+            "rate": "22.00",
+            "isDefault": true,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 2,
+            "name": "НДС 10%",
+            "rate": "10.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 3,
+            "name": "НДС 0%",
+            "rate": "0.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 4,
+            "name": "НДС 5% (УСН)",
+            "rate": "5.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          },
+          {
+            "id": 5,
+            "name": "НДС 7% (УСН)",
+            "rate": "7.00",
+            "isDefault": false,
+            "isActive": true,
+            "createdAt": "2026-03-21T20:05:20.050Z",
+            "updatedAt": "2026-03-21T20:05:20.050Z"
+          }
+        ]
+      }
+    }
+  ],
+  "GET /api/organization/1": [
+    {
+      "status": 200,
+      "body": {
+        "data": {
+          "id": 1,
+          "name": "ООО Планета Мерседес",
+          "inn": "7715825469",
+          "kpp": "771501001",
+          "ogrn": "1097746782901",
+          "legalAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+          "actualAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+          "phone": "+7 (495) 123-45-67",
+          "email": "info@planetamercedes.ru",
+          "bankName": "ПАО Сбербанк",
+          "bankBik": "044525225",
+          "bankAccount": "40702810638000123456",
+          "corrAccount": null,
+          "logo": "/logos/planet-mercedes.svg",
+          "hourlyRate": 4900,
+          "isActive": true,
+          "taxRegime": null,
+          "isVatPayer": false,
+          "defaultVatRateId": null,
+          "priceIncludesVat": true,
+          "createdAt": "2026-03-21T20:05:20.141Z",
+          "updatedAt": "2026-03-21T20:05:20.141Z"
+        }
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": {
+          "id": 1,
+          "name": "ООО Планета Мерседес",
+          "inn": "7715825469",
+          "kpp": "771501001",
+          "ogrn": "1097746782901",
+          "legalAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+          "actualAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+          "phone": "+7 (495) 123-45-67",
+          "email": "info@planetamercedes.ru",
+          "bankName": "ПАО Сбербанк",
+          "bankBik": "044525225",
+          "bankAccount": "40702810638000123456",
+          "corrAccount": null,
+          "logo": "/logos/planet-mercedes.svg",
+          "hourlyRate": 4900,
+          "isActive": true,
+          "taxRegime": null,
+          "isVatPayer": false,
+          "defaultVatRateId": null,
+          "priceIncludesVat": true,
+          "createdAt": "2026-03-21T20:05:20.141Z",
+          "updatedAt": "2026-03-21T20:05:20.141Z"
+        }
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": {
+          "id": 1,
+          "name": "ООО Планета Мерседес",
+          "inn": "7715825469",
+          "kpp": "771501001",
+          "ogrn": "1097746782901",
+          "legalAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+          "actualAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+          "phone": "+7 (495) 123-45-67",
+          "email": "info@planetamercedes.ru",
+          "bankName": "ПАО Сбербанк",
+          "bankBik": "044525225",
+          "bankAccount": "40702810638000123456",
+          "corrAccount": null,
+          "logo": "/logos/planet-mercedes.svg",
+          "hourlyRate": 4900,
+          "isActive": true,
+          "taxRegime": null,
+          "isVatPayer": false,
+          "defaultVatRateId": null,
+          "priceIncludesVat": true,
+          "createdAt": "2026-03-21T20:05:20.141Z",
+          "updatedAt": "2026-03-21T20:05:20.141Z"
+        }
+      }
+    }
+  ],
+  "GET /api/payments/order/19622/summary": [
+    {
+      "status": 200,
+      "body": {
+        "totalCost": 0,
+        "totalPaid": 0,
+        "remaining": 0
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "totalCost": 4900,
+        "totalPaid": 0,
+        "remaining": 4900
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "totalCost": 9800,
+        "totalPaid": 0,
+        "remaining": 9800
+      }
+    }
+  ],
+  "GET /api/payments/order/19622": [
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 200,
+      "body": []
+    },
+    {
+      "status": 200,
+      "body": []
+    }
+  ],
+  "GET /api/services?page=0&pageSize=50": [
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 2,
+            "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 3,
+            "name": "Плафон подсветки правого зеркала заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 4,
+            "name": "Плафон подсветки левого зеркала заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 5,
+            "name": "Проверка фазовращателей левой ГБЦ",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 6,
+            "name": "Двигатель с/п (АКПП снята)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 7,
+            "name": "Обновление ПО заднего SAM",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 8,
+            "name": "Крышку системы вентиляции картера с\\п уплотнить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 9,
+            "name": "Трубку низкого давления ГУР заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 10,
+            "name": "Мойка радиаторов *",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 11,
+            "name": "Муфту карданного вала со стороны заднего редуктора, заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 12,
+            "name": "Промежуточную опору кард вала заменить ( кард вал снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 13,
+            "name": "Сход развальные тяги ( 2шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 14,
+            "name": "Карданный вал с\\п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 15,
+            "name": "Муфты ( 2шт ) кард вала заменить ( Кард вал снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 16,
+            "name": "Тяги ( 8 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 17,
+            "name": "Нижнюю поперечную тягу L з\\моста заменить( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 18,
+            "name": "Нижнюю поперечную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 19,
+            "name": "Нижние поперечные тяги ( 2 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 20,
+            "name": "Верхнюю поперечную тягу L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 21,
+            "name": "Верхнюю поперечную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 22,
+            "name": "Верхние поперечные тяги ( 2 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 23,
+            "name": "Верхнюю продольную тягу L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 24,
+            "name": "Верхнюю продольную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 25,
+            "name": "Верхние продольные тяги ( 2 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 26,
+            "name": "Нижнюю продольную тягу L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 27,
+            "name": "Нижнюю продольную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 28,
+            "name": "Насос охлаждающей жидкости заменить ( радиатор снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 29,
+            "name": "Натяжитель ремня заменить ( ремень снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 30,
+            "name": "Шкив генератора заменить ( генератор снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 31,
+            "name": "Обгонную муфту генератора заменить (ремень снят)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 32,
+            "name": "Мотор стеклоочистителя переднего правого сеять/установить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 33,
+            "name": "Подшипник промежуточного вала заменить  ( пром вал снят ) *",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 34,
+            "name": "Тягу схождения L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 35,
+            "name": "Тягу схождения R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 36,
+            "name": "Клапаны ГБЦ (все) - с/у",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 37,
+            "name": "Рулевую тягу среднюю с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 38,
+            "name": "Н-образные рычаги H с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 39,
+            "name": "Сайленблоки Н-образных рычагов 4 шт. с/п заменить (рычаги сняты)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 40,
+            "name": "Ступичные сайлентблоки 2шт. с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 41,
+            "name": "С\\блоки рычагов H заменить*",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 42,
+            "name": "Наружный шрус полуоси V L заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 43,
+            "name": "Наружный шрус полуоси V R заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 44,
+            "name": "Пружинные рычаги H с\\п",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 45,
+            "name": "Короткие тяги ( 2шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 46,
+            "name": "Основной радиатор системы охлаждения с\\п, (бампер снят)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 47,
+            "name": "Мойка радиаторов (радиаторы сняты)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 48,
+            "name": "Подушки з\\балки V заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 49,
+            "name": "Промежуточный вал с\\п \\заменить  ( V L полусь снята )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 50,
+            "name": "Опору двигателя V L заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 1,
+            "name": "Амортизатор передний правый  с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          }
+        ],
+        "meta": {
+          "total": 4156,
+          "page": 1,
+          "pageSize": 50,
+          "totalPages": 84
+        }
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 2,
+            "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 3,
+            "name": "Плафон подсветки правого зеркала заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 4,
+            "name": "Плафон подсветки левого зеркала заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 5,
+            "name": "Проверка фазовращателей левой ГБЦ",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 6,
+            "name": "Двигатель с/п (АКПП снята)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 7,
+            "name": "Обновление ПО заднего SAM",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 8,
+            "name": "Крышку системы вентиляции картера с\\п уплотнить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 9,
+            "name": "Трубку низкого давления ГУР заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 10,
+            "name": "Мойка радиаторов *",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 11,
+            "name": "Муфту карданного вала со стороны заднего редуктора, заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 12,
+            "name": "Промежуточную опору кард вала заменить ( кард вал снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 13,
+            "name": "Сход развальные тяги ( 2шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 14,
+            "name": "Карданный вал с\\п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 15,
+            "name": "Муфты ( 2шт ) кард вала заменить ( Кард вал снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 16,
+            "name": "Тяги ( 8 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 17,
+            "name": "Нижнюю поперечную тягу L з\\моста заменить( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 18,
+            "name": "Нижнюю поперечную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 19,
+            "name": "Нижние поперечные тяги ( 2 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 20,
+            "name": "Верхнюю поперечную тягу L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 21,
+            "name": "Верхнюю поперечную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 22,
+            "name": "Верхние поперечные тяги ( 2 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 23,
+            "name": "Верхнюю продольную тягу L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 24,
+            "name": "Верхнюю продольную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 25,
+            "name": "Верхние продольные тяги ( 2 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 26,
+            "name": "Нижнюю продольную тягу L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 27,
+            "name": "Нижнюю продольную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 28,
+            "name": "Насос охлаждающей жидкости заменить ( радиатор снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 29,
+            "name": "Натяжитель ремня заменить ( ремень снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 30,
+            "name": "Шкив генератора заменить ( генератор снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 31,
+            "name": "Обгонную муфту генератора заменить (ремень снят)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 32,
+            "name": "Мотор стеклоочистителя переднего правого сеять/установить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 33,
+            "name": "Подшипник промежуточного вала заменить  ( пром вал снят ) *",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 34,
+            "name": "Тягу схождения L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 35,
+            "name": "Тягу схождения R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 36,
+            "name": "Клапаны ГБЦ (все) - с/у",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 37,
+            "name": "Рулевую тягу среднюю с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 38,
+            "name": "Н-образные рычаги H с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 39,
+            "name": "Сайленблоки Н-образных рычагов 4 шт. с/п заменить (рычаги сняты)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 40,
+            "name": "Ступичные сайлентблоки 2шт. с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 41,
+            "name": "С\\блоки рычагов H заменить*",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 42,
+            "name": "Наружный шрус полуоси V L заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 43,
+            "name": "Наружный шрус полуоси V R заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 44,
+            "name": "Пружинные рычаги H с\\п",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 45,
+            "name": "Короткие тяги ( 2шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 46,
+            "name": "Основной радиатор системы охлаждения с\\п, (бампер снят)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 47,
+            "name": "Мойка радиаторов (радиаторы сняты)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 48,
+            "name": "Подушки з\\балки V заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 49,
+            "name": "Промежуточный вал с\\п \\заменить  ( V L полусь снята )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 50,
+            "name": "Опору двигателя V L заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 1,
+            "name": "Амортизатор передний правый  с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          }
+        ],
+        "meta": {
+          "total": 4156,
+          "page": 1,
+          "pageSize": 50,
+          "totalPages": 84
+        }
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 2,
+            "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 3,
+            "name": "Плафон подсветки правого зеркала заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 4,
+            "name": "Плафон подсветки левого зеркала заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 5,
+            "name": "Проверка фазовращателей левой ГБЦ",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 6,
+            "name": "Двигатель с/п (АКПП снята)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 7,
+            "name": "Обновление ПО заднего SAM",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 8,
+            "name": "Крышку системы вентиляции картера с\\п уплотнить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 9,
+            "name": "Трубку низкого давления ГУР заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 10,
+            "name": "Мойка радиаторов *",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 11,
+            "name": "Муфту карданного вала со стороны заднего редуктора, заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 12,
+            "name": "Промежуточную опору кард вала заменить ( кард вал снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 13,
+            "name": "Сход развальные тяги ( 2шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 14,
+            "name": "Карданный вал с\\п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 15,
+            "name": "Муфты ( 2шт ) кард вала заменить ( Кард вал снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 16,
+            "name": "Тяги ( 8 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 17,
+            "name": "Нижнюю поперечную тягу L з\\моста заменить( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 18,
+            "name": "Нижнюю поперечную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 19,
+            "name": "Нижние поперечные тяги ( 2 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 20,
+            "name": "Верхнюю поперечную тягу L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 21,
+            "name": "Верхнюю поперечную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 22,
+            "name": "Верхние поперечные тяги ( 2 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 23,
+            "name": "Верхнюю продольную тягу L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 24,
+            "name": "Верхнюю продольную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 25,
+            "name": "Верхние продольные тяги ( 2 шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 26,
+            "name": "Нижнюю продольную тягу L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 27,
+            "name": "Нижнюю продольную тягу R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 28,
+            "name": "Насос охлаждающей жидкости заменить ( радиатор снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 29,
+            "name": "Натяжитель ремня заменить ( ремень снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 30,
+            "name": "Шкив генератора заменить ( генератор снят )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 31,
+            "name": "Обгонную муфту генератора заменить (ремень снят)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 32,
+            "name": "Мотор стеклоочистителя переднего правого сеять/установить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 33,
+            "name": "Подшипник промежуточного вала заменить  ( пром вал снят ) *",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 34,
+            "name": "Тягу схождения L з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 35,
+            "name": "Тягу схождения R з\\моста заменить ( колесо снято )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 36,
+            "name": "Клапаны ГБЦ (все) - с/у",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 37,
+            "name": "Рулевую тягу среднюю с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 38,
+            "name": "Н-образные рычаги H с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 39,
+            "name": "Сайленблоки Н-образных рычагов 4 шт. с/п заменить (рычаги сняты)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 40,
+            "name": "Ступичные сайлентблоки 2шт. с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 41,
+            "name": "С\\блоки рычагов H заменить*",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 42,
+            "name": "Наружный шрус полуоси V L заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 43,
+            "name": "Наружный шрус полуоси V R заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 44,
+            "name": "Пружинные рычаги H с\\п",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 45,
+            "name": "Короткие тяги ( 2шт ) з\\моста заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 46,
+            "name": "Основной радиатор системы охлаждения с\\п, (бампер снят)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 47,
+            "name": "Мойка радиаторов (радиаторы сняты)",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 48,
+            "name": "Подушки з\\балки V заменить ( колеса сняты )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 49,
+            "name": "Промежуточный вал с\\п \\заменить  ( V L полусь снята )",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 50,
+            "name": "Опору двигателя V L заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          },
+          {
+            "id": 1,
+            "name": "Амортизатор передний правый  с/п заменить",
+            "description": null,
+            "defaultDuration": 60,
+            "unit": "н/ч",
+            "requiredQualifications": null,
+            "createdAt": "2026-03-21T20:05:29.857Z",
+            "updatedAt": "2026-03-21T20:05:29.857Z"
+          }
+        ],
+        "meta": {
+          "total": 4156,
+          "page": 1,
+          "pageSize": 50,
+          "totalPages": 84
+        }
+      }
+    }
+  ],
+  "GET /api/services?page=0&pageSize=50&searchTerm=%D0%9F%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0+%D1%8D%D0%BB.+%D1%86%D0%B5%D0%BF%D0%B5%D0%B9": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 453,
+          "name": "Проверка эл. цепей правого заднего датчика ABS",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 160,
+          "name": "Проверка эл. цепей жгута датчиков PTS заднего бампера",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 71,
+          "name": "Проверка эл. цепей клапана отопителя",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 419,
+          "name": "Проверка эл. цепей мотора отопителя",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 357,
+          "name": "Проверка эл. цепей заднего ЭБУ SAM (с д/м)",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 383,
+          "name": "Проверка эл. цепей правого датчика \"защиты пешеходов\"",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 82,
+          "name": "Проверка эл. цепей доводчика замка крышки багажника (облицовка снята)",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 364,
+          "name": "Проверка эл. цепей левого переднего датчика ABS",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 465,
+          "name": "Проверка эл. цепей стеклоочистителя",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 402,
+          "name": "Проверка эл. цепей замка крышки багажника",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 404,
+          "name": "Проверка эл. цепей муфты компрессора кондиционера",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 2,
+          "name": "Проверка эл. цепей и замена предохранителя блока управления электроники двигателя",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 380,
+          "name": "Проверка эл. цепей радарных датчиков заднего бампера",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 56,
+          "name": "Проверка эл. цепей мата подогрева правого переднего пассажира",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        },
+        {
+          "id": 797,
+          "name": "Проверка эл. цепей акселератора педали газа и ЭБУ DME",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 796,
+          "name": "Проверка эл. цепей и замена предохранителя питания ЭБУ ESP",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 791,
+          "name": "Проверка эл. цепей датчика температуры и давления топливной рампы",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 733,
+          "name": "Проверка эл. цепей и ремонт проводки пиропатрона натяжителя ремня безопасности водителя",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 723,
+          "name": "Проверка эл. цепей замка зажигания",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 731,
+          "name": "Проверка эл. цепей радарного датчика переднего бампера",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 570,
+          "name": "Проверка эл. цепей левого наружнего датчика парковки (бампер снят)",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 684,
+          "name": "Проверка эл. цепей датчика давления после воздушного фильтра",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 719,
+          "name": "Проверка эл. цепей и обслуживание эл. разъемов монтажного блока",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 631,
+          "name": "Проверка эл. цепей блока кнопок управления водительским сидением",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 607,
+          "name": "Проверка эл. цепей ЭБУ MRM",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 779,
+          "name": "Проверка эл. цепей насоса охлаждения с электрическим приводом низкотемпературного контура",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 556,
+          "name": "Проверка эл. цепей ЭБУ правой блок-фары",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 978,
+          "name": "Проверка эл. цепей блока клапанов системы AIRMATIC",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 554,
+          "name": "Проверка эл. цепей дроссельной заслонки",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 822,
+          "name": "Проверка эл. цепей платы стоп - сигнала",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 948,
+          "name": "Проверка эл. цепей жгута проводки датчика ABS заднего правого колеса",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 928,
+          "name": "Проверка эл. цепей проводки подогрева задних сидений",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 927,
+          "name": "Проверка эл. цепей задних фонарей на крышке багажника (обшивка снята)",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 917,
+          "name": "Проверка эл. цепей и замена вентилятора отопителя в задней части салона (салон Marco Polo)",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 550,
+          "name": "Проверка эл. цепей питания ЭБУ предпускового подогревателя",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 980,
+          "name": "Проверка эл. цепей питания насосного модуля",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 571,
+          "name": "Проверка эл. цепей датчика качества воздуха",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.000Z",
+          "updatedAt": "2026-03-21T20:05:30.000Z"
+        },
+        {
+          "id": 1288,
+          "name": "Проверка эл. цепей мата подогрева сидения водителя",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1272,
+          "name": "Проверка эл. цепей заднего правого адаптивного  амортизатора",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1269,
+          "name": "Проверка эл. цепей радарных датчиков переднего бампера",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1211,
+          "name": "Проверка эл. цепей генератора",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1209,
+          "name": "Проверка эл. цепей регулировочного клапана отопителя заднего контура",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1193,
+          "name": "Проверка эл. цепей ЭБУ АКБ",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1119,
+          "name": "Проверка эл. цепей подсветки порогов",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1111,
+          "name": "Проверка эл. цепей подогрева правого зеркала",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1244,
+          "name": "Проверка эл. цепей заднего левого датчика радарного типа",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1107,
+          "name": "Проверка эл. цепей правого переднего датчика ABS",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1080,
+          "name": "Проверка эл. цепей управления насосом охлаждающей жидкости",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1020,
+          "name": "Проверка эл. цепей датчика уровня омывающей жидкости",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        },
+        {
+          "id": 1017,
+          "name": "Проверка эл. цепей системы KEYLESS GO задней левой двери (ручка снята)",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:30.143Z",
+          "updatedAt": "2026-03-21T20:05:30.143Z"
+        }
+      ],
+      "meta": {
+        "total": 170,
+        "page": 1,
+        "pageSize": 50,
+        "totalPages": 4
+      }
+    }
+  },
+  "POST /api/orders/19622/services": [
+    {
+      "status": 200,
+      "body": {
+        "id": 13,
+        "orderId": 19622,
+        "serviceId": 2,
+        "defaultDuration": 60,
+        "appliedRate": 4900,
+        "appliedPrice": 4900,
+        "discountPercent": 0,
+        "startTime": null,
+        "endTime": null
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "id": 14,
+        "orderId": 19622,
+        "serviceId": 3,
+        "defaultDuration": 60,
+        "appliedRate": 4900,
+        "appliedPrice": 4900,
+        "discountPercent": 0,
+        "startTime": null,
+        "endTime": null
+      }
+    }
+  ],
+  "GET /api/employees/mechanics": [
+    {
+      "status": 200,
+      "body": [
+        {
+          "id": 12,
+          "userId": 1011,
+          "organizationId": 1,
+          "firstName": "Алексей",
+          "lastName": "Безалтынных",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-12-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 14,
+          "userId": 1013,
+          "organizationId": 1,
+          "firstName": "Павел",
+          "lastName": "Скрипник",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-14-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 15,
+          "userId": 1014,
+          "organizationId": 1,
+          "firstName": "Алексей",
+          "lastName": "Точилин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-15-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 16,
+          "userId": 1015,
+          "organizationId": 1,
+          "firstName": "Антон",
+          "lastName": "Иноземцев",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-16-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 18,
+          "userId": 1017,
+          "organizationId": 1,
+          "firstName": "Дмитрий",
+          "lastName": "Анчуткин",
+          "middleName": "Валерьевич",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-18-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 19,
+          "userId": 1018,
+          "organizationId": 1,
+          "firstName": "Левон",
+          "lastName": "Бадоян",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-19-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 20,
+          "userId": 1019,
+          "organizationId": 1,
+          "firstName": "Олег",
+          "lastName": "Захаров",
+          "middleName": "Александрович",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-20-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 21,
+          "userId": 1020,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Гурин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-21-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 22,
+          "userId": 1021,
+          "organizationId": 1,
+          "firstName": "Олег",
+          "lastName": "Шиян",
+          "middleName": "Николаевич",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-22-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 24,
+          "userId": 1023,
+          "organizationId": 1,
+          "firstName": "Никита",
+          "lastName": "Юдин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-24-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 26,
+          "userId": 1025,
+          "organizationId": 1,
+          "firstName": "Петр",
+          "lastName": "Дубов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-26-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 27,
+          "userId": 1026,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Соломатов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-27-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 28,
+          "userId": 1027,
+          "organizationId": 1,
+          "firstName": "Максим",
+          "lastName": "Андрушевский",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-28-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 29,
+          "userId": 1028,
+          "organizationId": 1,
+          "firstName": "Артур",
+          "lastName": "Артыков",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-29-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 1,
+          "userId": 1000,
+          "organizationId": 1,
+          "firstName": "Евгений",
+          "lastName": "Седельников",
+          "middleName": "Александрович",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-01-00",
+          "specialization": "Двигатели",
+          "qualifications": "Сертифицированный специалист BMW, Mercedes-Benz",
+          "hourlyRate": 5500,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 2,
+          "userId": 1001,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Верглинский",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-02-00",
+          "specialization": "Электрика",
+          "qualifications": "Специалист по автомобильной электронике",
+          "hourlyRate": 4900,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 5,
+          "userId": 1004,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Соловьев",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-05-00",
+          "specialization": "Общая механика",
+          "qualifications": "Базовая сертификация",
+          "hourlyRate": 4000,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 6,
+          "userId": 1005,
+          "organizationId": 1,
+          "firstName": "Николай",
+          "lastName": "Краюшкин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-06-00",
+          "specialization": "Диагностика",
+          "qualifications": "Сертифицированный диагност Mercedes-Benz, BMW, Porsche",
+          "hourlyRate": 5200,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 7,
+          "userId": 1006,
+          "organizationId": 1,
+          "firstName": "Сергей",
+          "lastName": "Лобанов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-07-00",
+          "specialization": "Трансмиссия",
+          "qualifications": "Специалист по АКПП и механическим трансмиссиям",
+          "hourlyRate": 5000,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 9,
+          "userId": 1008,
+          "organizationId": 1,
+          "firstName": "Владимир",
+          "lastName": "Мусаев",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-09-00",
+          "specialization": "Кузовной ремонт",
+          "qualifications": "Мастер кузовного ремонта премиум автомобилей",
+          "hourlyRate": 4800,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 10,
+          "userId": 1009,
+          "organizationId": 1,
+          "firstName": "Дмитрий",
+          "lastName": "Крылов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-10-00",
+          "specialization": "Ходовая часть",
+          "qualifications": "Специалист по подвеске и тормозным системам",
+          "hourlyRate": 4500,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 11,
+          "userId": 1010,
+          "organizationId": 1,
+          "firstName": "Алексей",
+          "lastName": "Петраков",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-11-00",
+          "specialization": "Электронные системы",
+          "qualifications": "Эксперт по электронным системам управления",
+          "hourlyRate": 5300,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        }
+      ]
+    },
+    {
+      "status": 200,
+      "body": [
+        {
+          "id": 12,
+          "userId": 1011,
+          "organizationId": 1,
+          "firstName": "Алексей",
+          "lastName": "Безалтынных",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-12-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 14,
+          "userId": 1013,
+          "organizationId": 1,
+          "firstName": "Павел",
+          "lastName": "Скрипник",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-14-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 15,
+          "userId": 1014,
+          "organizationId": 1,
+          "firstName": "Алексей",
+          "lastName": "Точилин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-15-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 16,
+          "userId": 1015,
+          "organizationId": 1,
+          "firstName": "Антон",
+          "lastName": "Иноземцев",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-16-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 18,
+          "userId": 1017,
+          "organizationId": 1,
+          "firstName": "Дмитрий",
+          "lastName": "Анчуткин",
+          "middleName": "Валерьевич",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-18-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 19,
+          "userId": 1018,
+          "organizationId": 1,
+          "firstName": "Левон",
+          "lastName": "Бадоян",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-19-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 20,
+          "userId": 1019,
+          "organizationId": 1,
+          "firstName": "Олег",
+          "lastName": "Захаров",
+          "middleName": "Александрович",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-20-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 21,
+          "userId": 1020,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Гурин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-21-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 22,
+          "userId": 1021,
+          "organizationId": 1,
+          "firstName": "Олег",
+          "lastName": "Шиян",
+          "middleName": "Николаевич",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-22-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 24,
+          "userId": 1023,
+          "organizationId": 1,
+          "firstName": "Никита",
+          "lastName": "Юдин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-24-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 26,
+          "userId": 1025,
+          "organizationId": 1,
+          "firstName": "Петр",
+          "lastName": "Дубов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-26-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 27,
+          "userId": 1026,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Соломатов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-27-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 28,
+          "userId": 1027,
+          "organizationId": 1,
+          "firstName": "Максим",
+          "lastName": "Андрушевский",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-28-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 29,
+          "userId": 1028,
+          "organizationId": 1,
+          "firstName": "Артур",
+          "lastName": "Артыков",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-29-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 1,
+          "userId": 1000,
+          "organizationId": 1,
+          "firstName": "Евгений",
+          "lastName": "Седельников",
+          "middleName": "Александрович",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-01-00",
+          "specialization": "Двигатели",
+          "qualifications": "Сертифицированный специалист BMW, Mercedes-Benz",
+          "hourlyRate": 5500,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 2,
+          "userId": 1001,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Верглинский",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-02-00",
+          "specialization": "Электрика",
+          "qualifications": "Специалист по автомобильной электронике",
+          "hourlyRate": 4900,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 5,
+          "userId": 1004,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Соловьев",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-05-00",
+          "specialization": "Общая механика",
+          "qualifications": "Базовая сертификация",
+          "hourlyRate": 4000,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 6,
+          "userId": 1005,
+          "organizationId": 1,
+          "firstName": "Николай",
+          "lastName": "Краюшкин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-06-00",
+          "specialization": "Диагностика",
+          "qualifications": "Сертифицированный диагност Mercedes-Benz, BMW, Porsche",
+          "hourlyRate": 5200,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 7,
+          "userId": 1006,
+          "organizationId": 1,
+          "firstName": "Сергей",
+          "lastName": "Лобанов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-07-00",
+          "specialization": "Трансмиссия",
+          "qualifications": "Специалист по АКПП и механическим трансмиссиям",
+          "hourlyRate": 5000,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 9,
+          "userId": 1008,
+          "organizationId": 1,
+          "firstName": "Владимир",
+          "lastName": "Мусаев",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-09-00",
+          "specialization": "Кузовной ремонт",
+          "qualifications": "Мастер кузовного ремонта премиум автомобилей",
+          "hourlyRate": 4800,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 10,
+          "userId": 1009,
+          "organizationId": 1,
+          "firstName": "Дмитрий",
+          "lastName": "Крылов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-10-00",
+          "specialization": "Ходовая часть",
+          "qualifications": "Специалист по подвеске и тормозным системам",
+          "hourlyRate": 4500,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 11,
+          "userId": 1010,
+          "organizationId": 1,
+          "firstName": "Алексей",
+          "lastName": "Петраков",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-11-00",
+          "specialization": "Электронные системы",
+          "qualifications": "Эксперт по электронным системам управления",
+          "hourlyRate": 5300,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        }
+      ]
+    },
+    {
+      "status": 200,
+      "body": [
+        {
+          "id": 12,
+          "userId": 1011,
+          "organizationId": 1,
+          "firstName": "Алексей",
+          "lastName": "Безалтынных",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-12-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 14,
+          "userId": 1013,
+          "organizationId": 1,
+          "firstName": "Павел",
+          "lastName": "Скрипник",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-14-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 15,
+          "userId": 1014,
+          "organizationId": 1,
+          "firstName": "Алексей",
+          "lastName": "Точилин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-15-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 16,
+          "userId": 1015,
+          "organizationId": 1,
+          "firstName": "Антон",
+          "lastName": "Иноземцев",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-16-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 18,
+          "userId": 1017,
+          "organizationId": 1,
+          "firstName": "Дмитрий",
+          "lastName": "Анчуткин",
+          "middleName": "Валерьевич",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-18-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 19,
+          "userId": 1018,
+          "organizationId": 1,
+          "firstName": "Левон",
+          "lastName": "Бадоян",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-19-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 20,
+          "userId": 1019,
+          "organizationId": 1,
+          "firstName": "Олег",
+          "lastName": "Захаров",
+          "middleName": "Александрович",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-20-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 21,
+          "userId": 1020,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Гурин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-21-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 22,
+          "userId": 1021,
+          "organizationId": 1,
+          "firstName": "Олег",
+          "lastName": "Шиян",
+          "middleName": "Николаевич",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-22-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 24,
+          "userId": 1023,
+          "organizationId": 1,
+          "firstName": "Никита",
+          "lastName": "Юдин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-24-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 26,
+          "userId": 1025,
+          "organizationId": 1,
+          "firstName": "Петр",
+          "lastName": "Дубов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-26-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 27,
+          "userId": 1026,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Соломатов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-27-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 28,
+          "userId": 1027,
+          "organizationId": 1,
+          "firstName": "Максим",
+          "lastName": "Андрушевский",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-28-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 29,
+          "userId": 1028,
+          "organizationId": 1,
+          "firstName": "Артур",
+          "lastName": "Артыков",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-29-00",
+          "specialization": null,
+          "qualifications": null,
+          "hourlyRate": null,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 1,
+          "userId": 1000,
+          "organizationId": 1,
+          "firstName": "Евгений",
+          "lastName": "Седельников",
+          "middleName": "Александрович",
+          "position": "mechanic",
+          "phone": "+7 (999) 000-01-00",
+          "specialization": "Двигатели",
+          "qualifications": "Сертифицированный специалист BMW, Mercedes-Benz",
+          "hourlyRate": 5500,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 2,
+          "userId": 1001,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Верглинский",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-02-00",
+          "specialization": "Электрика",
+          "qualifications": "Специалист по автомобильной электронике",
+          "hourlyRate": 4900,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 5,
+          "userId": 1004,
+          "organizationId": 1,
+          "firstName": "Андрей",
+          "lastName": "Соловьев",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-05-00",
+          "specialization": "Общая механика",
+          "qualifications": "Базовая сертификация",
+          "hourlyRate": 4000,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 6,
+          "userId": 1005,
+          "organizationId": 1,
+          "firstName": "Николай",
+          "lastName": "Краюшкин",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-06-00",
+          "specialization": "Диагностика",
+          "qualifications": "Сертифицированный диагност Mercedes-Benz, BMW, Porsche",
+          "hourlyRate": 5200,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 7,
+          "userId": 1006,
+          "organizationId": 1,
+          "firstName": "Сергей",
+          "lastName": "Лобанов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-07-00",
+          "specialization": "Трансмиссия",
+          "qualifications": "Специалист по АКПП и механическим трансмиссиям",
+          "hourlyRate": 5000,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 9,
+          "userId": 1008,
+          "organizationId": 1,
+          "firstName": "Владимир",
+          "lastName": "Мусаев",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-09-00",
+          "specialization": "Кузовной ремонт",
+          "qualifications": "Мастер кузовного ремонта премиум автомобилей",
+          "hourlyRate": 4800,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 10,
+          "userId": 1009,
+          "organizationId": 1,
+          "firstName": "Дмитрий",
+          "lastName": "Крылов",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-10-00",
+          "specialization": "Ходовая часть",
+          "qualifications": "Специалист по подвеске и тормозным системам",
+          "hourlyRate": 4500,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        },
+        {
+          "id": 11,
+          "userId": 1010,
+          "organizationId": 1,
+          "firstName": "Алексей",
+          "lastName": "Петраков",
+          "middleName": null,
+          "position": "mechanic",
+          "phone": "+7 (999) 000-11-00",
+          "specialization": "Электронные системы",
+          "qualifications": "Эксперт по электронным системам управления",
+          "hourlyRate": 5300,
+          "isActive": true,
+          "hiredAt": "2026-03-21T20:05:20.449Z",
+          "firedAt": null,
+          "createdAt": "2026-03-21T20:05:20.449Z",
+          "updatedAt": "2026-03-21T20:05:20.449Z"
+        }
+      ]
+    }
+  ],
+  "GET /api/services?page=0&pageSize=50&searchTerm=%D0%9F%D0%BB%D0%B0%D1%84%D0%BE%D0%BD+%D0%BF%D0%BE%D0%B4%D1%81%D0%B2%D0%B5%D1%82%D0%BA%D0%B8+%D0%BF%D1%80%D0%B0%D0%B2%D0%BE%D0%B3%D0%BE": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 3,
+          "name": "Плафон подсветки правого зеркала заменить",
+          "description": null,
+          "defaultDuration": 60,
+          "unit": "н/ч",
+          "requiredQualifications": null,
+          "createdAt": "2026-03-21T20:05:29.857Z",
+          "updatedAt": "2026-03-21T20:05:29.857Z"
+        }
+      ],
+      "meta": {
+        "total": 1,
+        "page": 1,
+        "pageSize": 50,
+        "totalPages": 1
+      }
+    }
+  },
+  "DELETE /api/orders/services/14": {
+    "status": 200,
+    "body": {
+      "success": true
+    }
+  }
+}

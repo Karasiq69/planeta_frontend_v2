@@ -1,0 +1,541 @@
+{
+  "GET /api/auth/me/": [
+    {
+      "status": 308,
+      "body": null
+    },
+    {
+      "status": 308,
+      "body": null
+    }
+  ],
+  "GET /api/auth/me": [
+    {
+      "status": 200,
+      "body": {
+        "userId": "1003",
+        "role": "admin",
+        "username": "Карпов Илья",
+        "email": "hedgehogly@yandex.ru",
+        "iat": 1774125541,
+        "exp": 1774126441
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "userId": "1003",
+        "role": "admin",
+        "username": "Карпов Илья",
+        "email": "hedgehogly@yandex.ru",
+        "iat": 1774125541,
+        "exp": 1774126441
+      }
+    }
+  ],
+  "GET /api/orders?page=1&pageSize=10&status=APPLICATION&status=ORDER&status=WAITING_WAREHOUSE&status=IN_PROGRESS&status=WAITING_PAYMENT&status=COMPLETED&status=CANCELLED": [
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:16.052Z",
+        "path": "/api/orders?page=1&pageSize=10&status=APPLICATION&status=ORDER&status=WAITING_WAREHOUSE&status=IN_PROGRESS&status=WAITING_PAYMENT&status=COMPLETED&status=CANCELLED"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "status": 400,
+        "message": "Организация не выбрана (x-organization-id header отсутствует)",
+        "timestamp": "2026-03-21T20:39:16.437Z",
+        "path": "/api/orders?page=1&pageSize=10&status=APPLICATION&status=ORDER&status=WAITING_WAREHOUSE&status=IN_PROGRESS&status=WAITING_PAYMENT&status=COMPLETED&status=CANCELLED"
+      }
+    }
+  ],
+  "GET /api/organization": [
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 1,
+            "name": "ООО Планета Мерседес",
+            "inn": "7715825469",
+            "kpp": "771501001",
+            "ogrn": "1097746782901",
+            "legalAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+            "actualAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+            "phone": "+7 (495) 123-45-67",
+            "email": "info@planetamercedes.ru",
+            "bankName": "ПАО Сбербанк",
+            "bankBik": "044525225",
+            "bankAccount": "40702810638000123456",
+            "corrAccount": null,
+            "logo": "/logos/planet-mercedes.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          },
+          {
+            "id": 2,
+            "name": "ИП Маринин",
+            "inn": "773146825791",
+            "kpp": null,
+            "ogrn": "316774600358719",
+            "legalAddress": "г. Москва, ул. Большая Очаковская, д. 17, кв. 82",
+            "actualAddress": "г. Москва, ул. Автозаводская, д. 23, павильон 12",
+            "phone": "+7 (903) 789-56-34",
+            "email": "marinin.auto@gmail.com",
+            "bankName": "АО \"Альфа-Банк\"",
+            "bankBik": "044525593",
+            "bankAccount": "40802810702200001234",
+            "corrAccount": null,
+            "logo": "/logos/marinin-auto.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          },
+          {
+            "id": 3,
+            "name": "ИП Молдован",
+            "inn": "500118732588",
+            "kpp": null,
+            "ogrn": "318502900076142",
+            "legalAddress": "Московская область, г. Мытищи, ул. Карла Маркса, д. 4, кв. 15",
+            "actualAddress": "Московская область, г. Мытищи, Олимпийский проспект, д. 29",
+            "phone": "+7 (916) 456-78-90",
+            "email": "moldovan.parts@yandex.ru",
+            "bankName": "ПАО \"ВТБ\"",
+            "bankBik": "044525187",
+            "bankAccount": "40802810400000987654",
+            "corrAccount": null,
+            "logo": "/logos/moldovan-auto.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          }
+        ],
+        "meta": {
+          "total": 3,
+          "page": 1,
+          "pageSize": 50,
+          "totalPages": 1
+        }
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": 1,
+            "name": "ООО Планета Мерседес",
+            "inn": "7715825469",
+            "kpp": "771501001",
+            "ogrn": "1097746782901",
+            "legalAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+            "actualAddress": "г. Москва, Алтуфьевское шоссе, д. 48, офис 301",
+            "phone": "+7 (495) 123-45-67",
+            "email": "info@planetamercedes.ru",
+            "bankName": "ПАО Сбербанк",
+            "bankBik": "044525225",
+            "bankAccount": "40702810638000123456",
+            "corrAccount": null,
+            "logo": "/logos/planet-mercedes.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          },
+          {
+            "id": 2,
+            "name": "ИП Маринин",
+            "inn": "773146825791",
+            "kpp": null,
+            "ogrn": "316774600358719",
+            "legalAddress": "г. Москва, ул. Большая Очаковская, д. 17, кв. 82",
+            "actualAddress": "г. Москва, ул. Автозаводская, д. 23, павильон 12",
+            "phone": "+7 (903) 789-56-34",
+            "email": "marinin.auto@gmail.com",
+            "bankName": "АО \"Альфа-Банк\"",
+            "bankBik": "044525593",
+            "bankAccount": "40802810702200001234",
+            "corrAccount": null,
+            "logo": "/logos/marinin-auto.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          },
+          {
+            "id": 3,
+            "name": "ИП Молдован",
+            "inn": "500118732588",
+            "kpp": null,
+            "ogrn": "318502900076142",
+            "legalAddress": "Московская область, г. Мытищи, ул. Карла Маркса, д. 4, кв. 15",
+            "actualAddress": "Московская область, г. Мытищи, Олимпийский проспект, д. 29",
+            "phone": "+7 (916) 456-78-90",
+            "email": "moldovan.parts@yandex.ru",
+            "bankName": "ПАО \"ВТБ\"",
+            "bankBik": "044525187",
+            "bankAccount": "40802810400000987654",
+            "corrAccount": null,
+            "logo": "/logos/moldovan-auto.svg",
+            "hourlyRate": 4900,
+            "isActive": true,
+            "taxRegime": null,
+            "isVatPayer": false,
+            "defaultVatRateId": null,
+            "priceIncludesVat": true,
+            "createdAt": "2026-03-21T20:05:20.141Z",
+            "updatedAt": "2026-03-21T20:05:20.141Z"
+          }
+        ],
+        "meta": {
+          "total": 3,
+          "page": 1,
+          "pageSize": 50,
+          "totalPages": 1
+        }
+      }
+    }
+  ],
+  "GET /api/clients": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 2,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": null,
+          "type": "legal_entity",
+          "companyName": "ООО \" СТАРТ ИНВЕСТ\"",
+          "inn": null,
+          "kpp": null,
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 3,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": "xvanox343@mail.ru",
+          "phone": "+79296406252",
+          "type": "legal_entity",
+          "companyName": "ЗАО \" ЮНИДЕНТ\"",
+          "inn": "7707003721",
+          "kpp": "770201001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 4,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": null,
+          "type": "legal_entity",
+          "companyName": "Общество с ограниченной ответственностью «АМЕТ»",
+          "inn": "7707438610",
+          "kpp": "773401001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 5,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": null,
+          "type": "legal_entity",
+          "companyName": "ООО «Биотекфарм-М»",
+          "inn": "2466196232",
+          "kpp": "772701001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 6,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": null,
+          "type": "legal_entity",
+          "companyName": "ООО «Норвеста»",
+          "inn": "9703198304",
+          "kpp": "770301001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 7,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": null,
+          "type": "legal_entity",
+          "companyName": "ООО «РЕТЕЛ»",
+          "inn": "7701831951",
+          "kpp": "773401001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 8,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": "+79037991392",
+          "type": "legal_entity",
+          "companyName": "ООО «СМА Лтд»",
+          "inn": "7723921750",
+          "kpp": "772101001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 9,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": null,
+          "type": "legal_entity",
+          "companyName": "ООО «СТРОНГТЕХНИК »",
+          "inn": "7720817328",
+          "kpp": "772001001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 10,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": "+79060321764",
+          "type": "legal_entity",
+          "companyName": "ООО «ТЕХНОТОН-МСК»",
+          "inn": "7713784008",
+          "kpp": "771301001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 11,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": null,
+          "type": "legal_entity",
+          "companyName": "ООО «Туроператор Легенда»",
+          "inn": "1655300871",
+          "kpp": "165501001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 12,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": null,
+          "type": "legal_entity",
+          "companyName": "ООО «Фавордрайв»",
+          "inn": "9710097025",
+          "kpp": "771001001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 13,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": null,
+          "type": "legal_entity",
+          "companyName": "ООО «Хостел  Полет»",
+          "inn": "9731148087",
+          "kpp": null,
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 14,
+          "firstName": "904",
+          "lastName": "+7",
+          "middleName": "299-66-55",
+          "email": null,
+          "phone": null,
+          "type": "individual",
+          "companyName": null,
+          "inn": null,
+          "kpp": null,
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 15,
+          "firstName": "915",
+          "lastName": "+7",
+          "middleName": "444-88-91",
+          "email": null,
+          "phone": null,
+          "type": "individual",
+          "companyName": null,
+          "inn": null,
+          "kpp": null,
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 16,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": null,
+          "phone": null,
+          "type": "legal_entity",
+          "companyName": "+7 916 591-68-87 Евгений",
+          "inn": null,
+          "kpp": null,
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 17,
+          "firstName": "925",
+          "lastName": "+7",
+          "middleName": "517-41-07",
+          "email": null,
+          "phone": null,
+          "type": "individual",
+          "companyName": null,
+          "inn": null,
+          "kpp": null,
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 18,
+          "firstName": "965",
+          "lastName": "+7",
+          "middleName": "108-26-24",
+          "email": null,
+          "phone": null,
+          "type": "individual",
+          "companyName": null,
+          "inn": null,
+          "kpp": null,
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 19,
+          "firstName": "977",
+          "lastName": "+7",
+          "middleName": "900-24-21",
+          "email": null,
+          "phone": null,
+          "type": "individual",
+          "companyName": null,
+          "inn": null,
+          "kpp": null,
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 20,
+          "firstName": "985",
+          "lastName": "+7",
+          "middleName": "773-19-96",
+          "email": null,
+          "phone": null,
+          "type": "individual",
+          "companyName": null,
+          "inn": null,
+          "kpp": null,
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        },
+        {
+          "id": 1,
+          "firstName": "Не указано",
+          "lastName": null,
+          "middleName": null,
+          "email": "p.doronina@ac-s.ru",
+          "phone": "+79859970737",
+          "type": "legal_entity",
+          "companyName": "Общество с ограниченной ответственностью \" Билора \"",
+          "inn": "6027114704",
+          "kpp": "502401001",
+          "address": null,
+          "createdAt": "2026-03-21T20:05:21.871Z",
+          "updatedAt": "2026-03-21T20:05:21.871Z"
+        }
+      ],
+      "meta": {
+        "total": 5260,
+        "page": 1,
+        "pageSize": 20,
+        "totalPages": 263
+      }
+    }
+  }
+}
