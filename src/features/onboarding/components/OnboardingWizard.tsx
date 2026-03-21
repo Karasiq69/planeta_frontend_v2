@@ -28,7 +28,7 @@ export function OnboardingWizard() {
   }, [currentStep])
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 pt-20">
+    <div className="mx-auto w-full max-w-6xl px-8 py-8 pt-20">
       <div className="mb-8 text-center">
         <h1 className="text-2xl font-bold tracking-tight">Настройка системы</h1>
         <p className="text-muted-foreground mt-1">Заполните основные данные для начала работы</p>
