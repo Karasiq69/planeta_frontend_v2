@@ -7,11 +7,14 @@ import DataTable from '@/components/common/table/data-table'
 import LoaderAnimated from '@/components/ui/LoaderAnimated'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { useProductsList } from '@/features/products/api/queries'
-import { productsColumnsDefs } from '@/features/products/components/table/columns'
+import { getProductsColumns } from '@/features/products/components/table/columns'
 import ProductsSearchBox from '@/features/products/components/table/ProductsSearchBox'
+import { useVat } from '@/features/vat-rates/hooks/use-vat'
 
 const ProductsDataTable = () => {
-  const columns = useMemo(() => productsColumnsDefs, [])
+  const { getLabel } = useVat()
+  const vatLabel = getLabel()
+  const columns = useMemo(() => getProductsColumns(vatLabel), [vatLabel])
   const searchParams = useSearchParams()
   const searchTerm = searchParams.get('search')
   const [pagination, setPagination] = useState({
