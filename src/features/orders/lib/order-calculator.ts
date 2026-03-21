@@ -59,33 +59,12 @@ export const countActiveServices = (services: OrderService[]): number => {
 }
 
 /**
- * Вычисляет налог (НДС 18%)
- */
-export const calculateTax = (amount: number): number => {
-  return amount * 0.18
-}
-
-/**
- * Вычисляет итоговую сумму с налогом
- */
-export const calculateTotal = (services: OrderService[], products: OrderProduct[]): number => {
-  const servicesTotal = calculateServicesTotal(services)
-  const productsTotal = calculateProductsTotal(products)
-  const subtotal = servicesTotal + productsTotal
-  const tax = calculateTax(subtotal)
-
-  return subtotal + tax
-}
-
-/**
  * Получает полную сводку по заказу
  */
 export const getOrderSummary = (services: OrderService[], products: OrderProduct[]) => {
   const servicesTotal = calculateServicesTotal(services)
   const productsTotal = calculateProductsTotal(products)
   const subtotal = servicesTotal + productsTotal
-  const tax = calculateTax(subtotal)
-  const total = subtotal + tax
 
   return {
     services: {
@@ -100,13 +79,7 @@ export const getOrderSummary = (services: OrderService[], products: OrderProduct
       total: productsTotal,
       formattedTotal: formatPrice(productsTotal),
     },
-    summary: {
-      subtotal,
-      formattedSubtotal: formatPrice(subtotal),
-      tax,
-      formattedTax: formatPrice(tax),
-      total,
-      formattedTotal: formatPrice(total),
-    },
+    subtotal,
+    formattedSubtotal: formatPrice(subtotal),
   }
 }

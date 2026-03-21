@@ -46,6 +46,7 @@ export const PAYMENT_STATUS_LABELS: Record<PaymentStatus, string> = {
 
 export interface Order {
   id: number
+  organizationId: number
   clientId?: number
   client?: IClient
   carId?: number

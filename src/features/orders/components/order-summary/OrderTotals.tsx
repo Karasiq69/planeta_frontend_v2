@@ -34,7 +34,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useOrderProductsByOrderId } from '@/features/order-products/api/queries'
-import { useOrderServicesById } from '@/features/orders/api/queries'
+import { useOrderById, useOrderServicesById } from '@/features/orders/api/queries'
 import { getOrderSummary } from '@/features/orders/lib/order-calculator'
 import { useCancelPayment } from '@/features/payments/api/mutations'
 import { useOrderPayments, useOrderPaymentSummary } from '@/features/payments/api/queries'
@@ -45,7 +45,9 @@ import {
   PAYMENT_STATUS_VARIANT,
 } from '@/features/payments/components/columns'
 import CreatePaymentForm from '@/features/payments/components/forms/CreatePaymentForm'
+import { useVat } from '@/features/vat-rates/hooks/use-vat'
 import { formatRelativeTime } from '@/lib/format-date'
+import { formatPrice } from '@/lib/utils'
 
 import type { Payment } from '@/features/payments/types'
 
@@ -61,6 +63,7 @@ type Props = {
 }
 
 const OrderTotals = ({ orderId }: Props) => {
+  const { data: order } = useOrderById(orderId)
   const { data: orderServices, isLoading: isServicesLoading } = useOrderServicesById(orderId)
   const { data: orderProducts, isLoading: isProductsLoading } = useOrderProductsByOrderId(orderId)
   const { data: payments, isLoading: isPaymentsLoading } = useOrderPayments(orderId)
@@ -75,6 +78,10 @@ const OrderTotals = ({ orderId }: Props) => {
   }
 
   const summary = getOrderSummary(orderServices || [], orderProducts || [])
+  const { calculateVat } = useVat(order?.organizationId)
+  const vat = calculateVat(summary.subtotal)
+  const totalCost = order?.totalCost ?? 0
+
   const percent =
     paymentSummary && paymentSummary.totalCost > 0
       ? Math.round((paymentSummary.totalPaid / paymentSummary.totalCost) * 100)
@@ -130,15 +137,15 @@ const OrderTotals = ({ orderId }: Props) => {
             <ul className='grid gap-3'>
               <li className='flex items-center justify-between'>
                 <span className='text-muted-foreground'>Подытог</span>
-                <span>{summary.summary.formattedSubtotal}</span>
+                <span>{summary.formattedSubtotal}</span>
               </li>
               <li className='flex items-center justify-between'>
-                <span className='text-muted-foreground'>НДС (18%)</span>
-                <span>{summary.summary.formattedTax}</span>
+                <span className='text-muted-foreground'>{vat.label}</span>
+                <span>{vat.formattedAmount}</span>
               </li>
               <li className='flex items-center justify-between font-semibold'>
                 <span className='text-muted-foreground'>Итого</span>
-                <span>{summary.summary.formattedTotal}</span>
+                <span>{formatPrice(totalCost)}</span>
               </li>
             </ul>
           </div>
