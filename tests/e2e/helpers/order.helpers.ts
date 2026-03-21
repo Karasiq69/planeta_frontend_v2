@@ -2,7 +2,8 @@ import { type Page, expect } from '@playwright/test'
 
 export async function navigateToOrders(page: Page) {
   await page.goto('/orders')
-  await page.waitForLoadState('domcontentloaded')
+  // Wait for the page to render (the "Новый заказ" button indicates the orders page is ready)
+  await expect(page.getByRole('button', { name: /новый заказ/i })).toBeVisible({ timeout: 15_000 })
 }
 
 export async function createOrderViaUI(page: Page): Promise<string> {
@@ -50,7 +51,8 @@ export async function createOrderWithClientViaUI(page: Page, clientName: string)
 
 export async function openOrder(page: Page, orderId: string) {
   await page.goto(`/orders/${orderId}`)
-  await page.waitForLoadState('domcontentloaded')
+  // Wait for order page to render (heading with order number)
+  await expect(page.getByRole('heading').filter({ hasText: /№/ })).toBeVisible({ timeout: 15_000 })
 }
 
 export async function attachClientViaUI(page: Page, clientName: string) {
@@ -68,7 +70,8 @@ export async function attachClientViaUI(page: Page, clientName: string) {
   await page.getByPlaceholder('Поиск..', { exact: true }).fill(clientName)
   await page.getByRole('option', { name: new RegExp(clientName, 'i') }).first().click()
 
-  await page.waitForLoadState('domcontentloaded')
+  // Wait for client card to update
+  await expect(page.getByRole('button', { name: /добавить клиента/i })).not.toBeVisible({ timeout: 10_000 })
 }
 
 export async function attachCarViaUI(page: Page, carQuery: string) {
@@ -85,7 +88,7 @@ export async function attachCarViaUI(page: Page, carQuery: string) {
   await page.getByPlaceholder(/поиск/i).fill(carQuery)
   await page.getByRole('option').first().click()
 
-  await page.waitForLoadState('domcontentloaded')
+  await expect(dialog).not.toBeVisible({ timeout: 10_000 })
 }
 
 export async function changeOrderStatusViaUI(page: Page, nextStatusLabel: string) {
@@ -118,7 +121,8 @@ export async function changeOrderStatusViaUI(page: Page, nextStatusLabel: string
   await expect(confirmDialog).toBeVisible({ timeout: 5000 })
   await confirmDialog.getByRole('button', { name: /подтвердить/i }).click()
 
-  await page.waitForLoadState('domcontentloaded')
+  // Wait for status to update
+  await expect(confirmDialog).not.toBeVisible({ timeout: 10_000 })
 }
 
 function escapeRegex(str: string): string {
@@ -146,7 +150,8 @@ export async function addServiceViaCombobox(page: Page, serviceName: string) {
   await expect(option).toBeEnabled({ timeout: 10_000 })
   await option.click()
 
-  await page.waitForLoadState('domcontentloaded')
+  // Wait for the service to appear in the table
+  await expect(page.getByRole('row').filter({ hasText: serviceName })).toBeVisible({ timeout: 10_000 })
 }
 
 export async function addProductViaCombobox(page: Page, productName: string) {
@@ -168,7 +173,8 @@ export async function addProductViaCombobox(page: Page, productName: string) {
   await expect(option).toBeEnabled({ timeout: 10_000 })
   await option.click()
 
-  await page.waitForLoadState('domcontentloaded')
+  // Wait for the product to appear in the table
+  await expect(page.getByRole('row').filter({ hasText: productName })).toBeVisible({ timeout: 10_000 })
 }
 
 /**
@@ -188,5 +194,6 @@ export async function deleteRowViaPopover(page: Page, row: import('@playwright/t
   await expect(deleteConfirm).toBeVisible({ timeout: 3_000 })
   await deleteConfirm.click()
 
-  await page.waitForLoadState('domcontentloaded')
+  // Wait for the row to disappear
+  await expect(row).not.toBeVisible({ timeout: 10_000 })
 }
