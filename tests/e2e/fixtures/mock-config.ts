@@ -25,7 +25,6 @@ function buildKey(method: string, pathname: string, search?: string): string {
  *   test.afterAll(async () => { await mocker.teardown(); setActiveMocker(null) })
  */
 export class MockManager {
-  private specName: string
   private mockFilePath: string
   private store: MockStore = {}
   private storeLoaded = false
@@ -33,7 +32,6 @@ export class MockManager {
   private recordedEntries: Map<string, MockEntry[]> = new Map()
 
   constructor(specName: string) {
-    this.specName = specName
     this.mockFilePath = path.join(MOCKS_DIR, `${specName}.mocks.json`)
   }
 
@@ -79,7 +77,7 @@ export class MockManager {
   }
 
   /** Call in afterAll — writes recorded data to disk in record mode */
-  async teardown() {
+  teardown() {
     if (!RECORD_MODE) return
     const store: MockStore = {}
     for (const [key, entries] of this.recordedEntries) {

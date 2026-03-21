@@ -7,24 +7,27 @@ import {
   attachClientViaUI,
 } from '../helpers/order.helpers'
 import { expectOrderStatus, expectOrderTotal, expectPaymentInfo } from '../helpers/assertions'
-import { getSeededData, setActiveMocker } from '../helpers/api.helpers'
+import { setActiveMocker } from '../helpers/api.helpers'
 import { MockManager } from '../fixtures/mock-config'
 
-const mocker = new MockManager('order-create')
+const mockerEmpty = new MockManager('order-create-empty')
+const mockerClient = new MockManager('order-create-client')
+const mockerDialogUI = new MockManager('order-create-dialog-ui')
+const mockerClientDialog = new MockManager('order-create-client-dialog')
 
 test.describe.serial('Order Create — Empty Order Flow', () => {
   let orderId: string
 
   test.beforeAll(async () => {
-    setActiveMocker(mocker)
+    setActiveMocker(mockerEmpty)
   })
 
   test.beforeEach(async ({ page }) => {
-    await mocker.setupPage(page)
+    await mockerEmpty.setupPage(page)
   })
 
   test.afterAll(async () => {
-    await mocker.teardown()
+    await mockerEmpty.teardown()
     setActiveMocker(null)
   })
 
@@ -49,8 +52,6 @@ test.describe.serial('Order Create — Empty Order Flow', () => {
   test('should attach a client to order', async ({ page }) => {
     await openOrder(page, orderId)
 
-    const seeded = getSeededData()
-    // Use the individual test client name from seed data
     await attachClientViaUI(page, 'Тест')
 
     // Client card should now show client info instead of "Добавить клиента"
@@ -68,10 +69,8 @@ test.describe.serial('Order Create — Empty Order Flow', () => {
     const hasCarButton = await carButton.isVisible().catch(() => false)
 
     if (hasCarButton) {
-      // Car not auto-attached — that's ok, client might not have a car
       await expect(carButton).toBeVisible()
     } else {
-      // Car was auto-attached — verify we DON'T see "Добавить автомобиль"
       await expect(carButton).not.toBeVisible()
     }
   })
@@ -86,15 +85,15 @@ test.describe.serial('Order Create — With Client Flow', () => {
   let orderId: string
 
   test.beforeAll(async () => {
-    setActiveMocker(mocker)
+    setActiveMocker(mockerClient)
   })
 
   test.beforeEach(async ({ page }) => {
-    await mocker.setupPage(page)
+    await mockerClient.setupPage(page)
   })
 
   test.afterAll(async () => {
-    await mocker.teardown()
+    await mockerClient.teardown()
     setActiveMocker(null)
   })
 
@@ -111,15 +110,15 @@ test.describe.serial('Order Create — With Client Flow', () => {
 
 test.describe('Order Create — Dialog UI', () => {
   test.beforeAll(async () => {
-    setActiveMocker(mocker)
+    setActiveMocker(mockerDialogUI)
   })
 
   test.beforeEach(async ({ page }) => {
-    await mocker.setupPage(page)
+    await mockerDialogUI.setupPage(page)
   })
 
   test.afterAll(async () => {
-    await mocker.teardown()
+    await mockerDialogUI.teardown()
     setActiveMocker(null)
   })
 
@@ -156,15 +155,15 @@ test.describe('Order Create — Dialog UI', () => {
 
 test.describe('Order Create — Client Dialog', () => {
   test.beforeAll(async () => {
-    setActiveMocker(mocker)
+    setActiveMocker(mockerClientDialog)
   })
 
   test.beforeEach(async ({ page }) => {
-    await mocker.setupPage(page)
+    await mockerClientDialog.setupPage(page)
   })
 
   test.afterAll(async () => {
-    await mocker.teardown()
+    await mockerClientDialog.teardown()
     setActiveMocker(null)
   })
 

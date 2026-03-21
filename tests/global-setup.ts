@@ -110,39 +110,30 @@ async function globalSetup(config: FullConfig) {
     }))
   )
 
-  // Save storage state
+  // Save storage state and metadata
   const authDir = path.join(__dirname, '.auth')
   if (!fs.existsSync(authDir)) fs.mkdirSync(authDir, { recursive: true })
-  await context.storageState({ path: path.join(authDir, 'user.json') })
+  const storageState = await context.storageState({ path: path.join(authDir, 'user.json') })
 
-  // Save metadata for tests
-  fs.writeFileSync(
-    path.join(authDir, 'seeded-data.json'),
-    JSON.stringify(
-      {
-        cookies,
-        organizationId,
-        organizationHourlyRate,
-        services,
-        products,
-        employees,
-        clients,
-        serviceIds,
-        productIds,
-        mechanicIds,
-        clientIds,
-        warehouseId: null,
-        cashRegisterId: null,
-      },
-      null,
-      2
-    )
-  )
+  const seededData = {
+    cookies,
+    organizationId,
+    organizationHourlyRate,
+    services,
+    products,
+    employees,
+    clients,
+    serviceIds,
+    productIds,
+    mechanicIds,
+    clientIds,
+    warehouseId: null,
+    cashRegisterId: null,
+  }
+  fs.writeFileSync(path.join(authDir, 'seeded-data.json'), JSON.stringify(seededData, null, 2))
 
   await browser.close()
 
-  const storageState = JSON.parse(fs.readFileSync(path.join(authDir, 'user.json'), 'utf-8'))
-  const seededData = JSON.parse(fs.readFileSync(path.join(authDir, 'seeded-data.json'), 'utf-8'))
   writeGlobalMocks({ seededData, storageState })
   console.log('Global mocks recorded')
 
