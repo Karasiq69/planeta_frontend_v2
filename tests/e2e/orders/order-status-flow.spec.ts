@@ -1,24 +1,37 @@
 import { test, expect } from '@playwright/test'
 import { openOrder, changeOrderStatusViaUI } from '../helpers/order.helpers'
 import { expectOrderStatus } from '../helpers/assertions'
-import { apiCreateOrder, apiAddServiceToOrder, apiChangeOrderStatus, getSeededData } from '../helpers/api.helpers'
-import { TEST_SERVICE_PRICES } from '../fixtures/test-constants'
+import { apiCreateOrder, apiAddServiceToOrder, getSeededData, setActiveMocker } from '../helpers/api.helpers'
+import { MockManager } from '../fixtures/mock-config'
+
+const mocker = new MockManager('order-status-flow')
 
 test.describe('Order Status Flow', () => {
+  const seeded = getSeededData()
+  const hourlyRate = seeded.organizationHourlyRate ?? 4900
+  const service1 = seeded.services[0]
+  const service1Price = hourlyRate * (service1.defaultDuration / 60)
+
+  test.beforeAll(async () => {
+    setActiveMocker(mocker)
+  })
+
+  test.beforeEach(async ({ page }) => {
+    await mocker.setupPage(page)
+  })
+
+  test.afterAll(async () => {
+    await mocker.teardown()
+    setActiveMocker(null)
+  })
+
   test.describe.serial('Scenario A: Order without products (services only)', () => {
     let orderId: number
 
     test.beforeAll(async () => {
-      const seeded = getSeededData()
       const order = await apiCreateOrder()
       orderId = order.id || order.data?.id
-      // Add a service (no products)
-      await apiAddServiceToOrder(
-        orderId,
-        seeded.serviceIds[0],
-        TEST_SERVICE_PRICES['Замена масла'].appliedRate,
-        TEST_SERVICE_PRICES['Замена масла'].appliedPrice
-      )
+      await apiAddServiceToOrder(orderId, service1.id, hourlyRate, service1Price)
     })
 
     test('APPLICATION → ORDER', async ({ page }) => {
@@ -35,8 +48,8 @@ test.describe('Order Status Flow', () => {
 
     test('IN_PROGRESS → COMPLETED', async ({ page }) => {
       await openOrder(page, orderId.toString())
-      await changeOrderStatusViaUI(page, 'Выполнен')
-      await expectOrderStatus(page, 'Выполнен')
+      await changeOrderStatusViaUI(page, 'Завершен')
+      await expectOrderStatus(page, 'Завершен')
     })
   })
 
@@ -44,17 +57,9 @@ test.describe('Order Status Flow', () => {
     let orderId: number
 
     test.beforeAll(async () => {
-      const seeded = getSeededData()
       const order = await apiCreateOrder()
       orderId = order.id || order.data?.id
-      await apiAddServiceToOrder(
-        orderId,
-        seeded.serviceIds[0],
-        TEST_SERVICE_PRICES['Замена масла'].appliedRate,
-        TEST_SERVICE_PRICES['Замена масла'].appliedPrice
-      )
-      // Products are added via UI or API — for status flow, assume products exist
-      // TODO: add product to order via API helper when available
+      await apiAddServiceToOrder(orderId, service1.id, hourlyRate, service1Price)
     })
 
     test('APPLICATION → ORDER', async ({ page }) => {
@@ -63,30 +68,28 @@ test.describe('Order Status Flow', () => {
       await expectOrderStatus(page, 'Заказ-наряд')
     })
 
-    test('ORDER → WAITING_WAREHOUSE (has products)', async ({ page }) => {
+    test('ORDER → WAITING_WAREHOUSE', async ({ page }) => {
       await openOrder(page, orderId.toString())
-      // TODO: verify this transition requires products in order
-      await changeOrderStatusViaUI(page, 'Ждёт склада')
-      await expectOrderStatus(page, 'Ждёт склада')
+      await changeOrderStatusViaUI(page, 'Ждет склад')
+      await expectOrderStatus(page, 'Ждет склад')
     })
 
-    test('WAITING_WAREHOUSE → IN_PROGRESS (after transfer)', async ({ page }) => {
+    test('WAITING_WAREHOUSE → IN_PROGRESS', async ({ page }) => {
       await openOrder(page, orderId.toString())
-      // TODO: may need to transfer products first
       await changeOrderStatusViaUI(page, 'В работе')
       await expectOrderStatus(page, 'В работе')
     })
 
     test('IN_PROGRESS → WAITING_PAYMENT', async ({ page }) => {
       await openOrder(page, orderId.toString())
-      await changeOrderStatusViaUI(page, 'Ожидает оплаты')
-      await expectOrderStatus(page, 'Ожидает оплаты')
+      await changeOrderStatusViaUI(page, 'Ждет оплаты')
+      await expectOrderStatus(page, 'Ждет оплаты')
     })
 
     test('WAITING_PAYMENT → COMPLETED', async ({ page }) => {
       await openOrder(page, orderId.toString())
-      await changeOrderStatusViaUI(page, 'Выполнен')
-      await expectOrderStatus(page, 'Выполнен')
+      await changeOrderStatusViaUI(page, 'Завершен')
+      await expectOrderStatus(page, 'Завершен')
     })
   })
 
@@ -100,8 +103,8 @@ test.describe('Order Status Flow', () => {
 
     test('should cancel order', async ({ page }) => {
       await openOrder(page, orderId.toString())
-      await changeOrderStatusViaUI(page, 'Отменён')
-      await expectOrderStatus(page, 'Отменён')
+      await changeOrderStatusViaUI(page, 'Отменен')
+      await expectOrderStatus(page, 'Отменен')
     })
   })
 
@@ -112,9 +115,10 @@ test.describe('Order Status Flow', () => {
 
       await openOrder(page, orderId)
 
-      // TODO: verify that "В работе" option is not available from APPLICATION
-      // This may be a disabled button, missing option, or error on click
-      // Depends on frontend implementation
+      // "В работе" button should not be available from APPLICATION status
+      // The next status button should only show "Заказ-наряд"
+      const inProgressBtn = page.getByRole('button', { name: /В работе/i })
+      await expect(inProgressBtn).not.toBeVisible()
     })
   })
 })

@@ -1,41 +1,51 @@
 import { test, expect } from '@playwright/test'
-import { openOrder } from '../helpers/order.helpers'
+import { openOrder, addServiceViaCombobox, deleteRowViaPopover } from '../helpers/order.helpers'
 import { expectOrderTotal } from '../helpers/assertions'
-import { apiCreateOrder, getSeededData } from '../helpers/api.helpers'
-import { TEST_SERVICE_PRICES } from '../fixtures/test-constants'
+import { apiCreateOrder, getSeededData, setActiveMocker } from '../helpers/api.helpers'
+import { MockManager } from '../fixtures/mock-config'
+
+const mocker = new MockManager('order-services')
 
 test.describe.serial('Order Services Flow', () => {
   let orderId: number
+  const seeded = getSeededData()
+  const hourlyRate = seeded.organizationHourlyRate ?? 4900
+  const service1 = seeded.services[0]
+  const service2 = seeded.services[1]
+  const service1Price = hourlyRate * (service1.defaultDuration / 60)
+  const service2Price = hourlyRate * (service2.defaultDuration / 60)
 
   test.beforeAll(async () => {
+    setActiveMocker(mocker)
     const order = await apiCreateOrder()
     orderId = order.id || order.data?.id
+  })
+
+  test.beforeEach(async ({ page }) => {
+    await mocker.setupPage(page)
+  })
+
+  test.afterAll(async () => {
+    await mocker.teardown()
+    setActiveMocker(null)
   })
 
   test('should add a service to order', async ({ page }) => {
     await openOrder(page, orderId.toString())
 
-    // TODO: verify selector after codegen
-    await page.getByRole('button', { name: /добавить услугу/i }).click()
-    await page.getByPlaceholder(/поиск/i).fill('Замена масла')
-    await page.getByText('Замена масла').click()
-    await page.waitForLoadState('networkidle')
+    await addServiceViaCombobox(page, service1.name)
 
-    await expect(page.getByText('Замена масла')).toBeVisible()
-    await expectOrderTotal(page, { services: TEST_SERVICE_PRICES['Замена масла'].appliedPrice })
+    // Verify service appears in the table (not just combobox)
+    await expect(page.getByRole('row').filter({ hasText: service1.name })).toBeVisible()
+    await expectOrderTotal(page, { services: service1Price })
   })
 
   test('should add multiple services and verify total', async ({ page }) => {
     await openOrder(page, orderId.toString())
 
-    // TODO: verify selector after codegen
-    await page.getByRole('button', { name: /добавить услугу/i }).click()
-    await page.getByPlaceholder(/поиск/i).fill('Диагностика')
-    await page.getByText('Диагностика').click()
-    await page.waitForLoadState('networkidle')
+    await addServiceViaCombobox(page, service2.name)
 
-    const expectedTotal =
-      TEST_SERVICE_PRICES['Замена масла'].appliedPrice + TEST_SERVICE_PRICES['Диагностика'].appliedPrice
+    const expectedTotal = service1Price + service2Price
 
     await expectOrderTotal(page, { services: expectedTotal })
   })
@@ -43,18 +53,14 @@ test.describe.serial('Order Services Flow', () => {
   test('should remove a service and recalculate total', async ({ page }) => {
     await openOrder(page, orderId.toString())
 
-    // TODO: verify selector after codegen
-    const row = page.getByRole('row', { name: /Диагностика/i })
-    await row.getByRole('button', { name: /удалить/i }).click()
+    // Switch to services tab
+    await page.getByRole('tab', { name: /работы/i }).click()
 
-    // Confirm deletion if dialog appears
-    const confirmBtn = page.getByRole('button', { name: /подтвердить|да|удалить/i })
-    if (await confirmBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await confirmBtn.click()
-    }
-    await page.waitForLoadState('networkidle')
+    // Find service row and delete via Trash2 icon → popover "Удалить" pattern
+    const row = page.getByRole('row', { name: new RegExp(service2.name, 'i') })
+    await deleteRowViaPopover(page, row)
 
-    await expect(page.getByText('Диагностика')).not.toBeVisible()
-    await expectOrderTotal(page, { services: TEST_SERVICE_PRICES['Замена масла'].appliedPrice })
+    await expect(page.getByText(service2.name)).not.toBeVisible()
+    await expectOrderTotal(page, { services: service1Price })
   })
 })
