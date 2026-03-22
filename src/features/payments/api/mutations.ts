@@ -79,13 +79,17 @@ export const useCancelPayment = (orderId?: number) => {
     onSuccess: () => {
       toast.success('Платёж отменён')
       queryClient.invalidateQueries({ queryKey: paymentsQueryKeys.all })
+      queryClient.invalidateQueries({ queryKey: ['cash-registers'] })
+      queryClient.invalidateQueries({ queryKey: ['cash-register-balance'] })
+      queryClient.invalidateQueries({ queryKey: ['cash-transactions'] })
       if (orderId) {
         queryClient.invalidateQueries({ queryKey: paymentsQueryKeys.orderPayments(orderId) })
         queryClient.invalidateQueries({ queryKey: paymentsQueryKeys.orderSummary(orderId) })
       }
     },
-    onError: (error) => {
-      toast.error(error.message)
+    onError: (error: unknown) => {
+      const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
+      toast.error(message || 'Ошибка отмены платежа')
     },
   })
 }
