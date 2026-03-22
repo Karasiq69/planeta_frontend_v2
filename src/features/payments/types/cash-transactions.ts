@@ -51,3 +51,13 @@ export interface PaymentCategory {
   createdAt: string
   updatedAt: string
 }
+
+export interface CreatePaymentCategoryPayload {
+  name: string
+  type: CategoryType
+}
+
+export interface UpdatePaymentCategoryPayload {
+  name?: string
+  isActive?: boolean
+}

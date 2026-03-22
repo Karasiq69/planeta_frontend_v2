@@ -6,7 +6,9 @@ import type {
   CashTransaction,
   CashTransactionFilters,
   CreateCashTransactionPayload,
+  CreatePaymentCategoryPayload,
   PaymentCategory,
+  UpdatePaymentCategoryPayload,
 } from '@/features/payments/types'
 import type { ListResponse } from '@/types/params'
 
@@ -28,4 +30,18 @@ export const createCashTransaction = async (data: CreateCashTransactionPayload):
 export const getPaymentCategories = async (params?: { type?: string; isActive?: boolean }): Promise<PaymentCategory[]> => {
   const response = await apiClient.get<{ data: PaymentCategory[] }>(PAYMENT_CATEGORIES_URL, { params })
   return response.data.data
+}
+
+export const createPaymentCategory = async (data: CreatePaymentCategoryPayload): Promise<PaymentCategory> => {
+  const response = await apiClient.post<{ data: PaymentCategory }>(PAYMENT_CATEGORIES_URL, data)
+  return response.data.data
+}
+
+export const updatePaymentCategory = async (id: number, data: UpdatePaymentCategoryPayload): Promise<PaymentCategory> => {
+  const response = await apiClient.patch<{ data: PaymentCategory }>(`${PAYMENT_CATEGORIES_URL}/${id}`, data)
+  return response.data.data
+}
+
+export const deletePaymentCategory = async (id: number): Promise<void> => {
+  await apiClient.delete(`${PAYMENT_CATEGORIES_URL}/${id}`)
 }
