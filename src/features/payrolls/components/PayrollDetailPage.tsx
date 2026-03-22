@@ -33,7 +33,6 @@ import {
   useConfirmPayroll,
   useDeletePayroll,
   useGeneratePayroll,
-  usePayPayroll,
   useRevertPayroll,
 } from '@/features/payrolls/api/mutations'
 import { usePayroll, usePayrollItems } from '@/features/payrolls/api/queries'
@@ -44,6 +43,7 @@ import { formatPrice } from '@/lib/utils'
 
 
 import { mechanicSummaryColumns } from './mechanic-summary-columns'
+import PayPayrollDialog from './PayPayrollDialog'
 import { payrollItemColumns } from './payroll-item-columns'
 
 import type { ColumnDef } from '@tanstack/react-table'
@@ -59,7 +59,7 @@ const Field = ({ label, value }: { label: string; value: string | null | undefin
   </div>
 )
 
-type ConfirmAction = 'generate' | 'confirm' | 'pay' | 'delete' | 'revert'
+type ConfirmAction = 'generate' | 'confirm' | 'delete' | 'revert'
 
 function MiniTable<T>({ data, columns }: { data: T[]; columns: ColumnDef<T>[] }) {
   const table = useReactTable({
@@ -123,11 +123,6 @@ const CONFIRM_CONFIG: Record<
     description: 'После подтверждения ведомость нельзя будет изменить.',
     action: 'Подтвердить',
   },
-  pay: {
-    title: 'Отметить как оплаченную?',
-    description: 'Ведомость будет отмечена как оплаченная.',
-    action: 'Оплатить',
-  },
   delete: {
     title: 'Удалить ведомость?',
     description: 'Ведомость будет удалена безвозвратно.',
@@ -144,27 +139,26 @@ const PayrollDetailPage = ({ payrollId }: Props) => {
   const router = useRouter()
   const [showItems, setShowItems] = useState(false)
   const [confirmAction, setConfirmAction] = useState<ConfirmAction | null>(null)
+  const [payDialogOpen, setPayDialogOpen] = useState(false)
 
   const { data: payroll, isLoading } = usePayroll(payrollId)
   const { data: itemsData, isLoading: itemsLoading } = usePayrollItems(payrollId, showItems)
 
   const { mutate: generate, isPending: isGenerating } = useGeneratePayroll(payrollId)
   const { mutate: confirm, isPending: isConfirming } = useConfirmPayroll(payrollId)
-  const { mutate: pay, isPending: isPaying } = usePayPayroll(payrollId)
   const { mutate: revert, isPending: isReverting } = useRevertPayroll(payrollId)
   const { mutate: remove, isPending: isDeleting } = useDeletePayroll()
 
   if (isLoading) return <LoaderSectionAnimated className='rounded p-10' />
   if (!payroll) return <div className='p-4'>Ведомость не найдена</div>
 
-  const isBusy = isGenerating || isConfirming || isPaying || isDeleting || isReverting
+  const isBusy = isGenerating || isConfirming || isDeleting || isReverting
 
   const handleConfirmedAction = () => {
     if (!confirmAction) return
     const callbacks = {
       generate: () => generate(undefined, { onSuccess: () => setConfirmAction(null) }),
       confirm: () => confirm(undefined, { onSuccess: () => setConfirmAction(null) }),
-      pay: () => pay(undefined, { onSuccess: () => setConfirmAction(null) }),
       revert: () => revert(undefined, { onSuccess: () => setConfirmAction(null) }),
       delete: () => remove(payrollId, { onSuccess: () => router.push('/payrolls') }),
     }
@@ -219,7 +213,7 @@ const PayrollDetailPage = ({ payrollId }: Props) => {
                 <Undo2 className='h-4 w-4' />
                 Откатить
               </Button>
-              <Button onClick={() => setConfirmAction('pay')} disabled={isBusy}>
+              <Button onClick={() => setPayDialogOpen(true)} disabled={isBusy}>
                 <Banknote className='h-4 w-4' />
                 Оплатить
               </Button>
@@ -298,6 +292,14 @@ const PayrollDetailPage = ({ payrollId }: Props) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Pay dialog with cash register selection */}
+      <PayPayrollDialog
+        payrollId={payrollId}
+        totalAmount={payroll.totalAmount}
+        open={payDialogOpen}
+        onOpenChange={setPayDialogOpen}
+      />
     </section>
   )
 }
