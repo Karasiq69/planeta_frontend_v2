@@ -70,14 +70,17 @@ export const usePayPayroll = (id: number) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: () => payPayroll(id),
+    mutationFn: (cashRegisterId: number) => payPayroll(id, cashRegisterId),
     onSuccess: () => {
       toast.success('Ведомость оплачена')
       queryClient.invalidateQueries({ queryKey: payrollsQueryKeys.detail(id) })
       queryClient.invalidateQueries({ queryKey: payrollsQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: ['cash-registers'] })
+      queryClient.invalidateQueries({ queryKey: ['cash-register-balance'] })
+      queryClient.invalidateQueries({ queryKey: ['cash-transactions'] })
     },
     onError: (error: ApiError) => {
-      toast.error(error.message)
+      toast.error(error.response?.data?.message || error.message)
     },
   })
 }

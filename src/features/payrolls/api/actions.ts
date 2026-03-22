@@ -41,8 +41,8 @@ export const confirmPayroll = async (id: number): Promise<PayrollListItem> => {
   return response.data
 }
 
-export const payPayroll = async (id: number): Promise<PayrollListItem> => {
-  const response = await apiClient.patch<PayrollListItem>(`${PAYROLLS_URL}/${id}/pay`)
+export const payPayroll = async (id: number, cashRegisterId: number): Promise<PayrollListItem> => {
+  const response = await apiClient.patch<PayrollListItem>(`${PAYROLLS_URL}/${id}/pay`, { cashRegisterId })
   return response.data
 }
 
