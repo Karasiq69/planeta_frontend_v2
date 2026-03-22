@@ -69,3 +69,5 @@ export interface UpdateCashRegisterDto {
   name?: string
   isActive?: boolean
 }
+
+export * from './cash-transactions'
