@@ -32,6 +32,7 @@ import { useDeactivateCashRegister } from '@/features/payments/api/mutations'
 
 import { cashRegisterColumns } from './cash-register-columns'
 import CashRegisterForm from './forms/CashRegisterForm'
+import CashRegisterTransactionsSheet from './cash-transactions/CashRegisterTransactionsSheet'
 
 import type { CashRegister } from '@/features/payments/types'
 
@@ -43,6 +44,7 @@ interface CashRegistersTableProps {
 const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
   const [deactivateId, setDeactivateId] = useState<number | null>(null)
   const [editCashRegister, setEditCashRegister] = useState<CashRegister | null>(null)
+  const [selectedCashRegister, setSelectedCashRegister] = useState<CashRegister | null>(null)
   const { mutate: deactivate, isPending } = useDeactivateCashRegister()
 
   const columns = [
@@ -93,7 +95,11 @@ const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} className={row.original.isActive ? '' : 'opacity-50'}>
+                <TableRow
+                  key={row.id}
+                  className={`${row.original.isActive ? '' : 'opacity-50'} cursor-pointer hover:bg-muted/50`}
+                  onClick={() => setSelectedCashRegister(row.original)}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className='py-2'>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -149,6 +155,12 @@ const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
           )}
         </DialogContent>
       </Dialog>
+
+      <CashRegisterTransactionsSheet
+        cashRegister={selectedCashRegister}
+        open={!!selectedCashRegister}
+        onOpenChange={(open) => !open && setSelectedCashRegister(null)}
+      />
     </>
   )
 }
