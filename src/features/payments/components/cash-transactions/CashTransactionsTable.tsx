@@ -10,9 +10,7 @@ import { useCashTransactions } from '@/features/payments/api/cash-transactions-q
 import { cashTransactionColumns } from './cash-transaction-columns'
 import CashTransactionsToolbar from './CashTransactionsToolbar'
 
-import type { CashTransactionFilters } from '@/features/payments/types'
-
-type TransactionTableFilters = Pick<CashTransactionFilters, 'type' | 'categoryId' | 'dateFrom' | 'dateTo'>
+import type { TransactionTableFilters } from './CashTransactionsToolbar'
 
 interface CashTransactionsTableProps {
   cashRegisterId: number
@@ -35,7 +33,7 @@ const CashTransactionsTable = ({ cashRegisterId }: CashTransactionsTableProps) =
     columns,
     getCoreRowModel: getCoreRowModel(),
     onPaginationChange: setPagination,
-    pageCount: data?.meta.totalPages || -1,
+    pageCount: data?.meta.totalPages ?? -1,
     manualPagination: true,
     state: { pagination },
   })

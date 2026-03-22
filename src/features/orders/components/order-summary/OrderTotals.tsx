@@ -35,7 +35,7 @@ import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useOrderProductsByOrderId } from '@/features/order-products/api/queries'
 import { useOrderById, useOrderServicesById } from '@/features/orders/api/queries'
-import { getOrderSummary } from '@/features/orders/lib/order-calculator'
+import { calculateTotalDuration, countActiveProducts, countActiveServices, formatDuration } from '@/features/orders/lib/order-calculator'
 import { useCancelPayment } from '@/features/payments/api/mutations'
 import { useOrderPayments, useOrderPaymentSummary } from '@/features/payments/api/queries'
 import {
@@ -78,9 +78,13 @@ const OrderTotals = ({ orderId }: Props) => {
     return <OrderTotalsSkeleton />
   }
 
-  const summary = getOrderSummary(orderServices || [], orderProducts || [])
-  const vat = calculateVat(summary.subtotal)
+  const services = orderServices || []
+  const products = orderProducts || []
+  const serviceCost = order?.serviceCost != null ? parseFloat(String(order.serviceCost)) : 0
+  const partsCost = order?.partsCost != null ? parseFloat(String(order.partsCost)) : 0
   const totalCost = order?.totalCost ?? 0
+  const subtotal = serviceCost + partsCost
+  const vat = calculateVat(subtotal)
 
   const percent =
     paymentSummary && paymentSummary.totalCost > 0
@@ -99,15 +103,15 @@ const OrderTotals = ({ orderId }: Props) => {
             <ul className='grid gap-3'>
               <li className='flex items-center justify-between'>
                 <span className='text-muted-foreground'>Количество</span>
-                <span>{summary.services.count}</span>
+                <span>{countActiveServices(services)}</span>
               </li>
               <li className='flex items-center justify-between'>
                 <span className='text-muted-foreground'>Расчетное время</span>
-                <span>{summary.services.formattedDuration}</span>
+                <span>{formatDuration(calculateTotalDuration(services))}</span>
               </li>
               <li className='flex items-center justify-between font-semibold'>
                 <span className='text-muted-foreground'>Сумма</span>
-                <span>{summary.services.formattedTotal}</span>
+                <span>{formatPrice(serviceCost)}</span>
               </li>
             </ul>
           </div>
@@ -120,11 +124,11 @@ const OrderTotals = ({ orderId }: Props) => {
             <ul className='grid gap-3'>
               <li className='flex items-center justify-between'>
                 <span className='text-muted-foreground'>Количество</span>
-                <span>{summary.products.count}</span>
+                <span>{countActiveProducts(products)}</span>
               </li>
               <li className='flex items-center justify-between font-semibold'>
                 <span className='text-muted-foreground'>Итого</span>
-                <span>{summary.products.formattedTotal}</span>
+                <span>{formatPrice(partsCost)}</span>
               </li>
             </ul>
           </div>
@@ -137,7 +141,7 @@ const OrderTotals = ({ orderId }: Props) => {
             <ul className='grid gap-3'>
               <li className='flex items-center justify-between'>
                 <span className='text-muted-foreground'>Подытог</span>
-                <span>{summary.formattedSubtotal}</span>
+                <span>{formatPrice(subtotal)}</span>
               </li>
               <li className='flex items-center justify-between'>
                 <span className='text-muted-foreground'>{vat.label}</span>

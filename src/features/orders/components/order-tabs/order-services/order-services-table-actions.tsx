@@ -1,5 +1,4 @@
-import { Check, Copy, Pencil, Trash2, UserPlus } from 'lucide-react'
-import { DialogBody } from 'next/dist/next-devtools/dev-overlay/components/dialog'
+import { Check, Pencil, Trash2, UserPlus } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import * as React from 'react'
 import { useState } from 'react'
@@ -17,7 +16,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -28,7 +26,6 @@ import {
   useAddOrderServiceEmployee,
   useDeleteEmployeeOrderService,
   useDeleteOrderService,
-  useUpdateOrderService,
 } from '@/features/orders/api/mutations'
 import { OrderServiceForm } from '@/features/orders/components/forms/order-service/OrderServiceForm'
 import { cn } from '@/lib/utils'
@@ -52,7 +49,6 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
   const { data: mechanics, isLoading } = useMechanicEmployees()
 
   const { mutate: deleteService, isPending } = useDeleteOrderService(orderId)
-  const { mutate: updateMutation, isPending: updatePending } = useUpdateOrderService(orderId)
   const { mutate: addMechanic, isPending: isAdding } = useAddOrderServiceEmployee(orderId)
 
   const { mutate: deleteMechanic, isPending: isDeleting } = useDeleteEmployeeOrderService(orderId)
@@ -83,8 +79,6 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
       }
     }
   }
-
-  function handleUpdateService() {}
 
   return (
     <div className='  text-nowrap flex   '>
@@ -136,7 +130,6 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
       </div>
       <Dialog>
         <DialogTrigger asChild>
-          {/*-- Редактировать услугу --*/}
           <Button size='icon' variant='ghost' className='p-0'>
             <Pencil />
           </Button>
@@ -146,66 +139,9 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
             <DialogTitle>Редактирование услуги</DialogTitle>
             <DialogDescription>Отредактируйте услугу и нажмите сохранить</DialogDescription>
           </DialogHeader>
-          <DialogContent>
-            <OrderServiceForm orderServiceData={rowInstance.original} orderId={orderId} />
-          </DialogContent>
-          {/*<DialogFooter>*/}
-          {/*    <Button variant="outline">*/}
-          {/*        Отмена*/}
-          {/*    </Button>*/}
-          {/*    <Button variant="destructive">*/}
-          {/*        /!*{isPending ? <LoaderAnimated/> : "Удалить"}*!/*/}
-          {/*        Удалить*/}
-          {/*    </Button>*/}
-          {/*</DialogFooter>*/}
+          <OrderServiceForm orderServiceData={rowInstance.original} orderId={orderId} />
         </DialogContent>
       </Dialog>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button size='icon' variant='ghost' className='p-0'>
-            <Copy />
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Редактирование</DialogTitle>
-            <DialogDescription>
-              Вы уверены, что хотите удалить заказ? Это действие невозможно отменить
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant='outline'>Отмена</Button>
-            <Button variant='destructive'>
-              {/*{isPending ? <LoaderAnimated/> : "Удалить"}*/}
-              Удалить
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      {/*<Dialog>*/}
-      {/*    <DialogTrigger asChild>*/}
-      {/*        <Button size="icon" variant="ghost" className="p-0">*/}
-      {/*            <Trash2/>*/}
-      {/*        </Button>*/}
-      {/*    </DialogTrigger>*/}
-      {/*    <DialogContent>*/}
-      {/*        <DialogHeader>*/}
-      {/*            <DialogTitle>Подтвердить удаление</DialogTitle>*/}
-      {/*            <DialogDescription>*/}
-      {/*                Вы уверены, что хотите удалить заказ? Это действие невозможно отменить*/}
-      {/*            </DialogDescription>*/}
-      {/*        </DialogHeader>*/}
-      {/*        <DialogFooter>*/}
-      {/*            <Button variant="outline">*/}
-      {/*                Отмена*/}
-      {/*            </Button>*/}
-      {/*            <Button variant="destructive">*/}
-      {/*                /!*{isPending ? <LoaderAnimated/> : "Удалить"}*!/*/}
-      {/*                Удалить*/}
-      {/*            </Button>*/}
-      {/*        </DialogFooter>*/}
-      {/*    </DialogContent>*/}
-      {/*</Dialog>*/}
       <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
         <PopoverTrigger asChild onClick={() => setPopoverOpen(true)}>
           <Button variant='ghost' size='sm'>

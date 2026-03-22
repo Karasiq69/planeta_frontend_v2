@@ -412,6 +412,9 @@ export function useUpdateOrderService(orderId: number) {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.services(orderId),
       })
+      queryClient.invalidateQueries({
+        queryKey: ordersQueryKeys.detail(orderId),
+      })
     },
   })
 }
@@ -435,14 +438,18 @@ export function useUpdateEmployeeOrderService(orderId?: number) {
       toast.error('Произошла ошибка, повторите попытку')
     },
     onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: ordersQueryKeys.all,
-      })
-
-      // todo add orderId invalidation instead of invalidating all
-      // queryClient.invalidateQueries({
-      //     queryKey: ordersQueryKeys.detail(orderId)
-      // });
+      if (orderId) {
+        queryClient.invalidateQueries({
+          queryKey: ordersQueryKeys.services(orderId),
+        })
+        queryClient.invalidateQueries({
+          queryKey: ordersQueryKeys.detail(orderId),
+        })
+      } else {
+        queryClient.invalidateQueries({
+          queryKey: ordersQueryKeys.all,
+        })
+      }
     },
   })
 }
@@ -463,9 +470,9 @@ export function useDeleteEmployeeOrderService(orderId: number) {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.services(orderId),
       })
-      // queryClient.invalidateQueries({
-      //     queryKey: ordersQueryKeys.detail(orderId)
-      // });
+      queryClient.invalidateQueries({
+        queryKey: ordersQueryKeys.detail(orderId),
+      })
     },
   })
 }
@@ -482,11 +489,11 @@ export function useAddOrderService(orderId: number) {
       toast.error('Произошла ошибка, повторите попытку')
     },
     onSettled: () => {
-      // queryClient.invalidateQueries({
-      //     queryKey: ordersQueryKeys.all
-      // });
       queryClient.invalidateQueries({
-        queryKey: ordersQueryKeys.services(Number(orderId)),
+        queryKey: ordersQueryKeys.services(orderId),
+      })
+      queryClient.invalidateQueries({
+        queryKey: ordersQueryKeys.detail(orderId),
       })
     },
   })

@@ -20,11 +20,11 @@ export function useCreateOrderProduct(orderId: number) {
       toast.error('Произошла ошибка, повторите попытку')
     },
     onSettled: () => {
-      // queryClient.invalidateQueries({
-      //     queryKey: ordersQueryKeys.all
-      // });
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.products(orderId),
+      })
+      queryClient.invalidateQueries({
+        queryKey: ordersQueryKeys.detail(orderId),
       })
     },
   })
@@ -50,6 +50,9 @@ export function useDeleteOrderProduct(orderId: number) {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.products(orderId),
       })
+      queryClient.invalidateQueries({
+        queryKey: ordersQueryKeys.detail(orderId),
+      })
     },
   })
 }
@@ -69,6 +72,9 @@ export function useUpdateOrderProduct(orderId: number) {
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.products(orderId),
+      })
+      queryClient.invalidateQueries({
+        queryKey: ordersQueryKeys.detail(orderId),
       })
     },
   })

@@ -9,7 +9,7 @@ import { usePaymentCategories } from '@/features/payments/api/cash-transactions-
 
 import type { CashTransactionFilters, TransactionType } from '@/features/payments/types'
 
-type TransactionTableFilters = Pick<CashTransactionFilters, 'type' | 'categoryId' | 'dateFrom' | 'dateTo'>
+export type TransactionTableFilters = Pick<CashTransactionFilters, 'type' | 'categoryId' | 'dateFrom' | 'dateTo'>
 
 interface CashTransactionsToolbarProps {
   filters: TransactionTableFilters

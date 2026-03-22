@@ -1,18 +1,10 @@
-import { formatPrice } from '@/lib/utils'
-
 import type { OrderProduct } from '@/features/order-products/types'
 import type { OrderService } from '@/features/orders/types'
 
-/**
- * Вычисляет общую длительность всех сервисов в минутах
- */
 export const calculateTotalDuration = (services: OrderService[]): number => {
   return services.reduce((total, service) => total + (service.defaultDuration || 0), 0)
 }
 
-/**
- * Форматирует длительность из минут в часы и минуты
- */
 export const formatDuration = (totalMinutes: number): string => {
   const hours = Math.floor(totalMinutes / 60)
   const minutes = totalMinutes % 60
@@ -22,64 +14,10 @@ export const formatDuration = (totalMinutes: number): string => {
   return `${hours} ч ${minutes} мин`
 }
 
-/**
- * Вычисляет общую стоимость услуг
- */
-export const calculateServicesTotal = (services: OrderService[]): number => {
-  return services.reduce((total, service) => {
-    const price = service.appliedPrice || 0
-    const discount = service.discountPercent || 0
-    return total + price * (1 - discount / 100)
-  }, 0)
-}
-
-/**
- * Вычисляет общую стоимость товаров
- */
-export const calculateProductsTotal = (products: OrderProduct[]): number => {
-  return products.reduce((total, product) => {
-    // Используем actualPrice если есть, иначе estimatedPrice
-    const price = product.actualPrice ?? product.estimatedPrice
-    return total + parseFloat(price) * parseInt(product.quantity)
-  }, 0)
-}
-
-/**
- * Подсчитывает количество активных товаров (не отмененных)
- */
 export const countActiveProducts = (products: OrderProduct[]): number => {
   return products.filter((product) => product.status !== 'CANCELLED').length
 }
 
-/**
- * Подсчитывает количество активных услуг
- */
 export const countActiveServices = (services: OrderService[]): number => {
   return services.filter((service) => service.appliedPrice > 0).length
-}
-
-/**
- * Получает полную сводку по заказу
- */
-export const getOrderSummary = (services: OrderService[], products: OrderProduct[]) => {
-  const servicesTotal = calculateServicesTotal(services)
-  const productsTotal = calculateProductsTotal(products)
-  const subtotal = servicesTotal + productsTotal
-
-  return {
-    services: {
-      count: countActiveServices(services),
-      duration: calculateTotalDuration(services),
-      formattedDuration: formatDuration(calculateTotalDuration(services)),
-      total: servicesTotal,
-      formattedTotal: formatPrice(servicesTotal),
-    },
-    products: {
-      count: countActiveProducts(products),
-      total: productsTotal,
-      formattedTotal: formatPrice(productsTotal),
-    },
-    subtotal,
-    formattedSubtotal: formatPrice(subtotal),
-  }
 }

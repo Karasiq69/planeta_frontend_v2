@@ -54,7 +54,7 @@ const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
       header: '',
       cell: ({ row }: { row: { original: CashRegister } }) => {
         return (
-          <div className='flex gap-1'>
+          <div className='flex gap-1' onClick={(e) => e.stopPropagation()}>
             <Button variant='ghost' size='sm' onClick={() => setEditCashRegister(row.original)}>
               Редактировать
             </Button>
