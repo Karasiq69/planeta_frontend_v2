@@ -1,4 +1,4 @@
-import type { PaymentsQueryParams } from '@/features/payments/types'
+import type { CashTransactionFilters, PaymentsQueryParams } from '@/features/payments/types'
 
 export const paymentsQueryKeys = {
   all: ['payments'] as const,
@@ -13,4 +13,21 @@ export const paymentsQueryKeys = {
 export const cashRegistersQueryKeys = {
   all: ['cash-registers'] as const,
   detail: (id: number) => [...cashRegistersQueryKeys.all, 'detail', id] as const,
+}
+
+export const cashTransactionsQueryKeys = {
+  all: ['cash-transactions'] as const,
+  lists: () => [...cashTransactionsQueryKeys.all, 'list'] as const,
+  list: (params: CashTransactionFilters) => [...cashTransactionsQueryKeys.lists(), { params }] as const,
+}
+
+export const cashRegisterBalanceQueryKeys = {
+  all: ['cash-register-balance'] as const,
+  detail: (id: number) => [...cashRegisterBalanceQueryKeys.all, id] as const,
+}
+
+export const paymentCategoriesQueryKeys = {
+  all: ['payment-categories'] as const,
+  list: (params?: { type?: string; isActive?: boolean }) =>
+    [...paymentCategoriesQueryKeys.all, { params }] as const,
 }
