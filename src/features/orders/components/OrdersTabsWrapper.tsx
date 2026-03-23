@@ -103,12 +103,12 @@ const OrdersTabsWrapper = () => {
 
         <Button
           size='sm'
-          variant='outline'
+          variant='link'
           disabled={!canApplySpec}
           onClick={() => setSpecDialogOpen(true)}
         >
           <ClipboardList size={16} />
-          Применить спецификацию
+          Наборы
         </Button>
       </div>
 

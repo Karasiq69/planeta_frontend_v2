@@ -13,17 +13,17 @@ import {
 } from '@/components/ui/dialog'
 
 import { SpecificationForm } from './forms/SpecificationForm'
-import SpecificationDetailDialog from './SpecificationDetailDialog'
+import SpecificationPositionsSheet from './SpecificationPositionsSheet'
 import SpecificationsDataTable from './table/SpecificationsDataTable'
 
 import type { Specification } from '@/features/service-specifications/types'
 
 const SpecificationsPage = () => {
   const [createOpen, setCreateOpen] = useState(false)
-  const [editSpecId, setEditSpecId] = useState<number | null>(null)
+  const [positionsSpecId, setPositionsSpecId] = useState<number | null>(null)
 
-  const handleEdit = useCallback((spec: Specification) => {
-    setEditSpecId(spec.id)
+  const handleManagePositions = useCallback((spec: Specification) => {
+    setPositionsSpecId(spec.id)
   }, [])
 
   return (
@@ -40,7 +40,7 @@ const SpecificationsPage = () => {
       />
       <PageLayout.Content>
         <Suspense>
-          <SpecificationsDataTable onEdit={handleEdit} />
+          <SpecificationsDataTable onManagePositions={handleManagePositions} />
         </Suspense>
       </PageLayout.Content>
 
@@ -53,9 +53,9 @@ const SpecificationsPage = () => {
         </DialogContent>
       </Dialog>
 
-      <SpecificationDetailDialog
-        specId={editSpecId}
-        onOpenChange={(open) => !open && setEditSpecId(null)}
+      <SpecificationPositionsSheet
+        specId={positionsSpecId}
+        onOpenChange={(open) => !open && setPositionsSpecId(null)}
       />
     </PageLayout>
   )

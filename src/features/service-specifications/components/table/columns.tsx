@@ -1,6 +1,6 @@
 'use client'
 
-import { Pencil, Trash2 } from 'lucide-react'
+import { ListPlus, Trash2 } from 'lucide-react'
 import * as React from 'react'
 
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
@@ -60,7 +60,7 @@ const SpecificationDeleteAction = ({ spec }: { spec: Specification }) => {
 }
 
 export const getSpecificationColumns = (
-  onEdit: (spec: Specification) => void,
+  onManagePositions: (spec: Specification) => void,
 ): ColumnDef<Specification>[] => [
   {
     accessorKey: 'name',
@@ -103,9 +103,9 @@ export const getSpecificationColumns = (
           variant='ghost'
           size='icon'
           className='size-8'
-          onClick={() => onEdit(row.original)}
+          onClick={() => onManagePositions(row.original)}
         >
-          <Pencil className='size-4' />
+          <ListPlus className='size-4' />
         </Button>
         <SpecificationDeleteAction spec={row.original} />
       </div>
