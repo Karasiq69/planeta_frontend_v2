@@ -70,7 +70,7 @@ export function ComboboxSearch<T extends { id: number | string }>({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className={`${width} p-0`} align="start">
+      <PopoverContent className='w-[--radix-popover-trigger-width] p-0' align="start">
         <Command shouldFilter={false}>
           <CommandInput placeholder='Поиск..' onValueChange={onSearch} />
 
