@@ -40,6 +40,7 @@ export default function SettingsNav() {
       title: 'Общие',
       items: [
         { label: 'Услуги', href: '/settings/services' },
+        { label: 'Спецификации ТО', href: '/settings/service-specifications' },
         { label: 'Шаблоны документов', href: '/settings/templates' },
         { label: 'Ставки НДС', href: '/settings/vat-rates' },
         { label: 'Категории платежей', href: '/settings/payment-categories' },
