@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import {
   addEmployeeOrderServiceFn,
   addOrderServiceFn,
+  applySpecificationFn,
   changeOrderStatus,
   deleteEmployeeOrderServiceFn,
   deleteOrderServiceFn,
@@ -515,6 +516,24 @@ export function useChangeOrderStatus(orderId: number) {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.all,
       })
+    },
+  })
+}
+
+export function useApplySpecification(orderId: number) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (specId: number) => applySpecificationFn(orderId, specId),
+    onSuccess: () => {
+      toast.success('Спецификация применена')
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Произошла ошибка')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ordersQueryKeys.detail(orderId) })
+      queryClient.invalidateQueries({ queryKey: ordersQueryKeys.services(orderId) })
+      queryClient.invalidateQueries({ queryKey: ordersQueryKeys.products(orderId) })
     },
   })
 }

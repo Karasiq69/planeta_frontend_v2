@@ -9,6 +9,7 @@ import type {
   OrdersQueryParams,
   OrderStatus,
 } from '@/features/orders/types'
+import type { SpecificationDetail } from '@/features/service-specifications/types'
 
 export const getOrderById = async (orderId: number) => {
   const response = await apiClient.get<Order>(`${ORDERS_URL}/${orderId}`)
@@ -117,4 +118,16 @@ export const transferToWorkshop = async (orderId: number, data: TransferToWorksh
 export const getClientsOrders = async (clientId: number) => {
   const response = await apiClient.get<Order[]>(`${ORDERS_URL}${CLIENT_ORDERS}/${clientId}`)
   return response.data
+}
+
+export const getOrderSpecificationsFn = async (orderId: number): Promise<SpecificationDetail[]> => {
+  const response = await apiClient.get<{ data: SpecificationDetail[] }>(
+    `${ORDERS_URL}/${orderId}/specifications`
+  )
+  return response.data.data
+}
+
+export const applySpecificationFn = async (orderId: number, specId: number) => {
+  const response = await apiClient.post(`${ORDERS_URL}/${orderId}/specifications/${specId}`)
+  return response.data.data
 }

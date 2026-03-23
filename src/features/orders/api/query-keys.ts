@@ -10,6 +10,7 @@ export const ordersQueryKeys = {
 
   services: (orderId: number) => [...ordersQueryKeys.detail(orderId), 'services'] as const,
   products: (orderId: number) => [...ordersQueryKeys.detail(orderId), 'products'] as const,
+  specifications: (orderId: number) => [...ordersQueryKeys.detail(orderId), 'specifications'] as const,
   // service: (id: number) => [...ordersQueryKeys.services(), id] as const,
 
   clientOrders: (clientId: number) => ['clientOrders', clientId] as const,

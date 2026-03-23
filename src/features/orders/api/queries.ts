@@ -5,6 +5,7 @@ import {
   getClientsOrders,
   getOrderById,
   getOrderServicesById,
+  getOrderSpecificationsFn,
 } from '@/features/orders/api/actions'
 import { ordersQueryKeys } from '@/features/orders/api/query-keys'
 import apiClient from '@/lib/auth/client'
@@ -57,5 +58,13 @@ export const useClientOrders = (clientId: number) => {
     queryKey: ordersQueryKeys.clientOrders(clientId),
     queryFn: () => getClientsOrders(clientId),
     enabled: !!clientId,
+  })
+}
+
+export const useOrderSpecifications = (orderId: number) => {
+  return useQuery({
+    queryKey: ordersQueryKeys.specifications(orderId),
+    queryFn: () => getOrderSpecificationsFn(orderId),
+    enabled: !!orderId,
   })
 }
