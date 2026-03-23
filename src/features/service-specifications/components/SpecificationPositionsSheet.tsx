@@ -76,9 +76,9 @@ const ServicesTab = ({ specId }: { specId: number }) => {
   const items = spec?.services ?? []
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 min-w-0'>
       {/* Add zone */}
-      <div className='space-y-2'>
+      <div className='space-y-2 min-w-0'>
         <ComboboxSearch<IService>
           data={services}
           isLoading={isLoading || isFetching}
@@ -193,9 +193,9 @@ const ProductsTab = ({ specId }: { specId: number }) => {
   const items = spec?.products ?? []
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 min-w-0'>
       {/* Add zone */}
-      <div className='space-y-2'>
+      <div className='space-y-2 min-w-0'>
         <ComboboxSearch<Product>
           data={products}
           isLoading={isLoading || isFetching}
@@ -293,7 +293,7 @@ function ItemsList<T extends { id: number }>({
       {items.map((item) => (
         <div
           key={item.id}
-          className='flex items-center gap-2 group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors'
+          className='flex items-center gap-2 group rounded-md px-2 py-1.5 hover:bg-muted/50 transition-colors min-w-0'
         >
           {renderItem(item)}
           <Button
@@ -320,7 +320,7 @@ const SpecificationPositionsSheet = ({ specId, onOpenChange }: Props) => {
 
   return (
     <Sheet open={!!specId} onOpenChange={(open) => !open && onOpenChange(false)}>
-      <SheetContent className='sm:max-w-xl flex flex-col gap-0 p-0'>
+      <SheetContent className='sm:max-w-xl flex flex-col gap-0 p-0 overflow-hidden'>
         {/* Header */}
         <div className='px-6 pt-6 pb-4'>
           <SheetHeader>
@@ -347,8 +347,8 @@ const SpecificationPositionsSheet = ({ specId, onOpenChange }: Props) => {
         {isLoading ? (
           <LoaderSectionAnimated className='flex-1 rounded p-10' />
         ) : specId ? (
-          <ScrollArea className='flex-1'>
-            <div className='p-6'>
+          <ScrollArea className='flex-1 min-h-0'>
+            <div className='p-6 overflow-hidden'>
               <Tabs defaultValue='services'>
                 <TabsList className='w-full'>
                   <TabsTrigger value='services' className='flex-1 gap-1.5'>
