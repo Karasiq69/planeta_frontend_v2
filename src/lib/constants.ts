@@ -37,6 +37,7 @@ export const TRANSFER_DOCUMENTS_URL = `${INVENTORY_DOCUMENTS_URL}/transfer`
 export const CASH_REGISTERS_URL = `${PAYMENTS_URL}/cash-registers`
 export const CASH_TRANSACTIONS_URL = '/cash-transactions'
 export const PAYMENT_CATEGORIES_URL = '/payment-categories'
+export const SERVICE_SPECIFICATIONS_URL = '/service-specifications'
 
 export const BRAND_LOGOS: Record<string, string> = {
   Porsche: 'porsche-logo.svg',
