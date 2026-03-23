@@ -98,7 +98,7 @@ export const getSpecificationColumns = (
     id: 'actions',
     size: 80,
     cell: ({ row }) => (
-      <div className='flex gap-1'>
+      <div className='flex justify-end gap-1'>
         <Button
           variant='ghost'
           size='icon'
