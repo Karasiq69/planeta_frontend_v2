@@ -24,8 +24,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-import { useDeleteSpecProduct } from '../../api/mutations'
 import { AddProductDialog } from './AddProductDialog'
+import { useDeleteSpecProduct } from '../../api/mutations'
 
 import type { SpecificationProductItem } from '../../types'
 

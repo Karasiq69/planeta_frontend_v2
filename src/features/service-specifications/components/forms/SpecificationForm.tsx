@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import LoaderAnimated from '@/components/ui/LoaderAnimated'
 
-import { useSpecificationForm } from '../../hooks/useSpecificationForm'
 import { SpecFormFields } from './spec-form-fields'
+import { useSpecificationForm } from '../../hooks/useSpecificationForm'
 
 import type { Specification } from '../../types'
 

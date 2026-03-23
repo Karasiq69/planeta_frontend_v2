@@ -8,6 +8,7 @@ import DataTable from '@/components/common/table/data-table'
 import LoaderAnimated from '@/components/ui/LoaderAnimated'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { useSpecificationsList } from '@/features/service-specifications/api/queries'
+
 import { getSpecificationColumns } from './columns'
 import SpecificationsSearchBox from './SpecificationsSearchBox'
 

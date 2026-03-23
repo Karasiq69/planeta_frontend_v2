@@ -5,6 +5,7 @@ import {
   useCreateSpecification,
   useUpdateSpecification,
 } from '@/features/service-specifications/api/mutations'
+
 import { specificationSchema } from '../components/forms/schema'
 
 import type { SpecificationFormData } from '../components/forms/schema'
@@ -33,13 +34,18 @@ export const useSpecificationForm = ({ specificationData, onSuccess }: Props) =>
   const isPending = createMutation.isPending || updateMutation.isPending
 
   const onSubmit = (data: SpecificationFormData) => {
+    const payload = {
+      ...data,
+      modelId: data.modelId ?? undefined,
+      engineId: data.engineId ?? undefined,
+    }
     if (specificationData) {
       updateMutation.mutate(
-        { id: specificationData.id, data },
+        { id: specificationData.id, data: payload },
         { onSuccess: () => onSuccess?.() }
       )
     } else {
-      createMutation.mutate(data, { onSuccess: () => onSuccess?.() })
+      createMutation.mutate(payload, { onSuccess: () => onSuccess?.() })
     }
   }
 

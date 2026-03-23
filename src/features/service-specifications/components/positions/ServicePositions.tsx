@@ -24,8 +24,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-import { useDeleteSpecService } from '../../api/mutations'
 import { AddServiceDialog } from './AddServiceDialog'
+import { useDeleteSpecService } from '../../api/mutations'
 
 import type { SpecificationServiceItem } from '../../types'
 

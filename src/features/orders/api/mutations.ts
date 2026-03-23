@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
+import { dashboardQueryKeys } from '@/features/dashboard/api/query-keys'
+import { documentsQueryKeys } from '@/features/documents/api/query-keys'
 import {
   addEmployeeOrderServiceFn,
   addOrderServiceFn,
@@ -12,8 +14,6 @@ import {
   transferToWorkshop,
   updateEmployeeOrderServiceFn,
 } from '@/features/orders/api/actions'
-import { dashboardQueryKeys } from '@/features/dashboard/api/query-keys'
-import { documentsQueryKeys } from '@/features/documents/api/query-keys'
 import { ordersQueryKeys } from '@/features/orders/api/query-keys'
 import apiClient from '@/lib/auth/client'
 import { ORDERS_URL } from '@/lib/constants'

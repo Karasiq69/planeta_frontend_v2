@@ -1,13 +1,14 @@
 'use client'
 
-import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { useSpecificationById } from '@/features/service-specifications/api/queries'
+
 import { SpecificationForm } from './forms/SpecificationForm'
 import { ProductPositions } from './positions/ProductPositions'
 import { ServicePositions } from './positions/ServicePositions'
