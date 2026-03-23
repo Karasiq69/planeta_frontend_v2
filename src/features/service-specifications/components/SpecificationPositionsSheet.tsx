@@ -320,7 +320,7 @@ const SpecificationPositionsSheet = ({ specId, onOpenChange }: Props) => {
 
   return (
     <Sheet open={!!specId} onOpenChange={(open) => !open && onOpenChange(false)}>
-      <SheetContent className='sm:max-w-lg flex flex-col gap-0 p-0'>
+      <SheetContent className='sm:max-w-xl flex flex-col gap-0 p-0'>
         {/* Header */}
         <div className='px-6 pt-6 pb-4'>
           <SheetHeader>

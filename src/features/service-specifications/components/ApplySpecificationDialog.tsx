@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { useApplySpecification } from '@/features/orders/api/mutations'
 import { useOrderSpecifications } from '@/features/orders/api/queries'
 
@@ -35,37 +36,39 @@ export function ApplySpecificationDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className='max-w-lg'>
         <DialogHeader>
-          <DialogTitle>Применить спецификацию</DialogTitle>
+          <DialogTitle>Наборы</DialogTitle>
         </DialogHeader>
 
-        <div className='flex flex-col gap-2 max-h-[60vh] overflow-y-auto py-1'>
-          {isLoading && (
-            <p className='text-sm text-muted-foreground text-center py-6'>Загрузка...</p>
-          )}
+        <ScrollArea className='max-h-[60vh]'>
+          <div className='flex flex-col gap-2 py-1 pr-3'>
+            {isLoading && (
+              <p className='text-sm text-muted-foreground text-center py-6'>Загрузка...</p>
+            )}
 
-          {!isLoading && (!specs || specs.length === 0) && (
-            <p className='text-sm text-muted-foreground text-center py-6'>
-              Нет доступных спецификаций
-            </p>
-          )}
+            {!isLoading && (!specs || specs.length === 0) && (
+              <p className='text-sm text-muted-foreground text-center py-6'>
+                Нет доступных спецификаций
+              </p>
+            )}
 
-          {specs?.map((spec) => (
-            <button
-              key={spec.id}
-              onClick={() => handleApply(spec.id)}
-              disabled={isPending}
-              className='text-left rounded-md border px-4 py-3 hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
-            >
-              <div className='font-medium text-sm'>{spec.name}</div>
-              <div className='text-xs text-muted-foreground mt-1 flex gap-4'>
-                <span>Модель: {spec.model?.name ?? '—'}</span>
-                <span>Двигатель: {spec.engine?.name ?? '—'}</span>
-                <span>Работ: {spec.services.length}</span>
-                <span>Товаров: {spec.products.length}</span>
-              </div>
-            </button>
-          ))}
-        </div>
+            {specs?.map((spec) => (
+              <button
+                key={spec.id}
+                onClick={() => handleApply(spec.id)}
+                disabled={isPending}
+                className='text-left rounded-md border px-4 py-3 hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+              >
+                <div className='font-medium text-sm'>{spec.name}</div>
+                <div className='text-xs text-muted-foreground mt-1 flex gap-4'>
+                  <span>Модель: {spec.model?.name ?? '—'}</span>
+                  <span>Двигатель: {spec.engine?.name ?? '—'}</span>
+                  <span>Работ: {spec.services.length}</span>
+                  <span>Товаров: {spec.products.length}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   )
