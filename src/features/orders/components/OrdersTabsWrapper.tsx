@@ -69,7 +69,8 @@ const OrdersTabsWrapper = () => {
   const { data: products } = useOrderProductsByOrderId(orderId)
   const { data: documents } = useDocumentsList({ orderId })
 
-  const canApplySpec = order && ['APPLICATION', 'ORDER', 'IN_PROGRESS'].includes(order.status)
+  const canApplySpec =
+    !order || ['APPLICATION', 'ORDER', 'IN_PROGRESS'].includes(order.status)
 
   const counts: Record<string, number | undefined> = {
     services: services?.length,
