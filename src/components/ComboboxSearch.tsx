@@ -55,13 +55,15 @@ export function ComboboxSearch<T extends { id: number | string }>({
           variant='outline'
           role='combobox'
           aria-expanded={open}
-          className={`${width} justify-between`}
+          className={`${width} justify-between overflow-hidden`}
         >
-          {selectedItem
-            ? data?.data.find((item) => item.id === selectedItem)
-              ? getDisplayValue(data.data.find((item) => item.id === selectedItem)!)
-              : placeholder
-            : placeholder}
+          <span className='truncate'>
+            {selectedItem
+              ? data?.data.find((item) => item.id === selectedItem)
+                ? getDisplayValue(data.data.find((item) => item.id === selectedItem)!)
+                : placeholder
+              : placeholder}
+          </span>
           {isPending || isLoading ? (
             <LoaderAnimated />
           ) : (

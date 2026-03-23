@@ -100,8 +100,8 @@ const ServicesTab = ({ specId }: { specId: number }) => {
         />
 
         {pending && (
-          <div className='flex items-center gap-2 rounded-lg border bg-muted/50 p-2.5'>
-            <span className='text-sm truncate flex-1 font-medium'>{pending.service.name}</span>
+          <div className='flex items-center gap-2 rounded-lg border bg-muted/50 p-2.5 min-w-0'>
+            <span className='text-sm truncate flex-1 min-w-0 font-medium'>{pending.service.name}</span>
             <Input
               type='number'
               min={1}
@@ -215,8 +215,8 @@ const ProductsTab = ({ specId }: { specId: number }) => {
         />
 
         {pending && (
-          <div className='flex items-center gap-2 rounded-lg border bg-muted/50 p-2.5'>
-            <span className='text-sm truncate flex-1 font-medium'>{pending.product.name}</span>
+          <div className='flex items-center gap-2 rounded-lg border bg-muted/50 p-2.5 min-w-0'>
+            <span className='text-sm truncate flex-1 min-w-0 font-medium'>{pending.product.name}</span>
             <Input
               type='number'
               min={0.01}
