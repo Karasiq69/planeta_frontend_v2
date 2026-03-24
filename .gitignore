@@ -140,3 +140,4 @@ fabric.properties
 tests/.auth/
 test-results/
 playwright-report/
+/.superpowers/
