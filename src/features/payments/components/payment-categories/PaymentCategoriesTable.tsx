@@ -1,6 +1,7 @@
 'use client'
 
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { Pencil, Power, PowerOff, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
 import {
@@ -29,6 +30,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useDeletePaymentCategory, useUpdatePaymentCategory } from '@/features/payments/api/cash-transactions-mutations'
+
 import { paymentCategoryColumns } from './payment-category-columns'
 import PaymentCategoryForm from './PaymentCategoryForm'
 
@@ -54,24 +56,29 @@ const PaymentCategoriesTable = ({ data }: PaymentCategoriesTableProps) => {
         return (
           <div className='flex gap-1'>
             {!cat.isSystem && (
-              <Button variant='ghost' size='sm' onClick={() => setEditCategory(cat)}>
-                Редактировать
+              <Button variant='ghost' size='icon' className='size-8' onClick={() => setEditCategory(cat)}>
+                <Pencil className='size-4' />
               </Button>
             )}
             {cat.isSystem && (
               <Button
                 variant='ghost'
-                size='sm'
-                onClick={() =>
-                  update({ id: cat.id, data: { isActive: !cat.isActive } })
-                }
+                size='icon'
+                className={`size-8 ${cat.isActive ? 'text-destructive hover:text-destructive' : 'text-green-600 hover:text-green-600'}`}
+                onClick={() => update({ id: cat.id, data: { isActive: !cat.isActive } })}
+                title={cat.isActive ? 'Деактивировать' : 'Активировать'}
               >
-                {cat.isActive ? 'Деактивировать' : 'Активировать'}
+                {cat.isActive ? <PowerOff className='size-4' /> : <Power className='size-4' />}
               </Button>
             )}
             {!cat.isSystem && (
-              <Button variant='ghost' size='sm' onClick={() => setDeleteCategory(cat)}>
-                Удалить
+              <Button
+                variant='ghost'
+                size='icon'
+                className='size-8 text-destructive hover:text-destructive'
+                onClick={() => setDeleteCategory(cat)}
+              >
+                <Trash2 className='size-4' />
               </Button>
             )}
           </div>
