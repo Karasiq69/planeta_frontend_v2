@@ -6,6 +6,7 @@ import { useState } from 'react'
 import PageLayout from '@/components/common/PageLayout'
 import { AppButton, AppConfirmDialog, AppDialog } from '@/components/ds'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
@@ -15,9 +16,9 @@ import {
 } from '@/components/ui/select'
 import { useInviteEmployee, useTransferEmployee, useUpdateEmployee } from '@/features/employees/api/mutations'
 import { useAllOrganizations } from '@/features/organizations/api/queries'
-import { Input } from '@/components/ui/input'
-import EmployeesDataTable from './table/EmployeesDataTable'
+
 import EmployeeForm from './forms/EmployeeForm'
+import EmployeesDataTable from './table/EmployeesDataTable'
 
 import type { Employee } from '@/features/employees/types'
 

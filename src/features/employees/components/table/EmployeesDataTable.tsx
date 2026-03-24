@@ -7,6 +7,7 @@ import DataTable from '@/components/common/table/data-table'
 import { AppFilterBar } from '@/components/ds'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { useEmployees } from '@/features/employees/api/queries'
+
 import { getEmployeeColumns } from './columns'
 
 import type { Employee } from '@/features/employees/types'
