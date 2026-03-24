@@ -3,6 +3,8 @@ import type { User } from '@/types/user'
 
 export type EmployeePosition = 'mechanic' | 'manager' | 'warehouse_worker' | 'admin'
 
+export type InviteStatus = 'not_invited' | 'invited' | 'active' | 'expired'
+
 export interface Employee {
   id: number
   userId: number | null
@@ -12,6 +14,8 @@ export interface Employee {
   middleName: string | null
   position: EmployeePosition
   phone: string | null
+  email?: string | null
+  inviteStatus?: InviteStatus
   isActive: boolean
   hiredAt: string | null
   firedAt: string | null
