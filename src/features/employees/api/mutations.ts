@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { createEmployeeFn, deleteEmployeeFn, transferEmployeeFn, updateEmployeeFn } from './actions'
+import { createEmployeeFn, deleteEmployeeFn, inviteEmployeeFn, revokeInviteFn, transferEmployeeFn, updateEmployeeFn } from './actions'
 import { employeesQueryKeys } from './query-keys'
 
 import type { CreateEmployee, UpdateEmployee } from '@/features/employees/types'
@@ -81,6 +81,40 @@ export function useDeleteEmployee() {
       queryClient.invalidateQueries({
         queryKey: employeesQueryKeys.all,
       })
+    },
+  })
+}
+
+export function useInviteEmployee() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (employeeId: number) => inviteEmployeeFn(employeeId),
+    onSuccess: () => {
+      toast.success('Приглашение создано')
+    },
+    onError: () => {
+      toast.error('Ошибка при создании приглашения')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: employeesQueryKeys.lists() })
+    },
+  })
+}
+
+export function useRevokeInvite() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (employeeId: number) => revokeInviteFn(employeeId),
+    onSuccess: () => {
+      toast.success('Приглашение отозвано')
+    },
+    onError: () => {
+      toast.error('Ошибка при отзыве приглашения')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: employeesQueryKeys.lists() })
     },
   })
 }

@@ -47,3 +47,17 @@ export const getMechanicEmployeesFn = async (): Promise<Employee[]> => {
   const res = await apiClient.get<Employee[]>(EMPLOYEES_MECHANICS_URL)
   return res.data
 }
+
+export interface InviteResponse {
+  token: string
+  inviteUrl: string
+}
+
+export const inviteEmployeeFn = async (employeeId: number): Promise<InviteResponse> => {
+  const res = await apiClient.post<InviteResponse>(`${EMPLOYEES_URL}/${employeeId}/invite`)
+  return res.data
+}
+
+export const revokeInviteFn = async (employeeId: number): Promise<void> => {
+  await apiClient.delete(`${EMPLOYEES_URL}/${employeeId}/invite`)
+}
