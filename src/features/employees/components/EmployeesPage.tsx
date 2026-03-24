@@ -50,6 +50,10 @@ const EmployeesPage = () => {
   }
 
   const handleInvite = (emp: Employee) => {
+    if (emp.inviteToken) {
+      setInviteLink(`${window.location.origin}/invite/${emp.inviteToken}`)
+      return
+    }
     setInviteEmployee(emp)
     setInviteEmail('')
   }
