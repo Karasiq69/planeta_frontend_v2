@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 const publicPaths = ['/', '/register', '/reset-password']
+const publicPathPrefixes = ['/invite']
 
 function parseJwtPayload(token: string): { exp?: number } | null {
   try {
@@ -31,7 +32,7 @@ function hasRefreshToken(request: NextRequest): boolean {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const isPublic = publicPaths.includes(pathname)
+  const isPublic = publicPaths.includes(pathname) || publicPathPrefixes.some((p) => pathname.startsWith(p))
   const isAuthenticated = isTokenValid(request)
 
   // Авторизованный пользователь на публичной странице → dashboard
