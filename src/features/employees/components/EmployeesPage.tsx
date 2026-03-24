@@ -1,6 +1,6 @@
 'use client'
 
-import { Plus } from 'lucide-react'
+import { Check, Copy, Plus } from 'lucide-react'
 import { useState } from 'react'
 
 import PageLayout from '@/components/common/PageLayout'
@@ -13,8 +13,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useTransferEmployee, useUpdateEmployee } from '@/features/employees/api/mutations'
+import { useInviteEmployee, useTransferEmployee, useUpdateEmployee } from '@/features/employees/api/mutations'
 import { useAllOrganizations } from '@/features/organizations/api/queries'
+import { Input } from '@/components/ui/input'
 import EmployeesDataTable from './table/EmployeesDataTable'
 import EmployeeForm from './forms/EmployeeForm'
 
@@ -33,6 +34,9 @@ const EmployeesPage = () => {
   const [fireEmployee, setFireEmployee] = useState<Employee | null>(null)
   const [transferEmployee, setTransferEmployee] = useState<Employee | null>(null)
   const [transferOrgId, setTransferOrgId] = useState<number | null>(null)
+  const inviteMutation = useInviteEmployee()
+  const [inviteLink, setInviteLink] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   const handleFire = () => {
     if (!fireEmployee) return
@@ -40,6 +44,22 @@ const EmployeesPage = () => {
       { id: fireEmployee.id, data: { isActive: false, firedAt: new Date().toISOString() } },
       { onSuccess: () => setFireEmployee(null) },
     )
+  }
+
+  const handleInvite = (emp: Employee) => {
+    inviteMutation.mutate(emp.id, {
+      onSuccess: (data) => {
+        const url = `${window.location.origin}/invite/${data.token}`
+        setInviteLink(url)
+      },
+    })
+  }
+
+  const handleCopyLink = async () => {
+    if (!inviteLink) return
+    await navigator.clipboard.writeText(inviteLink)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   return (
@@ -58,6 +78,7 @@ const EmployeesPage = () => {
           onEdit={setEditEmployee}
           onFire={setFireEmployee}
           onTransfer={setTransferEmployee}
+          onInvite={handleInvite}
         />
       </PageLayout.Content>
 
@@ -146,6 +167,28 @@ const EmployeesPage = () => {
             </Button>
           </div>
         )}
+      </AppDialog>
+      <AppDialog
+        open={!!inviteLink}
+        onOpenChange={(open) => {
+          if (!open) {
+            setInviteLink(null)
+            setCopied(false)
+          }
+        }}
+        title='Ссылка-приглашение'
+      >
+        <div className='space-y-4'>
+          <p className='text-sm text-muted-foreground'>
+            Скопируйте ссылку и отправьте сотруднику. Ссылка действительна 72 часа.
+          </p>
+          <div className='flex gap-2'>
+            <Input value={inviteLink ?? ''} readOnly className='text-xs' />
+            <Button variant='outline' size='icon' className='shrink-0' onClick={handleCopyLink}>
+              {copied ? <Check className='size-4' /> : <Copy className='size-4' />}
+            </Button>
+          </div>
+        </div>
       </AppDialog>
     </PageLayout>
   )
