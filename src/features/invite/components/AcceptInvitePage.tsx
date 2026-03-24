@@ -37,6 +37,8 @@ interface Props {
   token: string
 }
 
+const AUTH_BG = "bg-[url('/img/MB-Pattern-612efe57.webp')] w-full bg-cover bg-center bg-no-repeat"
+
 export default function AcceptInvitePage({ token }: Props) {
   const router = useRouter()
   const { data: inviteInfo, isLoading, error } = useValidateInvite(token)
@@ -56,9 +58,11 @@ export default function AcceptInvitePage({ token }: Props) {
 
   if (isLoading) {
     return (
-      <div className='flex h-svh items-center justify-center'>
-        <Loader2 className='size-8 animate-spin text-muted-foreground' />
-      </div>
+      <main className={AUTH_BG}>
+        <div className='flex h-svh items-center justify-center'>
+          <Loader2 className='size-8 animate-spin text-muted-foreground' />
+        </div>
+      </main>
     )
   }
 
@@ -74,74 +78,86 @@ export default function AcceptInvitePage({ token }: Props) {
     }
 
     return (
-      <main className='flex h-svh flex-col items-center justify-center'>
-        <div className='flex flex-col items-center space-y-6'>
-          <Logo />
-          <Card className='w-[400px]'>
-            <CardHeader>
-              <CardTitle className='text-xl'>Ссылка недействительна</CardTitle>
-              <CardDescription>{messages[reason] || messages.not_found}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {reason === 'used' && (
-                <Button variant='outline' className='w-full' onClick={() => router.push('/')}>
-                  Перейти к входу
-                </Button>
-              )}
-            </CardContent>
-          </Card>
+      <main className={AUTH_BG}>
+        <div className='flex h-svh flex-col items-center justify-center'>
+          <div className='mx-auto flex w-full flex-col justify-center space-y-6'>
+            <div className='flex flex-col space-y-2 text-center items-center'>
+              <Logo />
+            </div>
+            <div className='sm:w-[400px] mx-auto'>
+              <Card>
+                <CardHeader>
+                  <CardTitle className='text-xl'>Ссылка недействительна</CardTitle>
+                  <CardDescription>{messages[reason] || messages.not_found}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {reason === 'used' && (
+                    <Button variant='outline' className='w-full' onClick={() => router.push('/')}>
+                      Перейти к входу
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </main>
     )
   }
 
   return (
-    <main className='flex h-svh flex-col items-center justify-center'>
-      <div className='flex flex-col items-center space-y-6'>
-        <Logo />
-        <Card className='w-[400px]'>
-          <CardHeader>
-            <CardTitle className='text-xl'>
-              Добро пожаловать в {inviteInfo?.organizationName}
-            </CardTitle>
-            <CardDescription>Придумайте пароль для входа в систему</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-                <FormField
-                  control={form.control}
-                  name='password'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Пароль</FormLabel>
-                      <FormControl>
-                        <Input type='password' {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name='confirmPassword'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Повторите пароль</FormLabel>
-                      <FormControl>
-                        <Input type='password' {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button disabled={acceptMutation.isPending} type='submit' className='w-full'>
-                  {acceptMutation.isPending ? 'Активация...' : 'Начать работу'}
-                </Button>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
+    <main className={AUTH_BG}>
+      <div className='flex h-svh flex-col items-center justify-center'>
+        <div className='mx-auto flex w-full flex-col justify-center space-y-6'>
+          <div className='flex flex-col space-y-2 text-center items-center'>
+            <Logo />
+          </div>
+          <div className='sm:w-[400px] mx-auto'>
+            <Card>
+              <CardHeader>
+                <CardTitle className='text-xl'>
+                  Добро пожаловать в {inviteInfo?.organizationName}
+                </CardTitle>
+                <CardDescription>Придумайте пароль для входа в систему</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+                    <FormField
+                      control={form.control}
+                      name='password'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Пароль</FormLabel>
+                          <FormControl>
+                            <Input type='password' {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='confirmPassword'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Повторите пароль</FormLabel>
+                          <FormControl>
+                            <Input type='password' {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button disabled={acceptMutation.isPending} type='submit' className='w-full'>
+                      {acceptMutation.isPending ? 'Активация...' : 'Начать работу'}
+                    </Button>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
     </main>
   )
