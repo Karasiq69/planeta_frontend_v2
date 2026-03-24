@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { createWarehouseFn, updateWarehouseFn } from './actions'
+import { createWarehouseFn, deleteWarehouseFn, updateWarehouseFn } from './actions'
 import { warehouseQueryKeys } from './query-keys'
 
 import type { Warehouse } from '@/features/warehouse/types'
@@ -31,6 +31,23 @@ export function useUpdateWarehouse() {
       updateWarehouseFn(id, data),
     onSuccess: () => {
       toast.success('Склад обновлён')
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: warehouseQueryKeys.list() })
+    },
+  })
+}
+
+export function useDeleteWarehouse() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (id: number) => deleteWarehouseFn(id),
+    onSuccess: () => {
+      toast.success('Склад удалён')
     },
     onError: (error) => {
       toast.error(error.message)

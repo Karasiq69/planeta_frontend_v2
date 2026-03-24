@@ -1,11 +1,13 @@
 'use client'
 
-import { Pencil, Plus } from 'lucide-react'
-import { useMemo, useState } from 'react'
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { Pencil, Plus, Trash2 } from 'lucide-react'
+import { useMemo, useState } from 'react'
 
 import PageLayout from '@/components/common/PageLayout'
 import DataTable from '@/components/common/table/data-table'
+import { AppConfirmDialog } from '@/components/ds'
+import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -15,7 +17,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
+import { useDeleteWarehouse } from '@/features/warehouse/api/mutations'
 import { useGetWarehouses } from '@/features/warehouse/api/queries'
 import WarehouseForm from '@/features/warehouse/components/forms/WarehouseForm'
 import { WarehouseTypeBadge } from '@/features/warehouse/components/WarehouseTypeBadge'
@@ -27,6 +29,8 @@ import type { ColumnDef } from '@tanstack/react-table'
 const WarehousesPage = () => {
   const [createOpen, setCreateOpen] = useState(false)
   const [editWarehouse, setEditWarehouse] = useState<Warehouse | null>(null)
+  const [deleteWarehouse, setDeleteWarehouse] = useState<Warehouse | null>(null)
+  const deleteMutation = useDeleteWarehouse()
   const { data, isLoading } = useGetWarehouses()
 
   const warehouses = (data ?? []) as Warehouse[]
@@ -71,14 +75,24 @@ const WarehousesPage = () => {
       {
         id: 'actions',
         cell: ({ row }) => (
-          <Button
-            variant='ghost'
-            size='icon'
-            className='h-8 w-8'
-            onClick={() => setEditWarehouse(row.original)}
-          >
-            <Pencil className='size-4' />
-          </Button>
+          <div className='flex gap-1'>
+            <Button
+              variant='ghost'
+              size='icon'
+              className='h-8 w-8'
+              onClick={() => setEditWarehouse(row.original)}
+            >
+              <Pencil className='size-4' />
+            </Button>
+            <Button
+              variant='ghost'
+              size='icon'
+              className='h-8 w-8 text-destructive hover:text-destructive'
+              onClick={() => setDeleteWarehouse(row.original)}
+            >
+              <Trash2 className='size-4' />
+            </Button>
+          </div>
         ),
       },
     ],
@@ -137,6 +151,21 @@ const WarehousesPage = () => {
           )}
         </DialogContent>
       </Dialog>
+      <AppConfirmDialog
+        open={!!deleteWarehouse}
+        onOpenChange={(open) => !open && setDeleteWarehouse(null)}
+        title='Удалить склад?'
+        description={`Склад «${deleteWarehouse?.name ?? ''}» будет удалён. Если на складе есть товары, удаление невозможно.`}
+        onConfirm={() => {
+          if (!deleteWarehouse) return
+          deleteMutation.mutate(deleteWarehouse.id, {
+            onSuccess: () => setDeleteWarehouse(null),
+          })
+        }}
+        confirmText='Удалить'
+        variant='danger'
+        loading={deleteMutation.isPending}
+      />
     </PageLayout>
   )
 }

@@ -32,6 +32,10 @@ export const updateWarehouseFn = async (id: number, data: Partial<Warehouse>): P
   return response.data
 }
 
+export const deleteWarehouseFn = async (id: number): Promise<void> => {
+  await apiClient.delete(`${WAREHOUSE_URL}/${id}`)
+}
+
 export const getAllWarehouseItemsListFn = async (
   params: WarehouseItemsParams
 ): Promise<ListResponse<WarehouseItem>> => {
