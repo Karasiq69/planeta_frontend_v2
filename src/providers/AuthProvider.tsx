@@ -26,7 +26,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const clearOrganization = useOrganizationStore((s) => s.clearOrganization)
 
   useEffect(() => {
-    if (!isLoading && isError && !PUBLIC_PATHS.includes(pathname)) {
+    const isPublic = PUBLIC_PATHS.includes(pathname) || pathname.startsWith('/invite')
+    if (!isLoading && isError && !isPublic) {
       clearOrganization()
       router.replace('/')
     }
