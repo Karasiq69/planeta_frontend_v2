@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 
-interface DeleteReferenceAlertProps {
+interface DeleteConfirmAlertProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   name: string
@@ -19,13 +19,13 @@ interface DeleteReferenceAlertProps {
   isPending?: boolean
 }
 
-export function DeleteReferenceAlert({
+export function DeleteConfirmAlert({
   open,
   onOpenChange,
   name,
   onConfirm,
   isPending,
-}: DeleteReferenceAlertProps) {
+}: DeleteConfirmAlertProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>

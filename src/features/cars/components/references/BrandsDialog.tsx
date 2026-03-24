@@ -18,7 +18,7 @@ import { getBrandLogo } from '@/features/cars/utils'
 import type { ICarBrand } from '@/features/cars/types'
 
 import { BrandForm } from './BrandForm'
-import { DeleteReferenceAlert } from './DeleteReferenceAlert'
+import { DeleteConfirmAlert } from '@/components/common/DeleteConfirmAlert'
 
 interface BrandsDialogProps {
   open: boolean
@@ -129,7 +129,7 @@ export function BrandsDialog({ open, onOpenChange }: BrandsDialogProps) {
         </DialogContent>
       </Dialog>
 
-      <DeleteReferenceAlert
+      <DeleteConfirmAlert
         open={!!deletingBrand}
         onOpenChange={(v) => !v && setDeletingBrand(undefined)}
         name={deletingBrand?.name ?? ''}

@@ -28,7 +28,7 @@ import {
 } from '@/components/ui/select'
 import { useDeleteEngine } from '@/features/cars/api/mutations'
 import { useCarEngines, useVehiclesBrands } from '@/features/cars/api/queries'
-import { DeleteReferenceAlert } from '@/features/cars/components/references/DeleteReferenceAlert'
+import { DeleteConfirmAlert } from '@/components/common/DeleteConfirmAlert'
 import { EngineForm } from '@/features/cars/components/references/EngineForm'
 import { ENGINE_TYPE_LABELS } from '@/features/cars/utils'
 import { useDebounce } from '@/hooks/use-debounce'
@@ -223,7 +223,7 @@ export function EnginesTab() {
         </DialogContent>
       </Dialog>
 
-      <DeleteReferenceAlert
+      <DeleteConfirmAlert
         open={!!deleteEngine}
         onOpenChange={(open) => !open && setDeleteEngine(null)}
         name={deleteEngine?.name ?? ''}

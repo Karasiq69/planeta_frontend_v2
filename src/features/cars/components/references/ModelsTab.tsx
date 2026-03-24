@@ -28,7 +28,7 @@ import {
 } from '@/components/ui/select'
 import { useDeleteModel } from '@/features/cars/api/mutations'
 import { useVehiclesBrands, useVehiclesModels } from '@/features/cars/api/queries'
-import { DeleteReferenceAlert } from '@/features/cars/components/references/DeleteReferenceAlert'
+import { DeleteConfirmAlert } from '@/components/common/DeleteConfirmAlert'
 import { ModelForm } from '@/features/cars/components/references/ModelForm'
 import { useDebounce } from '@/hooks/use-debounce'
 
@@ -210,7 +210,7 @@ export function ModelsTab() {
         </DialogContent>
       </Dialog>
 
-      <DeleteReferenceAlert
+      <DeleteConfirmAlert
         open={!!deleteModel}
         onOpenChange={(open) => !open && setDeleteModel(null)}
         name={deleteModel?.name ?? ''}
