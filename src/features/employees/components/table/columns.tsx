@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRightLeft, Pencil, Send, UserX } from 'lucide-react'
+import { ArrowRightLeft, Link, Pencil, Send, UserX } from 'lucide-react'
 
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
 import { AppButton, AppStatusBadge } from '@/components/ds'
@@ -103,7 +103,7 @@ export const getEmployeeColumns = (
               onClick={() => onInvite(emp)}
               title={status === 'invited' ? 'Скопировать ссылку' : 'Пригласить'}
             >
-              <Send className='size-4' />
+              {emp.inviteToken ? <Link className='size-4' /> : <Send className='size-4' />}
             </AppButton>
           )}
           <AppButton variant='ghost' size='icon' className='size-8' onClick={() => onEdit(emp)}>
