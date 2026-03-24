@@ -14,7 +14,6 @@ export interface Employee {
   middleName: string | null
   position: EmployeePosition
   phone: string | null
-  email?: string | null
   inviteStatus?: InviteStatus
   isActive: boolean
   hiredAt: string | null

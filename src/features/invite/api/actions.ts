@@ -3,6 +3,7 @@ import apiClient from '@/lib/auth/client'
 export interface InviteInfo {
   employeeName: string
   organizationName: string
+  email: string
 }
 
 export const validateInviteFn = async (token: string): Promise<InviteInfo> => {

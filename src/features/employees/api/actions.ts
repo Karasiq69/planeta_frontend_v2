@@ -53,8 +53,13 @@ export interface InviteResponse {
   inviteUrl: string
 }
 
-export const inviteEmployeeFn = async (employeeId: number): Promise<InviteResponse> => {
-  const res = await apiClient.post<InviteResponse>(`${EMPLOYEES_URL}/${employeeId}/invite`)
+export interface InviteEmployeeData {
+  email: string
+  role?: string
+}
+
+export const inviteEmployeeFn = async (employeeId: number, data: InviteEmployeeData): Promise<InviteResponse> => {
+  const res = await apiClient.post<InviteResponse>(`${EMPLOYEES_URL}/${employeeId}/invite`, data)
   return res.data
 }
 

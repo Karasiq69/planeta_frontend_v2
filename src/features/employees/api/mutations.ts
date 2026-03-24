@@ -89,7 +89,8 @@ export function useInviteEmployee() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (employeeId: number) => inviteEmployeeFn(employeeId),
+    mutationFn: ({ employeeId, data }: { employeeId: number; data: { email: string; role?: string } }) =>
+      inviteEmployeeFn(employeeId, data),
     onSuccess: () => {
       toast.success('Приглашение создано')
     },

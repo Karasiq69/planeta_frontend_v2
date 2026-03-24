@@ -36,6 +36,8 @@ const EmployeesPage = () => {
   const [transferEmployee, setTransferEmployee] = useState<Employee | null>(null)
   const [transferOrgId, setTransferOrgId] = useState<number | null>(null)
   const inviteMutation = useInviteEmployee()
+  const [inviteEmployee, setInviteEmployee] = useState<Employee | null>(null)
+  const [inviteEmail, setInviteEmail] = useState('')
   const [inviteLink, setInviteLink] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
@@ -48,12 +50,22 @@ const EmployeesPage = () => {
   }
 
   const handleInvite = (emp: Employee) => {
-    inviteMutation.mutate(emp.id, {
-      onSuccess: (data) => {
-        const url = `${window.location.origin}/invite/${data.token}`
-        setInviteLink(url)
+    setInviteEmployee(emp)
+    setInviteEmail('')
+  }
+
+  const handleSendInvite = () => {
+    if (!inviteEmployee || !inviteEmail) return
+    inviteMutation.mutate(
+      { employeeId: inviteEmployee.id, data: { email: inviteEmail } },
+      {
+        onSuccess: (data) => {
+          const url = `${window.location.origin}/invite/${data.token}`
+          setInviteEmployee(null)
+          setInviteLink(url)
+        },
       },
-    })
+    )
   }
 
   const handleCopyLink = async () => {
@@ -169,6 +181,33 @@ const EmployeesPage = () => {
           </div>
         )}
       </AppDialog>
+      <AppDialog
+        open={!!inviteEmployee}
+        onOpenChange={(open) => !open && setInviteEmployee(null)}
+        title='Пригласить сотрудника'
+      >
+        {inviteEmployee && (
+          <div className='space-y-4'>
+            <p className='text-sm text-muted-foreground'>
+              Укажите email для сотрудника «{fullName(inviteEmployee)}»
+            </p>
+            <Input
+              type='email'
+              placeholder='email@example.com'
+              value={inviteEmail}
+              onChange={(e) => setInviteEmail(e.target.value)}
+            />
+            <Button
+              className='w-full'
+              disabled={!inviteEmail || inviteMutation.isPending}
+              onClick={handleSendInvite}
+            >
+              {inviteMutation.isPending ? 'Отправка...' : 'Создать приглашение'}
+            </Button>
+          </div>
+        )}
+      </AppDialog>
+
       <AppDialog
         open={!!inviteLink}
         onOpenChange={(open) => {
