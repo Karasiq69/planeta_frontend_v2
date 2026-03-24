@@ -5,13 +5,13 @@ import { productsQueryKeys } from '@/features/products/api/query-keys'
 import apiClient from '@/lib/auth/client'
 import { PRODUCTS_URL } from '@/lib/constants'
 
-import type { Product } from '@/features/products/types'
+import type { CreateProductPayload, Product, UpdateProductPayload } from '@/features/products/types'
 import type { ApiError } from '@/types/api-error'
 
 export function useCreateProduct() {
   const queryClient = useQueryClient()
 
-  const createProductFn = async (data: Partial<Product>) => {
+  const createProductFn = async (data: CreateProductPayload) => {
     const response = await apiClient.post<Product>(`${PRODUCTS_URL}/`, data)
     return response.data
   }
@@ -35,7 +35,7 @@ export function useCreateProduct() {
 export function useEditProduct(productId: number) {
   const queryClient = useQueryClient()
 
-  const editProductFn = async (updatedProduct: Partial<Product>) => {
+  const editProductFn = async (updatedProduct: UpdateProductPayload) => {
     const response = await apiClient.put<Product>(`${PRODUCTS_URL}/${productId}/`, updatedProduct)
     return response.data
   }

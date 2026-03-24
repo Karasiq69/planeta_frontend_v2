@@ -11,6 +11,17 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet'
 
+const sizeClasses = {
+  sm: 'sm:max-w-sm',
+  md: 'sm:max-w-md',
+  lg: 'sm:max-w-lg',
+  xl: 'sm:max-w-xl',
+  '2xl': 'sm:max-w-2xl',
+  full: 'sm:max-w-full',
+} as const
+
+type SheetSize = keyof typeof sizeClasses
+
 interface AppSheetProps {
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -19,7 +30,7 @@ interface AppSheetProps {
   children: React.ReactNode
   footer?: React.ReactNode
   side?: 'left' | 'right'
-  className?: string
+  size?: SheetSize
 }
 
 function AppSheet({
@@ -30,11 +41,11 @@ function AppSheet({
   children,
   footer,
   side = 'right',
-  className,
+  size = 'sm',
 }: AppSheetProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side={side} className={className}>
+      <SheetContent side={side} className={sizeClasses[size]}>
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
           {description && <SheetDescription>{description}</SheetDescription>}

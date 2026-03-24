@@ -24,15 +24,23 @@ export const productSchema = z.object({
     .min(1, 'Внутренний артикул обязателен')
     .transform((value) => value.trim()),
 
-  categoryId: z.number().optional().default(1),
+  categoryId: z.number().nullable().optional(),
 
-  brandId: z.number().optional().default(1),
+  brandId: z.number().nullable().optional(),
 
   isOriginal: z.boolean().optional().default(false),
 
-  weight: z.number().optional().nullable(),
+  weight: z.coerce
+    .number()
+    .optional()
+    .nullable()
+    .transform((value) => (value === 0 ? null : value)),
 
-  dimensions: z.string().optional().nullable(),
+  dimensions: z
+    .string()
+    .optional()
+    .nullable()
+    .transform((value) => (value === '' ? null : value)),
 })
 
 export type ProductFormData = z.infer<typeof productSchema>

@@ -147,8 +147,6 @@ const ProductFormFields = ({ form }: Props) => {
         )}
       />
 
-      <input type='hidden' {...form.register('categoryId')} value={1} />
-      <input type='hidden' {...form.register('brandId')} value={1} />
     </div>
   )
 }

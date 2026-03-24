@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useCreateProduct, useEditProduct } from '@/features/products/api/mutations'
 import { productSchema } from '@/features/products/components/forms/schema'
 
-import type { ProductFormData} from '@/features/products/components/forms/schema';
+import type { ProductFormData } from '@/features/products/components/forms/schema'
 import type { Product } from '@/features/products/types'
 
 export type ProductFormProps = {
@@ -22,13 +22,13 @@ export const useProductForm = ({ productData, onCreate, onUpdate }: ProductFormP
     return {
       name: productData?.name ?? '',
       description: productData?.description ?? '',
-      price: productData?.price ?? 0,
+      price: productData?.price ? parseFloat(productData.price) : 0,
       partNumber: productData?.partNumber ?? '',
       sku: productData?.sku ?? '',
-      categoryId: productData?.categoryId ?? 1,
-      brandId: productData?.brandId ?? 1,
+      categoryId: productData?.categoryId ?? null,
+      brandId: productData?.brandId ?? null,
       isOriginal: productData?.isOriginal ?? false,
-      weight: productData?.weight ?? null,
+      weight: productData?.weight ? parseFloat(productData.weight) : null,
       dimensions: productData?.dimensions ?? null,
     }
   }, [productData])
@@ -48,8 +48,8 @@ export const useProductForm = ({ productData, onCreate, onUpdate }: ProductFormP
           price: data.price,
           partNumber: data.partNumber,
           sku: data.sku,
-          categoryId: data.categoryId,
-          brandId: data.brandId,
+          categoryId: data.categoryId ?? undefined,
+          brandId: data.brandId ?? undefined,
           isOriginal: data.isOriginal,
           weight: data.weight,
           dimensions: data.dimensions,
