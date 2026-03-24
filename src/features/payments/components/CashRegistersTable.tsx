@@ -1,6 +1,7 @@
 'use client'
 
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { Pencil, PowerOff } from 'lucide-react'
 import { useState } from 'react'
 
 import {
@@ -55,12 +56,18 @@ const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
       cell: ({ row }: { row: { original: CashRegister } }) => {
         return (
           <div className='flex gap-1' onClick={(e) => e.stopPropagation()}>
-            <Button variant='ghost' size='sm' onClick={() => setEditCashRegister(row.original)}>
-              Редактировать
+            <Button variant='ghost' size='icon' className='size-8' onClick={() => setEditCashRegister(row.original)}>
+              <Pencil className='size-4' />
             </Button>
             {row.original.isActive && (
-              <Button variant='ghost' size='sm' onClick={() => setDeactivateId(row.original.id)}>
-                Деактивировать
+              <Button
+                variant='ghost'
+                size='icon'
+                className='size-8 text-destructive hover:text-destructive'
+                onClick={() => setDeactivateId(row.original.id)}
+                title='Деактивировать'
+              >
+                <PowerOff className='size-4' />
               </Button>
             )}
           </div>
