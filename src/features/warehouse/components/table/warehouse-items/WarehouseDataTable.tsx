@@ -1,7 +1,7 @@
 'use client'
 import { getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import {
-  Building2,
+  Warehouse,
   LoaderCircle,
   Search,
   X,
@@ -136,7 +136,7 @@ const WarehouseDataTable = () => {
             <SelectContent className='[&_*[role=option]>span>svg]:shrink-0 [&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2'>
               <SelectItem value='all'>Все склады</SelectItem>
               {warehouses?.map((warehouse) => {
-                const Icon = warehouseTypeConfig[warehouse.type]?.icon || Building2
+                const Icon = warehouseTypeConfig[warehouse.type]?.icon || Warehouse
                 return (
                   <SelectItem key={warehouse.id} value={warehouse.id.toString()}>
                     <Icon size={16} aria-hidden='true' />

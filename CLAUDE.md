@@ -10,6 +10,11 @@
 Feature specs and tasks are tracked in Obsidian vault: `~/Documents/my-tasks/planeta-crm/frontend/`.
 Cross-service specs (API contracts, shared types): `~/Documents/my-tasks/planeta-crm/shared/specs/`.
 Backend features and tasks: `~/Documents/my-tasks/planeta-crm/backend/`.
+Backend modules (endpoints, tables, deps): `~/Documents/my-tasks/planeta-crm/backend/modules/`.
+
+### After completing any work:
+1. Update task file in Obsidian (status, completed date, what was done)
+2. If no task exists — create one (conventions: `~/Documents/my-tasks/CLAUDE.md`)
 
 ## Rules
 

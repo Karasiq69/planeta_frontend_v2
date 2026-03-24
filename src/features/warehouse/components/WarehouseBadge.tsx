@@ -1,4 +1,4 @@
-import { Building2 } from 'lucide-react'
+import { Warehouse } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { warehouseTypeConfig } from '@/features/warehouse/types/config'
@@ -11,7 +11,7 @@ interface WarehouseBadgeProps {
 }
 
 export function WarehouseBadge({ name, type }: WarehouseBadgeProps) {
-  const Icon = (type && warehouseTypeConfig[type]?.icon) || Building2
+  const Icon = (type && warehouseTypeConfig[type]?.icon) || Warehouse
   return (
     <Badge variant='secondary' className='gap-1.5 font-normal whitespace-nowrap'>
       <Icon size={14} aria-hidden='true' />

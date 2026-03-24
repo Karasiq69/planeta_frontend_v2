@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowDown, Building2, Loader2 } from 'lucide-react'
+import { ArrowDown, Warehouse, Loader2 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -101,7 +101,7 @@ export default function TransferToWorkshopDialog({
                 className="flex flex-wrap gap-3"
               >
                 {sourceWarehouses?.map((w) => {
-                  const Icon = warehouseTypeConfig[w.type]?.icon || Building2
+                  const Icon = warehouseTypeConfig[w.type]?.icon || Warehouse
                   return (
                     <ToggleGroupItem
                       key={w.id}
@@ -139,7 +139,7 @@ export default function TransferToWorkshopDialog({
                 className="flex flex-wrap gap-3"
               >
                 {targetWarehouses?.map((w) => {
-                  const Icon = warehouseTypeConfig[w.type]?.icon || Building2
+                  const Icon = warehouseTypeConfig[w.type]?.icon || Warehouse
                   return (
                     <ToggleGroupItem
                       key={w.id}

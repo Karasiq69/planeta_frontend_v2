@@ -18,6 +18,7 @@ import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
 import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import { useGetWarehouses } from '@/features/warehouse/api/queries'
 import WarehouseForm from '@/features/warehouse/components/forms/WarehouseForm'
+import { WarehouseTypeBadge } from '@/features/warehouse/components/WarehouseTypeBadge'
 import { warehouseTypeConfig } from '@/features/warehouse/types/config'
 
 import type { Warehouse } from '@/features/warehouse/types'
@@ -49,16 +50,7 @@ const WarehousesPage = () => {
       {
         accessorKey: 'type',
         header: () => <div>Тип</div>,
-        cell: ({ row }) => {
-          const typeConfig = warehouseTypeConfig[row.original.type]
-          const Icon = typeConfig?.icon
-          return (
-            <Badge variant={(typeConfig?.variant as 'default') ?? 'default'} className='gap-1.5'>
-              {Icon && <Icon className='size-3' />}
-              {typeConfig?.label ?? row.original.type}
-            </Badge>
-          )
-        },
+        cell: ({ row }) => <WarehouseTypeBadge type={row.original.type} />,
       },
       {
         accessorKey: 'description',
