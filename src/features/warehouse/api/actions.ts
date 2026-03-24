@@ -28,7 +28,7 @@ export const createWarehouseFn = async (data: Partial<Warehouse>): Promise<Wareh
 }
 
 export const updateWarehouseFn = async (id: number, data: Partial<Warehouse>): Promise<Warehouse> => {
-  const response = await apiClient.patch<Warehouse>(`${WAREHOUSE_URL}/${id}`, data)
+  const response = await apiClient.put<Warehouse>(`${WAREHOUSE_URL}/${id}`, data)
   return response.data
 }
 
