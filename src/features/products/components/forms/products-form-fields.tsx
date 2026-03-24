@@ -1,9 +1,15 @@
 'use client'
 
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { FormControl } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
+import { ComboboxWithCreate } from '@/components/common/ComboboxWithCreate'
+import { useProductBrands } from '@/features/product-brands/api/queries'
+import { ProductBrandForm } from '@/features/product-brands/components/ProductBrandForm'
+import { useProductCategories } from '@/features/product-categories/api/queries'
+import { CategoryForm } from '@/features/product-categories/components/CategoryForm'
 
 import type { ProductFormData } from './schema'
 import type { UseFormReturn } from 'react-hook-form'
@@ -13,8 +19,60 @@ type Props = {
 }
 
 const ProductFormFields = ({ form }: Props) => {
+  const { data: brands = [] } = useProductBrands()
+  const { data: categories = [] } = useProductCategories()
+
   return (
     <div className='flex flex-col gap-5'>
+      <div className='grid grid-cols-2 gap-4'>
+        <FormField
+          control={form.control}
+          name='brandId'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Бренд</FormLabel>
+              <ComboboxWithCreate
+                items={brands}
+                value={field.value ?? null}
+                onChange={(id) => field.onChange(id)}
+                getLabel={(b) => b.name}
+                placeholder='Выберите бренд'
+                dialogTitle='Новый бренд'
+                renderForm={({ onSuccess, onClose }) => (
+                  <ProductBrandForm onSuccess={onSuccess} onClose={onClose} />
+                )}
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name='categoryId'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Категория</FormLabel>
+              <ComboboxWithCreate
+                items={categories}
+                value={field.value ?? null}
+                onChange={(id) => field.onChange(id)}
+                getLabel={(c) => c.name}
+                placeholder='Выберите категорию'
+                dialogTitle='Новая категория'
+                renderForm={({ onSuccess, onClose }) => (
+                  <CategoryForm
+                    onSuccess={(cat) => { if (cat) onSuccess(cat) }}
+                    onCancel={onClose}
+                  />
+                )}
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
       <FormField
         control={form.control}
         name='name'
@@ -146,7 +204,6 @@ const ProductFormFields = ({ form }: Props) => {
           </FormItem>
         )}
       />
-
     </div>
   )
 }

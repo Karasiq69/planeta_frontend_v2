@@ -29,7 +29,7 @@ type CategoryFormData = z.infer<typeof categorySchema>
 
 interface Props {
   category?: ProductCategory
-  onSuccess: () => void
+  onSuccess: (category?: ProductCategory) => void
   onCancel: () => void
 }
 
@@ -50,10 +50,12 @@ export const CategoryForm = ({ category, onSuccess, onCancel }: Props) => {
     if (category) {
       updateMutation.mutate(
         { id: category.id, data },
-        { onSuccess },
+        { onSuccess: () => onSuccess() },
       )
     } else {
-      createMutation.mutate(data, { onSuccess })
+      createMutation.mutate(data, {
+        onSuccess: (created) => onSuccess(created),
+      })
     }
   }
 
