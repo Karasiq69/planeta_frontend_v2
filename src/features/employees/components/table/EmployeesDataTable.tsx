@@ -15,13 +15,17 @@ interface EmployeesDataTableProps {
   onEdit: (employee: Employee) => void
   onFire: (employee: Employee) => void
   onTransfer: (employee: Employee) => void
+  onInvite: (employee: Employee) => void
 }
 
-export default function EmployeesDataTable({ onEdit, onFire, onTransfer }: EmployeesDataTableProps) {
+export default function EmployeesDataTable({ onEdit, onFire, onTransfer, onInvite }: EmployeesDataTableProps) {
   const [search, setSearch] = useState('')
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 20 })
 
-  const columns = useMemo(() => getEmployeeColumns(onEdit, onFire, onTransfer), [onEdit, onFire, onTransfer])
+  const columns = useMemo(
+    () => getEmployeeColumns(onEdit, onFire, onTransfer, onInvite),
+    [onEdit, onFire, onTransfer, onInvite],
+  )
 
   const { data, isLoading } = useEmployees({
     page: pagination.pageIndex + 1,

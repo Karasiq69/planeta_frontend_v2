@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRightLeft, Pencil, UserX } from 'lucide-react'
+import { ArrowRightLeft, Pencil, Send, UserX } from 'lucide-react'
 
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
 import { AppButton, AppStatusBadge } from '@/components/ds'
@@ -11,8 +11,16 @@ import type { Employee } from '@/features/employees/types'
 import type { ColumnDef } from '@tanstack/react-table'
 
 const EMPLOYEE_STATUS_MAP: Record<string, StatusConfig> = {
+  not_invited: { label: 'Не приглашён', colorVariant: 'neutral' },
+  invited: { label: 'Приглашён', colorVariant: 'info' },
   active: { label: 'Активен', colorVariant: 'success' },
+  expired: { label: 'Ссылка истекла', colorVariant: 'warning' },
   fired: { label: 'Уволен', colorVariant: 'neutral' },
+}
+
+const getInviteStatus = (emp: Employee): string => {
+  if (!emp.isActive) return 'fired'
+  return emp.inviteStatus ?? (emp.userId ? 'active' : 'not_invited')
 }
 
 const fullName = (e: Employee) =>
@@ -22,6 +30,7 @@ export const getEmployeeColumns = (
   onEdit: (employee: Employee) => void,
   onFire: (employee: Employee) => void,
   onTransfer: (employee: Employee) => void,
+  onInvite: (employee: Employee) => void,
 ): ColumnDef<Employee>[] => [
   {
     id: 'fullName',
@@ -67,11 +76,11 @@ export const getEmployeeColumns = (
   {
     id: 'status',
     meta: 'Статус',
-    size: 120,
+    size: 140,
     header: ({ column }) => <DataTableColumnHeader column={column} title='Статус' />,
     cell: ({ row }) => (
       <AppStatusBadge
-        status={row.original.isActive ? 'active' : 'fired'}
+        status={getInviteStatus(row.original)}
         statusMap={EMPLOYEE_STATUS_MAP}
       />
     ),
@@ -79,17 +88,25 @@ export const getEmployeeColumns = (
   },
   {
     id: 'actions',
-    size: 80,
+    size: 110,
     cell: ({ row }) => {
       const emp = row.original
+      const status = getInviteStatus(emp)
+      const showInvite = status === 'not_invited' || status === 'expired' || status === 'invited'
       return (
         <div className='flex gap-1'>
-          <AppButton
-            variant='ghost'
-            size='icon'
-            className='size-8'
-            onClick={() => onEdit(emp)}
-          >
+          {showInvite && (
+            <AppButton
+              variant='ghost'
+              size='icon'
+              className='size-8'
+              onClick={() => onInvite(emp)}
+              title={status === 'invited' ? 'Скопировать ссылку' : 'Пригласить'}
+            >
+              <Send className='size-4' />
+            </AppButton>
+          )}
+          <AppButton variant='ghost' size='icon' className='size-8' onClick={() => onEdit(emp)}>
             <Pencil className='size-4' />
           </AppButton>
           <AppButton
