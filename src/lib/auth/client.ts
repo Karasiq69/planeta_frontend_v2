@@ -17,6 +17,21 @@ apiClient.interceptors.request.use((config) => {
   const { organization } = useOrganizationStore.getState()
   if (organization) {
     config.headers['x-organization-id'] = organization.id
+  } else {
+    // Zustand persist гидратация асинхронная — store может быть ещё null,
+    // читаем напрямую из localStorage как fallback
+    try {
+      const raw = localStorage.getItem('organization')
+      if (raw) {
+        const parsed = JSON.parse(raw)
+        const orgId = parsed?.state?.organization?.id
+        if (orgId) {
+          config.headers['x-organization-id'] = orgId
+        }
+      }
+    } catch {
+      // localStorage недоступен или данные повреждены — пропускаем
+    }
   }
   return config
 })
