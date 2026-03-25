@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/sheet'
 import { DocumentStatusBadge } from '@/features/documents/components/DocumentStatusBadge'
 import { QuantityIndicator } from '@/features/stock-movements/components/QuantityIndicator'
-import { movementTypeConfig } from '@/features/stock-movements/types/config'
+import { documentTypeConfig } from '@/features/documents/lib/constants'
 import { useAllInventoryTransactions } from '@/features/warehouse/api/queries'
 import { formatPrice } from '@/lib/utils'
 
@@ -130,7 +130,7 @@ function StatCell({
 function TransactionRow({ tx, isLast }: { tx: StockMovements; isLast: boolean }) {
   const qty = Number(tx.quantity)
   const isPositive = qty > 0
-  const typeConfig = movementTypeConfig[tx.document?.type]
+  const typeConfig = documentTypeConfig[tx.document?.type]
   const date = new Date(tx.createdAt)
 
   return (

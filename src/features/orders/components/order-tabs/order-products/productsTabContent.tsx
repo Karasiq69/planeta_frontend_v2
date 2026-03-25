@@ -1,4 +1,5 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { Package } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React, { useMemo } from 'react'
 
@@ -31,7 +32,18 @@ const ProductsTabContent = (props: Props) => {
         <OrderProductsCombobox orderId={orderId} />
       </CardHeader>
       <CardContent className='shadow-inner p-0'>
-        <DataTableBasic table={table} columns={columns} className='max-h-[500px]' />
+        <DataTableBasic
+          table={table}
+          columns={columns}
+          className='max-h-[500px]'
+          emptyState={
+            <div className='flex flex-col items-center justify-center py-12 text-center'>
+              <Package className='h-10 w-10 text-muted-foreground/50 mb-3' />
+              <p className='text-sm font-medium text-muted-foreground'>Товары и запчасти ещё не добавлены</p>
+              <p className='text-xs text-muted-foreground/70 mt-1'>Добавьте первый товар или запчасть</p>
+            </div>
+          }
+        />
       </CardContent>
     </Card>
   )

@@ -19,12 +19,14 @@ interface DataTableBasicProps<TData> {
   table: TableType<TData>
   columns: ColumnDef<TData>[]
   className?: string
+  emptyState?: React.ReactNode
 }
 
 function DataTableBasic<TData>({
   table,
   columns,
   className = 'h-full',
+  emptyState,
 }: DataTableBasicProps<TData>) {
   return (
     <ScrollArea className={className}>
@@ -61,9 +63,13 @@ function DataTableBasic<TData>({
               </TableRow>
             ))
           ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
-                Ничего не найдено.
+            <TableRow className='hover:bg-transparent'>
+              <TableCell colSpan={columns.length}>
+                {emptyState ?? (
+                  <div className='h-24 flex items-center justify-center text-center'>
+                    Ничего не найдено.
+                  </div>
+                )}
               </TableCell>
             </TableRow>
           )}

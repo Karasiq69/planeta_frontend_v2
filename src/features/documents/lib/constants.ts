@@ -1,3 +1,7 @@
+import { getTypeConfig } from '@/helpers/get-type-config'
+
+import type { TypeConfig, TypeMapping } from '@/types'
+
 export const DocumentType = {
   RECEIPT: 'RECEIPT',
   TRANSFER: 'TRANSFER',
@@ -30,4 +34,35 @@ export const operationLabels: Record<string, string> = {
   [OperationType.TRANSFER_IN_REPAIR]: 'Передача внутри ремонта',
   [OperationType.RETURN_FROM_REPAIR]: 'Возврат из ремонта',
   [OperationType.RETURN_FROM_OPERATION]: 'Возврат из эксплуатации',
+}
+
+export const documentTypeConfig: TypeMapping = {
+  [DocumentType.RECEIPT]: {
+    label: 'Поступление',
+    variant: 'success',
+    description: 'Поступление товаров',
+  },
+  [DocumentType.TRANSFER]: {
+    label: 'Перемещение',
+    variant: 'info',
+    description: 'Перемещение товаров',
+  },
+  [DocumentType.EXPENSE]: {
+    label: 'Расход',
+    variant: 'warning',
+    description: 'Расход товаров',
+  },
+  [DocumentType.WRITE_OFF]: {
+    label: 'Списание',
+    variant: 'destructive',
+    description: 'Списание товаров',
+  },
+}
+
+export const getDocumentTypeConfig = (type: DocumentType): TypeConfig => {
+  return getTypeConfig(type, documentTypeConfig, 'Неизвестный тип документа')
+}
+
+export const getDocumentTypeLabel = (type: DocumentType): string => {
+  return getDocumentTypeConfig(type).label
 }

@@ -175,29 +175,31 @@ const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) =>
           {errors.position && <p className='text-xs text-red-500'>{errors.position.message}</p>}
         </div>
 
-        <div className='space-y-1.5'>
-          <Label>
-            Организация <span className='text-destructive'>*</span>
-          </Label>
-          <Select
-            defaultValue={(employee?.organizationId ?? currentOrg?.id)?.toString()}
-            onValueChange={(v) => setValue('organizationId', Number(v))}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder='Выберите организацию' />
-            </SelectTrigger>
-            <SelectContent>
-              {organizations.map((org) => (
-                <SelectItem key={org.id} value={org.id.toString()}>
-                  {org.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.organizationId && (
-            <p className='text-xs text-red-500'>{errors.organizationId.message}</p>
-          )}
-        </div>
+        {!isEditing && (
+          <div className='space-y-1.5'>
+            <Label>
+              Организация <span className='text-destructive'>*</span>
+            </Label>
+            <Select
+              defaultValue={currentOrg?.id?.toString()}
+              onValueChange={(v) => setValue('organizationId', Number(v))}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder='Выберите организацию' />
+              </SelectTrigger>
+              <SelectContent>
+                {organizations.map((org) => (
+                  <SelectItem key={org.id} value={org.id.toString()}>
+                    {org.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {errors.organizationId && (
+              <p className='text-xs text-red-500'>{errors.organizationId.message}</p>
+            )}
+          </div>
+        )}
 
         <div className='space-y-1.5'>
           <Label htmlFor='phone'>Телефон</Label>

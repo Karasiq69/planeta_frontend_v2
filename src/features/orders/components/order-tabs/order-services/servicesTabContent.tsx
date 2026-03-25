@@ -4,6 +4,7 @@ import {
   getExpandedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { Wrench } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React, { useMemo } from 'react'
 
@@ -155,9 +156,13 @@ const ServicesTabContent = (props: Props) => {
                     </React.Fragment>
                   ))
                 ) : (
-                  <TableRow>
-                    <TableCell colSpan={columns.length} className='h-24 text-center'>
-                      Ничего не найдено.
+                  <TableRow className='hover:bg-transparent'>
+                    <TableCell colSpan={columns.length}>
+                      <div className='flex flex-col items-center justify-center py-12 text-center'>
+                        <Wrench className='h-10 w-10 text-muted-foreground/50 mb-3' />
+                        <p className='text-sm font-medium text-muted-foreground'>Работы ещё не добавлены</p>
+                        <p className='text-xs text-muted-foreground/70 mt-1'>Добавьте первую работу в заказ-наряд</p>
+                      </div>
                     </TableCell>
                   </TableRow>
                 )}
