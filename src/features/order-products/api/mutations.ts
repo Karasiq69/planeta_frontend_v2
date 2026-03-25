@@ -3,6 +3,7 @@ import { toast } from 'sonner'
 
 import { addOrderProductFn, updateOrderProductFn } from '@/features/order-products/api/actions'
 import { ordersQueryKeys } from '@/features/orders/api/query-keys'
+import { paymentsQueryKeys } from '@/features/payments/api/query-keys'
 import apiClient from '@/lib/auth/client'
 import { ORDER_PRODUCTS_URL } from '@/lib/constants'
 
@@ -25,6 +26,9 @@ export function useCreateOrderProduct(orderId: number) {
       })
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.detail(orderId),
+      })
+      queryClient.invalidateQueries({
+        queryKey: paymentsQueryKeys.orderSummary(orderId),
       })
     },
   })
@@ -53,6 +57,9 @@ export function useDeleteOrderProduct(orderId: number) {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.detail(orderId),
       })
+      queryClient.invalidateQueries({
+        queryKey: paymentsQueryKeys.orderSummary(orderId),
+      })
     },
   })
 }
@@ -75,6 +82,9 @@ export function useUpdateOrderProduct(orderId: number) {
       })
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.detail(orderId),
+      })
+      queryClient.invalidateQueries({
+        queryKey: paymentsQueryKeys.orderSummary(orderId),
       })
     },
   })

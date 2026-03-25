@@ -15,6 +15,7 @@ import {
   updateEmployeeOrderServiceFn,
 } from '@/features/orders/api/actions'
 import { ordersQueryKeys } from '@/features/orders/api/query-keys'
+import { paymentsQueryKeys } from '@/features/payments/api/query-keys'
 import apiClient from '@/lib/auth/client'
 import { ORDERS_URL } from '@/lib/constants'
 
@@ -367,6 +368,9 @@ export function useDeleteOrderService(orderId: number) {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.detail(orderId),
       })
+      queryClient.invalidateQueries({
+        queryKey: paymentsQueryKeys.orderSummary(orderId),
+      })
     },
   })
 }
@@ -388,6 +392,9 @@ export function useAddOrderServiceEmployee(orderId: number) {
       })
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.detail(orderId),
+      })
+      queryClient.invalidateQueries({
+        queryKey: paymentsQueryKeys.orderSummary(orderId),
       })
     },
   })
@@ -415,6 +422,9 @@ export function useUpdateOrderService(orderId: number) {
       })
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.detail(orderId),
+      })
+      queryClient.invalidateQueries({
+        queryKey: paymentsQueryKeys.orderSummary(orderId),
       })
     },
   })
@@ -446,6 +456,9 @@ export function useUpdateEmployeeOrderService(orderId?: number) {
         queryClient.invalidateQueries({
           queryKey: ordersQueryKeys.detail(orderId),
         })
+        queryClient.invalidateQueries({
+          queryKey: paymentsQueryKeys.orderSummary(orderId),
+        })
       } else {
         queryClient.invalidateQueries({
           queryKey: ordersQueryKeys.all,
@@ -474,6 +487,9 @@ export function useDeleteEmployeeOrderService(orderId: number) {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.detail(orderId),
       })
+      queryClient.invalidateQueries({
+        queryKey: paymentsQueryKeys.orderSummary(orderId),
+      })
     },
   })
 }
@@ -495,6 +511,9 @@ export function useAddOrderService(orderId: number) {
       })
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.detail(orderId),
+      })
+      queryClient.invalidateQueries({
+        queryKey: paymentsQueryKeys.orderSummary(orderId),
       })
     },
   })
@@ -534,6 +553,7 @@ export function useApplySpecification(orderId: number) {
       queryClient.invalidateQueries({ queryKey: ordersQueryKeys.detail(orderId) })
       queryClient.invalidateQueries({ queryKey: ordersQueryKeys.services(orderId) })
       queryClient.invalidateQueries({ queryKey: ordersQueryKeys.products(orderId) })
+      queryClient.invalidateQueries({ queryKey: paymentsQueryKeys.orderSummary(orderId) })
     },
   })
 }
