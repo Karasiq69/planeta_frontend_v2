@@ -50,9 +50,13 @@ const OrdersDataTable = () => {
     'ordersRowSelection',
     {}
   )
-  const [columnVisibility, setColumnVisibility] = useLocalStorage<VisibilityState>(
+  const [columnVisibilityStored, setColumnVisibility] = useLocalStorage<VisibilityState>(
     'ordersColumnVisibility',
     {}
+  )
+  const columnVisibility = useMemo<VisibilityState>(
+    () => ({ ...columnVisibilityStored, status: false }),
+    [columnVisibilityStored]
   )
 
   // Для globalFilter не нужно сохранение в localStorage, используем обычный useState

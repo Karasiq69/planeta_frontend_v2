@@ -6,12 +6,36 @@ import { CardDescription, CardTitle } from '@/components/ui/card'
 import { getBrandLogo } from '@/features/cars/utils'
 import OrderTableActions from '@/features/orders/components/tables/OrderTableActions'
 import { getStatusData } from '@/features/orders/lib/statuses'
-import { MoneyCell } from '@/components/common/table/cells'
+import { MoneyCell, StatusCell } from '@/components/common/table/cells'
 
 import type { Order, PaymentStatus } from '@/features/orders/types'
 import type { ColumnDef } from '@tanstack/react-table'
 
+const statusTabColors: Record<string, string> = {
+  APPLICATION: 'bg-gray-300',
+  ORDER: 'bg-sky-300',
+  WAITING_WAREHOUSE: 'bg-amber-300',
+  IN_PROGRESS: 'bg-violet-300',
+  WAITING_PAYMENT: 'bg-emerald-300',
+  COMPLETED: 'bg-green-300',
+  CANCELLED: 'bg-rose-300',
+}
+
 export const OrdersColumnDefs: ColumnDef<Order>[] = [
+  {
+    id: 'statusTab',
+    header: () => null,
+    size: 8,
+    cell: ({ row }) => {
+      const status = row.original.status?.toUpperCase() ?? ''
+      const { label } = getStatusData(row.original.status)
+      return <StatusCell color={statusTabColors[status] ?? 'bg-gray-300'} tooltip={label} />
+    },
+  },
+  {
+    accessorKey: 'status',
+    meta: 'Статус',
+  },
   {
     accessorKey: 'id',
     meta: '№ Заказа',
@@ -21,23 +45,6 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
       return (
         <div>
           <p className='font-medium m-0'>{String(order.id).padStart(6, '0')}</p>
-        </div>
-      )
-    },
-  },
-  {
-    accessorKey: 'status',
-    meta: 'Статус',
-    header: () => <div>Статус</div>,
-    cell: ({ row }) => {
-      const { icon: StatusIcon, color, label } = getStatusData(row.original.status)
-
-      return (
-        <div className='flex items-center gap-2'>
-          <span className={`${color} px-2 py-1 rounded-md text-xs flex items-center gap-1`}>
-            {StatusIcon && <StatusIcon size={14} />}
-            <span className="text-nowrap">{label}</span>
-          </span>
         </div>
       )
     },
