@@ -30,14 +30,15 @@ import { useOrganizationStore } from '@/stores/organization-store'
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar()
-  const { data, isFetched } = useAllOrganizations()
-  const { organization: activeOrg, setOrganization, clearOrganization } = useOrganizationStore()
+  const { data, isSuccess } = useAllOrganizations()
+  const { organization: activeOrg, setOrganization, clearOrganization, _hasHydrated } =
+    useOrganizationStore()
   const [dialogOpen, setDialogOpen] = useState(false)
 
   const organizations = data?.data ?? []
 
   useEffect(() => {
-    if (!isFetched) return
+    if (!_hasHydrated || !isSuccess) return
     if (!organizations.length) {
       if (activeOrg) clearOrganization()
       return
@@ -45,7 +46,7 @@ export function TeamSwitcher() {
     if (!activeOrg || !organizations.some((o) => o.id === activeOrg.id)) {
       setOrganization(organizations[0])
     }
-  }, [isFetched, activeOrg, organizations, setOrganization, clearOrganization])
+  }, [_hasHydrated, isSuccess, activeOrg, organizations, setOrganization, clearOrganization])
 
   if (!activeOrg) {
     return (

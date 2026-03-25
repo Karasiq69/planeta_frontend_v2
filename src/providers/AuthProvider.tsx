@@ -4,7 +4,6 @@ import { usePathname, useRouter } from 'next/navigation'
 import React, { createContext, useContext, useEffect } from 'react'
 
 import { useUser } from '@/hooks/use-auth'
-import { useOrganizationStore } from '@/stores/organization-store'
 
 import type { User, UserRole } from '@/types/user'
 import type { ReactNode } from 'react'
@@ -23,15 +22,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const { data: user, isLoading, isError } = useUser()
   const router = useRouter()
   const pathname = usePathname()
-  const clearOrganization = useOrganizationStore((s) => s.clearOrganization)
-
   useEffect(() => {
     const isPublic = PUBLIC_PATHS.includes(pathname) || pathname.startsWith('/invite')
     if (!isLoading && isError && !isPublic) {
-      clearOrganization()
       router.replace('/')
     }
-  }, [isLoading, isError, pathname, clearOrganization, router])
+  }, [isLoading, isError, pathname, router])
 
   const value: AuthContextType = {
     user: user ?? null,

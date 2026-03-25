@@ -14,17 +14,15 @@ const apiClient = axios.create({
 })
 
 apiClient.interceptors.request.use((config) => {
-  const { organization } = useOrganizationStore.getState()
+  const { organization, _hasHydrated } = useOrganizationStore.getState()
   if (organization) {
     config.headers['x-organization-id'] = organization.id
-  } else {
-    // Zustand persist гидратация асинхронная — store может быть ещё null,
-    // читаем напрямую из localStorage как fallback
+  } else if (!_hasHydrated) {
+    // Стор ещё не гидратирован — читаем из localStorage напрямую
     try {
       const raw = localStorage.getItem('organization')
       if (raw) {
-        const parsed = JSON.parse(raw)
-        const orgId = parsed?.state?.organization?.id
+        const orgId = JSON.parse(raw)?.state?.organization?.id
         if (orgId) {
           config.headers['x-organization-id'] = orgId
         }
