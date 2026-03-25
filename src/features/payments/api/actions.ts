@@ -34,6 +34,11 @@ export const deactivateCashRegister = async (id: number): Promise<CashRegister> 
   return response.data.data
 }
 
+export const activateCashRegister = async (id: number): Promise<CashRegister> => {
+  const response = await apiClient.post<{ data: CashRegister }>(`${CASH_REGISTERS_URL}/${id}/activate`)
+  return response.data.data
+}
+
 // ── Payments ────────────────────────────────────────────────
 
 export const getPayments = async (params: PaymentsQueryParams): Promise<ListResponse<Payment>> => {

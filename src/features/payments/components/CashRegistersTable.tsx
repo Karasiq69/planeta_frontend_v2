@@ -1,7 +1,7 @@
 'use client'
 
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { Pencil, PowerOff } from 'lucide-react'
+import { Pencil, Power, PowerOff } from 'lucide-react'
 import { useState } from 'react'
 
 import {
@@ -29,7 +29,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { useDeactivateCashRegister } from '@/features/payments/api/mutations'
+import { useActivateCashRegister, useDeactivateCashRegister } from '@/features/payments/api/mutations'
 
 import { cashRegisterColumns } from './cash-register-columns'
 import CashRegisterForm from './forms/CashRegisterForm'
@@ -44,9 +44,11 @@ interface CashRegistersTableProps {
 
 const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
   const [deactivateId, setDeactivateId] = useState<number | null>(null)
+  const [activateId, setActivateId] = useState<number | null>(null)
   const [editCashRegister, setEditCashRegister] = useState<CashRegister | null>(null)
   const [selectedCashRegister, setSelectedCashRegister] = useState<CashRegister | null>(null)
   const { mutate: deactivate, isPending } = useDeactivateCashRegister()
+  const { mutate: activate, isPending: isActivating } = useActivateCashRegister()
 
   const columns = [
     ...cashRegisterColumns,
@@ -59,7 +61,7 @@ const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
             <Button variant='ghost' size='icon' className='size-8' onClick={() => setEditCashRegister(row.original)}>
               <Pencil className='size-4' />
             </Button>
-            {row.original.isActive && (
+            {row.original.isActive ? (
               <Button
                 variant='ghost'
                 size='icon'
@@ -68,6 +70,16 @@ const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
                 title='Деактивировать'
               >
                 <PowerOff className='size-4' />
+              </Button>
+            ) : (
+              <Button
+                variant='ghost'
+                size='icon'
+                className='size-8 text-green-600 hover:text-green-600'
+                onClick={() => setActivateId(row.original.id)}
+                title='Активировать'
+              >
+                <Power className='size-4' />
               </Button>
             )}
           </div>
@@ -144,6 +156,30 @@ const CashRegistersTable = ({ data }: CashRegistersTableProps) => {
               }}
             >
               Деактивировать
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={activateId !== null} onOpenChange={() => setActivateId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Активировать кассу?</AlertDialogTitle>
+            <AlertDialogDescription>
+              После активации касса станет доступна для приёма платежей.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Отмена</AlertDialogCancel>
+            <AlertDialogAction
+              disabled={isActivating}
+              onClick={() => {
+                if (activateId) {
+                  activate(activateId, { onSuccess: () => setActivateId(null) })
+                }
+              }}
+            >
+              Активировать
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

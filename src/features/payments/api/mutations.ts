@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 import {
+  activateCashRegister,
   cancelPayment,
   createCashRegister,
   createPayment,
@@ -36,6 +37,20 @@ export const useUpdateCashRegister = () => {
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Ошибка обновления кассы')
+    },
+  })
+}
+
+export const useActivateCashRegister = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) => activateCashRegister(id),
+    onSuccess: () => {
+      toast.success('Касса активирована')
+      queryClient.invalidateQueries({ queryKey: cashRegistersQueryKeys.all })
+    },
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Ошибка активации кассы')
     },
   })
 }
