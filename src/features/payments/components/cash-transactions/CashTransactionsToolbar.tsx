@@ -3,11 +3,12 @@
 import { X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { DateRangePicker } from '@/components/ui/date-range-picker'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { usePaymentCategories } from '@/features/payments/api/cash-transactions-queries'
 
 import type { CashTransactionFilters, TransactionType } from '@/features/payments/types'
+import { fromISODate, toISODate } from '@/lib/format-date'
 
 export type TransactionTableFilters = Pick<CashTransactionFilters, 'type' | 'categoryId' | 'dateFrom' | 'dateTo'>
 
@@ -63,19 +64,12 @@ const CashTransactionsToolbar = ({ filters, onFiltersChange }: CashTransactionsT
         </SelectContent>
       </Select>
 
-      <Input
-        type='date'
-        value={filters.dateFrom ?? ''}
-        onChange={(e) => onFiltersChange({ ...filters, dateFrom: e.target.value || undefined })}
-        className='w-[140px] h-8 text-sm'
-        placeholder='С'
-      />
-      <Input
-        type='date'
-        value={filters.dateTo ?? ''}
-        onChange={(e) => onFiltersChange({ ...filters, dateTo: e.target.value || undefined })}
-        className='w-[140px] h-8 text-sm'
-        placeholder='По'
+      <DateRangePicker
+        value={{ from: fromISODate(filters.dateFrom), to: fromISODate(filters.dateTo) }}
+        onChange={(range) =>
+          onFiltersChange({ ...filters, dateFrom: toISODate(range?.from), dateTo: toISODate(range?.to) })
+        }
+        className='h-8 text-sm'
       />
 
       {hasFilters && (

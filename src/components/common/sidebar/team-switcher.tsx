@@ -1,9 +1,14 @@
 'use client'
 
 import { ChevronsUpDown, Plus } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,13 +25,14 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { useAllOrganizations } from '@/features/organizations/api/queries'
+import OrganizationForm from '@/features/organizations/components/forms/OrganizationForm'
 import { useOrganizationStore } from '@/stores/organization-store'
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar()
   const { data, isFetched } = useAllOrganizations()
   const { organization: activeOrg, setOrganization, clearOrganization } = useOrganizationStore()
-  const router = useRouter()
+  const [dialogOpen, setDialogOpen] = useState(false)
 
   const organizations = data?.data ?? []
 
@@ -47,7 +53,7 @@ export function TeamSwitcher() {
         <SidebarMenuItem>
           <SidebarMenuButton
             size='lg'
-            onClick={() => router.push('/settings/general')}
+            onClick={() => setDialogOpen(true)}
           >
             <div className='flex aspect-square size-8 items-center justify-center rounded-lg border bg-background'>
               <Plus className='size-4' />
@@ -55,6 +61,7 @@ export function TeamSwitcher() {
             <span className='text-sm text-muted-foreground'>Добавить компанию</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
+        <CreateOrganizationDialog open={dialogOpen} onOpenChange={setDialogOpen} />
       </SidebarMenu>
     )
   }
@@ -106,7 +113,7 @@ export function TeamSwitcher() {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className='gap-2 p-2'
-              onClick={() => router.push('/settings/general')}
+              onClick={() => setDialogOpen(true)}
             >
               <div className='flex size-6 items-center justify-center rounded-md border bg-background'>
                 <Plus className='size-4' />
@@ -115,7 +122,27 @@ export function TeamSwitcher() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <CreateOrganizationDialog open={dialogOpen} onOpenChange={setDialogOpen} />
       </SidebarMenuItem>
     </SidebarMenu>
+  )
+}
+
+function CreateOrganizationDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className='max-w-lg'>
+        <DialogHeader>
+          <DialogTitle>Новая организация</DialogTitle>
+        </DialogHeader>
+        <OrganizationForm onSuccess={() => onOpenChange(false)} />
+      </DialogContent>
+    </Dialog>
   )
 }

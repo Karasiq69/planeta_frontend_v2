@@ -32,6 +32,7 @@ import { useAllOrganizations } from '@/features/organizations/api/queries'
 import { useUnlinkedUsers } from '@/features/users/api/queries'
 import { UserForm } from '@/features/users/components/UserForm'
 import { cn } from '@/lib/utils'
+import { useOrganizationStore } from '@/stores/organization-store'
 import { ROLE_LABELS } from '@/types/user'
 
 import { employeeFormSchema, POSITION_LABELS } from './schema'
@@ -47,6 +48,7 @@ interface EmployeeFormProps {
 
 const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) => {
   const isEditing = !!employee
+  const currentOrg = useOrganizationStore((s) => s.organization)
   const createMutation = useCreateEmployee()
   const updateMutation = useUpdateEmployee()
   const { data: orgsData } = useAllOrganizations()
@@ -78,7 +80,7 @@ const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) =>
           hiredAt: employee.hiredAt ?? '',
           userId: employee.userId ?? undefined,
         }
-      : { lastName: '', firstName: '' },
+      : { lastName: '', firstName: '', ...(currentOrg && { organizationId: currentOrg.id }) },
   })
 
   const selectedUserId = watch('userId')
@@ -178,7 +180,7 @@ const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) =>
             Организация <span className='text-destructive'>*</span>
           </Label>
           <Select
-            defaultValue={employee?.organizationId?.toString()}
+            defaultValue={(employee?.organizationId ?? currentOrg?.id)?.toString()}
             onValueChange={(v) => setValue('organizationId', Number(v))}
           >
             <SelectTrigger>

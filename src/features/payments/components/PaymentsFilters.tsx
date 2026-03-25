@@ -1,6 +1,6 @@
 'use client'
 
-import { DatePicker } from '@/components/ui/date-picker'
+import { DateRangePicker } from '@/components/ui/date-range-picker'
 import {
   Select,
   SelectContent,
@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useCashRegisters } from '@/features/payments/api/queries'
+import { fromISODate, toISODate } from '@/lib/format-date'
 
 import type { PaymentsQueryParams } from '@/features/payments/types'
 
@@ -18,12 +19,6 @@ interface PaymentsFiltersProps {
 }
 
 const ALL_VALUE = '__all__'
-
-const toISODate = (date: Date | undefined) =>
-  date ? date.toISOString().split('T')[0] : undefined
-
-const fromISODate = (str: string | undefined) =>
-  str ? new Date(str + 'T00:00:00') : undefined
 
 const PaymentsFilters = ({ filters, onChange }: PaymentsFiltersProps) => {
   const { data: cashRegisters } = useCashRegisters()
@@ -67,18 +62,11 @@ const PaymentsFilters = ({ filters, onChange }: PaymentsFiltersProps) => {
         </SelectContent>
       </Select>
 
-      <DatePicker
-        value={fromISODate(filters.dateFrom)}
-        onChange={(date) => onChange({ ...filters, dateFrom: toISODate(date) })}
-        placeholder='Дата от'
-        className='w-[160px]'
-      />
-
-      <DatePicker
-        value={fromISODate(filters.dateTo)}
-        onChange={(date) => onChange({ ...filters, dateTo: toISODate(date) })}
-        placeholder='Дата до'
-        className='w-[160px]'
+      <DateRangePicker
+        value={{ from: fromISODate(filters.dateFrom), to: fromISODate(filters.dateTo) }}
+        onChange={(range) =>
+          onChange({ ...filters, dateFrom: toISODate(range?.from), dateTo: toISODate(range?.to) })
+        }
       />
     </>
   )

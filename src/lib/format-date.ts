@@ -1,3 +1,5 @@
+import { format, parse } from 'date-fns'
+
 export const formatRelativeTime = (input: string): string => {
   const utcDate = new Date(input)
   const moscowDate = new Date(utcDate.getTime() - 3 * 3600 * 1000) // TODO fix dates (utc now moscow time)
@@ -74,6 +76,14 @@ function getDaysText(days: number): string {
   if (lastDigit >= 2 && lastDigit <= 4) return 'дня'
   return 'дней'
 }
+
+// Конвертация Date → ISO строку (YYYY-MM-DD) в локальном времени
+export const toISODate = (date: Date | undefined) =>
+  date ? format(date, 'yyyy-MM-dd') : undefined
+
+// Конвертация ISO строки (YYYY-MM-DD) → Date в локальном времени
+export const fromISODate = (str: string | undefined) =>
+  str ? parse(str, 'yyyy-MM-dd', new Date()) : undefined
 
 // Функция для форматирования времени в формате ЧЧ:ММ
 export const getTimeFromDate = (date: Date | null): string => {
