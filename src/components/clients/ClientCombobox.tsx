@@ -8,6 +8,12 @@ import { formatPhone } from '@/lib/utils'
 
 import type { IClient } from '@/features/clients/types'
 
+const getClientName = (client: IClient) => {
+  if (client.type === 'legal_entity' && client.companyName) return client.companyName
+  const parts = [client.lastName, client.firstName].filter(Boolean)
+  return parts.length > 0 ? parts.join(' ') : null
+}
+
 type Props = {
   handleSelect: (client: IClient) => void
   isPending?: boolean
@@ -30,21 +36,17 @@ const ClientCombobox = ({ handleSelect, isPending, placeholder = 'Выберит
       isPending={isPending}
       onSearch={debouncedHandleSearch}
       onSelect={handleSelect}
-      getDisplayValue={(client) =>
-        client.type === 'legal_entity' && client.companyName
-          ? client.companyName
-          : `${client.lastName} ${client.firstName}`
-      }
-      renderItem={(client) => (
-        <div className='flex flex-col'>
-          <span className='font-semibold'>
-            {client.type === 'legal_entity' && client.companyName
-              ? client.companyName
-              : `${client.lastName} ${client.firstName}`}
-          </span>
-          <span className='text-xs text-muted-foreground'>{formatPhone(client.phone)}</span>
-        </div>
-      )}
+      getDisplayValue={(client) => getClientName(client) ?? ''}
+      renderItem={(client) => {
+        const name = getClientName(client)
+        const phone = client.phone ? formatPhone(client.phone) : null
+        return (
+          <div className='flex flex-col'>
+            {name && <span className='font-semibold'>{name}</span>}
+            {phone && <span className='text-xs text-muted-foreground'>{phone}</span>}
+          </div>
+        )
+      }}
       searchError={searchError}
       placeholder={placeholder}
     />
