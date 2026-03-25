@@ -11,7 +11,7 @@ import type {
   KpiSummaryResponse,
   LowStockItem,
   MechanicLoadItem,
-  MechanicOrdersResponse,
+  MechanicOrderItem,
   OrdersByStatusResponse,
   RecentReceiptsResponse,
   ReservedItemsResponse,
@@ -104,7 +104,7 @@ export const getReservedItems = async (
   return response.data
 }
 
-export const getMyOrders = async (): Promise<MechanicOrdersResponse> => {
-  const response = await apiClient.get<MechanicOrdersResponse>(`${DASHBOARD_URL}/my-orders`)
+export const getMyOrders = async (): Promise<MechanicOrderItem[]> => {
+  const response = await apiClient.get<MechanicOrderItem[]>(`${DASHBOARD_URL}/my-orders`)
   return response.data
 }

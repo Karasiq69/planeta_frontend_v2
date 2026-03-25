@@ -177,7 +177,4 @@ export interface MechanicOrderItem {
 	status: string
 }
 
-export interface MechanicOrdersResponse {
-	total: number
-	data: MechanicOrderItem[]
-}
+// API отдаёт массив MechanicOrderItem[] напрямую

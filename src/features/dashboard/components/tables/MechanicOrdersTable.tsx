@@ -14,31 +14,27 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 
-import type { MechanicOrdersResponse } from '@/features/dashboard/types'
+import type { MechanicOrderItem } from '@/features/dashboard/types'
+import { statusOptions } from '@/features/orders/types/orders'
 
 interface MechanicOrdersTableProps {
-	data?: MechanicOrdersResponse
+	data?: MechanicOrderItem[]
 	isLoading: boolean
 }
 
 const STATUS_COLORS: Record<string, string> = {
+	APPLICATION: 'bg-blue-100 text-blue-800 border-blue-200',
+	ORDER: 'bg-indigo-100 text-indigo-800 border-indigo-200',
 	IN_PROGRESS: 'bg-green-100 text-green-800 border-green-200',
 	WAITING_WAREHOUSE: 'bg-orange-100 text-orange-800 border-orange-200',
 	WAITING_PAYMENT: 'bg-red-100 text-red-800 border-red-200',
 	COMPLETED: 'bg-purple-100 text-purple-800 border-purple-200',
-	APPLICATION: 'bg-blue-100 text-blue-800 border-blue-200',
-	ORDER: 'bg-indigo-100 text-indigo-800 border-indigo-200',
+	CANCELLED: 'bg-gray-100 text-gray-800 border-gray-200',
 }
 
-const STATUS_LABELS: Record<string, string> = {
-	APPLICATION: 'Заявка',
-	ORDER: 'Заказ',
-	IN_PROGRESS: 'В работе',
-	WAITING_WAREHOUSE: 'Ожидание склада',
-	WAITING_PAYMENT: 'Ожидание оплаты',
-	COMPLETED: 'Завершён',
-	CANCELLED: 'Отменён',
-}
+const STATUS_LABELS = Object.fromEntries(
+	statusOptions.map((o) => [o.value, o.label]),
+)
 
 export function MechanicOrdersTable({ data, isLoading }: MechanicOrdersTableProps) {
 	return (
@@ -47,7 +43,7 @@ export function MechanicOrdersTable({ data, isLoading }: MechanicOrdersTableProp
 				<CardTitle>Мои заказы</CardTitle>
 				{data && (
 					<Badge variant='secondary' className='text-sm'>
-						{data.total}
+						{data.length}
 					</Badge>
 				)}
 			</CardHeader>
@@ -65,7 +61,7 @@ export function MechanicOrdersTable({ data, isLoading }: MechanicOrdersTableProp
 							</TableRow>
 						</TableHeader>
 						<TableBody>
-							{data?.data.map((order) => (
+							{data?.map((order) => (
 								<TableRow key={order.orderId}>
 									<TableCell>
 										<Link
@@ -87,7 +83,7 @@ export function MechanicOrdersTable({ data, isLoading }: MechanicOrdersTableProp
 									</TableCell>
 								</TableRow>
 							))}
-							{!data?.data.length && (
+							{!data?.length && (
 								<TableRow>
 									<TableCell colSpan={4} className='h-24 text-center'>
 										Нет активных заказов
