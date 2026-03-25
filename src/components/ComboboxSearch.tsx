@@ -28,6 +28,8 @@ interface SearchComboboxProps<T> {
   width?: string
   /** 'select' — выбор одного значения (закрывается после выбора). 'action' — добавление позиций (остаётся открытым). */
   mode?: 'select' | 'action'
+  /** Ширина выпадающего списка. По умолчанию — не уже триггера, расширяется по контенту. */
+  popoverWidth?: string
 }
 
 export function ComboboxSearch<T extends { id: number | string }>({
@@ -42,6 +44,7 @@ export function ComboboxSearch<T extends { id: number | string }>({
   placeholder = 'Выберите...',
   width = '',
   mode = 'select',
+  popoverWidth,
 }: SearchComboboxProps<T>) {
   const [open, setOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<string | number>('')
@@ -62,7 +65,7 @@ export function ComboboxSearch<T extends { id: number | string }>({
           variant='outline'
           role='combobox'
           aria-expanded={open}
-          className={`${width} justify-between overflow-hidden`}
+          className={`${width || 'w-full'} justify-between overflow-hidden`}
         >
           <span className='truncate'>
             {!isAction && selectedItem
@@ -79,7 +82,7 @@ export function ComboboxSearch<T extends { id: number | string }>({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className='w-[--radix-popover-trigger-width] p-0' align="start">
+      <PopoverContent className={`${popoverWidth || 'min-w-[--radix-popover-trigger-width] w-auto'} p-0`} align="start">
         <Command shouldFilter={false}>
           <CommandInput placeholder='Поиск..' onValueChange={onSearch} />
 

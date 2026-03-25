@@ -7,7 +7,9 @@ export function cn(...inputs: ClassValue[]) {
 
 export const formatPhone = (phone: string) => {
   if (!phone) return ''
-  return phone.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '+7 ($1) $2-$3-$4')
+  const digits = phone.replace(/\D/g, '')
+  const normalized = digits.startsWith('7') ? digits.slice(1) : digits.startsWith('8') ? digits.slice(1) : digits
+  return normalized.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '+7 ($1) $2-$3-$4')
 }
 
 export function formatPrice(

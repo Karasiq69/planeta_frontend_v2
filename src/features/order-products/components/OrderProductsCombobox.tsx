@@ -32,7 +32,7 @@ const OrderProductsCombobox = ({ orderId }: { orderId: number }) => {
         data={products}
         isLoading={isLoading || isFetching}
         isPending={isPending}
-        width='w-[600px]'
+        width='w-full'
         onSearch={debouncedHandleSearch}
         onSelect={handleSelectItem}
         getDisplayValue={(product) => product.name}
