@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 
+import { MoneyCell } from '@/components/common/table/cells'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { formatRelativeTime } from '@/lib/format-date'
@@ -55,7 +56,7 @@ export const createPaymentColumns = (onCancel: (id: number) => void): ColumnDef<
   {
     accessorKey: 'amount',
     header: 'Сумма',
-    cell: ({ row }) => formatAmount(row.original.amount),
+    cell: ({ row }) => <MoneyCell value={row.original.amount} />,
   },
   {
     accessorKey: 'paymentMethod',

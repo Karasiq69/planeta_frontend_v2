@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { PAYROLL_STATUS_LABELS, PAYROLL_STATUS_VARIANT } from '@/features/payrolls/lib/constants'
 import { formatPayrollPeriod } from '@/features/payrolls/lib/format'
 import { formatRelativeTime } from '@/lib/format-date'
-import { formatPrice } from '@/lib/utils'
+import { MoneyCell } from '@/components/common/table/cells'
 
 import type { PayrollListItem } from '@/features/payrolls/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -47,7 +47,7 @@ export const createPayrollColumns = (onDelete: (id: number) => void): ColumnDef<
     accessorKey: 'totalAmount',
     meta: 'Сумма',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Сумма' />,
-    cell: ({ row }) => <span className='font-medium'>{formatPrice(row.original.totalAmount)}</span>,
+    cell: ({ row }) => <MoneyCell value={row.original.totalAmount} className='font-medium' />,
     enableSorting: false,
     size: 0,
   },

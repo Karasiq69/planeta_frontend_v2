@@ -3,7 +3,7 @@
 import { Badge } from '@/components/ui/badge'
 import { formatRelativeTime } from '@/lib/format-date'
 
-import { formatAmount } from './columns'
+import { MoneyCell } from '@/components/common/table/cells'
 
 import type { CashRegister } from '@/features/payments/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -28,7 +28,7 @@ export const cashRegisterColumns: ColumnDef<CashRegister>[] = [
   {
     accessorKey: 'balance',
     header: 'Баланс',
-    cell: ({ row }) => formatAmount(row.original.balance),
+    cell: ({ row }) => <MoneyCell value={row.original.balance} />,
   },
   {
     accessorKey: 'isActive',

@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
 import { Button } from '@/components/ui/button'
-import { formatPrice } from '@/lib/utils'
+import { MoneyCell } from '@/components/common/table/cells'
 
 import type { Product } from '@/features/products/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -30,7 +30,7 @@ export const getProductsColumns = (vatLabel?: string): ColumnDef<Product>[] => [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title={vatLabel ? `Цена (${vatLabel})` : 'Цена'} />
     ),
-    cell: ({ row }) => <div className='font-medium'>{formatPrice(row.getValue('price'))}</div>,
+    cell: ({ row }) => <MoneyCell value={row.getValue('price')} className='font-medium' />,
   },
   {
     accessorKey: 'totalStock',

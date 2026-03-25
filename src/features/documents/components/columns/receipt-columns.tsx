@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { getStatusConfig } from '@/features/documents/lib/status-helper'
 import { formatRelativeTime } from '@/lib/format-date'
-import { formatPrice } from '@/lib/utils'
+import { MoneyCell } from '@/components/common/table/cells'
 
 import type { Document } from '@/features/documents/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -46,7 +46,7 @@ export const receiptColumns: ColumnDef<Document>[] = [
     accessorKey: 'totalAmount',
     meta: 'Сумма',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Сумма' />,
-    cell: ({ row }) => <div>{formatPrice(row.original.totalAmount ?? 0)}</div>,
+    cell: ({ row }) => <MoneyCell value={row.original.totalAmount} />,
     enableSorting: true,
     size: 0,
   },

@@ -8,7 +8,7 @@ import { DataTableColumnHeader } from '@/components/common/table/data-table-colu
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { WarehouseBadge } from '@/features/warehouse/components/WarehouseBadge'
-import { formatPrice } from '@/lib/utils'
+import { MoneyCell } from '@/components/common/table/cells'
 
 import type { WarehouseItem } from '@/features/warehouse/types'
 import type { ColumnDef, RowData } from '@tanstack/react-table'
@@ -87,16 +87,12 @@ export const warehouseItemsColumnsDefs: ColumnDef<WarehouseItem>[] = [
   {
     id: 'purchasePrice',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Закупка' />,
-    cell: ({ row }) => (
-      <div>{formatPrice(Number(row.original.purchasePrice))}</div>
-    ),
+    cell: ({ row }) => <MoneyCell value={row.original.purchasePrice} />,
   },
   {
     id: 'retailPrice',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Розница' />,
-    cell: ({ row }) => (
-      <div className='font-medium'>{formatPrice(Number(row.original.retailPrice))}</div>
-    ),
+    cell: ({ row }) => <MoneyCell value={row.original.retailPrice} className='font-medium' />,
   },
   {
     id: 'markup',

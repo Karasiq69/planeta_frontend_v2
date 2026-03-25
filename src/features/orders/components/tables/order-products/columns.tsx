@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { TruncatedText } from '@/components/ui/truncated-text'
 import OrderProductsTableActions from '@/features/orders/components/tables/order-products/order-products-table-actions'
+import { MoneyCell } from '@/components/common/table/cells'
 import { formatPrice } from '@/lib/utils'
 
 import type { OrderProduct } from '@/features/order-products/types'
@@ -99,7 +100,7 @@ export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
       const price =
         Number(row.original.quantity) *
         parseInt(row.original.actualPrice || row.original.estimatedPrice)
-      return <span className='text-nowrap'>{formatPrice(price)}</span>
+      return <MoneyCell value={price} />
     },
   },
   {

@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
 import { Button } from '@/components/ui/button'
-import { formatPrice } from '@/lib/utils'
+import { MoneyCell } from '@/components/common/table/cells'
 
 import type { WarehouseItem } from '@/features/warehouse/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -54,9 +54,7 @@ export const warehouseItemsColumnsDefs: ColumnDef<WarehouseItem>[] = [
   {
     id: 'price',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Цена' />,
-    cell: ({ row }) => (
-      <div className='font-medium'>{formatPrice(row.original.product?.price || 0)}</div>
-    ),
+    cell: ({ row }) => <MoneyCell value={row.original.product?.price} className='font-medium' />,
   },
   {
     accessorKey: 'updatedAt',

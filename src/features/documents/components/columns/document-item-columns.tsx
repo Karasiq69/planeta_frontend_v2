@@ -7,6 +7,7 @@ import { DataTableColumnHeader } from '@/components/common/table/data-table-colu
 import { Button } from '@/components/ui/button'
 import { ButtonGroup } from '@/components/ui/button-group'
 import { Input } from '@/components/ui/input'
+import { MoneyCell } from '@/components/common/table/cells'
 import { formatPrice } from '@/lib/utils'
 
 import type { DocumentItem } from '@/features/documents/types'
@@ -143,11 +144,7 @@ export const documentItemColumns: ColumnDef<DocumentItem>[] = [
       if (meta?.isDraft) {
         return <PriceCell item={row.original} meta={meta} />
       }
-      return (
-        <div className='text-sm tabular-nums text-nowrap'>
-          {row.original.price ? formatPrice(row.original.price) : '—'}
-        </div>
-      )
+      return <MoneyCell value={row.original.price} />
     },
     enableSorting: false,
   },
@@ -155,11 +152,7 @@ export const documentItemColumns: ColumnDef<DocumentItem>[] = [
     accessorKey: 'totalPrice',
     size: 0,
     header: ({ column }) => <DataTableColumnHeader column={column} title='Сумма' />,
-    cell: ({ row }) => (
-      <div className='text-sm font-medium tabular-nums text-nowrap'>
-        {row.original.totalPrice ? formatPrice(row.original.totalPrice) : '—'}
-      </div>
-    ),
+    cell: ({ row }) => <MoneyCell value={row.original.totalPrice} className='font-medium' />,
     enableSorting: false,
   },
   {

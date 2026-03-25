@@ -1,4 +1,4 @@
-import { formatPrice } from '@/lib/utils'
+import { MoneyCell } from '@/components/common/table/cells'
 
 import type { PayrollMechanicSummary } from '@/features/payrolls/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -16,6 +16,6 @@ export const mechanicSummaryColumns: ColumnDef<PayrollMechanicSummary>[] = [
   {
     accessorKey: 'totalAmount',
     header: 'Сумма',
-    cell: ({ row }) => <span className='font-medium'>{formatPrice(row.original.totalAmount)}</span>,
+    cell: ({ row }) => <MoneyCell value={row.original.totalAmount} className='font-medium' />,
   },
 ]

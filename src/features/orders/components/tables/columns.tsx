@@ -6,7 +6,7 @@ import { CardDescription, CardTitle } from '@/components/ui/card'
 import { getBrandLogo } from '@/features/cars/utils'
 import OrderTableActions from '@/features/orders/components/tables/OrderTableActions'
 import { getStatusData } from '@/features/orders/lib/statuses'
-import { formatPrice } from '@/lib/utils'
+import { MoneyCell } from '@/components/common/table/cells'
 
 import type { Order, PaymentStatus } from '@/features/orders/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -94,10 +94,7 @@ export const OrdersColumnDefs: ColumnDef<Order>[] = [
     accessorKey: 'totalCost',
     meta: 'Стоимость',
     header: () => <div>Стоимость</div>,
-    cell: ({ row }) => {
-      const totals = row.original.totalCost
-      return <span>{formatPrice(totals)}</span>
-    },
+    cell: ({ row }) => <MoneyCell value={row.original.totalCost} />,
   },
   {
     accessorKey: 'reasonToApply',

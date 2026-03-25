@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { PAYMENT_TYPE_LABELS } from '@/features/payrolls/lib/constants'
 import { formatPaymentRate } from '@/features/payrolls/lib/format'
-import { formatPrice } from '@/lib/utils'
+import { MoneyCell } from '@/components/common/table/cells'
 
 import type { PayrollItem } from '@/features/payrolls/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -25,7 +25,7 @@ export const payrollItemColumns: ColumnDef<PayrollItem>[] = [
   {
     accessorKey: 'servicePrice',
     header: 'Цена услуги',
-    cell: ({ row }) => formatPrice(row.original.servicePrice),
+    cell: ({ row }) => <MoneyCell value={row.original.servicePrice} />,
   },
   {
     accessorKey: 'paymentType',
@@ -45,6 +45,6 @@ export const payrollItemColumns: ColumnDef<PayrollItem>[] = [
   {
     accessorKey: 'calculatedAmount',
     header: 'Начислено',
-    cell: ({ row }) => <span className='font-medium'>{formatPrice(row.original.calculatedAmount)}</span>,
+    cell: ({ row }) => <MoneyCell value={row.original.calculatedAmount} className='font-medium' />,
   },
 ]
