@@ -97,6 +97,7 @@ const ServicesTab = ({ specId }: { specId: number }) => {
           searchError={searchError}
           placeholder='Найти и добавить услугу...'
           width='w-full'
+          mode='action'
         />
 
         {pending && (
@@ -212,6 +213,7 @@ const ProductsTab = ({ specId }: { specId: number }) => {
           searchError={searchError}
           placeholder='Найти и добавить товар...'
           width='w-full'
+          mode='action'
         />
 
         {pending && (

@@ -49,23 +49,25 @@ const TransferItemsCombobox = ({ onSelectProduct, isPending, warehouseId }: Tran
       onSearch={debouncedHandleSearch}
       onSelect={handleSelectItem}
       getDisplayValue={(warehouseItem) => warehouseItem?.product?.name || `${warehouseItem.id}`}
-      renderItem={(warehouseItem) => (
-        <div className='w-full'>
-          <div className='flex items-center justify-between'>
-            <div className='flex items-center gap-5'>
-              <span className='grow'>{warehouseItem?.product?.name}</span>
-              <span className='text-xs text-muted-foreground grow-0'>
-                {warehouseItem?.product?.sku}
-              </span>
-            </div>
-            <Badge variant='outline' className='ml-auto font-normal text-muted-foreground'>
+      renderItem={(warehouseItem) => {
+        const stock = parseFloat(warehouseItem.quantity || '0')
+        return (
+          <div className='grid grid-cols-[auto_1fr_auto_auto_auto] items-center gap-3 w-full'>
+            <span className='text-sm text-muted-foreground'>{warehouseItem?.product?.partNumber}</span>
+            <span className='font-medium truncate'>{warehouseItem?.product?.name}</span>
+            <span className='text-xs text-muted-foreground whitespace-nowrap'>{warehouseItem?.product?.sku}</span>
+            <span className={`text-xs whitespace-nowrap ${stock === 0 ? 'text-red-500' : 'text-muted-foreground'}`}>
+              {stock} шт
+            </span>
+            <Badge variant='outline' className='font-normal text-muted-foreground whitespace-nowrap'>
               {warehouseItem?.product?.brand?.name}
             </Badge>
           </div>
-        </div>
-      )}
+        )
+      }}
       searchError={searchError}
       placeholder='Поиск товаров на складе'
+      mode='action'
     />
   )
 }

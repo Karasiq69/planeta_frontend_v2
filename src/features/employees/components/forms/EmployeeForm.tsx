@@ -2,24 +2,14 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format, parseISO } from 'date-fns'
-import { Check, ChevronsUpDown, Plus } from 'lucide-react'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { AppButton, AppDialog } from '@/components/ds'
+import { ComboboxWithCreate } from '@/components/common/ComboboxWithCreate'
+import { AppButton } from '@/components/ds'
 import { Button } from '@/components/ui/button'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command'
 import { DatePicker } from '@/components/ui/date-picker'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import {
   Select,
   SelectContent,
@@ -31,7 +21,6 @@ import { useCreateEmployee, useUpdateEmployee } from '@/features/employees/api/m
 import { useAllOrganizations } from '@/features/organizations/api/queries'
 import { useUnlinkedUsers } from '@/features/users/api/queries'
 import { UserForm } from '@/features/users/components/UserForm'
-import { cn } from '@/lib/utils'
 import { useOrganizationStore } from '@/stores/organization-store'
 import { ROLE_LABELS } from '@/types/user'
 
@@ -54,10 +43,6 @@ const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) =>
   const { data: orgsData } = useAllOrganizations()
   const { data: unlinkedUsers = [] } = useUnlinkedUsers()
   const isPending = createMutation.isPending || updateMutation.isPending
-
-  const [comboboxOpen, setComboboxOpen] = useState(false)
-  const [userDialogOpen, setUserDialogOpen] = useState(false)
-  const [userSearch, setUserSearch] = useState('')
 
   const organizations = orgsData?.data ?? []
 
@@ -84,17 +69,6 @@ const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) =>
   })
 
   const selectedUserId = watch('userId')
-
-  const filteredUsers = unlinkedUsers.filter(
-    (u) =>
-      u.username.toLowerCase().includes(userSearch.toLowerCase()) ||
-      u.email.toLowerCase().includes(userSearch.toLowerCase())
-  )
-
-  const selectedUser = unlinkedUsers.find((u) => u.id === selectedUserId)
-  const selectedUserDisplay = selectedUser
-    ? `${selectedUser.username} (${selectedUser.email})`
-    : ''
 
   const onSubmit = (data: EmployeeFormValues) => {
     const { userId, ...rest } = data
@@ -238,67 +212,19 @@ const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) =>
       ) : (
         <div className='space-y-3 rounded-lg border p-4'>
           <p className='text-sm font-medium'>Аккаунт для входа в систему</p>
-          <div className='flex items-center gap-2'>
-            <Popover open={comboboxOpen} onOpenChange={setComboboxOpen} modal>
-              <PopoverTrigger asChild>
-                <Button
-                  variant='outline'
-                  role='combobox'
-                  className={cn(
-                    'flex-1 justify-between hover:bg-white',
-                    !selectedUserId && 'text-muted-foreground'
-                  )}
-                >
-                  {selectedUserId ? selectedUserDisplay : 'Выберите пользователя'}
-                  <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className='p-0'>
-                <Command shouldFilter={false}>
-                  <CommandInput
-                    placeholder='Поиск пользователя...'
-                    value={userSearch}
-                    onValueChange={setUserSearch}
-                  />
-                  <CommandEmpty>Пользователь не найден.</CommandEmpty>
-                  <CommandList>
-                    <CommandGroup>
-                      {filteredUsers.map((u) => (
-                        <CommandItem
-                          key={u.id}
-                          value={String(u.id)}
-                          onSelect={() => {
-                            setValue('userId', u.id)
-                            setComboboxOpen(false)
-                          }}
-                        >
-                          <Check
-                            className={cn(
-                              'mr-2 h-4 w-4',
-                              selectedUserId === u.id ? 'opacity-100' : 'opacity-0'
-                            )}
-                          />
-                          <div>
-                            <span>{u.username}</span>
-                            <span className='ml-2 text-muted-foreground'>{u.email}</span>
-                          </div>
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-            <Button
-              type='button'
-              variant='outline'
-              size='icon'
-              className='size-9 shrink-0'
-              onClick={() => setUserDialogOpen(true)}
-            >
-              <Plus className='size-4' />
-            </Button>
-          </div>
+          <ComboboxWithCreate
+            items={unlinkedUsers}
+            value={selectedUserId ?? null}
+            onChange={(id) => setValue('userId', id ?? undefined)}
+            getLabel={(u) => `${u.username} (${u.email})`}
+            placeholder='Выберите пользователя'
+            searchPlaceholder='Поиск пользователя...'
+            emptyText='Пользователь не найден.'
+            dialogTitle='Новый пользователь'
+            renderForm={({ onSuccess }) => (
+              <UserForm onSuccess={(user) => onSuccess(user)} />
+            )}
+          />
           {selectedUserId && (
             <Button
               type='button'
@@ -327,19 +253,6 @@ const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) =>
           Перевести в другую организацию
         </Button>
       )}
-
-      <AppDialog
-        open={userDialogOpen}
-        onOpenChange={setUserDialogOpen}
-        title='Новый пользователь'
-      >
-        <UserForm
-          onSuccess={(user) => {
-            setValue('userId', user.id)
-            setUserDialogOpen(false)
-          }}
-        />
-      </AppDialog>
     </form>
   )
 }

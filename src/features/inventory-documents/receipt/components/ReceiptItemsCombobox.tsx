@@ -58,6 +58,7 @@ const ReceiptItemsCombobox = ({
         )}
         searchError={searchError}
         placeholder='Поиск товаров'
+        mode='action'
       />
     </>
   )

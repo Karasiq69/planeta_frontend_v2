@@ -57,6 +57,7 @@ const WarehouseItemsCombobox: React.FC<WarehouseItemsComboboxProps> = ({
       )}
       searchError={searchError}
       placeholder='Поиск товаров на складе'
+      mode='action'
     />
   )
 }

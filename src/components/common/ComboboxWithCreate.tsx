@@ -27,9 +27,13 @@ interface ComboboxWithCreateProps<T extends { id: number }> {
   onChange: (id: number | null) => void
   getLabel: (item: T) => string
   placeholder?: string
+  searchPlaceholder?: string
+  emptyText?: string
   dialogTitle?: string
   renderForm: (props: { onSuccess: (item: T) => void; onClose: () => void }) => ReactNode
   disabled?: boolean
+  /** Async search callback — when provided, Command filtering is disabled and search is delegated to caller */
+  onSearch?: (value: string) => void
 }
 
 export function ComboboxWithCreate<T extends { id: number }>({
@@ -38,9 +42,12 @@ export function ComboboxWithCreate<T extends { id: number }>({
   onChange,
   getLabel,
   placeholder = 'Выберите...',
+  searchPlaceholder = 'Поиск...',
+  emptyText = 'Ничего не найдено.',
   dialogTitle = 'Создать',
   renderForm,
   disabled,
+  onSearch,
 }: ComboboxWithCreateProps<T>) {
   const [open, setOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -65,15 +72,18 @@ export function ComboboxWithCreate<T extends { id: number }>({
           </Button>
         </PopoverTrigger>
         <PopoverContent className='p-0'>
-          <Command>
-            <CommandInput placeholder='Поиск...' />
-            <CommandEmpty>Ничего не найдено.</CommandEmpty>
+          <Command shouldFilter={!onSearch}>
+            <CommandInput
+              placeholder={searchPlaceholder}
+              onValueChange={onSearch}
+            />
+            <CommandEmpty>{emptyText}</CommandEmpty>
             <CommandList>
               <CommandGroup>
                 {items.map((item) => (
                   <CommandItem
                     key={item.id}
-                    value={getLabel(item)}
+                    value={onSearch ? String(item.id) : getLabel(item)}
                     onSelect={() => {
                       onChange(item.id === value ? null : item.id)
                       setOpen(false)

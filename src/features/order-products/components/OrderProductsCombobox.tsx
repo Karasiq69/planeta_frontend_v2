@@ -53,6 +53,7 @@ const OrderProductsCombobox = ({ orderId }: { orderId: number }) => {
         }}
         searchError={searchError}
         placeholder='Поиск товаров'
+        mode='action'
       />
     </div>
   )

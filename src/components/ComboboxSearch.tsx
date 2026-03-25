@@ -26,6 +26,8 @@ interface SearchComboboxProps<T> {
   searchError?: string
   placeholder?: string
   width?: string
+  /** 'select' — выбор одного значения (закрывается после выбора). 'action' — добавление позиций (остаётся открытым). */
+  mode?: 'select' | 'action'
 }
 
 export function ComboboxSearch<T extends { id: number | string }>({
@@ -39,14 +41,19 @@ export function ComboboxSearch<T extends { id: number | string }>({
   searchError,
   placeholder = 'Выберите...',
   width = '',
+  mode = 'select',
 }: SearchComboboxProps<T>) {
   const [open, setOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<string | number>('')
 
+  const isAction = mode === 'action'
+
   const handleSelectItem = (item: T) => {
     onSelect(item)
-    setSelectedItem(item.id)
-    setOpen(false)
+    if (!isAction) {
+      setSelectedItem(item.id)
+      setOpen(false)
+    }
   }
   return (
     <Popover open={open} onOpenChange={setOpen} modal={true}>
@@ -58,7 +65,7 @@ export function ComboboxSearch<T extends { id: number | string }>({
           className={`${width} justify-between overflow-hidden`}
         >
           <span className='truncate'>
-            {selectedItem
+            {!isAction && selectedItem
               ? data?.data.find((item) => item.id === selectedItem)
                 ? getDisplayValue(data.data.find((item) => item.id === selectedItem)!)
                 : placeholder

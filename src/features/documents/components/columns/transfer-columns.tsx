@@ -6,7 +6,7 @@ import { DataTableColumnHeader } from '@/components/common/table/data-table-colu
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { getStatusConfig } from '@/features/documents/lib/status-helper'
-import { WarehouseBadge } from '@/features/warehouse/components/WarehouseBadge'
+import { WarehouseTransferDirection } from '@/features/warehouse/components/WarehouseTransferDirection'
 import { formatRelativeTime } from '@/lib/format-date'
 
 import type { Document } from '@/features/documents/types'
@@ -43,24 +43,15 @@ export const transferColumns: ColumnDef<Document>[] = [
     enableSorting: true,
   },
   {
-    id: 'fromWarehouse',
-    meta: 'Откуда',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Откуда' />,
-    cell: ({ row }) => {
-      const w = row.original.fromWarehouse
-      return w ? <WarehouseBadge name={w.name} type={w.type} /> : '—'
-    },
-    enableSorting: false,
-    size: 0,
-  },
-  {
-    id: 'warehouse',
-    meta: 'Куда',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Куда' />,
-    cell: ({ row }) => {
-      const w = row.original.warehouse
-      return w ? <WarehouseBadge name={w.name} type={w.type} /> : '—'
-    },
+    id: 'direction',
+    meta: 'Откуда → Куда',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Откуда → Куда' />,
+    cell: ({ row }) => (
+      <WarehouseTransferDirection
+        from={row.original.fromWarehouse}
+        to={row.original.warehouse}
+      />
+    ),
     enableSorting: false,
     size: 0,
   },

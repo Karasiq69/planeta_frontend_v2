@@ -59,6 +59,7 @@ const InventoryDocumentProductsCombobox = ({
         )}
         searchError={searchError}
         placeholder='Поиск товаров'
+        mode='action'
       />
     </div>
   )

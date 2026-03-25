@@ -50,6 +50,7 @@ const ProductsCombobox: React.FC<ProductsComboboxProps> = ({ onSelect, isPending
       )}
       searchError={searchError}
       placeholder='Поиск товаров'
+      mode='action'
     />
   )
 }
