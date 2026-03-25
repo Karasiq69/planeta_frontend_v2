@@ -56,7 +56,7 @@ const AddOrderClientButton = (props: Props) => {
                   Создать клиента
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value='findClient'>
+              <TabsContent value='findClient' className="pt-4">
                 <ClientCombobox handleSelect={handleSelect} />
               </TabsContent>
               <TabsContent value='newClient'>

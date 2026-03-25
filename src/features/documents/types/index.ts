@@ -107,7 +107,7 @@ export interface UpdateDocumentDto {
 
 export interface DocumentsQueryParams {
   page?: number
-  limit?: number
+  pageSize?: number
   type?: DocumentType
   status?: DocumentStatus
   warehouseId?: number

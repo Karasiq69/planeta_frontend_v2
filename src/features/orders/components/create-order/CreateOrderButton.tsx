@@ -1,29 +1,19 @@
 'use client'
-import { PlusCircle } from 'lucide-react'
+
+import { FilePlus2, PlusCircle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 import ClientCombobox from '@/components/clients/ClientCombobox'
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import { Separator } from '@/components/ui/separator'
+import { AppButton } from '@/components/ds/base/AppButton'
+import { AppDialog } from '@/components/ds/base/AppDialog'
 import { useCreateOrder } from '@/features/orders/api/mutations'
-import WithEmptyFields from '@/features/orders/components/create-order/with-empty-fields'
-import WithSearchClient from '@/features/orders/components/create-order/with-search-client'
 import { ORDERS_URL } from '@/lib/constants'
 
 import type { IClient } from '@/features/clients/types'
 
-
-
-
 const CreateOrderButton = ({ label = 'Новый заказ' }: { label?: string }) => {
+  const [open, setOpen] = useState(false)
   const router = useRouter()
   const { mutate: createOrder, isPending } = useCreateOrder()
 
@@ -32,32 +22,63 @@ const CreateOrderButton = ({ label = 'Новый заказ' }: { label?: string
       { clientId: client.id },
       {
         onSuccess: (createdOrder) => {
+          setOpen(false)
           router.push(`${ORDERS_URL}/${createdOrder.id}`)
         },
       }
     )
   }
+
+  const handleCreateEmpty = () => {
+    createOrder(
+      {},
+      {
+        onSuccess: (createdOrder) => {
+          setOpen(false)
+          router.push(`${ORDERS_URL}/${createdOrder.id}`)
+        },
+      }
+    )
+  }
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant='default' size='sm'>
-          <PlusCircle className='mr-2 h-4 w-4' />
-          {label}
-        </Button>
-      </DialogTrigger>
-      <DialogContent className='w-full max-w-4xl h-auto bg-muted'>
-        <DialogHeader>
-          <DialogTitle>Добавление нового заказа</DialogTitle>
-          <DialogDescription>Выберите необходимую опцию и создайте заказ</DialogDescription>
-        </DialogHeader>
-        <div className='flex flex-col gap-2 md:flex-row md:space-x-7'>
-          {/*<WithSearchClient/>*/}
-          <ClientCombobox handleSelect={handleSelectClient} />
-          <Separator orientation="vertical" className="hidden md:block" />
-          <WithEmptyFields />
+    <>
+      <AppButton icon={PlusCircle} size="sm" onClick={() => setOpen(true)}>
+        {label}
+      </AppButton>
+
+      <AppDialog
+        open={open}
+        onOpenChange={setOpen}
+        title="Новый заказ-наряд"
+        description="Найдите клиента или создайте заказ без привязки"
+        size="sm"
+      >
+        <div className="space-y-4">
+          <ClientCombobox
+            handleSelect={handleSelectClient}
+            isPending={isPending}
+            placeholder="Поиск клиента по имени или телефону..."
+          />
+
+          <div className="relative flex items-center">
+            <div className="flex-1 border-t border-border" />
+            <span className="px-3 text-xs text-muted-foreground">или</span>
+            <div className="flex-1 border-t border-border" />
+          </div>
+
+          <AppButton
+            variant="ghost"
+            icon={FilePlus2}
+            loading={isPending}
+            onClick={handleCreateEmpty}
+            className="w-full text-muted-foreground"
+          >
+            Создать без клиента
+          </AppButton>
         </div>
-      </DialogContent>
-    </Dialog>
+      </AppDialog>
+    </>
   )
 }
 

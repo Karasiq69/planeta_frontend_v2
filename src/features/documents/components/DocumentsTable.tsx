@@ -24,7 +24,7 @@ const DocumentsTable = ({ type }: DocumentsTableProps) => {
   const { data, isLoading } = useDocumentsList({
     type: documentType,
     page: pagination.pageIndex + 1,
-    limit: pagination.pageSize,
+    pageSize: pagination.pageSize,
   })
 
   // eslint-disable-next-line react-hooks/incompatible-library
