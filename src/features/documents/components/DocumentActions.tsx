@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { useConfirmDocument } from '@/features/documents/api/mutations'
 import EditDocumentDialog from '@/features/documents/components/EditDocumentDialog'
 import { DocumentStatus, DocumentType } from '@/features/documents/types'
-import CashRegisterSelectDialog from '@/features/inventory-documents/components/CashRegisterSelectDialog'
+import CashRegisterSelectDialog from '@/features/documents/components/CashRegisterSelectDialog'
 
 import type { Document } from '@/features/documents/types'
 
