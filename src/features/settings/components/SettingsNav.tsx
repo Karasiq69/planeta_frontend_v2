@@ -44,6 +44,7 @@ export default function SettingsNav() {
         { label: 'Шаблоны документов', href: '/settings/templates' },
         { label: 'Категории платежей', href: '/settings/payment-categories' },
         { label: 'Пользователи', href: '/settings/users' },
+        { label: 'Должности', href: '/settings/positions' },
         { label: 'Статусы заказов', disabled: true },
         { label: 'Роли и права', disabled: true },
         { label: 'Интеграции', disabled: true },
