@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import { useOrderPayments } from '@/features/payments/api/queries'
+import { useOrderPayments, useOrderPaymentSummary } from '@/features/payments/api/queries'
 import CreatePaymentForm from './forms/CreatePaymentForm'
 import OrderPaymentsList from './OrderPaymentsList'
 import PaymentSummaryCard from './PaymentSummaryCard'
@@ -23,6 +23,7 @@ interface OrderPaymentsProps {
 const OrderPayments = ({ orderId }: OrderPaymentsProps) => {
   const [dialogOpen, setDialogOpen] = useState(false)
   const { data: payments, isLoading } = useOrderPayments(orderId)
+  const { data: paymentSummary } = useOrderPaymentSummary(orderId)
 
   return (
     <div className='space-y-4'>
@@ -49,7 +50,12 @@ const OrderPayments = ({ orderId }: OrderPaymentsProps) => {
           <DialogHeader>
             <DialogTitle>Принять оплату</DialogTitle>
           </DialogHeader>
-          <CreatePaymentForm orderId={orderId} onSuccess={() => setDialogOpen(false)} />
+          <CreatePaymentForm
+            orderId={orderId}
+            remainingAmount={paymentSummary?.remaining}
+            totalCost={paymentSummary?.totalCost}
+            onSuccess={() => setDialogOpen(false)}
+          />
         </DialogContent>
       </Dialog>
     </div>

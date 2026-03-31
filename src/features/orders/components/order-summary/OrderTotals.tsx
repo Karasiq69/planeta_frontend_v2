@@ -257,7 +257,12 @@ const OrderTotals = ({ orderId }: Props) => {
           <DialogHeader>
             <DialogTitle>Принять оплату</DialogTitle>
           </DialogHeader>
-          <CreatePaymentForm orderId={orderId} onSuccess={() => setDialogOpen(false)} />
+          <CreatePaymentForm
+            orderId={orderId}
+            remainingAmount={paymentSummary?.remaining}
+            totalCost={paymentSummary?.totalCost}
+            onSuccess={() => setDialogOpen(false)}
+          />
         </DialogContent>
       </Dialog>
 
