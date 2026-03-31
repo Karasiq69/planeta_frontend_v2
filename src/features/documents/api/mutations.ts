@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { addDocumentItem, confirmDocument, createDocument, deleteDocumentItem, updateDocument, updateDocumentItem } from './actions'
+import { addDocumentItem, confirmDocument, createDocument, deleteDocumentItem, payDocument, updateDocument, updateDocumentItem } from './actions'
 import { documentsQueryKeys } from './query-keys'
 
 import type { CreateDocumentDto, UpdateDocumentDto } from '@/features/documents/types'
@@ -97,6 +97,22 @@ export const useConfirmDocument = (id: number) => {
     },
     onError: (error) => {
       toast.error(`Ошибка при проведении документа: ${error.message}`)
+    },
+  })
+}
+
+export const usePayDocument = (id: number) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (cashRegisterId: number) => payDocument(id, cashRegisterId),
+    onSuccess: () => {
+      toast.success('Документ оплачен')
+      queryClient.invalidateQueries({ queryKey: documentsQueryKeys.detail(id) })
+      queryClient.invalidateQueries({ queryKey: documentsQueryKeys.lists() })
+    },
+    onError: (error) => {
+      toast.error(error.message)
     },
   })
 }

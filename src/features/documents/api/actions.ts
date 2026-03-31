@@ -68,3 +68,11 @@ export const confirmDocument = async (id: number, cashRegisterId?: number): Prom
 	)
 	return response.data
 }
+
+export const payDocument = async (id: number, cashRegisterId: number): Promise<Document> => {
+	const response = await apiClient.post<Document>(
+		`${DOCUMENTS_URL}/${id}/pay`,
+		{ cashRegisterId }
+	)
+	return response.data
+}
