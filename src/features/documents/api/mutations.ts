@@ -89,7 +89,7 @@ export const useConfirmDocument = (id: number) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: () => confirmDocument(id),
+    mutationFn: (cashRegisterId?: number) => confirmDocument(id, cashRegisterId),
     onSuccess: () => {
       toast.success('Документ проведён')
       queryClient.invalidateQueries({ queryKey: documentsQueryKeys.detail(id) })

@@ -61,7 +61,10 @@ export const deleteDocumentItem = async (
 	await apiClient.delete(`${DOCUMENTS_URL}/${documentId}/items/${itemId}`)
 }
 
-export const confirmDocument = async (id: number): Promise<Document> => {
-	const response = await apiClient.post<Document>(`${DOCUMENTS_URL}/${id}/confirm`)
+export const confirmDocument = async (id: number, cashRegisterId?: number): Promise<Document> => {
+	const response = await apiClient.post<Document>(
+		`${DOCUMENTS_URL}/${id}/confirm`,
+		cashRegisterId != null ? { cashRegisterId } : undefined
+	)
 	return response.data
 }
