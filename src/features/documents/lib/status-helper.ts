@@ -16,6 +16,10 @@ const documentStatusConfig: Record<string, StatusConfig> = {
 		label: 'Проведён',
 		variant: 'success',
 	},
+	[DocumentStatus.PAID]: {
+		label: 'Оплачен',
+		variant: 'success',
+	},
 	[DocumentStatus.CANCELLED]: {
 		label: 'Отменён',
 		variant: 'destructive',
