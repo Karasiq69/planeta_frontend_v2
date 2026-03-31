@@ -5,7 +5,6 @@ import { toast } from 'sonner'
 import {
   addReceiptDocumentItem,
   cancelReceiptDocument,
-  completeReceiptDocument,
   createReceiptDocument,
   deleteReceiptDocument,
   removeReceiptDocumentItem,
@@ -70,27 +69,6 @@ export const useDeleteReceiptDocument = () => {
     },
     onError: (error) => {
       toast.error(`Ошибка при удалении приходного документа: ${error.message}`)
-    },
-  })
-}
-
-// Хук для подтверждения приходного документа
-export const useCompleteReceiptDocument = (id: number) => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: () => completeReceiptDocument(id),
-    onSuccess: () => {
-      toast.success('Приходной документ подтвержден')
-      queryClient.invalidateQueries({
-        queryKey: receiptDocumentsQueryKeys.detail(id),
-      })
-      queryClient.invalidateQueries({
-        queryKey: receiptDocumentsQueryKeys.lists(),
-      })
-    },
-    onError: (error) => {
-      toast.error(`Ошибка при подтверждении приходного документа: ${error.message}`)
     },
   })
 }

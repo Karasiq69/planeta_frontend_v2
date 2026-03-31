@@ -51,12 +51,6 @@ export const deleteReceiptDocument = async (id: number): Promise<void> => {
   return response.data
 }
 
-// Подтверждение приходного документа
-export const completeReceiptDocument = async (id: number): Promise<ReceiptDocument> => {
-  const response = await apiClient.post<ReceiptDocument>(`${RECEIPT_DOCUMENTS_URL}/${id}/complete`)
-  return response.data
-}
-
 // Отмена приходного документа
 export const cancelReceiptDocument = async (id: number): Promise<ReceiptDocument> => {
   const response = await apiClient.post<ReceiptDocument>(`${RECEIPT_DOCUMENTS_URL}/${id}/cancel`)

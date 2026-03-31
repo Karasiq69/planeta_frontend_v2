@@ -5,8 +5,6 @@ import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import LoaderAnimated from '@/components/ui/LoaderAnimated'
-import { useCompleteReceiptDocument } from '@/features/inventory-documents/receipt/api/mutations'
-import { useReceiptDocument } from '@/features/inventory-documents/receipt/api/queries'
 import { useCompleteTransferDocument } from '@/features/inventory-documents/transfer/api/mutations'
 import { useTransferDocument } from '@/features/inventory-documents/transfer/api/queries'
 import { InventoryDocumentStatus } from '@/features/inventory-documents/types'
