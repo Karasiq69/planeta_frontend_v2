@@ -1,8 +1,6 @@
 import type { Organization } from '@/features/organizations/types'
 import type { User } from '@/types/user'
 
-export type EmployeePosition = 'mechanic' | 'manager' | 'warehouse_worker' | 'admin'
-
 export type InviteStatus = 'not_invited' | 'invited' | 'active' | 'expired'
 
 export interface Employee {
@@ -12,7 +10,8 @@ export interface Employee {
   firstName: string
   lastName: string
   middleName: string | null
-  position: EmployeePosition
+  positionId: number
+  position: { id: number; name: string } | null
   phone: string | null
   inviteStatus?: InviteStatus
   inviteToken?: string | null
@@ -33,7 +32,7 @@ export type CreateEmployee = {
   firstName: string
   lastName: string
   middleName?: string
-  position: EmployeePosition
+  positionId: number
   phone?: string
   hiredAt?: string
   userId?: number

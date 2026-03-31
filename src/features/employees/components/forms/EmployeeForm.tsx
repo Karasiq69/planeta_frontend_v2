@@ -19,12 +19,13 @@ import {
 } from '@/components/ui/select'
 import { useCreateEmployee, useUpdateEmployee } from '@/features/employees/api/mutations'
 import { useAllOrganizations } from '@/features/organizations/api/queries'
+import { useAllPositions } from '@/features/positions/api/queries'
 import { useUnlinkedUsers } from '@/features/users/api/queries'
 import { UserForm } from '@/features/users/components/UserForm'
 import { useOrganizationStore } from '@/stores/organization-store'
 import { ROLE_LABELS } from '@/types/user'
 
-import { employeeFormSchema, POSITION_LABELS } from './schema'
+import { employeeFormSchema } from './schema'
 
 import type { EmployeeFormValues } from './schema'
 import type { Employee, UpdateEmployee } from '@/features/employees/types'
@@ -44,6 +45,8 @@ const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) =>
   const { data: unlinkedUsers = [] } = useUnlinkedUsers()
   const isPending = createMutation.isPending || updateMutation.isPending
 
+  const { data: positionsData } = useAllPositions()
+  const allPositions = positionsData?.data ?? []
   const organizations = orgsData?.data ?? []
 
   const {
@@ -59,7 +62,7 @@ const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) =>
           lastName: employee.lastName,
           firstName: employee.firstName,
           middleName: employee.middleName ?? '',
-          position: employee.position,
+          positionId: employee.positionId,
           organizationId: employee.organizationId,
           phone: employee.phone ?? '',
           hiredAt: employee.hiredAt ?? '',
@@ -132,21 +135,23 @@ const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) =>
             Должность <span className='text-destructive'>*</span>
           </Label>
           <Select
-            defaultValue={employee?.position}
-            onValueChange={(v) => setValue('position', v as EmployeeFormValues['position'])}
+            defaultValue={employee?.positionId?.toString()}
+            onValueChange={(v) => setValue('positionId', Number(v))}
           >
             <SelectTrigger>
               <SelectValue placeholder='Выберите должность' />
             </SelectTrigger>
             <SelectContent>
-              {Object.entries(POSITION_LABELS).map(([value, label]) => (
-                <SelectItem key={value} value={value}>
-                  {label}
+              {allPositions.map((pos) => (
+                <SelectItem key={pos.id} value={pos.id.toString()}>
+                  {pos.name}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-          {errors.position && <p className='text-xs text-red-500'>{errors.position.message}</p>}
+          {errors.positionId && (
+            <p className='text-xs text-red-500'>{errors.positionId.message}</p>
+          )}
         </div>
 
         {!isEditing && (

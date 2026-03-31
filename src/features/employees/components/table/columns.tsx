@@ -4,8 +4,6 @@ import { ArrowRightLeft, Link, Pencil, Send, UserX } from 'lucide-react'
 
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
 import { AppButton, AppStatusBadge } from '@/components/ds'
-import { POSITION_LABELS } from '@/features/employees/components/forms/schema'
-
 import type { StatusConfig } from '@/components/ds'
 import type { Employee } from '@/features/employees/types'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -43,7 +41,7 @@ export const getEmployeeColumns = (
     accessorKey: 'position',
     meta: 'Должность',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Должность' />,
-    cell: ({ row }) => POSITION_LABELS[row.original.position] ?? row.original.position,
+    cell: ({ row }) => row.original.position?.name ?? '—',
     enableSorting: false,
   },
   {
