@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight, ChevronsUpDown } from 'lucide-react'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 import {
   AlertDialog,
@@ -24,6 +25,7 @@ import {
 import LoaderAnimated from '@/components/ui/LoaderAnimated'
 import { useChangeOrderStatus } from '@/features/orders/api/mutations'
 import { getStatusData, statuses } from '@/features/orders/lib/statuses'
+import { useOrderCompletionGuard } from '@/features/orders/hooks/useOrderCompletionGuard'
 import { OrderStatus } from '@/features/orders/types'
 import { cn } from '@/lib/utils'
 
@@ -36,6 +38,7 @@ type Props = {
 const OrderStatusSelect = ({ order }: Props) => {
   const { mutate, isPending } = useChangeOrderStatus(order?.id)
   const [confirmStatus, setConfirmStatus] = useState<string | null>(null)
+  const { canComplete } = useOrderCompletionGuard(order)
 
   if (!order) return null
 
@@ -49,6 +52,17 @@ const OrderStatusSelect = ({ order }: Props) => {
     currentIndex !== -1 && currentIndex < statuses.length - 1 ? statuses[currentIndex + 1] : null
 
   const confirmData = confirmStatus ? getStatusData(confirmStatus) : null
+
+  const handleStatusChange = (newStatus: string) => {
+    if (newStatus === OrderStatus.COMPLETED) {
+      const result = canComplete()
+      if (!result.ok) {
+        toast.error(`Заполните: ${result.missing.join(', ')}`)
+        return
+      }
+    }
+    setConfirmStatus(newStatus)
+  }
 
   const handleConfirm = () => {
     if (confirmStatus) {
@@ -66,7 +80,7 @@ const OrderStatusSelect = ({ order }: Props) => {
           size='sm'
           className='h-7 gap-1 px-2 text-xs text-muted-foreground'
           disabled={!prevStatus || isPending}
-          onClick={() => prevStatus && setConfirmStatus(prevStatus.value)}
+          onClick={() => prevStatus && handleStatusChange(prevStatus.value)}
         >
           <ChevronLeft className='size-3' />
           {prevStatus?.label}
@@ -95,7 +109,7 @@ const OrderStatusSelect = ({ order }: Props) => {
                   {isCancelled && <DropdownMenuSeparator />}
                   <DropdownMenuItem
                     disabled={isActive}
-                    onClick={() => setConfirmStatus(status.value)}
+                    onClick={() => handleStatusChange(status.value)}
                     className='gap-2'
                   >
                     <span
@@ -123,7 +137,7 @@ const OrderStatusSelect = ({ order }: Props) => {
           size='sm'
           className='h-7 gap-1 px-2 text-xs text-muted-foreground'
           disabled={!nextStatus || isPending}
-          onClick={() => nextStatus && setConfirmStatus(nextStatus.value)}
+          onClick={() => nextStatus && handleStatusChange(nextStatus.value)}
         >
           {nextStatus?.label}
           <ChevronRight className='size-3' />
