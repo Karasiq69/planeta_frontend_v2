@@ -1,7 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
+
 import { createPositionFn, updatePositionFn, deletePositionFn } from './actions'
 import { positionsQueryKeys } from './query-keys'
+
 import type { CreatePositionPayload, UpdatePositionPayload } from '../types'
 
 export function useCreatePosition() {

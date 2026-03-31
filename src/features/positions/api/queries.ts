@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+
 import { getAllPositionsFn } from './actions'
 import { positionsQueryKeys } from './query-keys'
 

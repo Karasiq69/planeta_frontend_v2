@@ -1,5 +1,6 @@
 import apiClient from '@/lib/auth/client'
 import { POSITIONS_URL } from '@/lib/constants'
+
 import type { Position, CreatePositionPayload, UpdatePositionPayload } from '../types'
 
 interface ListResponse {

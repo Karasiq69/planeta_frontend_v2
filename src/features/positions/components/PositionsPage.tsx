@@ -3,6 +3,7 @@
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
+
 import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import {
   AlertDialog,
@@ -33,7 +34,9 @@ import {
 } from '@/components/ui/table'
 import { useDeletePosition } from '@/features/positions/api/mutations'
 import { usePositions } from '@/features/positions/api/queries'
+
 import PositionForm from './forms/PositionForm'
+
 import type { Position } from '@/features/positions/types'
 import type { ColumnDef } from '@tanstack/react-table'
 
