@@ -5,24 +5,25 @@ import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import LoaderAnimated from '@/components/ui/LoaderAnimated'
-import { useCompleteTransferDocument } from '@/features/inventory-documents/transfer/api/mutations'
+import { useConfirmDocument } from '@/features/inventory-documents/api/mutations'
 import { useTransferDocument } from '@/features/inventory-documents/transfer/api/queries'
+import { transferDocumentsQueryKeys } from '@/features/inventory-documents/transfer/api/query-keys'
 import { InventoryDocumentStatus } from '@/features/inventory-documents/types'
 
 type Props = {
   documentId: number
 }
 
-const ReceiptSubmitButton = ({ documentId }: Props) => {
+const TransferSubmitButton = ({ documentId }: Props) => {
   const isMutating = useIsMutating()
   const { data } = useTransferDocument(documentId)
-  const { mutate: setDocumentisComplete, isPending: isCompletingPending } =
-    useCompleteTransferDocument(documentId)
-  const setIsComplete = () => {
-    setDocumentisComplete()
-  }
+  const { mutate: confirm, isPending: isConfirmPending } = useConfirmDocument(documentId, [
+    transferDocumentsQueryKeys.detail(documentId),
+    transferDocumentsQueryKeys.lists(),
+  ])
 
   const isDocumentEditable = data?.status === InventoryDocumentStatus.DRAFT
+
   return (
     <>
       {isDocumentEditable && (
@@ -30,11 +31,11 @@ const ReceiptSubmitButton = ({ documentId }: Props) => {
           <Button
             type="button"
             size="sm"
-            onClick={setIsComplete}
-            disabled={isCompletingPending}
+            onClick={() => confirm(undefined)}
+            disabled={isConfirmPending}
           >
             {isMutating > 0 ? (
-              <LoaderAnimated className='text-primary-foreground' />
+              <LoaderAnimated className="text-primary-foreground" />
             ) : (
               <CheckCheck />
             )}
@@ -47,7 +48,7 @@ const ReceiptSubmitButton = ({ documentId }: Props) => {
             variant="outline"
             disabled={isMutating > 0}
           >
-            {isMutating > 0 ? <LoaderAnimated className='text-primary-foreground' /> : <Save />}
+            {isMutating > 0 ? <LoaderAnimated className="text-primary-foreground" /> : <Save />}
             Сохранить черновик
           </Button>
         </>
@@ -55,4 +56,5 @@ const ReceiptSubmitButton = ({ documentId }: Props) => {
     </>
   )
 }
-export default ReceiptSubmitButton
+
+export default TransferSubmitButton

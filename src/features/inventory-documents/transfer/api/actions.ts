@@ -74,14 +74,6 @@ export const removeTransferDocumentItem = async (itemId: number): Promise<void> 
   await apiClient.delete(`${TRANSFER_DOCUMENTS_URL}/items/${itemId}`)
 }
 
-// Подтверждение документа перемещения
-export const completeTransferDocument = async (id: number): Promise<TransferDocument> => {
-  const response = await apiClient.post<TransferDocument>(
-    `${TRANSFER_DOCUMENTS_URL}/${id}/complete`
-  )
-  return response.data
-}
-
 // Отмена документа перемещения
 export const cancelTransferDocument = async (id: number): Promise<TransferDocument> => {
   const response = await apiClient.post<TransferDocument>(`${TRANSFER_DOCUMENTS_URL}/${id}/cancel`)

@@ -5,7 +5,6 @@ import { toast } from 'sonner'
 import {
   addTransferDocumentItem,
   cancelTransferDocument,
-  completeTransferDocument,
   createTransferDocumentFn,
   removeTransferDocumentItem,
   updateTransferDocumentFn,
@@ -114,27 +113,6 @@ export const useRemoveTransferDocumentItem = (documentId: number) => {
     },
     onError: (error) => {
       toast.error(`Ошибка при удалении товара из документа перемещения: ${error.message}`)
-    },
-  })
-}
-
-// Хук для подтверждения документа перемещения
-export const useCompleteTransferDocument = (id: number) => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: () => completeTransferDocument(id),
-    onSuccess: () => {
-      toast.success('Документ перемещения подтвержден')
-      queryClient.invalidateQueries({
-        queryKey: transferDocumentsQueryKeys.detail(id),
-      })
-      queryClient.invalidateQueries({
-        queryKey: transferDocumentsQueryKeys.lists(),
-      })
-    },
-    onError: (error) => {
-      toast.error(`Ошибка при подтверждении документа перемещения: ${error.message}`)
     },
   })
 }
