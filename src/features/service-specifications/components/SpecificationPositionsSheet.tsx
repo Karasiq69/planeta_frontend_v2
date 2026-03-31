@@ -3,20 +3,13 @@
 import { NotepadText, Package, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
+import { AppSheet } from '@/components/ds/base/AppSheet'
 import { ComboboxSearch } from '@/components/ComboboxSearch'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useProductsList } from '@/features/products/api/queries'
 import {
@@ -321,69 +314,58 @@ const SpecificationPositionsSheet = ({ specId, onOpenChange }: Props) => {
   const productCount = spec?.products.length ?? 0
 
   return (
-    <Sheet open={!!specId} onOpenChange={(open) => !open && onOpenChange(false)}>
-      <SheetContent className='sm:max-w-xl flex flex-col gap-0 p-0 overflow-hidden'>
-        {/* Header */}
-        <div className='px-6 pt-6 pb-4'>
-          <SheetHeader>
-            <SheetTitle className='text-base'>{spec?.name ?? 'Спецификация'}</SheetTitle>
-            {spec && (
-              <SheetDescription asChild>
-                <div className='flex items-center gap-2 pt-1'>
-                  <Badge variant={spec.isActive ? 'default' : 'secondary'} className='text-[10px]'>
-                    {spec.isActive ? 'Активна' : 'Неактивна'}
-                  </Badge>
-                  <span className='text-xs text-muted-foreground'>
-                    {serviceCount} {serviceCount === 1 ? 'услуга' : 'услуг'} · {productCount}{' '}
-                    {productCount === 1 ? 'товар' : 'товаров'}
-                  </span>
-                </div>
-              </SheetDescription>
-            )}
-          </SheetHeader>
-        </div>
-
-        <Separator />
-
-        {/* Content */}
-        {isLoading ? (
-          <LoaderSectionAnimated className='flex-1 rounded p-10' />
-        ) : specId ? (
-          <ScrollArea className='flex-1 min-h-0'>
-            <div className='p-6 overflow-hidden'>
-              <Tabs defaultValue='services'>
-                <TabsList className='w-full'>
-                  <TabsTrigger value='services' className='flex-1 gap-1.5'>
-                    <NotepadText className='size-3.5' />
-                    Услуги
-                    {serviceCount > 0 && (
-                      <span className='ml-0.5 inline-flex items-center justify-center rounded-full bg-primary/10 px-1.5 text-[10px] font-semibold tabular-nums text-primary min-w-[1.25rem] h-4'>
-                        {serviceCount}
-                      </span>
-                    )}
-                  </TabsTrigger>
-                  <TabsTrigger value='products' className='flex-1 gap-1.5'>
-                    <Package className='size-3.5' />
-                    Товары
-                    {productCount > 0 && (
-                      <span className='ml-0.5 inline-flex items-center justify-center rounded-full bg-primary/10 px-1.5 text-[10px] font-semibold tabular-nums text-primary min-w-[1.25rem] h-4'>
-                        {productCount}
-                      </span>
-                    )}
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value='services' className='mt-4'>
-                  <ServicesTab specId={specId} />
-                </TabsContent>
-                <TabsContent value='products' className='mt-4'>
-                  <ProductsTab specId={specId} />
-                </TabsContent>
-              </Tabs>
-            </div>
-          </ScrollArea>
-        ) : null}
-      </SheetContent>
-    </Sheet>
+    <AppSheet
+      open={!!specId}
+      onOpenChange={(open) => !open && onOpenChange(false)}
+      title={spec?.name ?? 'Спецификация'}
+      description={
+        spec && (
+          <span className='flex items-center gap-2 pt-1'>
+            <Badge variant={spec.isActive ? 'default' : 'secondary'} className='text-[10px]'>
+              {spec.isActive ? 'Активна' : 'Неактивна'}
+            </Badge>
+            <span className='text-xs text-muted-foreground'>
+              {serviceCount} {serviceCount === 1 ? 'услуга' : 'услуг'} · {productCount}{' '}
+              {productCount === 1 ? 'товар' : 'товаров'}
+            </span>
+          </span>
+        )
+      }
+      size='xl'
+    >
+      {isLoading ? (
+        <LoaderSectionAnimated className='flex-1 rounded p-10' />
+      ) : specId ? (
+        <Tabs defaultValue='services'>
+          <TabsList className='w-full'>
+            <TabsTrigger value='services' className='flex-1 gap-1.5'>
+              <NotepadText className='size-3.5' />
+              Услуги
+              {serviceCount > 0 && (
+                <span className='ml-0.5 inline-flex items-center justify-center rounded-full bg-primary/10 px-1.5 text-[10px] font-semibold tabular-nums text-primary min-w-[1.25rem] h-4'>
+                  {serviceCount}
+                </span>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value='products' className='flex-1 gap-1.5'>
+              <Package className='size-3.5' />
+              Товары
+              {productCount > 0 && (
+                <span className='ml-0.5 inline-flex items-center justify-center rounded-full bg-primary/10 px-1.5 text-[10px] font-semibold tabular-nums text-primary min-w-[1.25rem] h-4'>
+                  {productCount}
+                </span>
+              )}
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value='services' className='mt-4'>
+            <ServicesTab specId={specId} />
+          </TabsContent>
+          <TabsContent value='products' className='mt-4'>
+            <ProductsTab specId={specId} />
+          </TabsContent>
+        </Tabs>
+      ) : null}
+    </AppSheet>
   )
 }
 

@@ -2,15 +2,9 @@
 
 import { BadgeCheck, FileText, Package, Warehouse } from 'lucide-react'
 
+import { AppSheet } from '@/components/ds/base/AppSheet'
 import { Separator } from '@/components/ui/separator'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet'
 import { DocumentStatusBadge } from '@/features/documents/components/DocumentStatusBadge'
 import { QuantityIndicator } from '@/features/stock-movements/components/QuantityIndicator'
 import { documentTypeConfig } from '@/features/documents/lib/constants'
@@ -38,68 +32,64 @@ export const WarehouseItemHistorySheet = ({ item, open, onOpenChange }: Props) =
   const available = quantity - reserved
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className='flex flex-col sm:max-w-xl p-0 gap-0'>
-        {/* Header */}
-        <SheetHeader className='p-6 pb-0'>
-          <SheetTitle className='text-left flex items-center gap-2'>
-            {item?.product?.name || 'Товар'}
-            {item?.product?.isOriginal && (
-              <BadgeCheck size={18} className='text-blue-500 shrink-0' />
-            )}
-          </SheetTitle>
-          <SheetDescription className='text-left'>
-            {item?.product?.sku} · {item?.warehouse?.name}
-          </SheetDescription>
-        </SheetHeader>
-
-        {/* Stats */}
-        {item && (
-          <div className='grid grid-cols-3 gap-px mx-6 mt-4 rounded-lg border bg-border overflow-hidden'>
-            <StatCell
-              icon={<Package size={14} className='text-muted-foreground' />}
-              label='На складе'
-              value={`${Math.floor(quantity)} шт.`}
-            />
-            <StatCell
-              icon={<Warehouse size={14} className='text-muted-foreground' />}
-              label='Доступно'
-              value={`${Math.floor(available)} шт.`}
-              valueClass={available <= Number(item.minimumQuantity) ? 'text-red-600' : 'text-green-600'}
-            />
-            <StatCell
-              label='Розница'
-              value={formatPrice(item.retailPrice)}
-            />
-          </div>
-        )}
-
-        <Separator className='mt-5' />
-
-        {/* Timeline */}
-        <div className='flex-1 overflow-y-auto px-6 py-4'>
-          {isLoading ? (
-            <LoaderSectionAnimated className='rounded p-10' />
-          ) : transactions.length === 0 ? (
-            <div className='flex flex-col items-center justify-center py-16 text-muted-foreground'>
-              <FileText size={32} strokeWidth={1.5} className='mb-3 opacity-40' />
-              <p className='text-sm'>Нет движений по этому товару</p>
-            </div>
-          ) : (
-            <div className='relative'>
-              {/* Timeline line */}
-              <div className='absolute left-[15px] top-2 bottom-2 w-px bg-border' />
-
-              <div className='space-y-0'>
-                {transactions.map((tx, i) => (
-                  <TransactionRow key={tx.id} tx={tx} isLast={i === transactions.length - 1} />
-                ))}
-              </div>
-            </div>
+    <AppSheet
+      open={open}
+      onOpenChange={onOpenChange}
+      title={
+        <span className='flex items-center gap-2'>
+          {item?.product?.name || 'Товар'}
+          {item?.product?.isOriginal && (
+            <BadgeCheck size={18} className='text-blue-500 shrink-0' />
           )}
+        </span>
+      }
+      description={`${item?.product?.sku} · ${item?.warehouse?.name}`}
+      size='xl'
+    >
+      {/* Stats */}
+      {item && (
+        <div className='grid grid-cols-3 gap-px rounded-lg border bg-border overflow-hidden'>
+          <StatCell
+            icon={<Package size={14} className='text-muted-foreground' />}
+            label='На складе'
+            value={`${Math.floor(quantity)} шт.`}
+          />
+          <StatCell
+            icon={<Warehouse size={14} className='text-muted-foreground' />}
+            label='Доступно'
+            value={`${Math.floor(available)} шт.`}
+            valueClass={available <= Number(item.minimumQuantity) ? 'text-red-600' : 'text-green-600'}
+          />
+          <StatCell
+            label='Розница'
+            value={formatPrice(item.retailPrice)}
+          />
         </div>
-      </SheetContent>
-    </Sheet>
+      )}
+
+      <Separator className='my-4' />
+
+      {/* Timeline */}
+      {isLoading ? (
+        <LoaderSectionAnimated className='rounded p-10' />
+      ) : transactions.length === 0 ? (
+        <div className='flex flex-col items-center justify-center py-16 text-muted-foreground'>
+          <FileText size={32} strokeWidth={1.5} className='mb-3 opacity-40' />
+          <p className='text-sm'>Нет движений по этому товару</p>
+        </div>
+      ) : (
+        <div className='relative'>
+          {/* Timeline line */}
+          <div className='absolute left-[15px] top-2 bottom-2 w-px bg-border' />
+
+          <div className='space-y-0'>
+            {transactions.map((tx, i) => (
+              <TransactionRow key={tx.id} tx={tx} isLast={i === transactions.length - 1} />
+            ))}
+          </div>
+        </div>
+      )}
+    </AppSheet>
   )
 }
 

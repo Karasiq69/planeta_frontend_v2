@@ -18,6 +18,7 @@ import {
 import { useUpdateTaxSettings } from '@/features/organizations/api/mutations'
 import type { Organization, TaxRegime } from '@/features/organizations/types'
 import { useVatRates } from '@/features/vat-rates/api/queries'
+import VatRatesSheet from '@/features/vat-rates/components/VatRatesSheet'
 
 const TAX_REGIME_OPTIONS: { value: string; label: string }[] = [
   { value: 'none', label: 'Не выбрано' },
@@ -74,9 +75,12 @@ export default function TaxSettingsForm({ organization }: Props) {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Налоги</CardTitle>
-        <CardDescription>Налоговые настройки организации — режим налогообложения и параметры НДС</CardDescription>
+      <CardHeader className='flex flex-row items-start justify-between'>
+        <div className='space-y-1.5'>
+          <CardTitle>Налоги</CardTitle>
+          <CardDescription>Налоговые настройки организации — режим налогообложения и параметры НДС</CardDescription>
+        </div>
+        <VatRatesSheet />
       </CardHeader>
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>

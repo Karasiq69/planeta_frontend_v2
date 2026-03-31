@@ -3,6 +3,7 @@
 import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
+import { AppSheet } from '@/components/ds/base/AppSheet'
 import { AppEmptyState } from '@/components/ds/composite/AppEmptyState'
 import {
   AlertDialog,
@@ -17,12 +18,6 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import LoaderSectionAnimated from '@/components/ui/LoaderSectionAnimated'
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet'
 import {
   Table,
   TableBody,
@@ -69,88 +64,83 @@ export const CategoriesSheet = ({ open, onOpenChange }: Props) => {
 
   return (
     <>
-      <Sheet open={open} onOpenChange={handleOpenChange}>
-        <SheetContent className='flex flex-col sm:max-w-3xl'>
-          <SheetHeader>
-            <SheetTitle>
-              {view.type === 'list' ? 'Категории товаров' : view.category ? 'Редактирование категории' : 'Новая категория'}
-            </SheetTitle>
-          </SheetHeader>
+      <AppSheet
+        open={open}
+        onOpenChange={handleOpenChange}
+        title={view.type === 'list' ? 'Категории товаров' : view.category ? 'Редактирование категории' : 'Новая категория'}
+        size='3xl'
+      >
+        {view.type === 'form' ? (
+          <CategoryForm
+            category={view.category}
+            onSuccess={handleFormSuccess}
+            onCancel={() => setView({ type: 'list' })}
+          />
+        ) : isLoading ? (
+          <LoaderSectionAnimated className='rounded p-10' />
+        ) : categories && categories.length > 0 ? (
+          <div className='space-y-3'>
+            <Button size='sm' onClick={() => setView({ type: 'form' })}>
+              <Plus className='mr-1.5 size-4' />
+              Добавить категорию
+            </Button>
 
-          <div className='flex-1 overflow-y-auto'>
-            {view.type === 'form' ? (
-              <CategoryForm
-                category={view.category}
-                onSuccess={handleFormSuccess}
-                onCancel={() => setView({ type: 'list' })}
-              />
-            ) : isLoading ? (
-              <LoaderSectionAnimated className='rounded p-10' />
-            ) : categories && categories.length > 0 ? (
-              <div className='space-y-3'>
-                <Button size='sm' onClick={() => setView({ type: 'form' })}>
-                  <Plus className='mr-1.5 size-4' />
-                  Добавить категорию
-                </Button>
-
-                <div className='rounded-lg border'>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Название</TableHead>
-                        <TableHead>Описание</TableHead>
-                        <TableHead className='w-20'>Товары</TableHead>
-                        <TableHead className='w-20' />
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {categories.map((category) => (
-                        <TableRow key={category.id}>
-                          <TableCell className='font-medium'>{category.name}</TableCell>
-                          <TableCell className='text-xs text-muted-foreground'>
-                            {category.description || '—'}
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant='secondary'>{category.productCount ?? 0}</Badge>
-                          </TableCell>
-                          <TableCell>
-                            <div className='flex gap-1'>
-                              <Button
-                                variant='ghost'
-                                size='icon'
-                                className='size-8'
-                                onClick={() => setView({ type: 'form', category })}
-                              >
-                                <Pencil className='size-4' />
-                              </Button>
-                              <Button
-                                variant='ghost'
-                                size='icon'
-                                className='size-8 text-destructive hover:text-destructive'
-                                onClick={() => setDeleteCategory(category)}
-                              >
-                                <Trash2 className='size-4' />
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              </div>
-            ) : (
-              <div className='space-y-3'>
-                <Button size='sm' onClick={() => setView({ type: 'form' })}>
-                  <Plus className='mr-1.5 size-4' />
-                  Добавить категорию
-                </Button>
-                <AppEmptyState title='Нет категорий' />
-              </div>
-            )}
+            <div className='rounded-lg border'>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Название</TableHead>
+                    <TableHead>Описание</TableHead>
+                    <TableHead className='w-20'>Товары</TableHead>
+                    <TableHead className='w-20' />
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {categories.map((category) => (
+                    <TableRow key={category.id}>
+                      <TableCell className='font-medium'>{category.name}</TableCell>
+                      <TableCell className='text-xs text-muted-foreground'>
+                        {category.description || '—'}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant='secondary'>{category.productCount ?? 0}</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className='flex gap-1'>
+                          <Button
+                            variant='ghost'
+                            size='icon'
+                            className='size-8'
+                            onClick={() => setView({ type: 'form', category })}
+                          >
+                            <Pencil className='size-4' />
+                          </Button>
+                          <Button
+                            variant='ghost'
+                            size='icon'
+                            className='size-8 text-destructive hover:text-destructive'
+                            onClick={() => setDeleteCategory(category)}
+                          >
+                            <Trash2 className='size-4' />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </div>
-        </SheetContent>
-      </Sheet>
+        ) : (
+          <div className='space-y-3'>
+            <Button size='sm' onClick={() => setView({ type: 'form' })}>
+              <Plus className='mr-1.5 size-4' />
+              Добавить категорию
+            </Button>
+            <AppEmptyState title='Нет категорий' />
+          </div>
+        )}
+      </AppSheet>
 
       <AlertDialog open={!!deleteCategory} onOpenChange={(open) => !open && setDeleteCategory(null)}>
         <AlertDialogContent>
