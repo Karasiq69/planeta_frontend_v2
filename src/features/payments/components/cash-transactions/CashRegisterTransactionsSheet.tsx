@@ -4,7 +4,9 @@ import { Wallet } from 'lucide-react'
 
 import { AppSheet } from '@/components/ds/base/AppSheet'
 import { Separator } from '@/components/ui/separator'
+import { formatMoney } from '@/lib/utils'
 import { useCashRegisterBalance } from '@/features/payments/api/cash-transactions-queries'
+
 import CashTransactionsTable from './CashTransactionsTable'
 import CreateTransactionDialog from './CreateTransactionDialog'
 
@@ -16,14 +18,8 @@ interface Props {
   onOpenChange: (open: boolean) => void
 }
 
-const formatBalance = (balance: number) =>
-  new Intl.NumberFormat('ru-RU').format(balance) + ' ₽'
-
 const CashRegisterTransactionsSheet = ({ cashRegister, open, onOpenChange }: Props) => {
-  const { data: balanceData } = useCashRegisterBalance(
-    cashRegister?.id ?? 0,
-    !!cashRegister,
-  )
+  const { data: balanceData } = useCashRegisterBalance(cashRegister?.id ?? 0, !!cashRegister)
 
   const balance = balanceData?.balance ?? cashRegister?.balance ?? 0
 
@@ -42,8 +38,10 @@ const CashRegisterTransactionsSheet = ({ cashRegister, open, onOpenChange }: Pro
             <Wallet size={14} />
             Баланс
           </div>
-          <div className={`text-xl font-semibold tabular-nums ${balance <= 0 ? 'text-red-600' : ''}`}>
-            {formatBalance(balance)}
+          <div
+            className={`text-xl font-semibold tabular-nums ${balance <= 0 ? 'text-red-600' : ''}`}
+          >
+            {formatMoney(balance)}
           </div>
         </div>
       )}

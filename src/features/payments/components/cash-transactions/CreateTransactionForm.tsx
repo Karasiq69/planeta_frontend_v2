@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { formatMoney } from '@/lib/utils'
 import { useCashRegisterBalance, usePaymentCategories } from '@/features/payments/api/cash-transactions-queries'
 import { useCreateCashTransaction } from '@/features/payments/api/cash-transactions-mutations'
 
@@ -129,7 +130,7 @@ const CreateTransactionForm = ({ cashRegisterId, onSuccess }: CreateTransactionF
               </FormControl>
               {selectedType === 'expense' && balanceData && (
                 <p className='text-xs text-muted-foreground'>
-                  Баланс кассы: {new Intl.NumberFormat('ru-RU').format(balanceData.balance)} ₽
+                  Баланс кассы: {formatMoney(balanceData.balance)}
                 </p>
               )}
               <FormMessage />

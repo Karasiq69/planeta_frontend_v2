@@ -12,6 +12,9 @@ export const formatPhone = (phone: string) => {
   return normalized.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '+7 ($1) $2-$3-$4')
 }
 
+export const formatMoney = (value: number) =>
+  new Intl.NumberFormat('ru-RU').format(value) + ' ₽'
+
 export function formatPrice(
   price: number | string | undefined,
   options: {

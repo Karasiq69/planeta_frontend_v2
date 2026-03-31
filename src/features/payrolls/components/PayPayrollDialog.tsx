@@ -13,6 +13,7 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useCashRegisters } from '@/features/payments/api/queries'
 import { useCashRegisterBalance } from '@/features/payments/api/cash-transactions-queries'
+import { formatMoney } from '@/lib/utils'
 import { usePayPayroll } from '@/features/payrolls/api/mutations'
 
 interface PayPayrollDialogProps {
@@ -21,9 +22,6 @@ interface PayPayrollDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
-
-const formatCurrency = (amount: number) =>
-  new Intl.NumberFormat('ru-RU').format(amount) + ' ₽'
 
 const PayPayrollDialog = ({ payrollId, totalAmount, open, onOpenChange }: PayPayrollDialogProps) => {
   const [cashRegisterId, setCashRegisterId] = useState<number | null>(null)
@@ -55,7 +53,7 @@ const PayPayrollDialog = ({ payrollId, totalAmount, open, onOpenChange }: PayPay
         <div className='space-y-4'>
           <div className='rounded-lg border bg-muted/50 px-4 py-3 text-sm'>
             <span className='text-muted-foreground'>Сумма к выплате: </span>
-            <span className='font-semibold'>{formatCurrency(totalAmount)}</span>
+            <span className='font-semibold'>{formatMoney(totalAmount)}</span>
           </div>
 
           <div className='space-y-2'>
@@ -81,7 +79,7 @@ const PayPayrollDialog = ({ payrollId, totalAmount, open, onOpenChange }: PayPay
             <div className={`rounded-lg border px-4 py-3 text-sm ${insufficientFunds ? 'border-red-200 bg-red-50' : 'bg-muted/50'}`}>
               <span className='text-muted-foreground'>Баланс кассы: </span>
               <span className={`font-semibold ${insufficientFunds ? 'text-red-600' : ''}`}>
-                {formatCurrency(balance)}
+                {formatMoney(balance)}
               </span>
               {insufficientFunds && (
                 <p className='text-red-600 text-xs mt-1'>Недостаточно средств в кассе</p>

@@ -5,11 +5,9 @@ import { Plus, Trash2, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { formatMoney } from '@/lib/utils'
 import { mockServices } from '../../mock-data'
 import { MockService } from '../../types'
-
-const formatPrice = (price: number) =>
-  new Intl.NumberFormat('ru-RU').format(price) + ' ₽'
 
 type Props = {
   defaultValues: MockService[]
@@ -55,7 +53,7 @@ export function ServicesStep({ defaultValues, onSave }: Props) {
             >
               <div className="flex flex-col gap-0.5">
                 <span className="font-medium">{service.name}</span>
-                <span className="text-sm text-muted-foreground">{formatPrice(service.price)}</span>
+                <span className="text-sm text-muted-foreground">{formatMoney(service.price)}</span>
               </div>
               <div className="flex items-center gap-3">
                 <Badge variant="secondary">{service.category}</Badge>
