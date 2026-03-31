@@ -69,7 +69,7 @@ const CashRegisterSelectDialog = ({
             <SelectContent>
               {activeCashRegisters.map((cr) => (
                 <SelectItem key={cr.id} value={cr.id.toString()}>
-                  {cr.name} — {cr.balance.toLocaleString('ru')} ₽
+                  {cr.name} — {cr.balance.toLocaleString('ru-RU')} ₽
                 </SelectItem>
               ))}
             </SelectContent>
