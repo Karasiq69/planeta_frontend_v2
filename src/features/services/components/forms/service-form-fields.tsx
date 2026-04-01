@@ -48,10 +48,11 @@ export const ServiceFormFields = ({ form }: Props) => {
         name='defaultDuration'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Длительность (минуты)</FormLabel>
+            <FormLabel>Длительность (часы)</FormLabel>
             <FormControl>
               <Input
                 type='number'
+                step='0.25'
                 {...field}
                 onChange={(e) => field.onChange(Number(e.target.value))}
               />

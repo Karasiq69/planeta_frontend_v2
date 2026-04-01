@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import { useCreateService, useUpdateService } from '@/features/services/api/mutations'
+import { minutesToHours, hoursToMinutes } from '@/shared/lib/duration'
 import { serviceSchema } from '../components/forms/schema'
 
 import type { ServiceFormData } from '../components/forms/schema'
@@ -24,20 +25,21 @@ export const useServiceForm = ({ serviceData, onSuccess, onCreate }: Props) => {
     defaultValues: {
       name: serviceData?.name ?? '',
       description: serviceData?.description ?? '',
-      defaultDuration: serviceData?.defaultDuration ?? 60,
+      defaultDuration: serviceData ? minutesToHours(serviceData.defaultDuration) : 1,
     },
   })
 
   const isPending = createMutation.isPending || updateMutation.isPending
 
   const onSubmit = (data: ServiceFormData) => {
+    const payload = { ...data, defaultDuration: hoursToMinutes(data.defaultDuration) }
     if (serviceData) {
       updateMutation.mutate(
-        { id: serviceData.id, data },
+        { id: serviceData.id, data: payload },
         { onSuccess: () => onSuccess?.() },
       )
     } else {
-      createMutation.mutate(data, {
+      createMutation.mutate(payload, {
         onSuccess: (created) => {
           onCreate?.(created)
           onSuccess?.()

@@ -1,7 +1,7 @@
 import { Mutex } from 'async-mutex'
 import axios from 'axios'
 
-import { useOrganizationStore } from '@/stores/organization-store'
+import { getOrgIdFromCookie, useOrganizationStore } from '@/stores/organization-store'
 import { ApiError } from '@/types/api-error'
 
 const mutex = new Mutex()
@@ -14,21 +14,14 @@ const apiClient = axios.create({
 })
 
 apiClient.interceptors.request.use((config) => {
-  const { organization, _hasHydrated } = useOrganizationStore.getState()
+  const { organization } = useOrganizationStore.getState()
   if (organization) {
     config.headers['x-organization-id'] = organization.id
-  } else if (!_hasHydrated) {
-    // Стор ещё не гидратирован — читаем из localStorage напрямую
-    try {
-      const raw = localStorage.getItem('organization')
-      if (raw) {
-        const orgId = JSON.parse(raw)?.state?.organization?.id
-        if (orgId) {
-          config.headers['x-organization-id'] = orgId
-        }
-      }
-    } catch {
-      // localStorage недоступен или данные повреждены — пропускаем
+  } else {
+    // Стор ещё не гидратирован — читаем из cookie (надёжнее localStorage)
+    const cookieOrgId = getOrgIdFromCookie()
+    if (cookieOrgId) {
+      config.headers['x-organization-id'] = cookieOrgId
     }
   }
   return config

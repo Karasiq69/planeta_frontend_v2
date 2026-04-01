@@ -2,6 +2,7 @@ import { FoldVertical, UnfoldVertical } from 'lucide-react'
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
+import { formatDurationHours } from '@/shared/lib/duration'
 import OrderServicesTableActions from '@/features/orders/components/order-tabs/order-services/order-services-table-actions'
 import EmployeesCell from '@/features/orders/components/tables/order-services/EmployeeCell'
 
@@ -28,7 +29,7 @@ export const ServicesColumnDefs: ColumnDef<OrderService>[] = [
     accessorKey: 'defaultDuration',
     header: () => <span className="text-xs text-muted-foreground ">Норма времени</span>,
     cell: ({ row }) => {
-      return <p>{(row.original.defaultDuration / 60).toFixed(3)}</p>
+      return <p>{formatDurationHours(row.original.defaultDuration)}</p>
     },
   },
 

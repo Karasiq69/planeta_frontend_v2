@@ -20,13 +20,7 @@ import { useDeleteService } from '@/features/services/api/mutations'
 import type { IService } from '@/features/services/types'
 import type { ColumnDef } from '@tanstack/react-table'
 
-const formatDuration = (minutes: number) => {
-  const h = Math.floor(minutes / 60)
-  const m = minutes % 60
-  if (h === 0) return `${m} мин`
-  if (m === 0) return `${h} ч`
-  return `${h} ч ${m} мин`
-}
+import { formatDurationHours } from '@/shared/lib/duration'
 
 const ServiceDeleteAction = ({ service }: { service: IService }) => {
   const [open, setOpen] = React.useState(false)
@@ -89,7 +83,7 @@ export const getServiceColumns = (onEdit: (service: IService) => void): ColumnDe
     meta: 'Длительность',
     size: 100,
     header: ({ column }) => <DataTableColumnHeader column={column} title='Длительность' />,
-    cell: ({ row }) => formatDuration(row.original.defaultDuration),
+    cell: ({ row }) => formatDurationHours(row.original.defaultDuration),
     enableSorting: false,
   },
   {
