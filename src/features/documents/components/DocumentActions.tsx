@@ -10,7 +10,7 @@ import { DocumentStatus, DocumentType } from '@/features/documents/types'
 
 import type { Document } from '@/features/documents/types'
 
-const TYPES_REQUIRING_CASH_REGISTER = new Set<string>([
+const PAYABLE_TYPES = new Set<string>([
   DocumentType.RECEIPT,
   DocumentType.EXPENSE,
 ])
@@ -22,28 +22,12 @@ interface Props {
 const DocumentActions = ({ document }: Props) => {
   const isDraft = document.status === DocumentStatus.DRAFT
   const isConfirmed = document.status === DocumentStatus.CONFIRMED
-  const needsCashRegister = TYPES_REQUIRING_CASH_REGISTER.has(document.type)
-  const canPay = isConfirmed && needsCashRegister
+  const canPay = isConfirmed && PAYABLE_TYPES.has(document.type)
 
-  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
   const [payDialogOpen, setPayDialogOpen] = useState(false)
 
   const { mutate: confirm, isPending: isConfirming } = useConfirmDocument(document.id)
   const { mutate: pay, isPending: isPaying } = usePayDocument(document.id)
-
-  const handleConfirm = () => {
-    if (needsCashRegister) {
-      setConfirmDialogOpen(true)
-    } else {
-      confirm(undefined)
-    }
-  }
-
-  const handleCashRegisterConfirm = (cashRegisterId: number) => {
-    confirm(cashRegisterId, {
-      onSuccess: () => setConfirmDialogOpen(false),
-    })
-  }
 
   const handlePay = (cashRegisterId: number) => {
     pay(cashRegisterId, {
@@ -54,7 +38,7 @@ const DocumentActions = ({ document }: Props) => {
   return (
     <>
       <EditDocumentDialog document={document} disabled={!isDraft} />
-      <Button disabled={!isDraft || isConfirming} onClick={handleConfirm}>
+      <Button disabled={!isDraft || isConfirming} onClick={() => confirm(undefined)}>
         {isConfirming ? 'Проведение...' : 'Провести'}
       </Button>
 
@@ -62,15 +46,6 @@ const DocumentActions = ({ document }: Props) => {
         <Button disabled={isPaying} onClick={() => setPayDialogOpen(true)}>
           {isPaying ? 'Оплата...' : 'Оплатить'}
         </Button>
-      )}
-
-      {needsCashRegister && (
-        <CashRegisterSelectDialog
-          open={confirmDialogOpen}
-          onOpenChange={setConfirmDialogOpen}
-          onConfirm={handleCashRegisterConfirm}
-          isPending={isConfirming}
-        />
       )}
 
       {canPay && (
