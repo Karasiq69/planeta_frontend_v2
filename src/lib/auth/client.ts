@@ -1,7 +1,7 @@
 import { Mutex } from 'async-mutex'
 import axios from 'axios'
 
-import { getOrgIdFromCookie, useOrganizationStore } from '@/stores/organization-store'
+import { getOrgIdFromCookie } from '@/stores/organization-store'
 import { ApiError } from '@/types/api-error'
 
 const mutex = new Mutex()
@@ -14,15 +14,9 @@ const apiClient = axios.create({
 })
 
 apiClient.interceptors.request.use((config) => {
-  const { organization } = useOrganizationStore.getState()
-  if (organization) {
-    config.headers['x-organization-id'] = organization.id
-  } else {
-    // Стор ещё не гидратирован — читаем из cookie (надёжнее localStorage)
-    const cookieOrgId = getOrgIdFromCookie()
-    if (cookieOrgId) {
-      config.headers['x-organization-id'] = cookieOrgId
-    }
+  const orgId = getOrgIdFromCookie()
+  if (orgId) {
+    config.headers['x-organization-id'] = orgId
   }
   return config
 })

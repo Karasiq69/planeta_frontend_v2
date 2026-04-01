@@ -331,7 +331,7 @@ const SpecificationPositionsSheet = ({ specId, onOpenChange }: Props) => {
           </span>
         )
       }
-      size='xl'
+      size='3xl'
     >
       {isLoading ? (
         <LoaderSectionAnimated className='flex-1 rounded p-10' />

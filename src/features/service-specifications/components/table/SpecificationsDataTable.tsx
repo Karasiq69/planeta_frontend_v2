@@ -15,11 +15,11 @@ import SpecificationsSearchBox from './SpecificationsSearchBox'
 import type { Specification } from '@/features/service-specifications/types'
 
 interface SpecificationsDataTableProps {
-  onManagePositions: (spec: Specification) => void
+  onRowClick: (spec: Specification) => void
 }
 
-const SpecificationsDataTable = ({ onManagePositions }: SpecificationsDataTableProps) => {
-  const columns = useMemo(() => getSpecificationColumns(onManagePositions), [onManagePositions])
+const SpecificationsDataTable = ({ onRowClick }: SpecificationsDataTableProps) => {
+  const columns = useMemo(() => getSpecificationColumns(), [])
   const searchParams = useSearchParams()
   const searchTerm = searchParams.get('search')
   const [pagination, setPagination] = useState({
@@ -50,7 +50,7 @@ const SpecificationsDataTable = ({ onManagePositions }: SpecificationsDataTableP
   if (!data) return null
 
   return (
-    <DataTable table={table} columns={columns} variant='compact'>
+    <DataTable table={table} columns={columns} variant='compact' onRowClick={onRowClick}>
       <DataTable.Toolbar>
         <div className='flex gap-3'>
           <SpecificationsSearchBox />

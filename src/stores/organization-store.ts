@@ -20,6 +20,18 @@ export function getOrgIdFromCookie(): number | null {
   return match ? Number(match[1]) : null
 }
 
+// Миграция: если cookie нет, но в localStorage есть org — ставим cookie синхронно,
+// чтобы интерцептор мог прочитать её до гидрации zustand стора
+if (typeof document !== 'undefined' && !getOrgIdFromCookie()) {
+  try {
+    const raw = localStorage.getItem('organization')
+    if (raw) {
+      const id = JSON.parse(raw)?.state?.organization?.id
+      if (id) setOrgCookie(Number(id))
+    }
+  } catch { /* localStorage недоступен */ }
+}
+
 interface OrganizationStore {
   organization: Organization | null
   _hasHydrated: boolean

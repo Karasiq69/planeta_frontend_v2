@@ -58,7 +58,7 @@ function AppSheet({
         <SheetHeader className={cn('p-6 pb-4', headerActions && 'flex flex-row items-center justify-between')}>
           <div>
             <SheetTitle className='text-left'>{title}</SheetTitle>
-            {description && <SheetDescription className='text-left'>{description}</SheetDescription>}
+            {description && <SheetDescription asChild className='text-left'><div>{description}</div></SheetDescription>}
           </div>
           {headerActions}
         </SheetHeader>

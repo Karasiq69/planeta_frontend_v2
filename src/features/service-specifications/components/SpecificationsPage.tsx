@@ -40,7 +40,7 @@ const SpecificationsPage = () => {
       />
       <PageLayout.Content>
         <Suspense>
-          <SpecificationsDataTable onManagePositions={handleManagePositions} />
+          <SpecificationsDataTable onRowClick={handleManagePositions} />
         </Suspense>
       </PageLayout.Content>
 

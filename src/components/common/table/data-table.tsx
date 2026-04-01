@@ -25,6 +25,8 @@ interface DataTableContextValue {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: ColumnDef<any>[]
   variant: DataTableVariant
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onRowClick?: (row: any) => void
 }
 
 const DataTableContext = React.createContext<DataTableContextValue | null>(null)
@@ -41,6 +43,7 @@ interface DataTableProps<TData> {
   table: TableType<TData>
   columns: ColumnDef<TData>[]
   variant?: DataTableVariant
+  onRowClick?: (row: TData) => void
   children: React.ReactNode
 }
 
@@ -48,11 +51,12 @@ function DataTable<TData>({
   table,
   columns,
   variant = 'default',
+  onRowClick,
   children,
 }: DataTableProps<TData>) {
   const contextValue = React.useMemo(
-    () => ({ table, columns, variant }) as unknown as DataTableContextValue,
-    [table, columns, variant],
+    () => ({ table, columns, variant, onRowClick }) as unknown as DataTableContextValue,
+    [table, columns, variant, onRowClick],
   )
 
   return (
@@ -67,7 +71,7 @@ function Toolbar({ children }: { children: React.ReactNode }) {
 }
 
 function DataTableTable() {
-  const { table, columns, variant } = useDataTableContext()
+  const { table, columns, variant, onRowClick } = useDataTableContext()
 
   return (
     <div className='flex-1 min-h-0 p-4 flex flex-col'>
@@ -93,9 +97,10 @@ function DataTableTable() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                  className='group'
+                  className={onRowClick ? 'group cursor-pointer' : 'group'}
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
+                  onClick={onRowClick ? () => onRowClick(row.original) : undefined}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
