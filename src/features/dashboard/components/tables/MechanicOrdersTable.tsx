@@ -56,7 +56,7 @@ export function MechanicOrdersTable({ data, isLoading }: MechanicOrdersTableProp
 							<TableRow>
 								<TableHead>Заказ</TableHead>
 								<TableHead>Авто</TableHead>
-								<TableHead>Услуга</TableHead>
+								<TableHead>Работа</TableHead>
 								<TableHead>Статус</TableHead>
 							</TableRow>
 						</TableHeader>

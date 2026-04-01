@@ -40,9 +40,9 @@ const ServiceDeleteAction = ({ service }: { service: IService }) => {
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Удалить услугу?</AlertDialogTitle>
+            <AlertDialogTitle>Удалить работу?</AlertDialogTitle>
             <AlertDialogDescription>
-              Услуга «{service.name}» будет удалена. Это действие нельзя отменить.
+              Работа «{service.name}» будет удалена. Это действие нельзя отменить.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

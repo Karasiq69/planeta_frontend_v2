@@ -18,7 +18,7 @@ export const ServiceFormFields = ({ form }: Props) => {
         name='name'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Название услуги</FormLabel>
+            <FormLabel>Название работы</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>

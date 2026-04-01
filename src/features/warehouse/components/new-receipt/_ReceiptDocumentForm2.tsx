@@ -278,7 +278,7 @@ const _ReceiptDocumentForm = () => {
                   className='data-[state=active]:bg-white rounded-none h-8'
                   disabled
                 >
-                  Услуги
+                  Работы
                 </TabsTrigger>
                 <TabsTrigger
                   value='payment'

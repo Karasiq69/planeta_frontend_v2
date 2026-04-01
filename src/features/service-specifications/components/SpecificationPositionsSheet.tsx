@@ -88,7 +88,7 @@ const ServicesTab = ({ specId }: { specId: number }) => {
             </div>
           )}
           searchError={searchError}
-          placeholder='Найти и добавить услугу...'
+          placeholder='Найти и добавить работу...'
           width='w-full'
           mode='action'
         />
@@ -126,7 +126,7 @@ const ServicesTab = ({ specId }: { specId: number }) => {
         <p className='text-xs font-medium text-muted-foreground mb-2'>
           {items.length > 0
             ? `Добавлено: ${items.length}`
-            : 'Найдите услугу через поиск выше'}
+            : 'Найдите работу через поиск выше'}
         </p>
         <ItemsList
           items={items}
@@ -325,7 +325,7 @@ const SpecificationPositionsSheet = ({ specId, onOpenChange }: Props) => {
               {spec.isActive ? 'Активна' : 'Неактивна'}
             </Badge>
             <span className='text-xs text-muted-foreground'>
-              {serviceCount} {serviceCount === 1 ? 'услуга' : 'услуг'} · {productCount}{' '}
+              {serviceCount} {serviceCount === 1 ? 'работа' : 'работ'} · {productCount}{' '}
               {productCount === 1 ? 'товар' : 'товаров'}
             </span>
           </span>
@@ -340,7 +340,7 @@ const SpecificationPositionsSheet = ({ specId, onOpenChange }: Props) => {
           <TabsList className='w-full'>
             <TabsTrigger value='services' className='flex-1 gap-1.5'>
               <NotepadText className='size-3.5' />
-              Услуги
+              Работы
               {serviceCount > 0 && (
                 <span className='ml-0.5 inline-flex items-center justify-center rounded-full bg-primary/10 px-1.5 text-[10px] font-semibold tabular-nums text-primary min-w-[1.25rem] h-4'>
                   {serviceCount}

@@ -12,7 +12,7 @@ export function useCreateService() {
   return useMutation({
     mutationFn: (data: ServiceFormData) => createServiceFn(data),
     onSuccess: () => {
-      toast.success('Услуга создана')
+      toast.success('Работа создана')
     },
     onError: () => {
       toast.error('Произошла ошибка, повторите попытку')
@@ -29,7 +29,7 @@ export function useUpdateService() {
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: ServiceFormData }) => updateServiceFn(id, data),
     onSuccess: () => {
-      toast.success('Услуга обновлена')
+      toast.success('Работа обновлена')
     },
     onError: () => {
       toast.error('Произошла ошибка, повторите попытку')
@@ -46,7 +46,7 @@ export function useDeleteService() {
   return useMutation({
     mutationFn: (id: number) => deleteServiceFn(id),
     onSuccess: () => {
-      toast.success('Услуга удалена')
+      toast.success('Работа удалена')
     },
     onError: () => {
       toast.error('Произошла ошибка, повторите попытку')

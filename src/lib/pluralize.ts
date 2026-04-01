@@ -3,7 +3,7 @@ type PluralForms = readonly [one: string, few: string, many: string]
 export const words = {
   order: ['заказ', 'заказа', 'заказов'],
   record: ['запись', 'записи', 'записей'],
-  service: ['услуга', 'услуги', 'услуг'],
+  service: ['работа', 'работы', 'работ'],
   product: ['товар', 'товара', 'товаров'],
   piece: ['штука', 'штуки', 'штук'],
   day: ['день', 'дня', 'дней'],

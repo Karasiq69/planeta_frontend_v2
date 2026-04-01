@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-// Тестовые данные с множественными услугами
+// Тестовые данные с множественными работами
 const serviceHistory = [
   {
     id: 'ord_001',
@@ -105,7 +105,7 @@ const CarServiceHistory = () => {
           <TableHeader>
             <TableRow>
               <TableHead>Дата</TableHead>
-              <TableHead>Услуги</TableHead>
+              <TableHead>Работы</TableHead>
               <TableHead>Механик</TableHead>
               <TableHead>Сумма</TableHead>
               <TableHead>Статус</TableHead>

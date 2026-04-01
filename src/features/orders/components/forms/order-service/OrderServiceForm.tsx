@@ -29,7 +29,7 @@ export const OrderServiceForm = ({ orderServiceData, orderId, onUpdate, onCreate
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
         <OrderServiceFormFields form={form} />
         <Button disabled={isLoading} variant='default' className='w-full' type='submit'>
-          {orderServiceData ? 'Обновить' : 'Добавить услугу'}
+          {orderServiceData ? 'Обновить' : 'Добавить работу'}
           {isLoading && <LoaderAnimated className='text-white' />}
         </Button>
       </form>

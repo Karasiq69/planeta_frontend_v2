@@ -27,7 +27,7 @@ export function ServicesStep({ defaultValues, onSave }: Props) {
   const addService = () => {
     update([
       ...services,
-      { id: crypto.randomUUID(), name: 'Новая услуга', price: 0, category: 'Прочее' },
+      { id: crypto.randomUUID(), name: 'Новая работа', price: 0, category: 'Прочее' },
     ])
   }
 
@@ -40,9 +40,9 @@ export function ServicesStep({ defaultValues, onSave }: Props) {
       <CardHeader>
         <div className="flex items-center gap-2">
           <Wrench className="h-5 w-5 text-primary" />
-          <CardTitle>Услуги</CardTitle>
+          <CardTitle>Работы</CardTitle>
         </div>
-        <CardDescription>Укажите услуги, которые вы оказываете</CardDescription>
+        <CardDescription>Укажите работы, которые вы выполняете</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="divide-y">
@@ -71,7 +71,7 @@ export function ServicesStep({ defaultValues, onSave }: Props) {
         </div>
         <Button variant="outline" className="mt-4 w-full" onClick={addService}>
           <Plus className="mr-2 h-4 w-4" />
-          Добавить услугу
+          Добавить работу
         </Button>
       </CardContent>
     </Card>

@@ -42,16 +42,16 @@ const CreateOrderServiceButton = () => {
         <DialogTrigger asChild>
           <Button variant="default">
             <CirclePlus />
-            Новая услуга
+            Новая работа
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex gap-2 justify-between">
-              Создание новой услуги
+              Создание новой работы
               {isPending && <LoaderAnimated text="Добавляем к заказу.." />}
             </DialogTitle>
-            <DialogDescription>Создать новую услугу и добавить ее к заказу</DialogDescription>
+            <DialogDescription>Создать новую работу и добавить ее к заказу</DialogDescription>
           </DialogHeader>
           <ServiceForm onCreate={handleCreate} />
         </DialogContent>

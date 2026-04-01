@@ -27,12 +27,12 @@ const ServicesPage = () => {
   return (
     <PageLayout>
       <PageLayout.Header
-        title='Услуги'
+        title='Работы'
         showBackButton
         actions={
           <Button size='sm' onClick={() => setCreateOpen(true)}>
             <Plus className='mr-1.5 size-4' />
-            Добавить услугу
+            Добавить работу
           </Button>
         }
       />
@@ -45,7 +45,7 @@ const ServicesPage = () => {
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
         <DialogContent className='max-w-lg'>
           <DialogHeader>
-            <DialogTitle>Новая услуга</DialogTitle>
+            <DialogTitle>Новая работа</DialogTitle>
           </DialogHeader>
           <ServiceForm onSuccess={() => setCreateOpen(false)} />
         </DialogContent>
@@ -54,7 +54,7 @@ const ServicesPage = () => {
       <Dialog open={!!editService} onOpenChange={(open) => !open && setEditService(null)}>
         <DialogContent className='max-w-lg'>
           <DialogHeader>
-            <DialogTitle>Редактирование услуги</DialogTitle>
+            <DialogTitle>Редактирование работы</DialogTitle>
           </DialogHeader>
           {editService && (
             <ServiceForm

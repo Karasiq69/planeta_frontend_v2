@@ -19,7 +19,7 @@ export const settingsMenuItems = [
     icon: Settings,
   },
   {
-    title: 'Услуги',
+    title: 'Работы',
     url: '/services',
     icon: Logs,
   },

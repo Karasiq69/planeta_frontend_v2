@@ -59,7 +59,7 @@ export type OnboardingAction =
 export const ONBOARDING_STEPS = [
   { label: 'Организация', skippable: false },
   { label: 'Сотрудники', skippable: true },
-  { label: 'Услуги', skippable: true },
+  { label: 'Работы', skippable: true },
   { label: 'Склад', skippable: true },
   { label: 'График', skippable: true },
   { label: 'Готово', skippable: false },

@@ -174,9 +174,9 @@ const CarHistoryOrdersList = ({
                   )}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x">
-                    {/* Услуги */}
+                    {/* Работы */}
                     <div className="px-4 py-3">
-                      <SectionHeader icon={Wrench} label="Услуги" />
+                      <SectionHeader icon={Wrench} label="Работы" />
                       {order.services.length > 0 ? (
                         <div className="space-y-2">
                           {order.services.map((service) => (

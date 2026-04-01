@@ -85,7 +85,7 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
       <div>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            {/* -- привязать мастера к услуге --  */}
+            {/* -- привязать мастера к работе --  */}
             <Button variant='ghost' size='icon'>
               <UserPlus className='h-4 w-4' />
             </Button>
@@ -136,8 +136,8 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Редактирование услуги</DialogTitle>
-            <DialogDescription>Отредактируйте услугу и нажмите сохранить</DialogDescription>
+            <DialogTitle>Редактирование работы</DialogTitle>
+            <DialogDescription>Отредактируйте работу и нажмите сохранить</DialogDescription>
           </DialogHeader>
           <OrderServiceForm orderServiceData={rowInstance.original} orderId={orderId} />
         </DialogContent>

@@ -51,7 +51,7 @@ export function useAddSpecService(specId: number) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (data: CreateSpecService) => addSpecServiceFn(specId, data),
-    onSuccess: () => toast.success('Услуга добавлена'),
+    onSuccess: () => toast.success('Работа добавлена'),
     onError: (error) => toast.error(error.message || 'Произошла ошибка'),
     onSettled: () =>
       queryClient.invalidateQueries({ queryKey: specificationQueryKeys.detail(specId) }),
@@ -63,7 +63,7 @@ export function useUpdateSpecService(specId: number) {
   return useMutation({
     mutationFn: ({ itemId, data }: { itemId: number; data: { defaultDuration?: number; discountPercent?: number } }) =>
       updateSpecServiceFn(specId, itemId, data),
-    onSuccess: () => toast.success('Услуга обновлена'),
+    onSuccess: () => toast.success('Работа обновлена'),
     onError: () => toast.error('Произошла ошибка'),
     onSettled: () =>
       queryClient.invalidateQueries({ queryKey: specificationQueryKeys.detail(specId) }),
@@ -74,7 +74,7 @@ export function useDeleteSpecService(specId: number) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (itemId: number) => deleteSpecServiceFn(specId, itemId),
-    onSuccess: () => toast.success('Услуга удалена'),
+    onSuccess: () => toast.success('Работа удалена'),
     onError: () => toast.error('Произошла ошибка'),
     onSettled: () =>
       queryClient.invalidateQueries({ queryKey: specificationQueryKeys.detail(specId) }),

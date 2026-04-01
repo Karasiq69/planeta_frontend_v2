@@ -48,7 +48,7 @@ const ServicesCombobox = ({ orderId }: { orderId: number }) => {
           </div>
         )}
         searchError={searchError}
-        placeholder='Поиск услуг'
+        placeholder='Поиск работ'
         width='w-full'
         mode='action'
       />

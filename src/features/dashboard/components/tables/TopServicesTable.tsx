@@ -26,7 +26,7 @@ export function TopServicesTable({ data, isLoading }: TopServicesTableProps) {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Топ услуг</CardTitle>
+				<CardTitle>Топ работ</CardTitle>
 			</CardHeader>
 			<CardContent>
 				{isLoading ? (
@@ -35,7 +35,7 @@ export function TopServicesTable({ data, isLoading }: TopServicesTableProps) {
 					<Table>
 						<TableHeader>
 							<TableRow>
-								<TableHead>Услуга</TableHead>
+								<TableHead>Работа</TableHead>
 								<TableHead className='w-[80px] text-right'>Кол-во</TableHead>
 								<TableHead className='w-[120px] text-right'>Выручка</TableHead>
 							</TableRow>

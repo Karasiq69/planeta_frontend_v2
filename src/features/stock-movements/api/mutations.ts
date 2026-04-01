@@ -12,7 +12,7 @@ export function useCreateService() {
   return useMutation({
     mutationFn: (data: ServiceFormData) => createServiceFn(data),
     onSuccess: () => {
-      toast.success('Услуга создана')
+      toast.success('Работа создана')
     },
     onError: () => {
       toast.error('Произошла ошибка, повторите попытку')

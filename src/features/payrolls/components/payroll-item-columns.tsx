@@ -24,7 +24,7 @@ export const payrollItemColumns: ColumnDef<PayrollItem>[] = [
   },
   {
     accessorKey: 'servicePrice',
-    header: 'Цена услуги',
+    header: 'Цена работы',
     cell: ({ row }) => <MoneyCell value={row.original.servicePrice} />,
   },
   {

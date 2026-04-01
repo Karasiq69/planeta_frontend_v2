@@ -356,7 +356,7 @@ export function useDeleteOrderService(orderId: number) {
   return useMutation({
     mutationFn: (id: number) => deleteOrderServiceFn(id),
     onSuccess: () => {
-      toast.success('Услуга удалена')
+      toast.success('Работа удалена')
     },
     onError: () => {
       toast.error('Произошла ошибка, повторите попытку')
@@ -411,7 +411,7 @@ export function useUpdateOrderService(orderId: number) {
       data: Partial<OrderService>
     }) => editOrderServiceFn(orderServiceId, data),
     onSuccess: () => {
-      toast.success('Услуга обновлена')
+      toast.success('Работа обновлена')
     },
     onError: () => {
       toast.error('Произошла ошибка, повторите попытку')
@@ -500,7 +500,7 @@ export function useAddOrderService(orderId: number) {
   return useMutation({
     mutationFn: (serviceId: number) => addOrderServiceFn(orderId, serviceId),
     onSuccess: () => {
-      toast.success('Услуга добавлена')
+      toast.success('Работа добавлена')
     },
     onError: () => {
       toast.error('Произошла ошибка, повторите попытку')

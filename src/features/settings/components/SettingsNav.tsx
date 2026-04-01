@@ -39,7 +39,7 @@ export default function SettingsNav() {
     {
       title: 'Общие',
       items: [
-        { label: 'Услуги', href: '/settings/services' },
+        { label: 'Работы', href: '/settings/services' },
         { label: 'Спецификации ТО', href: '/settings/service-specifications' },
         { label: 'Шаблоны документов', href: '/settings/templates' },
         { label: 'Категории платежей', href: '/settings/payment-categories' },

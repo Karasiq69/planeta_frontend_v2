@@ -11,7 +11,7 @@ export const mechanicSummaryColumns: ColumnDef<PayrollMechanicSummary>[] = [
   },
   {
     accessorKey: 'servicesCount',
-    header: 'Услуг',
+    header: 'Работ',
   },
   {
     accessorKey: 'totalAmount',

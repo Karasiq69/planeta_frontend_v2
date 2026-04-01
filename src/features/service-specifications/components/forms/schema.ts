@@ -18,7 +18,7 @@ export const specificationSchema = z.object({
 export type SpecificationFormData = z.infer<typeof specificationSchema>
 
 export const addSpecServiceSchema = z.object({
-  serviceId: z.number().int().positive('Выберите услугу'),
+  serviceId: z.number().int().positive('Выберите работу'),
   defaultDuration: z.coerce.number().int().min(1, 'Длительность должна быть > 0'),
   discountPercent: z.coerce.number().int().min(0).max(100).optional(),
 })

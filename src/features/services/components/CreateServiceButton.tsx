@@ -19,12 +19,12 @@ const CreateServiceButton = () => {
         <DialogTrigger asChild>
           <Button variant="default">
             <CirclePlus />
-            Новая услуга
+            Новая работа
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Создание услуги</DialogTitle>
+            <DialogTitle>Создание работы</DialogTitle>
             <DialogDescription></DialogDescription>
           </DialogHeader>
           <ServiceForm />

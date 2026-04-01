@@ -23,7 +23,7 @@ export const ServiceForm = ({ serviceData, onSuccess, onCreate }: Props) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
         <ServiceFormFields form={form} />
         <Button disabled={isPending} variant='default' className='w-full' type='submit'>
-          {serviceData ? 'Обновить' : 'Добавить услугу'}
+          {serviceData ? 'Обновить' : 'Добавить работу'}
           {isPending && <LoaderAnimated className='text-white' />}
         </Button>
       </form>

@@ -57,7 +57,7 @@ export function AppointmentsTable({ data, isLoading }: AppointmentsTableProps) {
 								<TableHead>Время</TableHead>
 								<TableHead>Клиент</TableHead>
 								<TableHead>Авто</TableHead>
-								<TableHead>Услуга</TableHead>
+								<TableHead>Работа</TableHead>
 								<TableHead>Механик</TableHead>
 								<TableHead>Статус</TableHead>
 							</TableRow>
