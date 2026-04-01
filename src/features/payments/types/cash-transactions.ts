@@ -14,6 +14,7 @@ export interface CashTransaction {
   paymentId: number | null
   payrollId: number | null
   payrollItemId: number | null
+  documentId: number | null
   createdById: number
   createdByName: string
   createdAt: string

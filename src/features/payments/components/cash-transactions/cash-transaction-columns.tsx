@@ -77,9 +77,10 @@ export const cashTransactionColumns: ColumnDef<CashTransaction>[] = [
     id: 'source',
     header: 'Источник',
     cell: ({ row }) => {
-      const { paymentId, payrollId } = row.original
+      const { paymentId, payrollId, documentId } = row.original
       if (paymentId) return <span className='text-primary'>Заказ</span>
       if (payrollId) return <span className='text-primary'>Ведомость</span>
+      if (documentId) return <span className='text-primary'>Документ</span>
       return <span className='text-muted-foreground'>Вручную</span>
     },
   },
