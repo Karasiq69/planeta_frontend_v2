@@ -29,7 +29,7 @@ const CashRegisterTransactionsSheet = ({ cashRegister, open, onOpenChange }: Pro
       onOpenChange={onOpenChange}
       title={cashRegister?.name ?? ''}
       description='Журнал кассовых операций'
-      size='4xl'
+      size='5xl'
       headerActions={cashRegister && <CreateTransactionDialog cashRegisterId={cashRegister.id} />}
     >
       {cashRegister && (
