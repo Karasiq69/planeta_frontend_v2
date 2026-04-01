@@ -112,7 +112,7 @@ export const usePayDocument = (id: number) => {
       queryClient.invalidateQueries({ queryKey: documentsQueryKeys.lists() })
     },
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(`Ошибка при оплате документа: ${error.message}`)
     },
   })
 }
