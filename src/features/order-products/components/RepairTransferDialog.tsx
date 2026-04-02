@@ -6,10 +6,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { AppButton } from '@/components/ds/base/AppButton'
 import { AppDialog } from '@/components/ds/base/AppDialog'
 import { AppInput } from '@/components/ds/base/AppInput'
-import { AppSelect } from '@/components/ds/base/AppSelect'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Label } from '@/components/ui/label'
 import { useRepairTransfer } from '@/features/order-products/api/mutations'
+import { WarehouseDirectionPicker } from '@/features/warehouse/components/WarehouseDirectionPicker'
 import { useGetWarehouses } from '@/features/warehouse/api/queries'
 import { WarehouseTypeEnum } from '@/features/warehouse/types'
 
@@ -44,7 +43,6 @@ export function RepairTransferDialog({ open, onOpenChange, orderId, products }: 
   const [targetWarehouseId, setTargetWarehouseId] = useState<string>('')
   const [items, setItems] = useState<TransferItem[]>([])
 
-  // Sync defaults when warehouses load or dialog opens
   useEffect(() => {
     if (open) {
       setFromWarehouseId(defaultFrom ? String(defaultFrom.id) : '')
@@ -58,11 +56,6 @@ export function RepairTransferDialog({ open, onOpenChange, orderId, products }: 
       )
     }
   }, [open, availableProducts, defaultFrom, defaultTo])
-
-  const warehouseOptions = warehouses.map((w) => ({
-    value: String(w.id),
-    label: w.name,
-  }))
 
   const updateItem = (orderProductId: number, update: Partial<TransferItem>) => {
     setItems((prev) =>
@@ -108,26 +101,16 @@ export function RepairTransferDialog({ open, onOpenChange, orderId, products }: 
       }
     >
       <div className='space-y-4'>
-        <div className='grid grid-cols-2 gap-4'>
-          <div className='space-y-1.5'>
-            <Label className='text-sm'>Склад-источник</Label>
-            <AppSelect
-              options={warehouseOptions}
-              value={fromWarehouseId}
-              onChange={setFromWarehouseId}
-              placeholder='Выберите склад'
-            />
-          </div>
-          <div className='space-y-1.5'>
-            <Label className='text-sm'>Цех (получатель)</Label>
-            <AppSelect
-              options={warehouseOptions}
-              value={targetWarehouseId}
-              onChange={setTargetWarehouseId}
-              placeholder='Выберите цех'
-            />
-          </div>
-        </div>
+        <WarehouseDirectionPicker
+          fromWarehouseId={fromWarehouseId}
+          toWarehouseId={targetWarehouseId}
+          onFromChange={setFromWarehouseId}
+          onToChange={setTargetWarehouseId}
+          fromLabel='Склад-источник'
+          toLabel='Цех (получатель)'
+          fromFilter={(w) => w.isActive && w.type !== WarehouseTypeEnum.WORKSHOP}
+          toFilter={(w) => w.isActive && w.type === WarehouseTypeEnum.WORKSHOP}
+        />
 
         <div className='border rounded-md overflow-hidden'>
           <table className='w-full text-sm'>
