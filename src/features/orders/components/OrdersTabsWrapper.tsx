@@ -25,30 +25,6 @@ interface TabConfig {
   children: React.ReactNode
 }
 
-const tabsConfig: TabConfig[] = [
-  {
-    id: 'works',
-    value: 'services',
-    label: 'Работы',
-    icon: NotepadText,
-    children: <ServicesTabContent />,
-  },
-  {
-    id: 'parts',
-    value: 'parts',
-    label: 'Товары и Запчасти',
-    icon: ShoppingCart,
-    children: <ProductsTabContent />,
-  },
-  {
-    id: 'documents',
-    value: 'documents',
-    label: 'Документы',
-    icon: FileText,
-    children: <DocumentsTabContent />,
-  },
-]
-
 function TabCount({ count }: { count?: number }) {
   if (!count) return null
   return (
@@ -61,7 +37,7 @@ function TabCount({ count }: { count?: number }) {
 const OrdersTabsWrapper = () => {
   const { id } = useParams()
   const orderId = Number(id)
-  const [orderTab, setOrderTab] = useLocalStorage('preferred_order_tabs', tabsConfig[0].value)
+  const [orderTab, setOrderTab] = useLocalStorage('preferred_order_tabs', 'services')
   const [specDialogOpen, setSpecDialogOpen] = useState(false)
 
   const { data: order } = useOrderById(orderId)
@@ -71,6 +47,30 @@ const OrdersTabsWrapper = () => {
 
   const canApplySpec =
     !order || ['APPLICATION', 'ORDER', 'IN_PROGRESS'].includes(order.status)
+
+  const tabsConfig: TabConfig[] = [
+    {
+      id: 'works',
+      value: 'services',
+      label: 'Работы',
+      icon: NotepadText,
+      children: <ServicesTabContent />,
+    },
+    {
+      id: 'parts',
+      value: 'parts',
+      label: 'Товары и Запчасти',
+      icon: ShoppingCart,
+      children: <ProductsTabContent orderStatus={order?.status} />,
+    },
+    {
+      id: 'documents',
+      value: 'documents',
+      label: 'Документы',
+      icon: FileText,
+      children: <DocumentsTabContent />,
+    },
+  ]
 
   const counts: Record<string, number | undefined> = {
     services: services?.length,
