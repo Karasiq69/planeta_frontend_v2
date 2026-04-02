@@ -21,7 +21,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { useMechanicEmployees } from '@/features/employees/api/queries'
+import { useActiveEmployees } from '@/features/employees/api/queries'
 import {
   useAddOrderServiceEmployee,
   useDeleteEmployeeOrderService,
@@ -46,7 +46,7 @@ const OrderServicesTableActions = ({ rowInstance }: Props) => {
   const [dialogOpen, setDialogOpen] = useState(false)
   const serviceId = rowInstance?.original?.id
 
-  const { data: mechanics, isLoading } = useMechanicEmployees()
+  const { data: mechanics, isLoading } = useActiveEmployees()
 
   const { mutate: deleteService, isPending } = useDeleteOrderService(orderId)
   const { mutate: addMechanic, isPending: isAdding } = useAddOrderServiceEmployee(orderId)

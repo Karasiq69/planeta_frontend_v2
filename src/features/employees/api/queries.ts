@@ -1,6 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import {
+  getActiveEmployeesFn,
   getAllEmployeesFn,
   getEmployeeByIdFn,
   getEmployeesByOrganizationFn,
@@ -44,8 +45,8 @@ export const useMechanicEmployees = () => {
 
 export const useActiveEmployees = () => {
   return useQuery({
-    queryKey: employeesQueryKeys.list({ pageSize: 100 }),
-    queryFn: () => getAllEmployeesFn({ pageSize: 100 } as ListParams),
+    queryKey: employeesQueryKeys.active(),
+    queryFn: getActiveEmployeesFn,
     staleTime: 5 * 60 * 1000,
   })
 }

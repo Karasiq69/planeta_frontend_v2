@@ -65,9 +65,9 @@ const SuppliersCombobox: React.FC<SuppliersComboboxProps> = ({
       )}
       getOptionValue={(supplier) => supplier.id.toString()}
       getDisplayValue={(supplier) => (
-        <div className='[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0 [&>span_svg]:text-muted-foreground/80'>
-          <span className='font-medium gap-2'>
-            <BriefcaseBusiness size={16} />
+        <div className='flex items-center gap-2 min-w-0'>
+          <BriefcaseBusiness size={16} className='shrink-0 text-muted-foreground/80' />
+          <span className='font-medium truncate'>
             {supplier.name}
           </span>
           {/*<div className="text-xxs text-muted-foreground">{supplier.contactPerson}</div>*/}

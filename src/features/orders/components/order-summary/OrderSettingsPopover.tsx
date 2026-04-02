@@ -31,7 +31,7 @@ type Props = {
 export default function OrderSettingsPopover({ order }: Props) {
   const { mutate } = useEditOrder(order.id)
   const { data: employeesData, isLoading: employeesLoading } = useActiveEmployees()
-  const employees = employeesData?.data ?? []
+  const employees = employeesData ?? []
 
   const [guaranteeText, setGuaranteeText] = useState(order.guaranteeText ?? '')
 

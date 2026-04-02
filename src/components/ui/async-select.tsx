@@ -181,15 +181,17 @@ export function AsyncSelect<T>({
           role='combobox'
           aria-expanded={open}
           className={cn(
-            'justify-between px-3',
+            'justify-between px-3 overflow-hidden',
             disabled && 'opacity-50 cursor-not-allowed',
             triggerClassName
           )}
           style={{ width: width }}
           disabled={disabled}
         >
-          {selectedOption ? getDisplayValue(selectedOption) : placeholder}
-          <ChevronsUpDown className='opacity-50' size={10} />
+          <span className='min-w-0 truncate'>
+            {selectedOption ? getDisplayValue(selectedOption) : placeholder}
+          </span>
+          <ChevronsUpDown className='opacity-50 shrink-0' size={10} />
         </Button>
       </PopoverTrigger>
       <PopoverContent

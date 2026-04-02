@@ -141,3 +141,7 @@ tests/.auth/
 test-results/
 playwright-report/
 /.superpowers/
+/.agents/
+/.claude/
+/docs/
+/skills-lock.json

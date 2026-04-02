@@ -1,5 +1,5 @@
 import apiClient from '@/lib/auth/client'
-import { EMPLOYEES_MECHANICS_URL, EMPLOYEES_URL } from '@/lib/constants'
+import { EMPLOYEES_ACTIVE_URL, EMPLOYEES_MECHANICS_URL, EMPLOYEES_URL } from '@/lib/constants'
 
 import type { CreateEmployee, Employee, UpdateEmployee } from '@/features/employees/types'
 import type { ListParams, ListResponse } from '@/types/params'
@@ -45,6 +45,11 @@ export const transferEmployeeFn = async (
 
 export const getMechanicEmployeesFn = async (): Promise<Employee[]> => {
   const res = await apiClient.get<Employee[]>(EMPLOYEES_MECHANICS_URL)
+  return res.data
+}
+
+export const getActiveEmployeesFn = async (): Promise<Employee[]> => {
+  const res = await apiClient.get<Employee[]>(EMPLOYEES_ACTIVE_URL)
   return res.data
 }
 

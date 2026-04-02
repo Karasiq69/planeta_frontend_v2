@@ -13,4 +13,5 @@ export const employeesQueryKeys = {
     [...employeesQueryKeys.all, 'byOrganization', orgId] as const,
 
   mechanics: () => [...employeesQueryKeys.all, 'mechanics'] as const,
+  active: () => [...employeesQueryKeys.all, 'active'] as const,
 }

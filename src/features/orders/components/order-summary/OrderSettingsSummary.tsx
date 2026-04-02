@@ -11,7 +11,7 @@ const formatShortName = (lastName: string, firstName: string) =>
 
 export default function OrderSettingsSummary({ order }: Props) {
   const { data: employeesData } = useActiveEmployees()
-  const employees = employeesData?.data ?? []
+  const employees = employeesData ?? []
 
   const dispatcher = order.dispatcherId
     ? employees.find((e) => e.id === order.dispatcherId)

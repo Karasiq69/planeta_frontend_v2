@@ -30,7 +30,7 @@ const SuppliersSelectField: React.FC<SuppliersSelectFieldProps> = ({
       <Label htmlFor='supplier' className='lg:w-36 text-muted-foreground'>
         {label}
       </Label>
-      <div className='w-full'>
+      <div className='w-full min-w-0'>
         <FormField
           control={control}
           name={name}

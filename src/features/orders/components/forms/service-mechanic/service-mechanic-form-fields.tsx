@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useMechanicEmployees } from '@/features/employees/api/queries'
+import { useActiveEmployees } from '@/features/employees/api/queries'
 
 import type { OrderServiceMechanicFormData } from '@/features/orders/components/forms/service-mechanic/schema'
 import type { UseFormReturn } from 'react-hook-form'
@@ -19,7 +19,7 @@ type Props = {
 }
 
 const ServiceMechanicFormFields = ({ form }: Props) => {
-  const { data: mechanics = [] } = useMechanicEmployees()
+  const { data: mechanics = [] } = useActiveEmployees()
 
   return (
     <div className="flex flex-col gap-5">
@@ -28,7 +28,7 @@ const ServiceMechanicFormFields = ({ form }: Props) => {
         name='employeeId'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Механик</FormLabel>
+            <FormLabel>Сотрудник</FormLabel>
             <Select
               disabled={true}
               onValueChange={(value) => field.onChange(Number(value))}
@@ -36,7 +36,7 @@ const ServiceMechanicFormFields = ({ form }: Props) => {
             >
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder='Выберите механика' />
+                  <SelectValue placeholder='Выберите сотрудника' />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
