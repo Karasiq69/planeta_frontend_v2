@@ -1,7 +1,7 @@
 'use client'
 
 import { RotateCcw } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { AppButton } from '@/components/ds/base/AppButton'
 import { AppDialog } from '@/components/ds/base/AppDialog'
@@ -45,7 +45,7 @@ export function RepairReturnDialog({ open, onOpenChange, orderId, products }: Pr
   const [items, setItems] = useState<ReturnItem[]>([])
 
   // Sync defaults when dialog opens
-  useMemo(() => {
+  useEffect(() => {
     if (open) {
       setFromWarehouseId(defaultFrom ? String(defaultFrom.id) : '')
       setTargetWarehouseId(defaultTo ? String(defaultTo.id) : '')

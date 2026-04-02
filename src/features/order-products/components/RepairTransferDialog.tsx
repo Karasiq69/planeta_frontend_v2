@@ -1,7 +1,7 @@
 'use client'
 
 import { Wrench } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { AppButton } from '@/components/ds/base/AppButton'
 import { AppDialog } from '@/components/ds/base/AppDialog'
@@ -45,7 +45,7 @@ export function RepairTransferDialog({ open, onOpenChange, orderId, products }: 
   const [items, setItems] = useState<TransferItem[]>([])
 
   // Sync defaults when warehouses load or dialog opens
-  useMemo(() => {
+  useEffect(() => {
     if (open) {
       setFromWarehouseId(defaultFrom ? String(defaultFrom.id) : '')
       setTargetWarehouseId(defaultTo ? String(defaultTo.id) : '')
