@@ -1,13 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { addOrderProductFn, updateOrderProductFn } from '@/features/order-products/api/actions'
+import { addOrderProductFn, updateOrderProductFn, repairTransferFn, repairReturnFn } from '@/features/order-products/api/actions'
+import { documentsQueryKeys } from '@/features/documents/api/query-keys'
 import { ordersQueryKeys } from '@/features/orders/api/query-keys'
 import { paymentsQueryKeys } from '@/features/payments/api/query-keys'
 import apiClient from '@/lib/auth/client'
 import { ORDER_PRODUCTS_URL } from '@/lib/constants'
 
-import type { OrderProduct } from '@/features/order-products/types'
+import type { OrderProduct, RepairTransferRequest, RepairReturnRequest } from '@/features/order-products/types'
 
 export function useCreateOrderProduct(orderId: number) {
   const queryClient = useQueryClient()
@@ -86,6 +87,46 @@ export function useUpdateOrderProduct(orderId: number) {
       queryClient.invalidateQueries({
         queryKey: paymentsQueryKeys.orderSummary(orderId),
       })
+    },
+  })
+}
+
+export function useRepairTransfer(orderId: number) {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (data: RepairTransferRequest) => repairTransferFn(orderId, data),
+    onSuccess: () => {
+      toast.success('Товары переданы в ремонт')
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Ошибка при передаче товаров')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ordersQueryKeys.products(orderId) })
+      queryClient.invalidateQueries({ queryKey: ordersQueryKeys.detail(orderId) })
+      queryClient.invalidateQueries({ queryKey: documentsQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: paymentsQueryKeys.orderSummary(orderId) })
+    },
+  })
+}
+
+export function useRepairReturn(orderId: number) {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (data: RepairReturnRequest) => repairReturnFn(orderId, data),
+    onSuccess: () => {
+      toast.success('Товары возвращены на склад')
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Ошибка при возврате товаров')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ordersQueryKeys.products(orderId) })
+      queryClient.invalidateQueries({ queryKey: ordersQueryKeys.detail(orderId) })
+      queryClient.invalidateQueries({ queryKey: documentsQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: paymentsQueryKeys.orderSummary(orderId) })
     },
   })
 }

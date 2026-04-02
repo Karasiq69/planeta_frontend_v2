@@ -12,6 +12,11 @@ export interface OrderProduct {
   status: OrderProductStatus
   stockQuantity: string | null // суммарный остаток на складах, null = не числится
   product: Product
+  // Transfer stats (computed by backend)
+  transferredQty: number
+  returnedQty: number
+  inWorkshopQty: number
+  availableToTransfer: number
 }
 
 // Дополнительно типы для создания/обновления
@@ -27,3 +32,16 @@ export interface UpdateOrderProduct {
   estimatedPrice?: string
   status?: OrderProductStatus
 }
+
+export interface RepairTransferItem {
+  orderProductId: number
+  quantity: number
+}
+
+export interface RepairTransferRequest {
+  fromWarehouseId: number
+  targetWarehouseId: number
+  items: RepairTransferItem[]
+}
+
+export type RepairReturnRequest = RepairTransferRequest
