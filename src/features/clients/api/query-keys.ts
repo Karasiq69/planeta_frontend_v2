@@ -6,4 +6,6 @@ export const clientQueryKeys = {
   detail: (id: number) => [...clientQueryKeys.details(), id] as const,
   lists: () => [...clientQueryKeys.all, 'list'] as const,
   list: (params: ClientListParams) => [...clientQueryKeys.lists(), { params }] as const,
+  summary: (id: number) => [...clientQueryKeys.detail(id), 'summary'] as const,
+  cars: (id: number) => [...clientQueryKeys.detail(id), 'cars'] as const,
 }

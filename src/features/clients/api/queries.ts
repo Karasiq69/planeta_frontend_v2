@@ -1,8 +1,10 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
-import { getAllClientsListFn, getClientById } from '@/features/clients/api/actions'
+import { getAllClientsListFn, getClientById, getClientCars, getClientSummary } from '@/features/clients/api/actions'
 import { clientQueryKeys } from '@/features/clients/api/query-keys'
 
+import type { ICar } from '@/features/cars/types'
+import type { ClientSummary } from '@/features/clients/types'
 import type { ClientListParams } from '@/features/clients/types/params'
 
 export const useClientsList = (params: ClientListParams) => {
@@ -19,6 +21,22 @@ export const useClientById = (id?: number) => {
   return useQuery({
     queryKey: clientQueryKeys.detail(id as number),
     queryFn: () => getClientById(id as number),
+    enabled: !!id,
+  })
+}
+
+export const useClientSummary = (id: number) => {
+  return useQuery({
+    queryKey: clientQueryKeys.summary(id),
+    queryFn: () => getClientSummary(id),
+    enabled: !!id,
+  })
+}
+
+export const useClientCars = (id: number) => {
+  return useQuery({
+    queryKey: clientQueryKeys.cars(id),
+    queryFn: () => getClientCars(id),
     enabled: !!id,
   })
 }

@@ -22,3 +22,10 @@ export type IClient = {
   createdAt: string
   updatedAt: string
 }
+
+export type ClientSummary = {
+  totalOrders: number
+  totalCars: number
+  totalPaid: number
+  totalDebt: number
+}
