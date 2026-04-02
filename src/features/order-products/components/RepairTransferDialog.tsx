@@ -7,6 +7,7 @@ import { AppButton } from '@/components/ds/base/AppButton'
 import { AppDialog } from '@/components/ds/base/AppDialog'
 import { AppInput } from '@/components/ds/base/AppInput'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useRepairTransfer } from '@/features/order-products/api/mutations'
 import { WarehouseDirectionPicker } from '@/features/warehouse/components/WarehouseDirectionPicker'
 import { useGetWarehouses } from '@/features/warehouse/api/queries'
@@ -113,48 +114,48 @@ export function RepairTransferDialog({ open, onOpenChange, orderId, products }: 
         />
 
         <div className='border rounded-md overflow-hidden'>
-          <table className='w-full text-sm'>
-            <thead className='bg-muted/50'>
-              <tr>
-                <th className='p-2 w-8'>
+          <Table>
+            <TableHeader className='bg-muted/50'>
+              <TableRow>
+                <TableHead className='w-8 px-2'>
                   <Checkbox
                     checked={items.length > 0 && items.every((i) => i.checked)}
                     onCheckedChange={(checked) =>
                       setItems((prev) => prev.map((i) => ({ ...i, checked: !!checked })))
                     }
                   />
-                </th>
-                <th className='p-2 text-left font-medium'>Товар</th>
-                <th className='p-2 text-center font-medium w-20'>В заказе</th>
-                <th className='p-2 text-center font-medium w-24'>Доступно</th>
-                <th className='p-2 text-center font-medium w-28'>К передаче</th>
-              </tr>
-            </thead>
-            <tbody>
+                </TableHead>
+                <TableHead className='px-2'>Товар</TableHead>
+                <TableHead className='px-2 text-center w-20'>В заказе</TableHead>
+                <TableHead className='px-2 text-center w-24'>Доступно</TableHead>
+                <TableHead className='px-2 text-center w-28'>К передаче</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {availableProducts.map((product) => {
                 const item = items.find((i) => i.orderProductId === product.id)
                 if (!item) return null
 
                 return (
-                  <tr key={product.id} className='border-t'>
-                    <td className='p-2'>
+                  <TableRow key={product.id}>
+                    <TableCell className='px-2 py-2'>
                       <Checkbox
                         checked={item.checked}
                         onCheckedChange={(checked) =>
                           updateItem(product.id, { checked: !!checked })
                         }
                       />
-                    </td>
-                    <td className='p-2'>
+                    </TableCell>
+                    <TableCell className='px-2 py-2'>
                       <div className='font-medium'>{product.product.name}</div>
                       <div className='text-xs text-muted-foreground'>
                         {product.product.brand.name}
                         {product.product.partNumber && ` · ${product.product.partNumber}`}
                       </div>
-                    </td>
-                    <td className='p-2 text-center'>{Number(product.quantity)}</td>
-                    <td className='p-2 text-center'>{product.availableToTransfer}</td>
-                    <td className='p-2'>
+                    </TableCell>
+                    <TableCell className='px-2 py-2 text-center'>{Number(product.quantity)}</TableCell>
+                    <TableCell className='px-2 py-2 text-center'>{product.availableToTransfer}</TableCell>
+                    <TableCell className='px-2 py-2'>
                       <AppInput
                         type='number'
                         min={1}
@@ -169,12 +170,12 @@ export function RepairTransferDialog({ open, onOpenChange, orderId, products }: 
                         disabled={!item.checked}
                         className='h-8 w-20 text-center'
                       />
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 )
               })}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </div>
     </AppDialog>
