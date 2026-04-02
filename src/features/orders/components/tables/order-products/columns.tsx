@@ -58,25 +58,31 @@ export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
   },
   {
     accessorKey: 'stockQuantity',
-    header: () => <span className='text-xs text-nowrap'>На складе</span>,
+    header: () => <span className='text-xs text-nowrap'>Наличие</span>,
     cell: ({ row }) => {
       const stock = row.original.stockQuantity
-      if (stock === null) {
+      const { inWorkshopQty } = row.original
+
+      if (stock === null && inWorkshopQty === 0) {
         return <span className='text-xs text-muted-foreground'>—</span>
       }
-      const qty = Number(stock)
-      if (qty === 0) {
-        return (
-          <div className='space-x-1 text-nowrap'>
-            <span className='text-xs text-amber-500'>0</span>
-            <span className='text-xs text-muted-foreground'>шт.</span>
-          </div>
-        )
-      }
+
+      const totalStock = stock !== null ? Number(stock) : 0
+
       return (
-        <div className='space-x-1 text-nowrap'>
-          <span className='text-xs text-green-500'>{qty.toFixed()}</span>
-          <span className='text-xs text-muted-foreground'>шт.</span>
+        <div className='text-nowrap space-y-0.5'>
+          <div className='space-x-1'>
+            <span className={`text-xs ${totalStock > 0 ? 'text-green-500' : 'text-amber-500'}`}>
+              {totalStock.toFixed()}
+            </span>
+            <span className='text-xs text-muted-foreground'>на складах</span>
+          </div>
+          {inWorkshopQty > 0 && (
+            <div className='space-x-1'>
+              <span className='text-xs text-blue-500'>{inWorkshopQty}</span>
+              <span className='text-xs text-muted-foreground'>в цеху</span>
+            </div>
+          )}
         </div>
       )
     },
