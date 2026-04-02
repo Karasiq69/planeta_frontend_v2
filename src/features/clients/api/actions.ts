@@ -4,6 +4,7 @@ import { CARS_URL, CLIENTS_URL } from '@/lib/constants'
 import type { ICar } from '@/features/cars/types'
 import type { ClientSummary, IClient } from '@/features/clients/types'
 import type { ClientListParams, ClientListResponse } from '@/features/clients/types/params'
+import type { ListResponse } from '@/types/params'
 
 export const getAllClientsListFn = async (
   params: ClientListParams
@@ -23,8 +24,8 @@ export const getClientSummary = async (id: number): Promise<ClientSummary> => {
   return res.data
 }
 
-export const getClientCars = async (clientId: number): Promise<ICar[]> => {
-  const res = await apiClient.get<ICar[]>(CARS_URL, {
+export const getClientCars = async (clientId: number): Promise<ListResponse<ICar>> => {
+  const res = await apiClient.get<ListResponse<ICar>>(CARS_URL, {
     params: { ownerId: clientId },
   })
   return res.data

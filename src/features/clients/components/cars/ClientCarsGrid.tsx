@@ -14,7 +14,8 @@ interface ClientCarsGridProps {
 }
 
 const ClientCarsGrid = ({ clientId }: ClientCarsGridProps) => {
-  const { data: cars, isLoading } = useClientCars(clientId)
+  const { data, isLoading } = useClientCars(clientId)
+  const cars = data?.data
 
   if (isLoading) {
     return (
