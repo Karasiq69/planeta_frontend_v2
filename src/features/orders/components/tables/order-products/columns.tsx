@@ -1,6 +1,7 @@
 import { Info } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
+import { AppBadge } from '@/components/ds'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { TruncatedText } from '@/components/ui/truncated-text'
 import OrderProductsTableActions from '@/features/orders/components/tables/order-products/order-products-table-actions'
@@ -14,23 +15,36 @@ export const OrderProductsColumnDefs: ColumnDef<OrderProduct>[] = [
   {
     accessorKey: 'product.name',
     header: () => <span className='text-xs text-nowrap'>Товар</span>,
-    cell: ({ row }) => (
-      <div className='min-w-0 max-w-[320px]'>
-        <TruncatedText text={row.original.product.name} className='font-medium' />
-        <div className='text-xs text-muted-foreground flex items-center gap-2'>
-          <Badge
-            variant='outline'
-            className='text-muted-foreground font-normal text-[10px] px-1 py-0 shrink-0'
-          >
-            {row.original.product.brand.name}
-          </Badge>
-          {row.original.product.partNumber && <span>{row.original.product.partNumber}</span>}
-          {row.original.product.sku && (
-            <span className='text-muted-foreground/60'>арт. {row.original.product.sku}</span>
-          )}
+    cell: ({ row }) => {
+      const { product, inWorkshopQty } = row.original
+      const quantity = Number(row.original.quantity)
+
+      return (
+        <div className='min-w-0 max-w-[320px]'>
+          <TruncatedText text={product.name} className='font-medium' />
+          <div className='text-xs text-muted-foreground flex items-center gap-2 flex-wrap'>
+            <Badge
+              variant='outline'
+              className='text-muted-foreground font-normal text-[10px] px-1 py-0 shrink-0'
+            >
+              {product.brand.name}
+            </Badge>
+            {product.partNumber && <span>{product.partNumber}</span>}
+            {product.sku && (
+              <span className='text-muted-foreground/60'>арт. {product.sku}</span>
+            )}
+            {inWorkshopQty > 0 && (
+              <AppBadge
+                colorVariant={inWorkshopQty >= quantity ? 'success' : 'warning'}
+                className='text-[10px] px-1 py-0'
+              >
+                В цеху: {inWorkshopQty >= quantity ? inWorkshopQty : `${inWorkshopQty} из ${quantity}`}
+              </AppBadge>
+            )}
+          </div>
         </div>
-      </div>
-    ),
+      )
+    },
   },
   {
     accessorKey: 'quantity',
