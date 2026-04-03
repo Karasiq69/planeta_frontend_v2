@@ -8,4 +8,6 @@ export const organizationsQueryKeys = {
 
   details: () => [...organizationsQueryKeys.all, 'detail'] as const,
   detail: (id: number) => [...organizationsQueryKeys.details(), id] as const,
+
+  current: () => [...organizationsQueryKeys.all, 'current'] as const,
 }

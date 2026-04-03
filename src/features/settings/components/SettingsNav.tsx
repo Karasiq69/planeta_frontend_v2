@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import { useCurrentOrganization } from '@/features/organizations/api/queries'
 import { cn } from '@/lib/utils'
-import { useOrganizationStore } from '@/stores/organization-store'
 
 interface NavItem {
   label: string
@@ -20,7 +20,7 @@ interface NavGroup {
 
 export default function SettingsNav() {
   const pathname = usePathname()
-  const { organization } = useOrganizationStore()
+  const { data: organization } = useCurrentOrganization()
 
   const groups: NavGroup[] = [
     {

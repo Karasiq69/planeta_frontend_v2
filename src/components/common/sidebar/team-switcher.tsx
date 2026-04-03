@@ -24,29 +24,25 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
-import { useAllOrganizations } from '@/features/organizations/api/queries'
+import { useSwitchOrganization } from '@/features/organizations/api/mutations'
+import { useAllOrganizations, useCurrentOrganization } from '@/features/organizations/api/queries'
 import OrganizationForm from '@/features/organizations/components/forms/OrganizationForm'
-import { useOrganizationStore } from '@/stores/organization-store'
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar()
-  const { data, isSuccess } = useAllOrganizations()
-  const { organization: activeOrg, setOrganization, clearOrganization, _hasHydrated } =
-    useOrganizationStore()
+  const { data: orgsData, isSuccess } = useAllOrganizations()
+  const { data: activeOrg } = useCurrentOrganization()
+  const switchMutation = useSwitchOrganization()
   const [dialogOpen, setDialogOpen] = useState(false)
 
-  const organizations = data?.data ?? []
+  const organizations = orgsData?.data ?? []
 
   useEffect(() => {
-    if (!_hasHydrated || !isSuccess) return
-    if (!organizations.length) {
-      if (activeOrg) clearOrganization()
-      return
-    }
+    if (!isSuccess || !organizations.length || switchMutation.isPending) return
     if (!activeOrg || !organizations.some((o) => o.id === activeOrg.id)) {
-      setOrganization(organizations[0])
+      switchMutation.mutate(organizations[0].id)
     }
-  }, [_hasHydrated, isSuccess, activeOrg, organizations, setOrganization, clearOrganization])
+  }, [isSuccess, activeOrg, organizations, switchMutation.isPending])
 
   if (!activeOrg) {
     return (
@@ -77,11 +73,11 @@ export function TeamSwitcher() {
               className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
             >
               <div className='flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground text-sm font-bold'>
-                {activeOrg.name.charAt(0).toUpperCase()}
+                {activeOrg.name?.charAt(0)?.toUpperCase()}
               </div>
               <div className='grid flex-1 text-left text-sm leading-tight'>
-                <span className='truncate font-semibold'>{activeOrg.name}</span>
-                <span className='truncate text-xs'>{activeOrg.inn}</span>
+                <span className='truncate font-semibold'>{activeOrg.name ?? ''}</span>
+                <span className='truncate text-xs'>{activeOrg.inn ?? ''}</span>
               </div>
               <ChevronsUpDown className='ml-auto' />
             </SidebarMenuButton>
@@ -98,10 +94,7 @@ export function TeamSwitcher() {
             {organizations.map((org, index) => (
               <DropdownMenuItem
                 key={org.id}
-                onClick={() => {
-                  setOrganization(org)
-                  window.location.href = '/'
-                }}
+                onClick={() => switchMutation.mutate(org.id)}
                 className='gap-2 p-2'
               >
                 <div className='flex size-6 items-center justify-center rounded-sm border text-xs font-bold'>

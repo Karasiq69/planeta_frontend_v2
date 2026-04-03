@@ -18,11 +18,10 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useCreateEmployee, useUpdateEmployee } from '@/features/employees/api/mutations'
-import { useAllOrganizations } from '@/features/organizations/api/queries'
+import { useAllOrganizations, useCurrentOrganization } from '@/features/organizations/api/queries'
 import { useAllPositions } from '@/features/positions/api/queries'
 import { useUnlinkedUsers } from '@/features/users/api/queries'
 import { UserForm } from '@/features/users/components/UserForm'
-import { useOrganizationStore } from '@/stores/organization-store'
 import { ROLE_LABELS } from '@/types/user'
 
 import { employeeFormSchema } from './schema'
@@ -38,7 +37,7 @@ interface EmployeeFormProps {
 
 const EmployeeForm = ({ employee, onSuccess, onTransfer }: EmployeeFormProps) => {
   const isEditing = !!employee
-  const currentOrg = useOrganizationStore((s) => s.organization)
+  const { data: currentOrg } = useCurrentOrganization()
   const createMutation = useCreateEmployee()
   const updateMutation = useUpdateEmployee()
   const { data: orgsData } = useAllOrganizations()

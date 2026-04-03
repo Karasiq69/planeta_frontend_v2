@@ -57,6 +57,19 @@ export const updateTaxSettingsFn = async (
   return response.data.data
 }
 
+// Переключить текущую организацию
+export const switchOrganizationFn = async (organizationId: number): Promise<Organization> => {
+  const res = await apiClient.post<{ data: Organization }>('/organization/switch', { organizationId })
+  return res.data.data
+}
+
+// Получить текущую организацию
+export const getCurrentOrganizationFn = async (): Promise<Organization | null> => {
+  const res = await apiClient.get<{ data: Organization }>('/organization/current')
+  if (res.status === 204 || !res.data?.data) return null
+  return res.data.data
+}
+
 // Переключить активность организации
 export const toggleOrganizationActiveFn = async (
   id: number,

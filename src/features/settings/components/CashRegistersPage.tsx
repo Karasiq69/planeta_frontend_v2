@@ -1,13 +1,13 @@
 'use client'
 
 import { Card, CardContent } from '@/components/ui/card'
+import { useCurrentOrganization } from '@/features/organizations/api/queries'
 import OrgCashRegistersTab from '@/features/payments/components/OrgCashRegistersTab'
-import { useOrganizationStore } from '@/stores/organization-store'
 
 export default function CashRegistersPage() {
-  const { organization } = useOrganizationStore()
+  const { data } = useCurrentOrganization()
 
-  if (!organization) {
+  if (!data) {
     return (
       <Card>
         <CardContent className='py-8 text-center text-muted-foreground'>

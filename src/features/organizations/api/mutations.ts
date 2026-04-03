@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import { toast } from 'sonner'
 
 
@@ -6,12 +7,31 @@ import {
   createOrganizationFn,
   updateOrganizationFn,
   deleteOrganizationFn,
+  switchOrganizationFn,
   toggleOrganizationActiveFn,
   updateTaxSettingsFn,
 } from './actions'
 import { organizationsQueryKeys } from './query-keys'
 
 import type { Organization, UpdateTaxSettingsPayload } from '@/features/organizations/types'
+
+// Хук для переключения текущей организации
+export function useSwitchOrganization() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: switchOrganizationFn,
+    onSuccess: (data) => {
+      queryClient.setQueryData(organizationsQueryKeys.current(), data)
+      window.location.href = '/'
+    },
+    onError: (error: AxiosError<{ message?: string }>) => {
+      toast.error(
+        error.response?.data?.message || 'Произошла ошибка при переключении организации'
+      )
+    },
+  })
+}
 
 // Хук для создания новой организации
 export function useCreateOrganization() {

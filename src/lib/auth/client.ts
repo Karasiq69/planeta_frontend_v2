@@ -1,7 +1,6 @@
 import { Mutex } from 'async-mutex'
 import axios from 'axios'
 
-import { getOrgIdFromCookie } from '@/stores/organization-store'
 import { ApiError } from '@/types/api-error'
 
 const mutex = new Mutex()
@@ -11,14 +10,6 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true,
-})
-
-apiClient.interceptors.request.use((config) => {
-  const orgId = getOrgIdFromCookie()
-  if (orgId) {
-    config.headers['x-organization-id'] = orgId
-  }
-  return config
 })
 
 apiClient.interceptors.response.use(

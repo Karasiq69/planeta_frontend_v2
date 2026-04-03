@@ -23,13 +23,12 @@ import {
   useDeleteOrganization,
   useToggleOrganizationActive,
 } from '@/features/organizations/api/mutations'
-import { useOrganization } from '@/features/organizations/api/queries'
+import { useCurrentOrganization, useOrganization } from '@/features/organizations/api/queries'
 import OrganizationForm from '@/features/organizations/components/forms/OrganizationForm'
-import { useOrganizationStore } from '@/stores/organization-store'
 import TaxSettingsForm from './TaxSettingsForm'
 
 export default function OrganizationGeneralPage() {
-  const { organization: activeOrg, clearOrganization } = useOrganizationStore()
+  const { data: activeOrg } = useCurrentOrganization()
   const { data: org, isLoading } = useOrganization(activeOrg?.id ?? 0)
   const deleteMutation = useDeleteOrganization()
   const toggleActiveMutation = useToggleOrganizationActive()
@@ -53,8 +52,8 @@ export default function OrganizationGeneralPage() {
   const handleDelete = () => {
     deleteMutation.mutate(org.id, {
       onSuccess: () => {
-        clearOrganization()
         setDeleteDialogOpen(false)
+        window.location.href = '/'
       },
     })
   }

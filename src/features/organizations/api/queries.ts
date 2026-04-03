@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 
-import { getAllOrganizationsFn, getAllOrganizationsListFn, getOrganizationByIdFn } from './actions'
+import { getAllOrganizationsFn, getAllOrganizationsListFn, getCurrentOrganizationFn, getOrganizationByIdFn } from './actions'
 import { organizationsQueryKeys } from './query-keys'
 
 import type { ListParams } from '@/types/params'
@@ -23,6 +23,15 @@ export const useAllOrganizations = () => {
     staleTime: 5 * 60 * 1000, // 5 минут
     gcTime: 5 * 60 * 1000,
     placeholderData: keepPreviousData,
+  })
+}
+
+// Хук для получения текущей организации
+export function useCurrentOrganization() {
+  return useQuery({
+    queryKey: organizationsQueryKeys.current(),
+    queryFn: getCurrentOrganizationFn,
+    staleTime: Infinity,
   })
 }
 
