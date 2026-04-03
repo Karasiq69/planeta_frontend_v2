@@ -10,14 +10,28 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { OrdersCombobox } from '@/components/orders/orders-combobox'
 import { useCreateDocument } from '@/features/documents/api/mutations'
-import { DocumentType } from '@/features/documents/lib/constants'
+import { DocumentType, ExpenseCategory } from '@/features/documents/lib/constants'
+import FormFieldSelectExpenseCategory from '@/features/documents/components/FormFieldSelectExpenseCategory'
 import FormFieldSelectWarehouse from '@/features/inventory-documents/components/form-field-select-warehouse'
+import SuppliersSelectField from '@/features/inventory-documents/components/form-field-supplier'
 
-const schema = z.object({
-  warehouseId: z.number({ required_error: 'Выберите склад' }).int().positive(),
-  orderId: z.coerce.number().int().positive().optional().or(z.literal('')),
-  note: z.string().optional(),
-})
+const schema = z
+  .object({
+    warehouseId: z.number({ required_error: 'Выберите склад' }).int().positive(),
+    expenseCategory: z.string({ required_error: 'Выберите категорию расхода' }),
+    supplierId: z.coerce.number().int().positive().optional().or(z.literal('')),
+    orderId: z.coerce.number().int().positive().optional().or(z.literal('')),
+    note: z.string().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.expenseCategory === ExpenseCategory.SUPPLIER_RETURN && !data.supplierId) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Выберите поставщика для возврата',
+        path: ['supplierId'],
+      })
+    }
+  })
 
 type FormValues = z.infer<typeof schema>
 
@@ -41,21 +55,25 @@ const CreateExpenseForm = ({
     defaultValues: {
       note: '',
       orderId: '',
+      supplierId: '',
       ...externalDefaults,
     },
   })
+
+  const expenseCategory = form.watch('expenseCategory')
 
   const onSubmit = (values: FormValues) => {
     if (externalSubmit) {
       externalSubmit(values)
       return
     }
-    const { orderId, ...rest } = values
+    const { orderId, supplierId, ...rest } = values
     mutate(
       {
         ...rest,
         type: DocumentType.EXPENSE,
         orderId: typeof orderId === 'number' ? orderId : undefined,
+        supplierId: typeof supplierId === 'number' ? supplierId : undefined,
       },
       {
         onSuccess: (data) => {
@@ -85,6 +103,32 @@ const CreateExpenseForm = ({
             />
           </div>
         </div>
+
+        <div className='flex flex-col lg:flex-row lg:items-center gap-3'>
+          <Label className='lg:w-36 text-muted-foreground'>Категория:</Label>
+          <div className='w-full'>
+            <FormField
+              control={form.control}
+              name='expenseCategory'
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <FormFieldSelectExpenseCategory field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        {expenseCategory === ExpenseCategory.SUPPLIER_RETURN && (
+          <SuppliersSelectField
+            control={form.control}
+            name='supplierId'
+            label='Поставщик:'
+          />
+        )}
 
         <div className='flex flex-col lg:flex-row lg:items-center gap-3'>
           <Label className='lg:w-36 text-muted-foreground'>Заказ:</Label>
