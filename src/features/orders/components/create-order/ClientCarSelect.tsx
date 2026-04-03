@@ -47,7 +47,7 @@ export default function ClientCarSelect({ clientId, onSelect }: ClientCarSelectP
     if (cars.length === 0 && !isLoading) {
       onSelect(null)
     }
-  }, [cars, isLoading])
+  }, [cars, isLoading, onSelect])
 
   if (isLoading) {
     return <Skeleton className="h-10 w-full rounded-md" />
