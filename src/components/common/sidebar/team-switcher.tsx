@@ -30,19 +30,19 @@ import OrganizationForm from '@/features/organizations/components/forms/Organiza
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar()
-  const { data: orgsData, isSuccess } = useAllOrganizations()
-  const { data: activeOrg } = useCurrentOrganization()
+  const { data: orgsData, isSuccess: isOrgsLoaded } = useAllOrganizations()
+  const { data: activeOrg, isSuccess: isCurrentOrgLoaded } = useCurrentOrganization()
   const switchMutation = useSwitchOrganization()
   const [dialogOpen, setDialogOpen] = useState(false)
 
   const organizations = orgsData?.data ?? []
 
   useEffect(() => {
-    if (!isSuccess || !organizations.length || switchMutation.isPending) return
+    if (!isOrgsLoaded || !isCurrentOrgLoaded || !organizations.length || switchMutation.isPending) return
     if (!activeOrg || !organizations.some((o) => o.id === activeOrg.id)) {
       switchMutation.mutate(organizations[0].id)
     }
-  }, [isSuccess, activeOrg, organizations, switchMutation.isPending])
+  }, [isOrgsLoaded, isCurrentOrgLoaded, activeOrg, organizations, switchMutation.isPending])
 
   if (!activeOrg) {
     return (

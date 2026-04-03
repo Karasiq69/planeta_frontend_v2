@@ -1,6 +1,8 @@
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 
+import { Badge } from '@/components/ui/badge'
+import { ExpenseCategory, getExpenseCategoryConfig } from '@/features/documents/lib/constants'
 import type { Document } from '@/features/documents/types'
 
 interface Props {
@@ -23,6 +25,17 @@ const ExpenseDocumentHeader = ({ document }: Props) => {
           label='Дата:'
           value={document.date ? format(new Date(document.date), 'dd.MM.yyyy', { locale: ru }) : null}
         />
+        {document.expenseCategory && (
+          <div className='flex items-baseline gap-2'>
+            <span className='text-muted-foreground text-sm shrink-0'>Категория:</span>
+            <Badge variant={getExpenseCategoryConfig(document.expenseCategory).variant}>
+              {getExpenseCategoryConfig(document.expenseCategory).label}
+            </Badge>
+          </div>
+        )}
+        {document.expenseCategory === ExpenseCategory.SUPPLIER_RETURN && document.supplier && (
+          <Field label='Поставщик:' value={document.supplier.name} />
+        )}
         {document.orderId && <Field label='Заказ:' value={`#${document.orderId}`} />}
         <Field label='Примечание:' value={document.note} />
       </div>

@@ -100,7 +100,7 @@ const CreatePaymentForm = ({ orderId, remainingAmount, totalCost, onSuccess }: C
             type='number'
             min='1'
             placeholder='0'
-            {...register('amount', { valueAsNumber: true })}
+            {...register('amount')}
             className={cn(
               'w-full rounded-xl border-2 bg-muted/30 px-5 py-5 pr-14 text-center text-4xl font-semibold tracking-tight tabular-nums transition-colors',
               'placeholder:text-muted-foreground/30',

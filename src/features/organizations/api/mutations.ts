@@ -23,7 +23,9 @@ export function useSwitchOrganization() {
     mutationFn: switchOrganizationFn,
     onSuccess: (data) => {
       queryClient.setQueryData(organizationsQueryKeys.current(), data)
-      window.location.href = '/'
+      queryClient.resetQueries({
+        predicate: (query) => !query.queryKey.includes('current'),
+      })
     },
     onError: (error: AxiosError<{ message?: string }>) => {
       toast.error(

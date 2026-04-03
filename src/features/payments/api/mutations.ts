@@ -81,7 +81,12 @@ export const useCreatePayment = (orderId: number) => {
       queryClient.invalidateQueries({ queryKey: paymentsQueryKeys.orderSummary(orderId) })
     },
     onError: (error) => {
-      toast.error(error.message)
+      const message = error.message
+      if (message?.includes('категория') || message?.includes('category')) {
+        toast.error('Системная категория оплаты не найдена. Обратитесь к администратору для настройки.')
+      } else {
+        toast.error(message || 'Ошибка при принятии оплаты')
+      }
     },
   })
 }

@@ -1,6 +1,8 @@
 'use client'
 
+import { useQueryClient } from '@tanstack/react-query'
 import { Power, Trash2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import {
@@ -28,6 +30,8 @@ import OrganizationForm from '@/features/organizations/components/forms/Organiza
 import TaxSettingsForm from './TaxSettingsForm'
 
 export default function OrganizationGeneralPage() {
+  const queryClient = useQueryClient()
+  const router = useRouter()
   const { data: activeOrg } = useCurrentOrganization()
   const { data: org, isLoading } = useOrganization(activeOrg?.id ?? 0)
   const deleteMutation = useDeleteOrganization()
@@ -52,8 +56,9 @@ export default function OrganizationGeneralPage() {
   const handleDelete = () => {
     deleteMutation.mutate(org.id, {
       onSuccess: () => {
+        queryClient.clear()
         setDeleteDialogOpen(false)
-        window.location.href = '/'
+        router.replace('/')
       },
     })
   }

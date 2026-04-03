@@ -5,6 +5,7 @@ import * as React from 'react'
 import { DataTableColumnHeader } from '@/components/common/table/data-table-column-header'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { getExpenseCategoryConfig } from '@/features/documents/lib/constants'
 import { getStatusConfig } from '@/features/documents/lib/status-helper'
 import { formatRelativeTime } from '@/lib/format-date'
 
@@ -28,6 +29,19 @@ export const expenseColumns: ColumnDef<Document>[] = [
       <span className='text-nowrap text-xs'>{row.original.date ? formatRelativeTime(row.original.date) : '—'}</span>
     ),
     enableSorting: true,
+    size: 0,
+  },
+  {
+    accessorKey: 'expenseCategory',
+    meta: 'Категория',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Категория' />,
+    cell: ({ row }) => {
+      const category = row.original.expenseCategory
+      if (!category) return <span className='text-muted-foreground'>—</span>
+      const config = getExpenseCategoryConfig(category)
+      return <Badge variant={config.variant}>{config.label}</Badge>
+    },
+    enableSorting: false,
     size: 0,
   },
   {
