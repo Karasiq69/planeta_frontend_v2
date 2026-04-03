@@ -20,12 +20,9 @@ function formatCarLabel(car: ICar) {
   const brand = car.brand?.name ?? ''
   const model = car.model?.name ?? ''
   const plate = car.licensePlate ?? ''
-  return `${brand} ${model}${plate ? ` · ${plate}` : ''}`.trim()
-}
-
-function formatCarVin(car: ICar) {
-  if (!car.vin) return null
-  return car.vin.length > 6 ? `VIN: ...${car.vin.slice(-6)}` : `VIN: ${car.vin}`
+  let label = `${brand} ${model}`.trim()
+  if (plate) label += ` · ${plate}`
+  return label
 }
 
 interface ClientCarSelectProps {
@@ -76,7 +73,7 @@ export default function ClientCarSelect({ clientId, onSelect }: ClientCarSelectP
         {cars.map((car) => (
           <SelectItem key={car.id} value={String(car.id)}>
             <div className="flex items-center gap-2">
-              <Avatar className="size-6">
+              <Avatar className="size-5 shrink-0">
                 {car.brand?.logo ? (
                   <AvatarImage src={car.brand.logo} alt={car.brand.name} />
                 ) : null}
@@ -84,12 +81,7 @@ export default function ClientCarSelect({ clientId, onSelect }: ClientCarSelectP
                   <Car className="size-3" />
                 </AvatarFallback>
               </Avatar>
-              <div className="flex flex-col">
-                <span className="text-sm font-medium">{formatCarLabel(car)}</span>
-                {formatCarVin(car) && (
-                  <span className="text-xs text-muted-foreground">{formatCarVin(car)}</span>
-                )}
-              </div>
+              <span className="truncate">{formatCarLabel(car)}</span>
             </div>
           </SelectItem>
         ))}

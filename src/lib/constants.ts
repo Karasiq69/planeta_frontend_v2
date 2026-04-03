@@ -41,6 +41,9 @@ export const CASH_TRANSACTIONS_URL = '/cash-transactions'
 export const PAYMENT_CATEGORIES_URL = '/payment-categories'
 export const SERVICE_SPECIFICATIONS_URL = '/service-specifications'
 export const POSITIONS_URL = '/positions'
+export const EMAIL_SETTINGS_URL = '/email/settings'
+export const EMAIL_SEND_URL = '/email/send'
+export const EMAIL_LOGS_URL = '/email/logs'
 
 export const BRAND_LOGOS: Record<string, string> = {
   Porsche: 'porsche-logo.svg',

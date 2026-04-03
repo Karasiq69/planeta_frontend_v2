@@ -45,6 +45,7 @@ export default function SettingsNav() {
         { label: 'Категории платежей', href: '/settings/payment-categories' },
         { label: 'Пользователи', href: '/settings/users' },
         { label: 'Должности', href: '/settings/positions' },
+        { label: 'Email', href: '/settings/email' },
         { label: 'Статусы заказов', disabled: true },
         { label: 'Роли и права', disabled: true },
         { label: 'Интеграции', disabled: true },

@@ -1,6 +1,6 @@
 'use client'
-import { Trash2 } from 'lucide-react'
-import React from 'react'
+import { Mail, Trash2 } from 'lucide-react'
+import React, { useState } from 'react'
 
 import PageHeader from '@/components/common/PageHeader'
 import { Button } from '@/components/ui/button'
@@ -10,6 +10,7 @@ import CarCard from '@/features/orders/components/car-card/CarCard'
 import ClientCard from '@/features/orders/components/client-card/ClientCard'
 import OrderAppointment from '@/features/orders/components/OrderAppointment'
 import OrderNotFound from '@/features/orders/components/OrderNotFound'
+import SendEmailDialog from '@/features/email/components/SendEmailDialog'
 import OrderPrintButton from '@/features/orders/components/OrderPrintButton'
 import OrdersTabsWrapper from '@/features/orders/components/OrdersTabsWrapper'
 import OrderSummary from '@/features/orders/components/OrderSummary'
@@ -21,6 +22,7 @@ type Props = {
 }
 const OrderPageWrapper = ({ orderId }: Props) => {
   const { data: order, isError } = useOrderById(orderId)
+  const [emailDialogOpen, setEmailDialogOpen] = useState(false)
 
   if (isError) return <OrderNotFound />
   const { titleText } = getStatusData(order?.status)
@@ -41,6 +43,9 @@ const OrderPageWrapper = ({ orderId }: Props) => {
             <CommentsPopoverButton orderId={orderId} />
 
             <OrderPrintButton orderId={orderId} />
+            <Button variant='outline' size="sm" onClick={() => setEmailDialogOpen(true)}>
+              <Mail size={16} /> Письмо
+            </Button>
             <Button variant='ghost' disabled size="sm">
               <Trash2 size={16} /> Удалить заказ
             </Button>
@@ -66,6 +71,13 @@ const OrderPageWrapper = ({ orderId }: Props) => {
           <OrderSummary orderId={orderId} />
         </div>
       </section>
+      <SendEmailDialog
+        open={emailDialogOpen}
+        onOpenChange={setEmailDialogOpen}
+        recipientEmail={order?.client?.email ?? ''}
+        orderId={orderId}
+        clientId={order?.clientId}
+      />
     </div>
   )
 }
