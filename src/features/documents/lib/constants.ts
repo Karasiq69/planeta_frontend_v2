@@ -67,3 +67,38 @@ export const getDocumentTypeConfig = (type: DocumentType): TypeConfig => {
 export const getDocumentTypeLabel = (type: DocumentType): string => {
   return getDocumentTypeConfig(type).label
 }
+
+export const ExpenseCategory = {
+  CONSUMABLES_WRITE_OFF: 'CONSUMABLES_WRITE_OFF',
+  SUPPLIER_RETURN: 'SUPPLIER_RETURN',
+  INTERNAL_USE: 'INTERNAL_USE',
+  OTHER: 'OTHER',
+} as const
+export type ExpenseCategory = (typeof ExpenseCategory)[keyof typeof ExpenseCategory]
+
+export const expenseCategoryConfig: TypeMapping = {
+  [ExpenseCategory.CONSUMABLES_WRITE_OFF]: {
+    label: 'Списание расходников',
+    variant: 'default',
+  },
+  [ExpenseCategory.SUPPLIER_RETURN]: {
+    label: 'Возврат поставщику',
+    variant: 'warning',
+  },
+  [ExpenseCategory.INTERNAL_USE]: {
+    label: 'Внутреннее потребление',
+    variant: 'secondary',
+  },
+  [ExpenseCategory.OTHER]: {
+    label: 'Прочее',
+    variant: 'outline',
+  },
+}
+
+export const getExpenseCategoryConfig = (category: string): TypeConfig => {
+  return getTypeConfig(category, expenseCategoryConfig, 'Неизвестная категория')
+}
+
+export const getExpenseCategoryLabel = (category: string): string => {
+  return getExpenseCategoryConfig(category).label
+}

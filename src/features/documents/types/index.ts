@@ -63,6 +63,7 @@ export interface Document {
   incomingNumber: string | null
   incomingDate: string | null
   operationType: string | null
+  expenseCategory: string | null
   createdAt: string | null
   updatedAt: string | null
   confirmedAt: string | null
@@ -90,6 +91,7 @@ export interface CreateDocumentDto {
   incomingNumber?: string
   incomingDate?: string
   operationType?: string
+  expenseCategory?: string
 }
 
 export interface UpdateDocumentDto {
@@ -103,6 +105,7 @@ export interface UpdateDocumentDto {
   incomingNumber?: string
   incomingDate?: string
   operationType?: string
+  expenseCategory?: string
 }
 
 export interface DocumentsQueryParams {
@@ -116,4 +119,5 @@ export interface DocumentsQueryParams {
   organizationId?: number
   dateFrom?: string
   dateTo?: string
+  expenseCategory?: string
 }
